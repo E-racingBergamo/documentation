@@ -30,3 +30,24 @@ extra_css:
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.js
   - https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/contrib/auto-render.min.js
+
+nav:
+  - Home: index.md
+  - Codice:
+      - Lezioni di C:
+          - Sintassi di base: codice/lezioni_di_c/sintassi_base_c.md
+          - Standard int: codice/lezioni_di_c/stdint.md
+          - Visibilità e durata delle variabili: codice/lezioni_di_c/visibilità_delle_variabili.md
+          - Strutture dati di base: codice/lezioni_di_c/strutture_base.md
+          - Funzioni: codice/lezioni_di_c/funzioni.md
+          - Puntatori: codice/lezioni_di_c/puntatori.md
+      - Centralina: codice/centralina.md
+  # - Hardware:
+  #     - Panoramica hardware: hardware/panoramica_hardware.md
+  #     - Schede elettroniche: hardware/schede_elettroniche.md
+  #     - Sensori e attuatori: hardware/sensori_attuatori.md
+  # - Risorse utili:
+  #     - Strumenti software: risorse_utili/strumenti_software.md
+  #     - Stile di codice: risorse_utili/stile_di_codice.md
+  #     - Git e GitHub: risorse_utili/git_github.md
+  #     - Link utili: risorse_utili/link_utili.md

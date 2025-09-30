@@ -217,13 +217,3 @@ typedef unsigned int uint32_t;
 
 uint32_t counter = 100;
 ```
-
----
-
-## Riassunto
-
-- Le variabili sono spazi di memoria con un nome e un tipo.
-- I tipi principali: `int`, `float`, `double`, `char`, `bool`.
-- Gli operatori permettono di fare calcoli e confronti.
-- I puntatori gestiscono indirizzi di memoria e sono fondamentali nell’embedded.
-- `struct` e `typedef` aiutano a organizzare meglio i dati.

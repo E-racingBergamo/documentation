@@ -23,10 +23,8 @@ jobs:
         with:
           node-version: '18'
 
-      # 4. Installa gh-pages localmente
+      # 4. Installa gh-pages
       - run: npm install gh-pages
 
-      # 5. Pubblica la cartella `site`
-      - run: npx gh-pages -d site
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # 5. Pubblica la cartella `site` usando il token
+      - run: npx gh-pages -d site -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git

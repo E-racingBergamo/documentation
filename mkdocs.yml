@@ -1,0 +1,32 @@
+site_name: My Docs
+site_url: https://e-racingbergamo.github.io/documentation
+theme:
+  name: material
+  # features:
+  #   - katex
+  favicon: assets/images/simbolo_blu.ico
+  logo: assets/images/simbolo_blu.ico
+  palette:
+    - scheme: default
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Passa al tema scuro
+    - scheme: slate
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Passa al tema chiaro
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_css:
+  - https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/contrib/auto-render.min.js

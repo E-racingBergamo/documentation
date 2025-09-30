@@ -1,0 +1,30 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Controlla il repository
+      - uses: actions/checkout@v3
+
+      # 2. Configura Git per il commit
+      - run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # 3. Configura Node.js
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 4. Installa gh-pages
+      - run: npm install gh-pages
+
+      # 5. Pubblica la cartella `site` usando il token
+      - run: npx gh-pages -d site -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git

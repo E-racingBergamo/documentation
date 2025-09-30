@@ -22,6 +22,6 @@ jobs:
       - run: npm install -g gh-pages
 
       # 4. Pubblica la cartella `site`
-      - run: gh-pages -d site
+      - run: gh-pages -d "site"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

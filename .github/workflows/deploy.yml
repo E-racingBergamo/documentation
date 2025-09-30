@@ -1,0 +1,27 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main   # sostituisci con il branch da cui vuoi pubblicare
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Controlla il repository
+      - uses: actions/checkout@v3
+
+      # 2. Configura Node.js (necessario per gh-pages)
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 3. Installa gh-pages
+      - run: npm install -g gh-pages
+
+      # 4. Pubblica la cartella `site`
+      - run: gh-pages -d site
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

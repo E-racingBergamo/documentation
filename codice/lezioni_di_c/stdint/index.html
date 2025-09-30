@@ -8,22 +8,28 @@
       
       
       
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/stdint/">
       
       
+        <link rel="prev" href="../sintassi_base_c/">
       
-      <link rel="icon" href="/documentation/assets/images/simbolo_blu.ico">
+      
+        <link rel="next" href="../visibilit%C3%A0_delle_variabili/">
+      
+      
+      <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
-        <title>My Docs</title>
+        <title>Standard int - My Docs</title>
       
     
     
-      <link rel="stylesheet" href="/documentation/assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
       
         
-        <link rel="stylesheet" href="/documentation/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -44,7 +50,7 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("/documentation/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#tipi-di-stdinth" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -81,9 +92,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/documentation/." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
       
-  <img src="/documentation/assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -100,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Standard int
             
           </span>
         </div>
@@ -204,9 +215,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/documentation/." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
       
-  <img src="/documentation/assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     My Docs
@@ -221,7 +232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/documentation/." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -240,18 +251,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -267,7 +280,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Codice
@@ -278,18 +291,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
         
           
           <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
@@ -305,7 +320,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             Lezioni di C
@@ -319,7 +334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/documentation/codice/lezioni_di_c/sintassi_base_c/" class="md-nav__link">
+      <a href="../sintassi_base_c/" class="md-nav__link">
         
   
   
@@ -339,10 +354,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/documentation/codice/lezioni_di_c/stdint/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Standard int
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -353,6 +390,68 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tipi-interi-con-dimensione-precisa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tipi interi con dimensione precisa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buona-pratica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Buona pratica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confronto-tra-tipi-standard-e-tipi-di-stdinth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Confronto tra tipi standard e tipi di stdint.h
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Confronto tra tipi standard e tipi di stdint.h">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perche-e-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perché è importante?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -365,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/documentation/codice/lezioni_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+      <a href="../visibilit%C3%A0_delle_variabili/" class="md-nav__link">
         
   
   
@@ -388,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/documentation/codice/lezioni_di_c/strutture_base/" class="md-nav__link">
+      <a href="../strutture_base/" class="md-nav__link">
         
   
   
@@ -411,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/documentation/codice/lezioni_di_c/funzioni/" class="md-nav__link">
+      <a href="../funzioni/" class="md-nav__link">
         
   
   
@@ -434,7 +533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/documentation/codice/lezioni_di_c/puntatori/" class="md-nav__link">
+      <a href="../puntatori/" class="md-nav__link">
         
   
   
@@ -465,7 +564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/documentation/codice/centralina/" class="md-nav__link">
+      <a href="../../centralina/" class="md-nav__link">
         
   
   
@@ -505,6 +604,58 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tipi-interi-con-dimensione-precisa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tipi interi con dimensione precisa
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buona-pratica" class="md-nav__link">
+    <span class="md-ellipsis">
+      Buona pratica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confronto-tra-tipi-standard-e-tipi-di-stdinth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Confronto tra tipi standard e tipi di stdint.h
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Confronto tra tipi standard e tipi di stdint.h">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perche-e-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perché è importante?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -516,8 +667,140 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+
+<h1 id="tipi-di-stdinth">Tipi di <code>stdint.h</code></h1>
+<p>In C la dimensione di tipi come <code>int</code>, <code>long</code>, <code>short</code> può variare a seconda del compilatore e dell’architettura.<br />
+Per i microcontrollori questo è un problema, perché dobbiamo sapere con certezza quanti <strong>bit</strong> occupa una variabile.</p>
+<p>Per questo si usa l’header <strong><code>&lt;stdint.h&gt;</code></strong>, che definisce tipi con dimensione <strong>fissa</strong>.</p>
+<hr />
+<h2 id="tipi-interi-con-dimensione-precisa">Tipi interi con dimensione precisa</h2>
+<ul>
+<li><code>int8_t</code> → intero con segno a 8 bit (da -128 a 127)  </li>
+<li><code>uint8_t</code> → intero senza segno a 8 bit (da 0 a 255)  </li>
+<li><code>int16_t</code> → intero con segno a 16 bit  </li>
+<li><code>uint16_t</code> → intero senza segno a 16 bit  </li>
+<li><code>int32_t</code> → intero con segno a 32 bit  </li>
+<li><code>uint32_t</code> → intero senza segno a 32 bit  </li>
+<li><code>int64_t</code> → intero con segno a 64 bit  </li>
+<li><code>uint64_t</code> → intero senza segno a 64 bit  </li>
+</ul>
+<p>Esempio:</p>
+<pre><code class="language-c">uint16_t valore = 50000; // sicuro che è 16 bit senza segno
+````
+
+---
+
+## Tipi minimi e massimi
+
+Oltre ai tipi a dimensione fissa, `stdint.h` fornisce anche tipi che garantiscono almeno una certa dimensione:
+
+- `int_least8_t` → almeno 8 bit con segno
+- `uint_least16_t` → almeno 16 bit senza segno
+- `int_fast32_t` → il tipo intero “più veloce” con almeno 32 bit
+
+Questi sono meno usati in embedded, ma possono tornare utili se non importa la dimensione esatta, ma solo la minima.
+
+---
+
+## Costanti con dimensione fissa
+
+`stdint.h` definisce anche **macro** per scrivere costanti con la dimensione giusta:
+
+```c
+#include &lt;stdint.h&gt;
+
+uint32_t mask = UINT32_C(0xFFFF0000);
+</code></pre>
+<p>Così evitiamo warning o errori quando usiamo numeri grandi.</p>
+<hr />
+<h2 id="buona-pratica">Buona pratica</h2>
+<p>In un progetto embedded è consigliato:</p>
+<ul>
+<li>usare sempre i tipi di <code>stdint.h</code> (<code>uint8_t</code>, <code>int32_t</code>, …)</li>
+<li>evitare i tipi “classici” (<code>int</code>, <code>long</code>, …) perché non sempre hanno la stessa dimensione tra PC e microcontrollore</li>
+<li>abbinare <code>stdbool.h</code> e <code>stdint.h</code> per scrivere codice più leggibile e portabile</li>
+</ul>
+<h2 id="confronto-tra-tipi-standard-e-tipi-di-stdinth">Confronto tra tipi standard e tipi di <code>stdint.h</code></h2>
+<table>
+<thead>
+<tr>
+<th>Tipo classico</th>
+<th>Dimensione (dipende da architettura)</th>
+<th>Possibili valori</th>
+<th>Equivalente <code>stdint.h</code> (fisso)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>char</code></td>
+<td>8 bit (di solito)</td>
+<td>-128 … 127 / 0 … 255</td>
+<td><code>int8_t</code> / <code>uint8_t</code></td>
+</tr>
+<tr>
+<td><code>short</code></td>
+<td>almeno 16 bit (spesso 16)</td>
+<td>-32.768 … 32.767</td>
+<td><code>int16_t</code></td>
+</tr>
+<tr>
+<td><code>unsigned short</code></td>
+<td>almeno 16 bit (spesso 16)</td>
+<td>0 … 65.535</td>
+<td><code>uint16_t</code></td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td>almeno 16 bit (spesso 32 su ARM)</td>
+<td>dipende da piattaforma</td>
+<td><code>int32_t</code> (se serve 32 bit certi)</td>
+</tr>
+<tr>
+<td><code>unsigned int</code></td>
+<td>almeno 16 bit (spesso 32)</td>
+<td>dipende da piattaforma</td>
+<td><code>uint32_t</code></td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td>almeno 32 bit (può essere 32 o 64)</td>
+<td>dipende da compilatore</td>
+<td><code>int32_t</code> o <code>int64_t</code></td>
+</tr>
+<tr>
+<td><code>unsigned long</code></td>
+<td>almeno 32 bit (può essere 32 o 64)</td>
+<td>dipende da compilatore</td>
+<td><code>uint32_t</code> o <code>uint64_t</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="perche-e-importante">Perché è importante?</h3>
+<p>Su un <strong>PC a 64 bit</strong>:<br />
+- <code>int</code> è spesso 32 bit.<br />
+- <code>long</code> è 64 bit (Linux) o 32 bit (Windows).  </p>
+<p>Su un <strong>microcontrollore ARM Cortex-M</strong>:<br />
+- <code>int</code> è quasi sempre 32 bit.<br />
+- <code>long</code> è 32 bit (non 64!).  </p>
+<p>Quindi lo stesso codice scritto con <code>int</code> e <code>long</code> può comportarsi in modo diverso a seconda di dove gira.<br />
+Con <code>stdint.h</code> questo problema non esiste: la dimensione è sempre quella dichiarata.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -553,10 +836,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "/documentation/", "features": [], "search": "/documentation/assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="/documentation/assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.js"></script>
       

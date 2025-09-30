@@ -8,28 +8,28 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/visibilit%C3%A0_delle_variabili/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_base/">
       
       
-        <link rel="prev" href="../sintassi_base_c/">
+        <link rel="prev" href="../visibilit%C3%A0_delle_variabili/">
       
       
-        <link rel="next" href="../../schede/schede/">
+        <link rel="next" href="../funzioni/">
       
       
-      <link rel="icon" href="../../assets/images/simbolo_blu.ico">
+      <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
-        <title>Visibilità e organizzazione del codice in C - My Docs</title>
+        <title>Strutture dati di base - My Docs</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,7 +50,7 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#visibilita-e-organizzazione-del-codice-in-c" class="md-skip">
+        <a href="#strutture-dati-minime" class="md-skip">
           Skip to content
         </a>
       
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
       
-  <img src="../../assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Visibilità e organizzazione del codice in C
+              Strutture dati di base
             
           </span>
         </div>
@@ -215,9 +215,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
       
-  <img src="../../assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     My Docs
@@ -232,12 +232,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    ERB documentation
+    Home
     
   </span>
   
@@ -291,15 +291,55 @@
                 
   
   
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lezioni di C
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Lezioni di C
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../centralina/" class="md-nav__link">
+      <a href="../sintassi_base_c/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Centralina
+    Sintassi di base
     
   </span>
   
@@ -317,12 +357,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../sintassi_base_c/" class="md-nav__link">
+      <a href="../stdint/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Sintassi base del C
+    Standard int
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Visibilità e durata delle variabili
     
   </span>
   
@@ -354,7 +417,7 @@
   
   
   <span class="md-ellipsis">
-    Visibilità e organizzazione del codice in C
+    Strutture dati di base
     
   </span>
   
@@ -367,7 +430,7 @@
   
   
   <span class="md-ellipsis">
-    Visibilità e organizzazione del codice in C
+    Strutture dati di base
     
   </span>
   
@@ -390,99 +453,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#file-c-e-h" class="md-nav__link">
+  <a href="#array" class="md-nav__link">
     <span class="md-ellipsis">
-      File .c e .h
+      Array
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="File .c e .h">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#esempio" class="md-nav__link">
-    <span class="md-ellipsis">
-      Esempio
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#visibilita-delle-variabili" class="md-nav__link">
+  <a href="#struct" class="md-nav__link">
     <span class="md-ellipsis">
-      Visibilità delle variabili
+      Struct
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Visibilità delle variabili">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#variabili-locali" class="md-nav__link">
-    <span class="md-ellipsis">
-      Variabili locali
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#variabili-globali" class="md-nav__link">
-    <span class="md-ellipsis">
-      Variabili globali
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#il-ruolo-di-static" class="md-nav__link">
+  <a href="#enum" class="md-nav__link">
     <span class="md-ellipsis">
-      Il ruolo di static
+      Enum
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Il ruolo di static">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-variabili-locali-statiche" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Variabili locali statiche
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-variabili-e-funzioni-a-livello-di-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Variabili e funzioni a livello di file
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#buone-pratiche" class="md-nav__link">
+  <a href="#union" class="md-nav__link">
     <span class="md-ellipsis">
-      Buone pratiche
+      Union
     </span>
   </a>
   
@@ -497,50 +497,28 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
+              
+                
   
   
   
   
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
+    <li class="md-nav__item">
+      <a href="../funzioni/" class="md-nav__link">
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
   
   
   <span class="md-ellipsis">
-    Schede
+    Funzioni
     
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            Schede
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -549,12 +527,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../schede/schede/" class="md-nav__link">
+      <a href="../puntatori/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Schede
+    Puntatori
     
   </span>
   
@@ -571,44 +549,7 @@
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    Sensori
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            Sensori
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+              
             
               
                 
@@ -617,12 +558,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sensori/sensori/" class="md-nav__link">
+      <a href="../../centralina/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Sensori
+    Centralina
     
   </span>
   
@@ -667,99 +608,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#file-c-e-h" class="md-nav__link">
+  <a href="#array" class="md-nav__link">
     <span class="md-ellipsis">
-      File .c e .h
+      Array
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="File .c e .h">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#esempio" class="md-nav__link">
-    <span class="md-ellipsis">
-      Esempio
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#visibilita-delle-variabili" class="md-nav__link">
+  <a href="#struct" class="md-nav__link">
     <span class="md-ellipsis">
-      Visibilità delle variabili
+      Struct
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Visibilità delle variabili">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#variabili-locali" class="md-nav__link">
-    <span class="md-ellipsis">
-      Variabili locali
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#variabili-globali" class="md-nav__link">
-    <span class="md-ellipsis">
-      Variabili globali
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#il-ruolo-di-static" class="md-nav__link">
+  <a href="#enum" class="md-nav__link">
     <span class="md-ellipsis">
-      Il ruolo di static
+      Enum
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Il ruolo di static">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-variabili-locali-statiche" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Variabili locali statiche
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-variabili-e-funzioni-a-livello-di-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Variabili e funzioni a livello di file
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#buone-pratiche" class="md-nav__link">
+  <a href="#union" class="md-nav__link">
     <span class="md-ellipsis">
-      Buone pratiche
+      Union
     </span>
   </a>
   
@@ -781,95 +659,133 @@
 
 
 
-<h1 id="visibilita-e-organizzazione-del-codice-in-c">Visibilità e organizzazione del codice in C</h1>
-<p>Oltre a sapere cos’è una variabile, è fondamentale capire <strong>dove è visibile</strong> e <strong>come organizzare i file</strong> in un progetto embedded.</p>
+<h1 id="strutture-dati-minime">Strutture dati minime</h1>
+<p>Nel linguaggio C le strutture dati fondamentali che si usano quasi ovunque sono gli <strong>array</strong>, le <strong>struct</strong> e le <strong>enum</strong>. Conoscerle a fondo è essenziale per scrivere codice chiaro, efficiente e comprensibile.</p>
 <hr />
-<h2 id="file-c-e-h">File <code>.c</code> e <code>.h</code></h2>
-<p>In un progetto in C i file sono generalmente divisi in due categorie:</p>
-<ul>
-<li><strong>File <code>.c</code></strong> → contengono il codice implementativo (funzioni, logica).  </li>
-<li><strong>File <code>.h</code></strong> → contengono le dichiarazioni (prototipi di funzioni, definizioni di strutture, costanti, variabili globali).  </li>
-</ul>
-<h3 id="esempio">Esempio</h3>
-<p><strong>sensore.h</strong></p>
-<pre><code class="language-c">#ifndef SENSORE_H
-#define SENSORE_H
-
-void sensore_init(void);
-int sensore_leggi(void);
-
-#endif
+<h3 id="array">Array</h3>
+<p>Un array è una sequenza di elementi dello stesso tipo, memorizzati in celle di memoria contigue.<br />
+Quando si dichiara un array, si deve indicare il tipo degli elementi e la dimensione:</p>
+<pre><code class="language-c">int valori[10]; // array di 10 interi
 ````
 
-**sensore.c**
+Questo significa che la variabile `valori` contiene 10 interi, indicizzati da `0` a `9`. L’indice deve sempre essere compreso tra 0 e dimensione-1. Accedere a un indice fuori dai limiti produce un comportamento indefinito, cioè errori difficili da individuare.
+
+Gli array possono essere **inizializzati**:
 
 ```c
-#include &quot;sensore.h&quot;
-
-void sensore_init(void) {
-    // inizializzazione hardware
-}
-
-int sensore_leggi(void) {
-    return 42; // valore di esempio
-}
+int a[5] = {1, 2, 3, 4, 5};
+int b[5] = {0}; // tutti inizializzati a zero
 </code></pre>
-<p>Così il modulo <code>sensore</code> può essere usato anche da altri file senza duplicare il codice.</p>
-<hr />
-<h2 id="visibilita-delle-variabili">Visibilità delle variabili</h2>
-<p>La <strong>visibilità</strong> definisce in quali file o funzioni una variabile è accessibile.</p>
-<h3 id="variabili-locali">Variabili locali</h3>
-<p>Dichiarate <strong>dentro una funzione</strong> → visibili solo lì, allocate nello <strong>stack</strong>.</p>
-<pre><code class="language-c">void funzione() {
-    int x = 10; // visibile solo dentro questa funzione
+<p>Se si forniscono meno valori rispetto alla dimensione, i restanti vengono messi a zero. È possibile anche lasciare vuota la dimensione quando i valori sono noti a compilazione:</p>
+<pre><code class="language-c">int c[] = {10, 20, 30}; // dimensione 3 dedotta dal compilatore
+</code></pre>
+<p>Gli array di caratteri sono spesso usati per rappresentare stringhe terminate dal carattere nullo <code>'\0'</code>:</p>
+<pre><code class="language-c">char nome[10] = &quot;ciao&quot;; // occuperà 5 celle: 'c','i','a','o','\0'
+</code></pre>
+<p>Negli ambienti embedded gli array vengono utilizzati anche come <strong>buffer</strong> per la comunicazione (es. pacchetti CAN, UART). In questi casi è fondamentale rispettare sempre la dimensione massima per evitare corruzione di memoria.</p>
+<p>Un array in C si comporta quasi sempre come un <strong>puntatore al suo primo elemento</strong>. Questo significa che se passo un array a una funzione, in realtà passo l’indirizzo della prima cella, non una copia dell’intero array:</p>
+<pre><code class="language-c">void stampa(int arr[], int n) {
+    for(int i = 0; i &lt; n; i++) {
+        printf(&quot;%d &quot;, arr[i]);
+    }
 }
-</code></pre>
-<h3 id="variabili-globali">Variabili globali</h3>
-<p>Dichiarate <strong>fuori da ogni funzione</strong> → visibili in tutto il file <code>.c</code>.</p>
-<pre><code class="language-c">int contatore = 0; // visibile in tutto il file
-</code></pre>
-<p>Se vogliamo usarle anche da altri file → serve la parola chiave <code>extern</code> nell’header.</p>
-<pre><code class="language-c">// in main.c
-int contatore = 0;
-
-// in sensore.h
-extern int contatore;
 </code></pre>
 <hr />
-<h2 id="il-ruolo-di-static">Il ruolo di <code>static</code></h2>
-<p>La parola chiave <code>static</code> ha due significati diversi a seconda del contesto.</p>
-<h3 id="1-variabili-locali-statiche">1. Variabili locali statiche</h3>
-<p>Mantengono il loro valore tra più chiamate della funzione.</p>
-<pre><code class="language-c">void funzione() {
-    static int chiamate = 0;
-    chiamate++;
-    printf(&quot;%d\n&quot;, chiamate);
-}
+<h3 id="struct">Struct</h3>
+<p>Una <code>struct</code> è una struttura che permette di raggruppare variabili di tipi diversi sotto un unico nome. È molto utile per rappresentare entità complesse:</p>
+<pre><code class="language-c">struct Punto {
+    int x;
+    int y;
+};
 </code></pre>
-<p>Ogni volta che chiamo <code>funzione()</code>, la variabile non si azzera ma “ricorda” il valore precedente.</p>
-<h3 id="2-variabili-e-funzioni-a-livello-di-file">2. Variabili e funzioni a livello di file</h3>
-<p>Limitano la <strong>visibilità al solo file <code>.c</code></strong> (non esportate).</p>
-<pre><code class="language-c">static int interno = 5;
+<p>Ora è possibile dichiarare variabili di questo tipo:</p>
+<pre><code class="language-c">struct Punto p1 = {10, 20};
+</code></pre>
+<p>Ogni campo si accede con l’operatore <code>.</code>:</p>
+<pre><code class="language-c">printf(&quot;%d&quot;, p1.x);
+</code></pre>
+<p>Le struct possono contenere anche array o altre struct:</p>
+<pre><code class="language-c">struct Rettangolo {
+    struct Punto vertici[4];
+};
+</code></pre>
+<p>Quando si lavora con puntatori a struct, si usa l’operatore <code>-&gt;</code>:</p>
+<pre><code class="language-c">struct Punto *pp = &amp;p1;
+pp-&gt;x = 5; // equivalente a (*pp).x
+</code></pre>
+<p>È possibile usare <code>typedef</code> per evitare di scrivere ogni volta <code>struct</code>:</p>
+<pre><code class="language-c">typedef struct {
+    int x;
+    int y;
+} Punto;
 
-static void helper() {
-    // usata solo in questo file
+Punto p2 = {3, 4};
+</code></pre>
+<p>In embedded le struct sono spesso usate per definire i registri delle periferiche. In questo caso è importante considerare il <strong>padding</strong>: il compilatore può inserire byte di allineamento tra i campi per rispettare i vincoli dell’architettura. Questo significa che due struct con gli stessi campi ma ordine diverso possono avere dimensioni diverse. Per controllare queste situazioni si usano attributi come <code>__attribute__((packed))</code> o le opzioni del compilatore.</p>
+<p>Le struct possono anche essere annidate e usate come contenitori per dati condivisi tra task in un sistema operativo real-time. È una buona pratica abbinarle a mutex o code quando più parti del programma devono accedere alle stesse informazioni.</p>
+<hr />
+<h3 id="enum">Enum</h3>
+<p>Una <code>enum</code> definisce un insieme di valori simbolici associati a numeri interi. È utile per rendere più leggibile il codice e per rappresentare stati, modalità o codici di errore.</p>
+<pre><code class="language-c">enum Stato {
+    IDLE,
+    RUN,
+    ERROR
+};
+</code></pre>
+<p>Di default il primo valore parte da 0 e gli altri crescono di 1. Nell’esempio, <code>IDLE = 0</code>, <code>RUN = 1</code>, <code>ERROR = 2</code>. È possibile assegnare valori arbitrari:</p>
+<pre><code class="language-c">enum Comando {
+    START = 10,
+    STOP = 20,
+    RESET = 30
+};
+</code></pre>
+<p>È consigliato usare <code>typedef</code> per semplificare:</p>
+<pre><code class="language-c">typedef enum {
+    LED_OFF = 0,
+    LED_ON = 1
+} LedState;
+</code></pre>
+<p>Le enum migliorano la leggibilità:</p>
+<pre><code class="language-c">LedState stato = LED_OFF;
+
+if (stato == LED_ON) {
+    // accendi il LED
 }
 </code></pre>
-<p>Questo è molto utile per l’<strong>incapsulamento</strong>: evitiamo che variabili o funzioni “interne” inquinino lo spazio globale del progetto.</p>
-<hr />
-<h2 id="buone-pratiche">Buone pratiche</h2>
+<p>In embedded le enum sono molto utili per definire le <strong>macchine a stati finiti</strong>. Ogni stato della FSM corrisponde a un valore della enum, rendendo il codice più chiaro e meno soggetto a errori rispetto all’uso di costanti numeriche.</p>
+<h3 id="union">Union</h3>
+<p>Una <code>union</code> è simile a una <code>struct</code>, ma con una differenza fondamentale: <strong>tutti i campi condividono lo stesso spazio di memoria</strong>.<br />
+Questo significa che una union occupa tanta memoria quanta ne richiede il campo più grande, e tutti i membri si sovrappongono.</p>
+<p>Esempio di dichiarazione:</p>
+<pre><code class="language-c">union Valore {
+    uint32_t intero;
+    float reale;
+    uint8_t byte[4];
+};
+````
+
+In questo caso `union Valore` occupa 4 byte, perché il campo più grande (`uint32_t` e `float`) è di 4 byte.  
+Se assegniamo un valore a `intero`, possiamo leggere la sua rappresentazione binaria attraverso l’array `byte`:
+
+```c
+union Valore v;
+v.intero = 0x12345678;
+
+printf(&quot;%02X %02X %02X %02X\n&quot;, v.byte[0], v.byte[1], v.byte[2], v.byte[3]);
+</code></pre>
+<p>Il risultato dipenderà dall’<strong>endianness</strong> del processore (little endian o big endian), perché determina l’ordine dei byte in memoria.</p>
+<p>Le union sono molto potenti, ma bisogna usarle con attenzione: scrivere in un campo e leggere da un altro non sempre è portabile al 100% secondo lo standard C, anche se in pratica nei sistemi embedded è una tecnica comune.</p>
+<p><strong>Esempi di utilizzo tipico nelle applicazioni embedded:</strong></p>
 <ul>
-<li>Le variabili devono essere <strong>il più locali possibile</strong>.</li>
-<li>Le globali vanno usate solo se davvero necessarie.</li>
-<li>Usare <code>static</code> per tutto ciò che è interno a un modulo (<code>.c</code>).</li>
-<li>Negli header <code>.h</code> mettere solo:<ul>
-<li>prototipi delle funzioni pubbliche,</li>
-<li>definizioni di costanti/struct/enum,</li>
-<li>dichiarazioni <code>extern</code> se serve condividere una variabile globale.</li>
+<li>Interpretare un pacchetto ricevuto su bus di comunicazione sia come array di byte che come valori numerici.</li>
+<li>Definire registri hardware in modo che un singolo registro possa essere letto intero oppure per campi più piccoli.</li>
+<li>Effettuare “type punning” (riutilizzare lo stesso blocco di memoria come tipi diversi) per ridurre l’uso di memoria.</li>
 </ul>
-</li>
+<p><strong>Differenze rispetto a struct:</strong></p>
+<ul>
+<li>In una <code>struct</code> ogni campo ha il suo spazio separato, e la dimensione totale è almeno la somma delle dimensioni dei campi (più eventuale padding).</li>
+<li>In una <code>union</code> tutti i campi condividono lo stesso spazio, e la dimensione totale è uguale a quella del campo più grande.</li>
 </ul>
-<p>Così il progetto rimane ordinato, modulare e più facile da manutenere.</p>
 
 
 
@@ -918,10 +834,10 @@ static void helper() {
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.js"></script>
       

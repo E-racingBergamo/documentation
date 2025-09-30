@@ -8,26 +8,28 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/centralina/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/puntatori/">
       
       
-        <link rel="prev" href="../lezioni_di_c/puntatori/">
+        <link rel="prev" href="../funzioni/">
       
       
+        <link rel="next" href="../../centralina/">
       
-      <link rel="icon" href="../../assets/images/simbolo_blu.ico">
+      
+      <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
-        <title>Centralina - My Docs</title>
+        <title>Puntatori - My Docs</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,7 +50,7 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#centralina" class="md-skip">
+        <a href="#approfondimento-sui-puntatori" class="md-skip">
           Skip to content
         </a>
       
@@ -90,9 +92,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
       
-  <img src="../../assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -109,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Centralina
+              Puntatori
             
           </span>
         </div>
@@ -213,9 +215,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
       
-  <img src="../../assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     My Docs
@@ -230,7 +232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -289,18 +291,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
         
           
           <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
@@ -316,7 +320,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             Lezioni di C
@@ -330,7 +334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lezioni_di_c/sintassi_base_c/" class="md-nav__link">
+      <a href="../sintassi_base_c/" class="md-nav__link">
         
   
   
@@ -353,7 +357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lezioni_di_c/stdint/" class="md-nav__link">
+      <a href="../stdint/" class="md-nav__link">
         
   
   
@@ -376,7 +380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lezioni_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+      <a href="../visibilit%C3%A0_delle_variabili/" class="md-nav__link">
         
   
   
@@ -399,7 +403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lezioni_di_c/strutture_base/" class="md-nav__link">
+      <a href="../strutture_base/" class="md-nav__link">
         
   
   
@@ -422,7 +426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lezioni_di_c/funzioni/" class="md-nav__link">
+      <a href="../funzioni/" class="md-nav__link">
         
   
   
@@ -433,37 +437,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lezioni_di_c/puntatori/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Puntatori
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -490,7 +463,7 @@
   
   
   <span class="md-ellipsis">
-    Centralina
+    Puntatori
     
   </span>
   
@@ -503,7 +476,7 @@
   
   
   <span class="md-ellipsis">
-    Centralina
+    Puntatori
     
   </span>
   
@@ -526,78 +499,81 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#architettura-generale" class="md-nav__link">
+  <a href="#cose-un-puntatore" class="md-nav__link">
     <span class="md-ellipsis">
-      Architettura generale
+      Cos’è un puntatore
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#freertos" class="md-nav__link">
+  <a href="#puntatori-e-costanti" class="md-nav__link">
     <span class="md-ellipsis">
-      FreeRTOS
+      Puntatori e costanti
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#macchine-a-stati" class="md-nav__link">
+  <a href="#aritmetica-dei-puntatori" class="md-nav__link">
     <span class="md-ellipsis">
-      Macchine a stati
+      Aritmetica dei puntatori
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#logging" class="md-nav__link">
+  <a href="#puntatori-e-array" class="md-nav__link">
     <span class="md-ellipsis">
-      Logging
+      Puntatori e array
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#comunicazioni" class="md-nav__link">
+  <a href="#puntatori-a-struct" class="md-nav__link">
     <span class="md-ellipsis">
-      Comunicazioni
+      Puntatori a struct
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Comunicazioni">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#can" class="md-nav__link">
-    <span class="md-ellipsis">
-      CAN
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#uart" class="md-nav__link">
-    <span class="md-ellipsis">
-      UART
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#moduli-futuri" class="md-nav__link">
+  <a href="#puntatori-void" class="md-nav__link">
     <span class="md-ellipsis">
-      Moduli futuri
+      Puntatori void
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#array-di-puntatori-e-puntatori-a-puntatori" class="md-nav__link">
+    <span class="md-ellipsis">
+      Array di puntatori e puntatori a puntatori
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#puntatori-a-funzioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      Puntatori a funzioni
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerazioni-finali" class="md-nav__link">
+    <span class="md-ellipsis">
+      Considerazioni finali
     </span>
   </a>
   
@@ -607,6 +583,37 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../centralina/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Centralina
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -646,78 +653,81 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#architettura-generale" class="md-nav__link">
+  <a href="#cose-un-puntatore" class="md-nav__link">
     <span class="md-ellipsis">
-      Architettura generale
+      Cos’è un puntatore
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#freertos" class="md-nav__link">
+  <a href="#puntatori-e-costanti" class="md-nav__link">
     <span class="md-ellipsis">
-      FreeRTOS
+      Puntatori e costanti
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#macchine-a-stati" class="md-nav__link">
+  <a href="#aritmetica-dei-puntatori" class="md-nav__link">
     <span class="md-ellipsis">
-      Macchine a stati
+      Aritmetica dei puntatori
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#logging" class="md-nav__link">
+  <a href="#puntatori-e-array" class="md-nav__link">
     <span class="md-ellipsis">
-      Logging
+      Puntatori e array
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#comunicazioni" class="md-nav__link">
+  <a href="#puntatori-a-struct" class="md-nav__link">
     <span class="md-ellipsis">
-      Comunicazioni
+      Puntatori a struct
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Comunicazioni">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#can" class="md-nav__link">
-    <span class="md-ellipsis">
-      CAN
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#uart" class="md-nav__link">
-    <span class="md-ellipsis">
-      UART
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#moduli-futuri" class="md-nav__link">
+  <a href="#puntatori-void" class="md-nav__link">
     <span class="md-ellipsis">
-      Moduli futuri
+      Puntatori void
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#array-di-puntatori-e-puntatori-a-puntatori" class="md-nav__link">
+    <span class="md-ellipsis">
+      Array di puntatori e puntatori a puntatori
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#puntatori-a-funzioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      Puntatori a funzioni
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerazioni-finali" class="md-nav__link">
+    <span class="md-ellipsis">
+      Considerazioni finali
     </span>
   </a>
   
@@ -739,76 +749,137 @@
 
 
 
-<h1 id="centralina">Centralina</h1>
-<p>Questa sezione documenta il software sviluppato per la centralina.</p>
-<hr />
-<h2 id="architettura-generale">Architettura generale</h2>
-<p>Il codice è organizzato in più moduli, ciascuno con responsabilità precise:</p>
+<h1 id="approfondimento-sui-puntatori">Approfondimento sui puntatori</h1>
+<p>I puntatori sono uno degli strumenti più potenti e importanti del linguaggio C. Permettono di lavorare direttamente con <strong>indirizzi di memoria</strong>, rendendo possibile l’accesso efficiente a variabili, array, strutture e periferiche hardware. Anche se li abbiamo introdotti nelle sezioni su variabili e funzioni, vale la pena dedicare un capitolo a parte per chiarire tutti i dettagli e i casi particolari.</p>
+<h3 id="cose-un-puntatore">Cos’è un puntatore</h3>
+<p>Quando dichiariamo una variabile, ad esempio <code>int numero = 10;</code>, il processore riserva una cella di memoria (o più di una, a seconda del tipo di dato) per memorizzare il valore <code>10</code> e associa a questa casella il nome <code>numero</code>. L'indirizzo di questa casella è la sua posizione fisica nella memoria.</p>
+<p>Un <strong>puntatore</strong> non è altro che una variabile speciale il cui valore non è un dato come un numero o un carattere, ma l'<strong>indirizzo di memoria</strong> di un'altra variabile. Invece di contenere il dato stesso, il puntatore "punta" alla casella di memoria che contiene quel dato.
+Dichiarazione:</p>
+<pre><code class="language-c">int x = 10;
+int *p = &amp;x; // p contiene l’indirizzo di x
+
+int *puntatore_a_intero;
+char *puntatore_a_carattere;
+float *puntatore_a_float;
+</code></pre>
 <ul>
-<li><strong>CAN controller</strong>: codifica e decodifica di messaggi sulla linea CAN.</li>
-<li><strong>ADC controller</strong>: gestisce i sensori analogici.</li>
-<li><strong>Digital I/O</strong>: per ingressi e uscite digitali.</li>
-<li><strong>Hall sensors</strong>: legge i sensori a effetto Hall.</li>
-<li><strong>Inverter</strong>: comunicazione con inverter e motori</li>
-<li><strong>Telemetry</strong>: formatta i messaggi di telemetria e li mette in coda per essere spediti su una periferica a scelta.</li>
-<li><strong>Ticker</strong>: sincronizza le task periodiche come la lettura dei sensori o l'esecuzione della macchina a stati dell'inverter.</li>
-<li><strong>Tractive system manager</strong>: gestisce la macchina a stati complessiva della macchina e fornisce le autorizzazioni per accendere gli inverter.</li>
+<li><code>&amp;x</code> → (<code>&amp;</code> operatore di indirizzo) indirizzo della variabile <code>x</code></li>
+<li><code>*p</code> → (<code>*</code> operatore di dereferenziazione o indirezione) valore contenuto all’indirizzo puntato da <code>p</code></li>
+</ul>
+<p>È importante sottolineare il fatto che in queste variabili sono a tutti gli effetti salvati degli indirizzi di memoria, quindi il tipo di dato contenuto al loro interno è un <code>unsigned int</code> che ha la dimensione del bus del processore. Sulle architetture a 32bit sarà un <code>uint32</code> mentre in quelle a 64bit sarà un <code>uint64</code>. Dichiarare un tipo diverso serve al processore per capire quanto è grande il dato contenuto alla cella di memoria a cui si sta puntando e come interpretarlo.</p>
+<blockquote>
+<p>Attenzione: </p>
+<p>Quando si usano i puntatori, a meno che non si sia assolutamente sicuri che abbiano un valore valido, bisogna controllare che non sia nullo e che sia del tipo corretto rispetto al dato a cui si sta puntando. È anche possibile assegnare <code>NULL</code> ad un puntatore, ma bisogna stare attenti a come lo si usa.</p>
+</blockquote>
+<h3 id="puntatori-e-costanti">Puntatori e costanti</h3>
+<p>Esistono varie combinazioni di <code>const</code> con i puntatori:</p>
+<ol>
+<li><strong>Puntatore a costante</strong>: il contenuto non può essere modificato</li>
+</ol>
+<pre><code class="language-c">const int *p = &amp;x;
+*p = 5; // ERRORE
+p = &amp;y; // OK
+</code></pre>
+<ol>
+<li><strong>Puntatore costante</strong>: il puntatore non può cambiare, ma il contenuto può</li>
+</ol>
+<pre><code class="language-c">int *const p = &amp;x;
+*p = 5; // OK
+p = &amp;y; // ERRORE
+</code></pre>
+<ol>
+<li><strong>Puntatore costante a costante</strong>: niente può essere modificato</li>
+</ol>
+<pre><code class="language-c">const int *const p = &amp;x;
+*p = 5; // ERRORE
+p = &amp;y; // ERRORE
+</code></pre>
+<p>Questa distinzione è fondamentale in embedded per proteggere buffer o registri di periferica.</p>
+<h3 id="aritmetica-dei-puntatori">Aritmetica dei puntatori</h3>
+<p>I puntatori possono essere incrementati o decrementati, ma l’unità di incremento dipende dal tipo a cui puntano:</p>
+<pre><code class="language-c">int a[3] = {10, 20, 30};
+int *p = a;
+
+p++;        // ora punta a a[1]
+printf(&quot;%d\n&quot;, *p); // stampa 20
+</code></pre>
+<p>L’operatore <code>+</code> o <code>-</code> muove il puntatore di un numero di elementi, non di byte.<br />
+La sottrazione tra puntatori restituisce il numero di elementi tra loro.</p>
+<hr />
+<h3 id="puntatori-e-array">Puntatori e array</h3>
+<p>Un array si comporta come un puntatore al primo elemento.<br />
+Passare un array a una funzione significa passare un puntatore:</p>
+<pre><code class="language-c">void stampa(int arr[], int n) {
+    for(int i = 0; i &lt; n; i++) {
+        printf(&quot;%d &quot;, arr[i]);
+    }
+}
+</code></pre>
+<p>È equivalente a:</p>
+<pre><code class="language-c">void stampa(int *arr, int n) { ... }
+</code></pre>
+<hr />
+<h3 id="puntatori-a-struct">Puntatori a struct</h3>
+<p>Quando si ha una struttura, è spesso più efficiente passare un <strong>puntatore</strong>:</p>
+<pre><code class="language-c">struct Punto {
+    int x;
+    int y;
+};
+
+void sposta(struct Punto *p, int dx, int dy) {
+    p-&gt;x += dx;
+    p-&gt;y += dy;
+}
+</code></pre>
+<ul>
+<li>
+<p><code>p-&gt;x</code> è equivalente a <code>(*p).x</code></p>
+</li>
+<li>
+<p>I puntatori a struct permettono di risparmiare memoria e tempo di copia.</p>
+</li>
 </ul>
 <hr />
-<h2 id="freertos">FreeRTOS</h2>
-<p>FreeRTOS è un sistema operativo real-time open source progettato per microcontrollori.<br />
-Offre meccanismi per:</p>
-<ul>
-<li>Creare e gestire <strong>task</strong> che vengono eseguiti in modo concorrente.</li>
-<li>Sincronizzare l’esecuzione tramite <strong>code</strong>, <strong>semafori</strong> e <strong>mutex</strong>.</li>
-<li>Pianificare attività periodiche con <strong>timer software</strong>.</li>
-</ul>
-<p>Il suo utilizzo permette di strutturare il firmware in moduli indipendenti e ben organizzati, migliorando la scalabilità e la manutenibilità del progetto.</p>
-<hr />
-<h2 id="macchine-a-stati">Macchine a stati</h2>
-<p>Le FSM sono implementate in <strong>C</strong> utilizzando la struttura <code>switch-case</code>.
-Ogni stato rappresenta una fase di funzionamento, ad esempio:</p>
-<pre><code class="language-c">switch (state) {
-    case INIT:
-        // Inizializzazione
-        break;
-    case RUN:
-        // Esecuzione principale
-        break;
-    case ERROR:
-        // Gestione errori
-        break;
+<h3 id="puntatori-void">Puntatori void</h3>
+<p><code>void *</code> è un puntatore generico, senza tipo.<br />
+Serve quando vogliamo passare un indirizzo di memoria senza sapere il tipo, ad esempio in buffer generici o callback.</p>
+<pre><code class="language-c">void stampa_generico(void *ptr, char tipo) {
+    if(tipo == 'i') printf(&quot;%d\n&quot;, *(int *)ptr);
+    if(tipo == 'f') printf(&quot;%f\n&quot;, *(float *)ptr);
 }
 </code></pre>
 <hr />
-<h2 id="logging">Logging</h2>
-<p>Il logging è gestito tramite <strong>UART</strong> con code di output.
-Caratteristiche principali:</p>
-<ul>
-<li>Supporto a più livelli di log (INFO, WARN, ERROR).</li>
-<li>Invio asincrono dei messaggi.</li>
-</ul>
-<p>Esempio di utilizzo:</p>
-<pre><code class="language-c">LOG_INFO(&quot;Sistema inizializzato correttamente&quot;);
-LOG_ERROR(&quot;Errore durante la trasmissione CAN&quot;);
+<h3 id="array-di-puntatori-e-puntatori-a-puntatori">Array di puntatori e puntatori a puntatori</h3>
+<p>È possibile avere array di puntatori:</p>
+<pre><code class="language-c">char *nomi[] = {&quot;Mario&quot;, &quot;Luigi&quot;, &quot;Peach&quot;};
+</code></pre>
+<p>O puntatori a puntatori, utili ad esempio per gestire array dinamici di stringhe:</p>
+<pre><code class="language-c">char **strs;
 </code></pre>
 <hr />
-<h2 id="comunicazioni">Comunicazioni</h2>
-<h3 id="can">CAN</h3>
-<ul>
-<li>Supporto a due linee can.</li>
-<li>Callback per la gestione asincrona dei messaggi.</li>
-</ul>
-<h3 id="uart">UART</h3>
-<ul>
-<li>Utilizzata per logging e debug.</li>
-<li>Interfaccia DMA per migliorare le prestazioni.</li>
-</ul>
+<h3 id="puntatori-a-funzioni">Puntatori a funzioni</h3>
+<p>I puntatori possono memorizzare indirizzi di funzioni, permettendo di chiamarle in modo dinamico.<br />
+Abbiamo già visto esempi nel capitolo su funzioni.</p>
+<p>Esempio riassuntivo:</p>
+<pre><code class="language-c">typedef int (*Operazione)(int, int);
+
+int somma(int a, int b) { return a + b; }
+
+Operazione op = somma;
+int risultato = op(3, 4); // richiama somma(3,4)
+</code></pre>
 <hr />
-<h2 id="moduli-futuri">Moduli futuri</h2>
+<h3 id="considerazioni-finali">Considerazioni finali</h3>
 <ul>
-<li><strong>Telemetria</strong>: invio dati in tempo reale a un server esterno.</li>
-<li><strong>Strategie di controllo avanzate</strong>: da integrare in base agli sviluppi del progetto.</li>
+<li>
+<p>I puntatori sono essenziali in C embedded per accesso diretto alla memoria, gestione di buffer e interfacciamento con driver.</p>
+</li>
+<li>
+<p>Comprendere <code>const</code>, <code>void *</code>, aritmetica dei puntatori e puntatori a struct/funzioni è fondamentale per evitare bug difficili da trovare.</p>
+</li>
+<li>
+<p>Una volta chiari questi concetti, il codice diventa più modulare, efficiente e sicuro.</p>
+</li>
 </ul>
 
 
@@ -858,10 +929,10 @@ LOG_ERROR(&quot;Errore durante la trasmissione CAN&quot;);
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.js"></script>
       

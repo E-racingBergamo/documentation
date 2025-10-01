@@ -14,7 +14,7 @@
         <link rel="prev" href="../funzioni/">
       
       
-        <link rel="next" href="../../centralina/">
+        <link rel="next" href="../strutture_dati_dinamiche/strutture_dinamiche/">
       
       
       <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
@@ -403,6 +403,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../strutture_controllo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strutture di controllo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../strutture_base/" class="md-nav__link">
         
   
@@ -562,18 +585,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#puntatori-a-funzioni" class="md-nav__link">
+  <a href="#passaggio-per-riferimento-simulato" class="md-nav__link">
     <span class="md-ellipsis">
-      Puntatori a funzioni
+      Passaggio per Riferimento (Simulato)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#considerazioni-finali" class="md-nav__link">
+  <a href="#allocazione-dinamica-della-memoria" class="md-nav__link">
     <span class="md-ellipsis">
-      Considerazioni finali
+      Allocazione Dinamica della Memoria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#puntatori-a-puntatori" class="md-nav__link">
+    <span class="md-ellipsis">
+      Puntatori a Puntatori
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#puntatori-a-funzioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      Puntatori a Funzioni
     </span>
   </a>
   
@@ -582,6 +623,75 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_8" id="__nav_2_1_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Strutture dati dinamiche
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Strutture dati dinamiche
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../strutture_dati_dinamiche/strutture_dinamiche/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strutture dinamiche
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -716,18 +826,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#puntatori-a-funzioni" class="md-nav__link">
+  <a href="#passaggio-per-riferimento-simulato" class="md-nav__link">
     <span class="md-ellipsis">
-      Puntatori a funzioni
+      Passaggio per Riferimento (Simulato)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#considerazioni-finali" class="md-nav__link">
+  <a href="#allocazione-dinamica-della-memoria" class="md-nav__link">
     <span class="md-ellipsis">
-      Considerazioni finali
+      Allocazione Dinamica della Memoria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#puntatori-a-puntatori" class="md-nav__link">
+    <span class="md-ellipsis">
+      Puntatori a Puntatori
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#puntatori-a-funzioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      Puntatori a Funzioni
     </span>
   </a>
   
@@ -796,7 +924,13 @@ p = &amp;y; // ERRORE
 </code></pre>
 <p>Questa distinzione è fondamentale in embedded per proteggere buffer o registri di periferica.</p>
 <h3 id="aritmetica-dei-puntatori">Aritmetica dei puntatori</h3>
-<p>I puntatori possono essere incrementati o decrementati, ma l’unità di incremento dipende dal tipo a cui puntano:</p>
+<p>Quando incrementiamo (<code>++</code>) un puntatore, non stiamo aggiungendo 1 all'indirizzo di memoria. Stiamo invece spostando il puntatore in avanti della dimensione del tipo di dato a cui punta. Se <code>p_voti</code> è un puntatore a <code>int</code> e un <code>int</code> occupa 4 byte, <code>p_voti++</code> aumenterà l'indirizzo di 4, puntando così all'intero successivo.</p>
+<p>Le operazioni consentite sono:</p>
+<ul>
+<li><strong>Incremento/Decremento:</strong> <code>p++</code>, <code>p--</code></li>
+<li><strong>Somma/Sottrazione di un intero:</strong> <code>p + n</code>, <code>p - n</code></li>
+<li><strong>Differenza tra due puntatori:</strong> Se <code>p1</code> e <code>p2</code> puntano a elementi dello stesso array, <code>p2 - p1</code> restituisce il numero di elementi tra di loro.</li>
+</ul>
 <pre><code class="language-c">int a[3] = {10, 20, 30};
 int *p = a;
 
@@ -807,7 +941,8 @@ printf(&quot;%d\n&quot;, *p); // stampa 20
 La sottrazione tra puntatori restituisce il numero di elementi tra loro.</p>
 <hr />
 <h3 id="puntatori-e-array">Puntatori e array</h3>
-<p>Un array si comporta come un puntatore al primo elemento.<br />
+<p>In C, c'è una stretta relazione tra puntatori e array. <strong>Il nome di un array, usato in un'espressione, viene convertito in un puntatore al suo primo elemento.</strong></p>
+<p>Questo significa che possiamo usare l'aritmetica dei puntatori per scorrere gli elementi di un array.
 Passare un array a una funzione significa passare un puntatore:</p>
 <pre><code class="language-c">void stampa(int arr[], int n) {
     for(int i = 0; i &lt; n; i++) {
@@ -818,7 +953,6 @@ Passare un array a una funzione significa passare un puntatore:</p>
 <p>È equivalente a:</p>
 <pre><code class="language-c">void stampa(int *arr, int n) { ... }
 </code></pre>
-<hr />
 <h3 id="puntatori-a-struct">Puntatori a struct</h3>
 <p>Quando si ha una struttura, è spesso più efficiente passare un <strong>puntatore</strong>:</p>
 <pre><code class="language-c">struct Punto {
@@ -832,14 +966,9 @@ void sposta(struct Punto *p, int dx, int dy) {
 }
 </code></pre>
 <ul>
-<li>
-<p><code>p-&gt;x</code> è equivalente a <code>(*p).x</code></p>
-</li>
-<li>
-<p>I puntatori a struct permettono di risparmiare memoria e tempo di copia.</p>
-</li>
+<li><code>p-&gt;x</code> è equivalente a <code>(*p).x</code></li>
+<li>I puntatori a struct permettono di risparmiare memoria e tempo di copia.</li>
 </ul>
-<hr />
 <h3 id="puntatori-void">Puntatori void</h3>
 <p><code>void *</code> è un puntatore generico, senza tipo.<br />
 Serve quando vogliamo passare un indirizzo di memoria senza sapere il tipo, ad esempio in buffer generici o callback.</p>
@@ -856,31 +985,94 @@ Serve quando vogliamo passare un indirizzo di memoria senza sapere il tipo, ad e
 <p>O puntatori a puntatori, utili ad esempio per gestire array dinamici di stringhe:</p>
 <pre><code class="language-c">char **strs;
 </code></pre>
-<hr />
-<h3 id="puntatori-a-funzioni">Puntatori a funzioni</h3>
-<p>I puntatori possono memorizzare indirizzi di funzioni, permettendo di chiamarle in modo dinamico.<br />
-Abbiamo già visto esempi nel capitolo su funzioni.</p>
+<h3 id="passaggio-per-riferimento-simulato">Passaggio per Riferimento (Simulato)</h3>
+<p>Di default, il C passa gli argomenti alle funzioni "per valore", creando una copia della variabile. Qualsiasi modifica all'interno della funzione non influisce sulla variabile originale. Passando un puntatore a una funzione, possiamo simulare un "passaggio per riferimento", permettendo alla funzione di modificare la variabile originale.</p>
 <p>Esempio riassuntivo:</p>
-<pre><code class="language-c">typedef int (*Operazione)(int, int);
+<pre><code class="language-c">void incrementa(int *valore) {
+    (*valore)++; // Incrementa il valore a cui punta 'valore'
+}
 
-int somma(int a, int b) { return a + b; }
-
-Operazione op = somma;
-int risultato = op(3, 4); // richiama somma(3,4)
+int main() {
+    int a = 10;
+    incrementa(&amp;a); // Passiamo l'indirizzo di 'a'
+    printf(&quot;Valore di a dopo l'incremento: %d\n&quot;, a); // Stampa 11
+    return 0;
+}
 </code></pre>
-<hr />
-<h3 id="considerazioni-finali">Considerazioni finali</h3>
+<h3 id="allocazione-dinamica-della-memoria">Allocazione Dinamica della Memoria</h3>
+<p>Fino ad ora, la memoria per le nostre variabili veniva allocata staticamente dal compilatore. I puntatori ci permettono di gestire la memoria <strong>dinamicamente</strong> a runtime, ovvero di richiederne e liberarne blocchi quando ne abbiamo bisogno. Questo è fondamentale per creare strutture dati la cui dimensione non è nota a priori. Le funzioni si trovano nella libreria <code>&lt;stdlib.h&gt;</code>.</p>
 <ul>
 <li>
-<p>I puntatori sono essenziali in C embedded per accesso diretto alla memoria, gestione di buffer e interfacciamento con driver.</p>
+<p><strong><code>malloc(size_t size)</code></strong>: Alloca un blocco di memoria della dimensione specificata in byte. Restituisce un puntatore <code>void*</code> all'inizio del blocco, o <code>NULL</code> se fallisce.</p>
 </li>
 <li>
-<p>Comprendere <code>const</code>, <code>void *</code>, aritmetica dei puntatori e puntatori a struct/funzioni è fondamentale per evitare bug difficili da trovare.</p>
+<p><strong><code>calloc(size_t num, size_t size)</code></strong>: Alloca memoria per un array di <code>num</code> elementi, ciascuno di dimensione <code>size</code>. La memoria viene inizializzata a zero.</p>
 </li>
 <li>
-<p>Una volta chiari questi concetti, il codice diventa più modulare, efficiente e sicuro.</p>
+<p><strong><code>realloc(void *ptr, size_t new_size)</code></strong>: Ridimensiona un blocco di memoria precedentemente allocato.</p>
+</li>
+<li>
+<p><strong><code>free(void *ptr)</code></strong>: Dealloca (libera) un blocco di memoria precedentemente allocato, rendendolo di nuovo disponibile al sistema.</p>
 </li>
 </ul>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main() {
+    int *array_dinamico;
+    int n = 5;
+
+    // Alloca memoria per 5 interi
+    array_dinamico = (int*) malloc(n * sizeof(int));
+
+    if (array_dinamico == NULL) {
+        printf(&quot;Allocazione di memoria fallita!\n&quot;);
+        return 1;
+    }
+
+    // Usa l'array come un normale array
+    for (int i = 0; i &lt; n; i++) {
+        array_dinamico[i] = i * 10;
+        printf(&quot;%d &quot;, array_dinamico[i]);
+    }
+    printf(&quot;\n&quot;);
+
+    // È FONDAMENTALE liberare la memoria quando non serve più
+    free(array_dinamico);
+    array_dinamico = NULL; // Buona pratica per evitare &quot;dangling pointers&quot;
+
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p><strong>Attenzione:</strong> Dimenticare di usare <code>free()</code> causa <strong>memory leak</strong> (perdita di memoria), un bug grave in cui il programma consuma memoria senza mai rilasciarla.</p>
+</blockquote>
+<h3 id="puntatori-a-puntatori">Puntatori a Puntatori</h3>
+<p>Un puntatore a puntatore è una variabile che contiene l'indirizzo di un altro puntatore. Si dichiara con un doppio asterisco (<code>**</code>).</p>
+<pre><code class="language-c">int x = 10;
+int *p = &amp;x;
+int **pp = &amp;p;
+
+printf(&quot;Valore di x: %d\n&quot;, x);
+printf(&quot;Valore tramite p: %d\n&quot;, *p);
+printf(&quot;Valore tramite pp: %d\n&quot;, **pp);
+</code></pre>
+<p>Sono utili, ad esempio, per creare array di stringhe o per modificare un puntatore all'interno di una funzione.</p>
+<h3 id="puntatori-a-funzioni">Puntatori a Funzioni</h3>
+<p>Così come le variabili, anche le funzioni risiedono in memoria e hanno un indirizzo. Un puntatore a funzione può memorizzare questo indirizzo, permettendoci di trattare le funzioni come dati: passarle ad altre funzioni, inserirle in array, ecc.</p>
+<p>La sintassi è un po' ostica: <code>tipo_ritorno (*nome_puntatore)(lista_parametri);</code></p>
+<pre><code class="language-c">int somma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int (*operazione)(int, int); // Dichiara un puntatore a funzione
+    operazione = &amp;somma;
+
+    int risultato = operazione(5, 3); // Chiama la funzione 'somma' tramite il puntatore
+    printf(&quot;Risultato: %d\n&quot;, risultato); // Stampa 8
+}
+</code></pre>
 
 
 

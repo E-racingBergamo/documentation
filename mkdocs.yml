@@ -38,9 +38,12 @@ nav:
           - Sintassi di base: codice/lezioni_di_c/sintassi_base_c.md
           - Standard int: codice/lezioni_di_c/stdint.md
           - Visibilità e durata delle variabili: codice/lezioni_di_c/visibilità_delle_variabili.md
+          - Strutture di controllo: codice/lezioni_di_c/strutture_controllo.md
           - Strutture dati di base: codice/lezioni_di_c/strutture_base.md
           - Funzioni: codice/lezioni_di_c/funzioni.md
           - Puntatori: codice/lezioni_di_c/puntatori.md
+          - Strutture dati dinamiche:
+              - Strutture dinamiche: codice/lezioni_di_c/strutture_dati_dinamiche/strutture_dinamiche.md
       - Centralina: codice/centralina.md
   # - Hardware:
   #     - Panoramica hardware: hardware/panoramica_hardware.md

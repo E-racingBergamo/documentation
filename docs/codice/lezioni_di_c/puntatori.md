@@ -58,7 +58,13 @@ Questa distinzione è fondamentale in embedded per proteggere buffer o registri 
 
 ### Aritmetica dei puntatori
 
-I puntatori possono essere incrementati o decrementati, ma l’unità di incremento dipende dal tipo a cui puntano:
+Quando incrementiamo (`++`) un puntatore, non stiamo aggiungendo 1 all'indirizzo di memoria. Stiamo invece spostando il puntatore in avanti della dimensione del tipo di dato a cui punta. Se `p_voti` è un puntatore a `int` e un `int` occupa 4 byte, `p_voti++` aumenterà l'indirizzo di 4, puntando così all'intero successivo.
+
+Le operazioni consentite sono:
+
+- **Incremento/Decremento:** `p++`, `p--`
+- **Somma/Sottrazione di un intero:** `p + n`, `p - n`
+- **Differenza tra due puntatori:** Se `p1` e `p2` puntano a elementi dello stesso array, `p2 - p1` restituisce il numero di elementi tra di loro.
 
 ```c
 int a[3] = {10, 20, 30};
@@ -75,7 +81,9 @@ La sottrazione tra puntatori restituisce il numero di elementi tra loro.
 
 ### Puntatori e array
 
-Un array si comporta come un puntatore al primo elemento.  
+In C, c'è una stretta relazione tra puntatori e array. **Il nome di un array, usato in un'espressione, viene convertito in un puntatore al suo primo elemento.**
+
+Questo significa che possiamo usare l'aritmetica dei puntatori per scorrere gli elementi di un array.
 Passare un array a una funzione significa passare un puntatore:
 
 ```c
@@ -91,8 +99,6 @@ void stampa(int arr[], int n) {
 ```c
 void stampa(int *arr, int n) { ... }
 ```
-
----
 
 ### Puntatori a struct
 
@@ -111,11 +117,7 @@ void sposta(struct Punto *p, int dx, int dy) {
 ```
 
 - `p->x` è equivalente a `(*p).x`
-    
 - I puntatori a struct permettono di risparmiare memoria e tempo di copia.
-    
-
----
 
 ### Puntatori void
 
@@ -145,30 +147,102 @@ O puntatori a puntatori, utili ad esempio per gestire array dinamici di stringhe
 char **strs;
 ```
 
----
+### Passaggio per Riferimento (Simulato)
 
-### Puntatori a funzioni
-
-I puntatori possono memorizzare indirizzi di funzioni, permettendo di chiamarle in modo dinamico.  
-Abbiamo già visto esempi nel capitolo su funzioni.
+Di default, il C passa gli argomenti alle funzioni "per valore", creando una copia della variabile. Qualsiasi modifica all'interno della funzione non influisce sulla variabile originale. Passando un puntatore a una funzione, possiamo simulare un "passaggio per riferimento", permettendo alla funzione di modificare la variabile originale.
 
 Esempio riassuntivo:
 
 ```c
-typedef int (*Operazione)(int, int);
+void incrementa(int *valore) {
+    (*valore)++; // Incrementa il valore a cui punta 'valore'
+}
 
-int somma(int a, int b) { return a + b; }
-
-Operazione op = somma;
-int risultato = op(3, 4); // richiama somma(3,4)
+int main() {
+    int a = 10;
+    incrementa(&a); // Passiamo l'indirizzo di 'a'
+    printf("Valore di a dopo l'incremento: %d\n", a); // Stampa 11
+    return 0;
+}
 ```
 
----
+### Allocazione Dinamica della Memoria
 
-### Considerazioni finali
+Fino ad ora, la memoria per le nostre variabili veniva allocata staticamente dal compilatore. I puntatori ci permettono di gestire la memoria **dinamicamente** a runtime, ovvero di richiederne e liberarne blocchi quando ne abbiamo bisogno. Questo è fondamentale per creare strutture dati la cui dimensione non è nota a priori. Le funzioni si trovano nella libreria `<stdlib.h>`.
 
-- I puntatori sono essenziali in C embedded per accesso diretto alla memoria, gestione di buffer e interfacciamento con driver.
+- **`malloc(size_t size)`**: Alloca un blocco di memoria della dimensione specificata in byte. Restituisce un puntatore `void*` all'inizio del blocco, o `NULL` se fallisce.
     
-- Comprendere `const`, `void *`, aritmetica dei puntatori e puntatori a struct/funzioni è fondamentale per evitare bug difficili da trovare.
+- **`calloc(size_t num, size_t size)`**: Alloca memoria per un array di `num` elementi, ciascuno di dimensione `size`. La memoria viene inizializzata a zero.
     
-- Una volta chiari questi concetti, il codice diventa più modulare, efficiente e sicuro.
+- **`realloc(void *ptr, size_t new_size)`**: Ridimensiona un blocco di memoria precedentemente allocato.
+    
+- **`free(void *ptr)`**: Dealloca (libera) un blocco di memoria precedentemente allocato, rendendolo di nuovo disponibile al sistema.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *array_dinamico;
+    int n = 5;
+
+    // Alloca memoria per 5 interi
+    array_dinamico = (int*) malloc(n * sizeof(int));
+
+    if (array_dinamico == NULL) {
+        printf("Allocazione di memoria fallita!\n");
+        return 1;
+    }
+
+    // Usa l'array come un normale array
+    for (int i = 0; i < n; i++) {
+        array_dinamico[i] = i * 10;
+        printf("%d ", array_dinamico[i]);
+    }
+    printf("\n");
+
+    // È FONDAMENTALE liberare la memoria quando non serve più
+    free(array_dinamico);
+    array_dinamico = NULL; // Buona pratica per evitare "dangling pointers"
+
+    return 0;
+}
+```
+
+> **Attenzione:** Dimenticare di usare `free()` causa **memory leak** (perdita di memoria), un bug grave in cui il programma consuma memoria senza mai rilasciarla.
+
+
+### Puntatori a Puntatori
+
+Un puntatore a puntatore è una variabile che contiene l'indirizzo di un altro puntatore. Si dichiara con un doppio asterisco (`**`).
+```c
+int x = 10;
+int *p = &x;
+int **pp = &p;
+
+printf("Valore di x: %d\n", x);
+printf("Valore tramite p: %d\n", *p);
+printf("Valore tramite pp: %d\n", **pp);
+```
+
+Sono utili, ad esempio, per creare array di stringhe o per modificare un puntatore all'interno di una funzione.
+
+### Puntatori a Funzioni
+
+Così come le variabili, anche le funzioni risiedono in memoria e hanno un indirizzo. Un puntatore a funzione può memorizzare questo indirizzo, permettendoci di trattare le funzioni come dati: passarle ad altre funzioni, inserirle in array, ecc.
+
+La sintassi è un po' ostica: `tipo_ritorno (*nome_puntatore)(lista_parametri);`
+
+```c
+int somma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int (*operazione)(int, int); // Dichiara un puntatore a funzione
+    operazione = &somma;
+
+    int risultato = operazione(5, 3); // Chiama la funzione 'somma' tramite il puntatore
+    printf("Risultato: %d\n", risultato); // Stampa 8
+}
+```

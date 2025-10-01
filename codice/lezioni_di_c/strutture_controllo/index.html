@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/visibilit%C3%A0_delle_variabili/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_controllo/">
       
       
-        <link rel="prev" href="../stdint/">
+        <link rel="prev" href="../visibilit%C3%A0_delle_variabili/">
       
       
-        <link rel="next" href="../strutture_controllo/">
+        <link rel="next" href="../strutture_base/">
       
       
       <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Visibilità e durata delle variabili - My Docs</title>
+        <title>Strutture di controllo - My Docs</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#visibilita-e-organizzazione-del-codice-in-c" class="md-skip">
+        <a href="#strutture-di-controllo-condizionali-prendere-decisioni" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Visibilità e durata delle variabili
+              Strutture di controllo
             
           </span>
         </div>
@@ -377,6 +377,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Visibilità e durata delle variabili
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -386,15 +409,13 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
   
   <span class="md-ellipsis">
-    Visibilità e durata delle variabili
+    Strutture di controllo
     
   </span>
   
@@ -407,7 +428,7 @@
   
   
   <span class="md-ellipsis">
-    Visibilità e durata delle variabili
+    Strutture di controllo
     
   </span>
   
@@ -420,8 +441,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -430,19 +449,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#file-c-e-h" class="md-nav__link">
+  <a href="#strutture-di-controllo-condizionali-prendere-decisioni" class="md-nav__link">
     <span class="md-ellipsis">
-      File .c e .h
+      Strutture di Controllo Condizionali: Prendere Decisioni
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="File .c e .h">
+    <nav class="md-nav" aria-label="Strutture di Controllo Condizionali: Prendere Decisioni">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#esempio" class="md-nav__link">
+  <a href="#if-else-if-else" class="md-nav__link">
     <span class="md-ellipsis">
-      Esempio
+      if, else if, else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      switch
     </span>
   </a>
   
@@ -454,28 +482,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#visibilita-delle-variabili" class="md-nav__link">
+  <a href="#loop-o-cicli-larte-della-ripetizione" class="md-nav__link">
     <span class="md-ellipsis">
-      Visibilità delle variabili
+      Loop (o Cicli): L'Arte della Ripetizione
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Visibilità delle variabili">
+    <nav class="md-nav" aria-label="Loop (o Cicli): L&#39;Arte della Ripetizione">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#variabili-locali" class="md-nav__link">
+  <a href="#while" class="md-nav__link">
     <span class="md-ellipsis">
-      Variabili locali
+      while
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#variabili-globali" class="md-nav__link">
+  <a href="#do-while-esegui-almeno-una-volta" class="md-nav__link">
     <span class="md-ellipsis">
-      Variabili globali
+      do-while: Esegui Almeno una Volta
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-il-ciclo-strutturato" class="md-nav__link">
+    <span class="md-ellipsis">
+      for: Il Ciclo Strutturato
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="for: Il Ciclo Strutturato">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-omettere-linizializzazione" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Omettere l'Inizializzazione
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-omettere-laggiornamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Omettere l'Aggiornamento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-omettere-la-condizione" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Omettere la Condizione
     </span>
   </a>
   
@@ -485,67 +550,48 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#cose-extern" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cos’è extern
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#senza-extern-definizione" class="md-nav__link">
+  <a href="#controllare-i-loop-break-e-continue" class="md-nav__link">
     <span class="md-ellipsis">
-      Senza extern (definizione)
+      Controllare i Loop: break e continue
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Controllare i Loop: break e continue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#break" class="md-nav__link">
+    <span class="md-ellipsis">
+      break
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="break">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      continue
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#con-extern-dichiarazione" class="md-nav__link">
-    <span class="md-ellipsis">
-      Con extern (dichiarazione)
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#esempio-pratico-con-piu-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Esempio pratico con più file
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#casi-tipici-in-embedded" class="md-nav__link">
-    <span class="md-ellipsis">
-      Casi tipici in Embedded
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#il-ruolo-di-static" class="md-nav__link">
-    <span class="md-ellipsis">
-      Il ruolo di static
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#buone-pratiche" class="md-nav__link">
-    <span class="md-ellipsis">
-      Buone pratiche
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -553,29 +599,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../strutture_controllo/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Strutture di controllo
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -774,8 +797,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -784,19 +805,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#file-c-e-h" class="md-nav__link">
+  <a href="#strutture-di-controllo-condizionali-prendere-decisioni" class="md-nav__link">
     <span class="md-ellipsis">
-      File .c e .h
+      Strutture di Controllo Condizionali: Prendere Decisioni
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="File .c e .h">
+    <nav class="md-nav" aria-label="Strutture di Controllo Condizionali: Prendere Decisioni">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#esempio" class="md-nav__link">
+  <a href="#if-else-if-else" class="md-nav__link">
     <span class="md-ellipsis">
-      Esempio
+      if, else if, else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#switch" class="md-nav__link">
+    <span class="md-ellipsis">
+      switch
     </span>
   </a>
   
@@ -808,28 +838,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#visibilita-delle-variabili" class="md-nav__link">
+  <a href="#loop-o-cicli-larte-della-ripetizione" class="md-nav__link">
     <span class="md-ellipsis">
-      Visibilità delle variabili
+      Loop (o Cicli): L'Arte della Ripetizione
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Visibilità delle variabili">
+    <nav class="md-nav" aria-label="Loop (o Cicli): L&#39;Arte della Ripetizione">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#variabili-locali" class="md-nav__link">
+  <a href="#while" class="md-nav__link">
     <span class="md-ellipsis">
-      Variabili locali
+      while
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#variabili-globali" class="md-nav__link">
+  <a href="#do-while-esegui-almeno-una-volta" class="md-nav__link">
     <span class="md-ellipsis">
-      Variabili globali
+      do-while: Esegui Almeno una Volta
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-il-ciclo-strutturato" class="md-nav__link">
+    <span class="md-ellipsis">
+      for: Il Ciclo Strutturato
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="for: Il Ciclo Strutturato">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-omettere-linizializzazione" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Omettere l'Inizializzazione
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-omettere-laggiornamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Omettere l'Aggiornamento
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-omettere-la-condizione" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Omettere la Condizione
     </span>
   </a>
   
@@ -839,67 +906,48 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#cose-extern" class="md-nav__link">
-    <span class="md-ellipsis">
-      Cos’è extern
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#senza-extern-definizione" class="md-nav__link">
+  <a href="#controllare-i-loop-break-e-continue" class="md-nav__link">
     <span class="md-ellipsis">
-      Senza extern (definizione)
+      Controllare i Loop: break e continue
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Controllare i Loop: break e continue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#break" class="md-nav__link">
+    <span class="md-ellipsis">
+      break
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="break">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      continue
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#con-extern-dichiarazione" class="md-nav__link">
-    <span class="md-ellipsis">
-      Con extern (dichiarazione)
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#esempio-pratico-con-piu-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      Esempio pratico con più file
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#casi-tipici-in-embedded" class="md-nav__link">
-    <span class="md-ellipsis">
-      Casi tipici in Embedded
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#il-ruolo-di-static" class="md-nav__link">
-    <span class="md-ellipsis">
-      Il ruolo di static
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#buone-pratiche" class="md-nav__link">
-    <span class="md-ellipsis">
-      Buone pratiche
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -919,163 +967,254 @@
 
 
 
-<h1 id="visibilita-e-organizzazione-del-codice-in-c">Visibilità e organizzazione del codice in C</h1>
-<p>Oltre a sapere cos’è una variabile, è fondamentale capire <strong>dove è visibile</strong> e <strong>come organizzare i file</strong> in un progetto embedded.</p>
-<h2 id="file-c-e-h">File <code>.c</code> e <code>.h</code></h2>
-<p>In un progetto in C i file sono generalmente divisi in due categorie:</p>
-<ul>
-<li><strong>File <code>.c</code></strong> → contengono il codice implementativo (funzioni, logica).  </li>
-<li><strong>File <code>.h</code></strong> → contengono le dichiarazioni (prototipi di funzioni, definizioni di strutture, costanti, variabili globali).  </li>
-</ul>
-<h3 id="esempio">Esempio</h3>
-<p><strong>sensore.h</strong></p>
-<pre><code class="language-c">#ifndef SENSORE_H
-#define SENSORE_H
+  <h1>Strutture di controllo</h1>
 
-void sensore_init(void);
-int sensore_leggi(void);
-
-#endif
-````
-
-**sensore.c**
-
-```c
-#include &quot;sensore.h&quot;
-
-void sensore_init(void) {
-    // inizializzazione hardware
-}
-
-int sensore_leggi(void) {
-    return 42; // valore di esempio
+<h2 id="strutture-di-controllo-condizionali-prendere-decisioni">Strutture di Controllo Condizionali: Prendere Decisioni</h2>
+<p>Spesso, un programma deve comportarsi in modo diverso a seconda delle condizioni. "Se l'utente ha inserito una password corretta, allora accedi. Altrimenti, mostra un errore". Questo è il ruolo delle strutture condizionali.</p>
+<h3 id="if-else-if-else"><code>if</code>, <code>else if</code>, <code>else</code></h3>
+<p>La struttura <code>if-else</code> è il modo più basilare per eseguire un blocco di codice solo se una certa condizione è vera.</p>
+<p><strong>La sintassi è:</strong></p>
+<pre><code class="language-c">if (condizione) {
+    // Blocco di codice da eseguire se la condizione è VERA
+} else {
+    // Blocco di codice da eseguire se la condizione è FALSA (opzionale)
 }
 </code></pre>
-<p>Così il modulo <code>sensore</code> può essere usato anche da altri file senza duplicare il codice.</p>
-<h2 id="visibilita-delle-variabili">Visibilità delle variabili</h2>
-<p>La <strong>visibilità</strong> definisce in quali file o funzioni una variabile è accessibile.</p>
-<h3 id="variabili-locali">Variabili locali</h3>
-<p>Dichiarate <strong>dentro una funzione</strong> → visibili solo lì, allocate nello <strong>stack</strong>.</p>
-<pre><code class="language-c">void funzione() {
-    int x = 10; // visibile solo dentro questa funzione
-}
-</code></pre>
-<h3 id="variabili-globali">Variabili globali</h3>
-<p>Dichiarate <strong>fuori da ogni funzione</strong> → visibili in tutto il file <code>.c</code>.</p>
-<pre><code class="language-c">int contatore = 0; // visibile in tutto il file
-</code></pre>
-<h2 id="cose-extern">Cos’è extern</h2>
-<p>La keyword <code>extern</code> in C serve a <strong>dichiarare</strong> una variabile o funzione definita in un altro file, così che il compilatore sappia che <strong>esiste</strong> e che verrà risolta in fase di linking.</p>
-<p>In pratica:</p>
-<ul>
-<li><code>dichiarazione</code> = dire “questa variabile/funzione esiste da qualche parte”.</li>
-<li><code>definizione</code> = riservare davvero memoria o scrivere il codice.</li>
-</ul>
-<p><code>extern</code> riguarda solo le variabili globali (anche se si può usare pure con funzioni, ma lì è implicito).</p>
-<h2 id="senza-extern-definizione">Senza <code>extern</code> (definizione)</h2>
-<p>Se scrivi:</p>
-<pre><code class="language-c">int counter = 0;
-</code></pre>
-<p>questa è una <strong>definizione</strong>: il compilatore alloca spazio in memoria per <code>counter</code>.</p>
-<h2 id="con-extern-dichiarazione">Con <code>extern</code> (dichiarazione)</h2>
-<p>Se scrivi:</p>
-<pre><code class="language-c">extern int counter;
-</code></pre>
-<p>questa è solo una <strong>dichiarazione</strong>: non alloca memoria, dice solo “da qualche parte esiste un <code>int counter</code>”.<br />
-In questo modo puoi usare <code>counter</code> anche in un file diverso da quello in cui è stato definito.</p>
-<h2 id="esempio-pratico-con-piu-file">Esempio pratico con più file</h2>
-<p><strong>file1.c</strong></p>
+<p>La <code>condizione</code> è un'espressione che viene valutata come "vera" (qualsiasi valore diverso da 0) o "falsa" (0).</p>
 <pre><code class="language-c">#include &lt;stdio.h&gt;
 
-int counter = 42;   // definizione (memoria allocata qui)
+int main() {
+    int eta = 20;
 
-void printCounter(void) {
-    printf(&quot;counter = %d\n&quot;, counter);
-}
-</code></pre>
-<p><strong>file2.c</strong></p>
-<pre><code class="language-c">#include &lt;stdio.h&gt;
+    if (eta &gt;= 18) {
+        printf(&quot;Sei maggiorenne. Puoi entrare.\n&quot;);
+    } else {
+        printf(&quot;Sei minorenne. Non puoi entrare.\n&quot;);
+    }
 
-extern int counter;  // dichiarazione (nessuna memoria allocata)
-
-void increment(void) {
-    counter++;
-}
-</code></pre>
-<p><strong>main.c</strong></p>
-<pre><code class="language-c">void printCounter(void);
-void increment(void);
-
-int main(void) {
-    printCounter();  // counter = 42
-    increment();
-    printCounter();  // counter = 43
     return 0;
 }
 </code></pre>
-<p>Compilando tutti e tre insieme funziona perché il linker trova <code>counter</code> definito in <code>file1.c</code>:</p>
-<pre><code class="language-bash">gcc file1.c file2.c main.c -o program
+<h3 id="switch"><code>switch</code></h3>
+<p>Quando devi controllare una singola variabile rispetto a una serie di valori costanti, usare una lunga catena di <code>if-else if</code> può diventare goffo. In questi casi, lo <code>switch</code> è una soluzione più pulita e spesso più efficiente.</p>
+<p><strong>La sintassi è:</strong></p>
+<pre><code class="language-c">switch (espressione) {
+    case valore1:
+        // Codice da eseguire se espressione == valore1
+        break; // L'istruzione 'break' è cruciale!
+    case valore2:
+        // Codice da eseguire se espressione == valore2
+        break;
+    default:
+        // Codice da eseguire se nessun 'case' corrisponde (opzionale)
+}
 </code></pre>
-<h2 id="casi-tipici-in-embedded">Casi tipici in Embedded</h2>
-<p>Noi <code>extern</code> lo usiamo per:</p>
+<p><strong>Punti Chiave dello <code>switch</code>:</strong></p>
+<ol>
+<li>L'<code>espressione</code> deve essere di tipo intero (inclusi i <code>char</code>).</li>
+<li>I <code>valore</code> dei <code>case</code> devono essere costanti.</li>
+<li><strong>L'istruzione <code>break</code> è fondamentale.</strong> Se omessa, l'esecuzione "cadrà" (fall-through) al <code>case</code> successivo, eseguendo anche il suo codice, fino a quando non incontrerà un <code>break</code> o la fine dello <code>switch</code>. Questo a volte è un comportamento desiderato, ma spesso è fonte di bug.</li>
+<li>Il blocco <code>default</code> cattura tutti i casi non esplicitamente gestiti.</li>
+</ol>
+<blockquote>
+<p>Attenzione: 
+Lo <code>switch</code> possiede un unico contesto, nel senso che una variabile dichiarata in un case, se ridichiarata in un altro genererà un errore di compilazione. In questo caso si utilizzano le parentesi graffe per separare i contesti.</p>
+</blockquote>
+<pre><code class="language-c">case valore: {
+    // codice da eseguire
+    break;
+}
+</code></pre>
+<p><strong>Esempio:</strong> Un menu.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char scelta = 'B';
+
+    printf(&quot;Menu:\n&quot;);
+    printf(&quot;A - Avvia\n&quot;);
+    printf(&quot;B - Salva\n&quot;);
+    printf(&quot;C - Esci\n&quot;);
+    printf(&quot;La tua scelta: %c\n&quot;, scelta);
+
+    switch (scelta) {
+        case 'A':
+            printf(&quot;Programma avviato.\n&quot;);
+            break;
+        case 'B':
+            printf(&quot;Salvataggio in corso...\n&quot;);
+            break;
+        case 'C':
+            printf(&quot;Uscita dal programma.\n&quot;);
+            break;
+        default:
+            printf(&quot;Scelta non valida!\n&quot;);
+    }
+    return 0;
+}
+</code></pre>
+<h2 id="loop-o-cicli-larte-della-ripetizione">Loop (o Cicli): L'Arte della Ripetizione</h2>
+<p>I loop ci permettono di eseguire un blocco di codice più volte, fino a quando una certa condizione di terminazione non viene soddisfatta. In C, abbiamo tre tipi principali di loop.</p>
+<h3 id="while"><code>while</code></h3>
+<p>Il ciclo <code>while</code> è il più semplice. Esegue un blocco di codice <strong>fintanto che</strong> la sua condizione rimane vera. La condizione viene controllata <strong>prima</strong> di ogni esecuzione del blocco.</p>
+<p><strong>Sintassi:</strong></p>
+<pre><code class="language-c">while (condizione) {
+    // Blocco di codice da ripetere
+    // È importante che qui dentro qualcosa modifichi la condizione,
+    // altrimenti si crea un ciclo infinito!
+}
+</code></pre>
+<p><strong>Esempio:</strong> Un conto alla rovescia.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int contatore = 5;
+
+    while (contatore &gt; 0) {
+        printf(&quot;%d...\n&quot;, contatore);
+        contatore--; // Decremento il contatore per evitare un loop infinito
+    }
+
+    printf(&quot;Lancio!\n&quot;);
+    return 0;
+}
+</code></pre>
+<h3 id="do-while-esegui-almeno-una-volta"><code>do-while</code>: Esegui Almeno una Volta</h3>
+<p>Il <code>do-while</code> è una variante del <code>while</code>. La sua caratteristica distintiva è che la condizione viene controllata <strong>alla fine</strong> del blocco di codice. Questo garantisce che il codice all'interno del loop venga eseguito <strong>almeno una volta</strong>, indipendentemente dalla condizione.</p>
+<p><strong>Sintassi:</strong></p>
+<pre><code class="language-c">do {
+    // Blocco di codice da ripetere
+} while (condizione);
+</code></pre>
+<p><strong>Esempio:</strong> Richiedere un input finché non è valido.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int numero;
+
+    do {
+        printf(&quot;Inserisci un numero positivo: &quot;);
+        scanf(&quot;%d&quot;, &amp;numero);
+
+        if (numero &lt;= 0) {
+            printf(&quot;Errore: il numero deve essere positivo.\n&quot;);
+        }
+    } while (numero &lt;= 0); // Ripeti se il numero non è valido
+
+    printf(&quot;Hai inserito il numero valido: %d\n&quot;, numero);
+    return 0;
+}
+</code></pre>
+<h3 id="for-il-ciclo-strutturato"><code>for</code>: Il Ciclo Strutturato</h3>
+<p>Il ciclo <code>for</code> è ideale quando si conosce in anticipo il numero di iterazioni da eseguire (es. "ripeti 10 volte" o "scorri tutti gli elementi di un array"). Condensa in una sola riga l'inizializzazione, la condizione e l'incremento del contatore.</p>
+<p><strong>Sintassi:</strong></p>
+<pre><code class="language-c">for (inizializzazione; condizione; aggiornamento) {
+    // Blocco di codice da ripetere
+}
+</code></pre>
 <ul>
-<li><strong>Variabili globali condivise</strong> tra più moduli (es. uno stato della macchina, un buffer CAN, una coda FreeRTOS).</li>
-<li><strong>Funzioni scritte in un file ma richiamate da altri</strong>, anche se lì l’<code>extern</code> è implicito.</li>
-<li><strong>Header file</strong>: metti <code>extern</code> lì, la definizione vera sta nel <code>.c</code>.</li>
+<li><strong>Inizializzazione:</strong> Eseguita una sola volta, all'inizio del ciclo.</li>
+<li><strong>Condizione:</strong> Controllata prima di ogni iterazione. Se è falsa, il ciclo termina.</li>
+<li><strong>Aggiornamento:</strong> Eseguito alla fine di ogni iterazione.</li>
 </ul>
-<p>Esempio:</p>
-<pre><code class="language-c">// uart.h
-#ifndef UART_H
-#define UART_H
+<p><strong>Esempio:</strong> Stampare i primi 10 numeri e la loro somma.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
 
-extern QueueHandle_t uartQueue;   // dichiarazione, visibile a tutti i .c
+int main() {
+    int somma = 0;
 
-void UART_Init(void);
+    for (int i = 1; i &lt;= 10; i++) {
+        printf(&quot;Numero: %d\n&quot;, i);
+        somma += i;
+    }
 
-#endif
-</code></pre>
-<pre><code class="language-c">// uart.c
-#include &quot;uart.h&quot;
-
-QueueHandle_t uartQueue;          // definizione vera (memoria allocata qui)
-
-void UART_Init(void) {
-    uartQueue = xQueueCreate(10, sizeof(uint8_t));
+    printf(&quot;La somma totale è: %d\n&quot;, somma);
+    return 0;
 }
 </code></pre>
-<p>Così ogni modulo che include <code>uart.h</code> sa che esiste <code>uartQueue</code>, ma la memoria viene allocata una volta sola in <code>uart.c</code>.</p>
-<h2 id="il-ruolo-di-static">Il ruolo di <code>static</code></h2>
-<p>La parola chiave <code>static</code> ha due significati diversi a seconda del contesto.
-Il primo caso sono le variabili locali statiche, che mantengono il loro valore tra più chiamate della funzione.</p>
-<pre><code class="language-c">void funzione() {
-    static int chiamate = 0;
-    chiamate++;
-    printf(&quot;%d\n&quot;, chiamate);
-}
-</code></pre>
-<p>Ogni volta che chiamo <code>funzione()</code>, la variabile non si azzera ma “ricorda” il valore precedente.
-il secondo caso sono le variabili e funzioni a livello di file, che limitano la <strong>visibilità al solo file <code>.c</code></strong> (non esportate).</p>
-<pre><code class="language-c">static int interno = 5;
-
-static void helper() {
-    // usata solo in questo file
-}
-</code></pre>
-<p>Questo è molto utile per l’<strong>incapsulamento</strong>, evitando che variabili o funzioni “interne” inquinino lo spazio globale del progetto.</p>
-<hr />
-<h2 id="buone-pratiche">Buone pratiche</h2>
+<p>Tuttavia, il linguaggio C non obbliga a specificare tutte e tre queste parti. Ognuna di esse è <strong>opzionale</strong>. L'unica cosa che non può mancare sono le due parentesi <code>()</code> e i due punti e virgola <code>;</code> al loro interno, che agiscono come separatori.</p>
+<h4 id="1-omettere-linizializzazione">1. Omettere l'Inizializzazione</h4>
+<p>Se la variabile contatore è già stata inizializzata prima del ciclo, o se il ciclo non dipende da un nuovo contatore, possiamo lasciare vuota la prima parte.</p>
+<p><strong>Quando è utile?</strong></p>
 <ul>
-<li>Le variabili devono essere <strong>il più locali possibile</strong>.</li>
-<li>Le globali vanno usate solo se davvero necessarie.</li>
-<li>Usare <code>static</code> per tutto ciò che è interno a un modulo (<code>.c</code>).</li>
-<li>Negli header <code>.h</code> mettere solo:<ul>
-<li>prototipi delle funzioni pubbliche,</li>
-<li>definizioni di costanti/struct/enum,</li>
-<li>dichiarazioni <code>extern</code> se serve condividere una variabile globale.</li>
+<li>Quando il valore iniziale della variabile di controllo dipende da calcoli precedenti.    </li>
+<li>Quando si vuole riutilizzare una variabile esistente.</li>
 </ul>
-</li>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int inizio;
+    printf(&quot;Da che numero vuoi iniziare il conto alla rovescia? &quot;);
+    scanf(&quot;%d&quot;, &amp;inizio);
+
+    // 'inizio' è già stata inizializzata dall'utente.
+    // La prima sezione del 'for' è vuota.
+    for ( ; inizio &gt;= 0; inizio--) {
+        printf(&quot;%d...\n&quot;, inizio);
+    }
+
+    printf(&quot;Finito!\n&quot;);
+    return 0;
+}
+</code></pre>
+<h4 id="2-omettere-laggiornamento">2. Omettere l'Aggiornamento</h4>
+<p>Possiamo omettere la terza parte se l'aggiornamento della variabile di controllo avviene all'interno del corpo del ciclo.</p>
+<p><strong>Quando è utile?</strong></p>
+<ul>
+<li>Quando l'aggiornamento non è un semplice incremento/decremento (es. <code>i++</code>, <code>i--</code>).</li>
+<li>Quando l'aggiornamento deve avvenire solo al verificarsi di una certa condizione all'interno del ciclo.</li>
 </ul>
-<p>Così il progetto rimane ordinato, modulare e più facile da manutenere.</p>
+<p><strong>Esempio:</strong> Scorrere una lista concatenata fino alla fine. L'aggiornamento consiste nel passare al nodo successivo, un'operazione che si fa all'interno del ciclo.</p>
+<pre><code class="language-c">// Ipotizzando di avere una struttura Nodo e una lista già creata
+// struct Nodo { int dato; struct Nodo* next; };
+// Nodo* testa; // puntatore al primo nodo
+
+// Il puntatore 'corrente' viene aggiornato nel corpo del ciclo
+for (Nodo* corrente = testa; corrente != NULL; ) {
+    printf(&quot;%d -&gt; &quot;, corrente-&gt;dato);
+    corrente = corrente-&gt;next; // Aggiornamento manuale
+}
+</code></pre>
+<h4 id="3-omettere-la-condizione">3. Omettere la Condizione</h4>
+<p>Questa è la situazione più interessante e potenzialmente pericolosa. Se si omette la condizione (la parte centrale), il C la considera <strong>sempre vera</strong>. Questo crea un <strong>ciclo infinito</strong>.</p>
+<p><strong>Quando è utile?</strong> Un ciclo infinito non è sempre un errore. È la base per programmi che devono rimanere in esecuzione continua fino a un intervento esterno, come sistemi operativi, server, o programmi embedded. L'uscita dal ciclo viene gestita internamente con un <code>break</code>, un <code>return</code> o una chiamata a <code>exit()</code>.</p>
+<p><strong>Esempio:</strong> Un menu interattivo che continua a funzionare finché l'utente non sceglie di uscire.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char scelta;
+
+    for ( ; ; ) { // Ciclo infinito: mancano tutte e tre le parti
+        printf(&quot;\n--- MENU ---\n&quot;);
+        printf(&quot;1. Stampa 'Ciao'\n&quot;);
+        printf(&quot;2. Stampa 'Mondo'\n&quot;);
+        printf(&quot;3. Esci\n&quot;);
+        printf(&quot;Scelta: &quot;);
+        scanf(&quot; %c&quot;, &amp;scelta); // Nota lo spazio prima di %c per consumare newline
+
+        if (scelta == '1') {
+            printf(&quot;Ciao\n&quot;);
+        } else if (scelta == '2') {
+            printf(&quot;Mondo\n&quot;);
+        } else if (scelta == '3') {
+            printf(&quot;Uscita in corso...\n&quot;);
+            break; // Uscita controllata dal ciclo infinito
+        } else {
+            printf(&quot;Scelta non valida.\n&quot;);
+        }
+    }
+
+    printf(&quot;Programma terminato.\n&quot;);
+    return 0;
+}
+</code></pre>
+<p>La forma <code>for(;;)</code> è una convenzione molto comune in C per indicare un ciclo infinito intenzionale. È funzionalmente identico a <code>while(1)</code>. Viene utilizzato per creare loop infiniti per le task di freertos.</p>
+<h2 id="controllare-i-loop-break-e-continue">Controllare i Loop: <code>break</code> e <code>continue</code></h2>
+<p>A volte abbiamo bisogno di un controllo più fine sul comportamento di un loop.</p>
+<h3 id="break"><code>break</code></h3>
+<p>L'istruzione <code>break</code> (già vista nello <code>switch</code>) <strong>interrompe immediatamente</strong> l'esecuzione del loop (<code>for</code>, <code>while</code>, <code>do-while</code>) in cui si trova, e il programma prosegue con l'istruzione successiva al loop.</p>
+<h4 id="continue"><code>continue</code></h4>
+<p>L'istruzione <code>continue</code> <strong>salta il resto dell'iterazione corrente</strong> e passa direttamente all'iterazione successiva del loop.</p>
 
 
 

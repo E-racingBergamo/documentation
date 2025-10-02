@@ -44,6 +44,7 @@ Questa documentazione raccoglie tutte le informazioni necessarie per comprendere
 ## Destinatari
 
 Questa documentazione è rivolta a:
+
 - Studenti e nuovi membri del team che devono imparare da zero.  
 - Chi si occupa di sviluppo software e firmware.  
 - Chi lavora sull’hardware o sull’integrazione dei sistemi.  

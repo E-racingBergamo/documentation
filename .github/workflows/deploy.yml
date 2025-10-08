@@ -23,6 +23,18 @@ jobs:
         with:
           node-version: '18'
 
+      # Configura Python
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      # Installa dipendenze Python
+      - run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs-material mkdocs-material-extensions pymdown-extensions
+      # Costruisci il sito MkDocs
+      - run: mkdocs build
+
       # 4. Installa gh-pages
       - run: npm install gh-pages
 

@@ -42,8 +42,10 @@ nav:
           - Strutture dati di base: codice/lezioni_di_c/strutture_base.md
           - Funzioni: codice/lezioni_di_c/funzioni.md
           - Puntatori: codice/lezioni_di_c/puntatori.md
-          - Strutture dati dinamiche:
-              - Strutture dinamiche: codice/lezioni_di_c/strutture_dati_dinamiche/strutture_dinamiche.md
+          - Strutture dati:
+              - Strutture dinamiche: codice/lezioni_di_c/strutture_dati/strutture_dinamiche.md
+              - Linked list: codice/lezioni_di_c/strutture_dati/linked_list.md
+              - Binary tree: codice/lezioni_di_c/strutture_dati/binary_tree.md
       - Centralina: codice/centralina.md
   # - Hardware:
   #     - Panoramica hardware: hardware/panoramica_hardware.md

@@ -647,7 +647,7 @@ void update(int idx, int l, int r, int pos, int val) {
 }
 ```
 
-## ## Implementazione per sistemi embedded
+## Implementazione per sistemi embedded
 
 Negli ambienti embedded non è sempre possibile affidarsi al normale `malloc`/`free`, sia per motivi di frammentazione, sia perché spesso la memoria dinamica è limitata o non affidabile. Una strategia molto usata è il **pool allocator**: si riserva un array statico di nodi e si gestisce a mano l’allocazione (assegnando nodi liberi da una lista interna). Questo elimina sorprese e rende prevedibili i consumi.
 

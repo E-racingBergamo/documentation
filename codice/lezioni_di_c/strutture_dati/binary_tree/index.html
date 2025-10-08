@@ -1532,7 +1532,7 @@ void update(int idx, int l, int r, int pos, int val) {
     seg[idx] = seg[2*idx] + seg[2*idx+1];
 }
 </code></pre>
-<h2 id="implementazione-per-sistemi-embedded">## Implementazione per sistemi embedded</h2>
+<h2 id="implementazione-per-sistemi-embedded">Implementazione per sistemi embedded</h2>
 <p>Negli ambienti embedded non è sempre possibile affidarsi al normale <code>malloc</code>/<code>free</code>, sia per motivi di frammentazione, sia perché spesso la memoria dinamica è limitata o non affidabile. Una strategia molto usata è il <strong>pool allocator</strong>: si riserva un array statico di nodi e si gestisce a mano l’allocazione (assegnando nodi liberi da una lista interna). Questo elimina sorprese e rende prevedibili i consumi.</p>
 <p>Altro punto importante è la <strong>ricorsione</strong>. Molti algoritmi sugli alberi si basano su chiamate ricorsive (inorder, inserimenti, balancing, ecc.), ma sugli MCU lo stack può essere ridotto. Due approcci tipici:</p>
 <ul>

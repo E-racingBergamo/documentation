@@ -1,0 +1,1768 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_dati/binary_tree/">
+      
+      
+        <link rel="prev" href="../linked_list/">
+      
+      
+        <link rel="next" href="../../../centralina/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/simbolo_blu.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Binary tree - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#binary-tree" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  <img src="../../../../assets/images/simbolo_blu.ico" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Binary tree
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Passa al tema scuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Passa al tema scuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Passa al tema chiaro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Passa al tema chiaro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  <img src="../../../../assets/images/simbolo_blu.ico" alt="logo">
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Codice
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Codice
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lezioni di C
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Lezioni di C
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sintassi_base_c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sintassi di base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stdint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Standard int
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Visibilità e durata delle variabili
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../strutture_controllo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strutture di controllo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../strutture_base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strutture dati di base
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../funzioni/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Funzioni
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../puntatori/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Puntatori
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_8" id="__nav_2_1_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Strutture dati
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Strutture dati
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../strutture_dinamiche/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strutture dinamiche
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linked_list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linked list
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Binary tree
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary tree
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduzione-e-terminologia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduzione e terminologia
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipologie-di-alberi-binari" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tipologie di alberi binari
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traversal-algoritmi-e-implementazioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traversal: algoritmi e implementazioni
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Traversal: algoritmi e implementazioni">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traversal-ricorsivi-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traversal ricorsivi (C)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traversal-iterativi-con-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traversal iterativi con stack
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morris-inorder-o1-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morris Inorder (O(1) space)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#levelorder-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Level‑order (BFS)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bst-binary-search-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      BST (Binary Search Tree)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BST (Binary Search Tree)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proprieta-e-complessita" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proprietà e complessità
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementazione-base-in-c-ricorsiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementazione base in C (ricorsiva)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../centralina/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Centralina
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduzione-e-terminologia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduzione e terminologia
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tipologie-di-alberi-binari" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tipologie di alberi binari
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traversal-algoritmi-e-implementazioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traversal: algoritmi e implementazioni
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Traversal: algoritmi e implementazioni">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traversal-ricorsivi-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traversal ricorsivi (C)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traversal-iterativi-con-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traversal iterativi con stack
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#morris-inorder-o1-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      Morris Inorder (O(1) space)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#levelorder-bfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Level‑order (BFS)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bst-binary-search-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      BST (Binary Search Tree)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BST (Binary Search Tree)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proprieta-e-complessita" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proprietà e complessità
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementazione-base-in-c-ricorsiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementazione base in C (ricorsiva)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="binary-tree">Binary tree</h1>
+<h2 id="introduzione-e-terminologia">Introduzione e terminologia</h2>
+<p>Mentre le liste sono strutture lineari, gli <strong>Alberi</strong> sono strutture gerarchiche. L'<strong>Albero Binario</strong> è una delle strutture dinamiche non lineari più importanti per la ricerca, l'inserimento e la cancellazione efficienti.</p>
+<p>Un <strong>Albero Binario</strong> è una struttura dati gerarchica composta da nodi. La caratteristica fondamentale è il vincolo strutturale: <strong>ogni nodo può avere al massimo due figli</strong>, storicamente chiamati <strong>figlio sinistro</strong> e <strong>figlio destro</strong>.</p>
+<p>Il nodo di partenza è la <strong>radice</strong> (root), che non ha antenati. I nodi senza figli sono chiamati <strong>foglie</strong> (leaves). La sequenza di nodi da un punto all'altro si chiama <strong>cammino</strong>, e la lunghezza del cammino dalla radice a un nodo è la sua <strong>profondità</strong> (depth). L'altezza dell'albero è la profondità massima di qualsiasi nodo foglia.</p>
+<p>Termini fondamentali:</p>
+<ul>
+<li><strong>Nodo</strong>: elemento con valore e puntatori a figli.</li>
+<li><strong>Radice (root)</strong>: nodo senza genitore.</li>
+<li><strong>Foglia (leaf)</strong>: nodo senza figli.   </li>
+<li><strong>Altezza</strong> di un nodo: lunghezza del percorso più lungo fino a una foglia (numero di archi).</li>
+<li><strong>Profondità/level</strong>: distanza dalla radice (root level = 0).</li>
+<li><strong>Sottalbero</strong>: albero formato da un nodo e tutti i suoi discendenti.</li>
+</ul>
+<p>Forme speciali:</p>
+<ul>
+<li><strong>Albero pieno (full/proper)</strong>: ogni nodo ha 0 o 2 figli.</li>
+<li><strong>Albero perfetto (perfect)</strong>: pieno e tutti i livelli sono completi; ha <code>2^{h+1}-1</code> nodi (h = altezza).</li>
+<li><strong>Albero completo (complete)</strong>: tutti i livelli compresi (tranne l'ultimo) sono pieni, e i nodi dell'ultimo sono a sinistra.</li>
+<li><strong>Albero bilanciato</strong>: altezza <code>O(log n)</code>; definizione può variare (AVL, Red‑Black, B‑Tree per multiway ecc.).</li>
+</ul>
+<h2 id="tipologie-di-alberi-binari">Tipologie di alberi binari</h2>
+<ul>
+<li><strong>Binary Tree</strong>: generico.</li>
+<li><strong>Binary Search Tree (BST)</strong>: per ogni nodo, <code>left-&gt;key &lt; node-&gt;key &lt; right-&gt;key</code> (chiave univoca o gestire duplicati).</li>
+<li><strong>AVL tree</strong>: BST auto‑bilanciato con fattore di bilanciamento <code>height(left)-height(right)</code> ∈ {-1,0,1}; rotazioni per mantenere bilanciamento.</li>
+<li><strong>Red‑Black tree</strong>: BST bilanciato che garantisce altezza <code>O(log n)</code> usando colori e rotazioni.</li>
+<li><strong>Splay tree</strong>: BST auto‑adattivo che porta l'ultimo elemento accesso in radice (good for locality).</li>
+<li><strong>Treap / Cartesian tree</strong>: BST con priorità casuali (heap property) — utile per implementazioni probabilisticamente bilanciate.</li>
+<li><strong>Binary Heap</strong>: struttura completa rappresentata con array; utile per priority queue; non è un BST.</li>
+<li><strong>Threaded binary tree</strong>: usa puntatori "thread" al successore/predecessore inorder per traversal senza stack/ricorsione.</li>
+<li><strong>Albero di espressione</strong>: nodi interni sono operatori, foglie sono operandi; valutazione postfix/infix.</li>
+<li><strong>Segment tree / interval tree</strong>: alberi binari (implicitamente) per query su intervalli (range sum/min/max) con aggiornamenti.</li>
+</ul>
+<h2 id="traversal-algoritmi-e-implementazioni">Traversal: algoritmi e implementazioni</h2>
+<p>Quando si parla di <strong>visita di un albero binario</strong>, ci si riferisce all’ordine con cui vengono “toccati” i nodi.<br />
+Esistono due grandi famiglie: la visita <strong>in profondità (DFS, Depth-First Search)</strong> e la visita <strong>in ampiezza (BFS, Breadth-First Search)</strong>.</p>
+<p><strong>Le tre visite DFS classiche</strong></p>
+<ol>
+<li>
+<p><strong>Preorder</strong><br />
+    Si parte sempre dal nodo corrente (la radice, se è la prima volta), lo si visita subito e poi si scende prima nel sottoalbero sinistro e poi nel destro.<br />
+    È come se il padre avesse la priorità: lo guardi subito, prima di interessarti ai figli.<br />
+    Questo tipo di visita è molto utile, ad esempio, se vuoi salvare o clonare la struttura dell’albero, perché mantieni prima l’informazione del nodo e poi dei suoi discendenti.</p>
+</li>
+<li>
+<p><strong>Inorder</strong><br />
+    In questo caso l’ordine è: prima il sottoalbero sinistro, poi il nodo corrente e infine il sottoalbero destro.<br />
+    È la visita più importante quando si parla di alberi binari di ricerca (BST), perché restituisce gli elementi <strong>in ordine crescente</strong>.<br />
+    È come leggere un libro da sinistra a destra: prima quello che c’è a sinistra, poi il centro, poi la parte destra.</p>
+</li>
+<li>
+<p><strong>Postorder</strong><br />
+    Qui invece si visita prima il sottoalbero sinistro, poi il destro e solo per ultimo il nodo corrente.<br />
+    È come dire: “prima mi occupo dei figli e solo dopo del padre”.<br />
+    Questo ordine è molto comodo quando bisogna cancellare un albero dalla memoria, perché si eliminano prima i nodi più in basso e solo alla fine le radici. Allo stesso modo, viene usato negli alberi di espressioni per calcolare il valore: prima si calcolano i termini elementari e solo alla fine l’operazione principale.</p>
+</li>
+</ol>
+<p><strong>BFS — Level Order</strong></p>
+<p>Diverso è il caso della visita <strong>in ampiezza (BFS)</strong>, detta anche “per livelli”.<br />
+Qui non si scende in profondità subito, ma si procede un livello alla volta: prima la radice, poi tutti i figli della radice, poi i figli di quei figli, e così via.<br />
+È un po’ come leggere l’albero riga per riga, da sinistra a destra.<br />
+Questa modalità viene spesso usata quando serve dare priorità alla distanza dalla radice, ad esempio per calcolare la profondità minima o per trovare il cammino più breve in alberi o grafi.</p>
+<h3 id="traversal-ricorsivi-c">Traversal ricorsivi (C)</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+typedef struct Node {
+    int key;
+    struct Node *left, *right;
+} Node;
+
+void preorder(Node* r){
+    if(!r) return;
+    printf(&quot;%d &quot;, r-&gt;key);
+    preorder(r-&gt;left);
+    preorder(r-&gt;right);
+}
+
+void inorder(Node* r){
+    if(!r) return;
+    inorder(r-&gt;left);
+    printf(&quot;%d &quot;, r-&gt;key);
+    inorder(r-&gt;right);
+}
+
+void postorder(Node* r){
+    if(!r) return;
+    postorder(r-&gt;left);
+    postorder(r-&gt;right);
+    printf(&quot;%d &quot;, r-&gt;key);
+}
+</code></pre>
+<blockquote>
+<p>I traversal ricorsivi sono semplici ma usano stack di chiamate <code>O(h)</code> (altezza). In sistemi embedded bisogna fare attenzione alla profondità dello stack.</p>
+</blockquote>
+<h3 id="traversal-iterativi-con-stack">Traversal iterativi con stack</h3>
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+
+typedef struct StackNode {
+    Node* t;
+    struct StackNode* next;
+} StackNode;
+
+void push(StackNode** top, Node* t) { 
+    StackNode* n = malloc(sizeof(StackNode));
+    n-&gt;t=t;
+    n-&gt;next=*top;
+    *top=n;
+}
+
+Node* pop(StackNode** top) {
+    if(!*top) return NULL;
+    StackNode* n=*top;
+    Node* t=n-&gt;t;
+    *top = n-&gt;next;
+    free(n);
+    return t;
+}
+
+int empty(StackNode* top) {
+    return top==NULL;
+}
+
+void inorder_iter(Node* root){
+    StackNode* st = NULL;
+    Node* cur = root;
+    while(cur || !empty(st)){
+        while(cur){ push(&amp;st, cur); cur = cur-&gt;left; }
+        cur = pop(&amp;st);
+        printf(&quot;%d &quot;, cur-&gt;key);
+        cur = cur-&gt;right;
+    }
+}
+</code></pre>
+<h3 id="morris-inorder-o1-space">Morris Inorder (O(1) space)</h3>
+<p>Idea: usare collegamenti temporanei al predecessore inorder.</p>
+<pre><code class="language-c">void inorder_morris(Node* root){
+    Node* cur = root;
+    while(cur){
+        if(!cur-&gt;left){
+            printf(&quot;%d &quot;, cur-&gt;key);
+            cur = cur-&gt;right;
+        } else {
+            Node* pred = cur-&gt;left;
+            while(pred-&gt;right &amp;&amp; pred-&gt;right != cur) pred = pred-&gt;right;
+            if(!pred-&gt;right){
+                pred-&gt;right = cur; // thread
+                cur = cur-&gt;left;
+            } else {
+                pred-&gt;right = NULL; // restore
+                printf(&quot;%d &quot;, cur-&gt;key);
+                cur = cur-&gt;right;
+            }
+        }
+    }
+}
+</code></pre>
+<blockquote>
+<p>Morris è utile quando la memoria è critica; modifica temporaneamente la struttura e la ripristina.</p>
+</blockquote>
+<h3 id="levelorder-bfs">Level‑order (BFS)</h3>
+<p>Usa una coda (queue):</p>
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+
+typedef struct QNode {
+  Node* t;
+  struct QNode* next;
+} QNode;
+
+typedef struct Queue {
+  QNode *head, *tail;
+} Queue;
+
+void qpush(Queue* q, Node* t) {
+  QNode* n = malloc(sizeof(QNode));
+  n-&gt;t = t;
+  n-&gt;next = NULL;
+  if (!q-&gt;tail)
+    q-&gt;head = q-&gt;tail = n;
+  else {
+    q-&gt;tail-&gt;next = n;
+    q-&gt;tail = n;
+  }
+}
+
+Node* qpop(Queue* q) {
+  if (!q-&gt;head) return NULL;
+  QNode* n = q-&gt;head;
+  Node* t = n-&gt;t;
+  q-&gt;head = n-&gt;next;
+  if (!q-&gt;head) q-&gt;tail = NULL;
+  free(n);
+  return t;
+}
+
+int qempty(Queue* q) { return q-&gt;head == NULL; }
+
+void level_order(Node* root) {
+  if (!root) return;
+  Queue q = {0};
+  qpush(&amp;q, root);
+  while (!qempty(&amp;q)) {
+    Node* n = qpop(&amp;q);
+    printf(&quot;%d &quot;, n-&gt;key);
+    if (n-&gt;left) qpush(&amp;q, n-&gt;left);
+    if (n-&gt;right) qpush(&amp;q, n-&gt;right);
+  }
+}
+</code></pre>
+<hr />
+<h2 id="bst-binary-search-tree">BST (Binary Search Tree)</h2>
+<h3 id="proprieta-e-complessita">Proprietà e complessità</h3>
+<p>Le operazioni fondamentali su un albero binario di ricerca, cioè <strong>ricerca, inserimento e cancellazione</strong>, hanno una complessità che dipende fortemente dalla forma dell’albero.<br />
+Nel caso “ideale”, quando l’albero è <strong>bilanciato</strong>, ogni livello è riempito in modo abbastanza uniforme e quindi l’altezza dell’albero cresce come il logaritmo del numero di nodi. Questo significa che in media la ricerca, l’inserimento e la cancellazione richiedono un numero di passi proporzionale a <code>log n</code>, dove <code>n</code> è il numero di elementi.</p>
+<p>Tuttavia, il BST di per sé <strong>non garantisce il bilanciamento</strong>. Se, ad esempio, i dati vengono inseriti in ordine crescente, l’albero tende a degenerare in una semplice linked list: ogni nodo ha solo il figlio destro, e l’altezza diventa <code>n</code>. In questa situazione, tutte le operazioni fondamentali (ricerca, inserimento, cancellazione) peggiorano fino a richiedere tempo lineare <code>O(n)</code>.</p>
+<h2 id="implementazione-base-in-c-ricorsiva">Implementazione base in C (ricorsiva)</h2>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+typedef struct Node {
+  int key;
+  struct Node *left, *right;
+} Node;
+
+Node* new_node(int key) {
+  Node* n = malloc(sizeof(Node));
+  if (!n) return NULL;
+  n-&gt;key = key;
+  n-&gt;left = n-&gt;right = NULL;
+  return n;
+}
+
+Node* bst_insert(Node* root, int key) {
+  if (!root) return new_node(key);
+  if (key &lt; root-&gt;key)
+    root-&gt;left = bst_insert(root-&gt;left, key);
+  else if (key &gt; root-&gt;key)
+    root-&gt;right = bst_insert(root-&gt;right, key);
+  // se permetti duplicati, scegli una policy
+  return root;
+}
+
+Node* bst_search(Node* root, int key) {
+  while (root &amp;&amp; root-&gt;key != key)
+    root = (key &lt; root-&gt;key) ? root-&gt;left : root-&gt;right;
+  return root;
+}
+
+Node* bst_find_min(Node* root) {
+  while (root &amp;&amp; root-&gt;left) root = root-&gt;left;
+  return root;
+}
+
+Node* bst_delete(Node* root, int key) {
+  if (!root) return NULL;
+  if (key &lt; root-&gt;key)
+    root-&gt;left = bst_delete(root-&gt;left, key);
+  else if (key &gt; root-&gt;key)
+    root-&gt;right = bst_delete(root-&gt;right, key);
+  else {
+    if (!root-&gt;left) {
+      Node* r = root-&gt;right;
+      free(root);
+      return r;
+    } else if (!root-&gt;right) {
+      Node* l = root-&gt;left;
+      free(root);
+      return l;
+    } else {
+      Node* succ = bst_find_min(root-&gt;right);
+      root-&gt;key = succ-&gt;key;
+      root-&gt;right = bst_delete(root-&gt;right, succ-&gt;key);
+    }
+  }
+  return root;
+}
+</code></pre>
+<blockquote>
+<p><code>bst_delete</code> gestisce i tre casi (0, 1, 2 figli). L'approccio mostrato copia la chiave del successore e cancella il successore.</p>
+</blockquote>
+<hr />
+<h1 id="bilanciamento-avl-e-redblack">Bilanciamento: AVL e Red‑Black</h1>
+<h2 id="avl-dettagli-pratici">AVL (dettagli pratici)</h2>
+<p>Gli <strong>alberi AVL</strong> sono alberi binari di ricerca che mantengono sempre un buon livello di equilibrio. Per fare questo, ad ogni nodo viene associato un numero chiamato <strong>fattore di bilanciamento (Balance Factor, BF)</strong>, che non è altro che la differenza tra l’altezza del sottoalbero sinistro e quella del sottoalbero destro.<br />
+Finché questo valore rimane compreso tra −1 e +1, l’albero è considerato bilanciato. Se invece un’operazione di inserimento o cancellazione fa sì che in qualche nodo il fattore di bilanciamento esca da questo intervallo, bisogna <strong>riequilibrare la struttura</strong> tramite una o più <strong>rotazioni</strong>.</p>
+<p>Le rotazioni sono semplici ristrutturazioni locali dell’albero che ne modificano la forma ma non l’ordinamento dei dati. Esistono quattro casi principali:</p>
+<ul>
+<li>
+<p>Se l’albero è troppo “pesante” a sinistra (BF &gt; 1) perché il nuovo nodo è stato inserito a sua volta nel ramo sinistro del figlio sinistro, si esegue una <strong>rotazione a destra</strong>. Questo caso è chiamato <strong>LL</strong>.</p>
+</li>
+<li>
+<p>Al contrario, se è troppo sbilanciato a destra (BF &lt; −1) e il nuovo nodo si trova nel ramo destro del figlio destro, la soluzione è una <strong>rotazione a sinistra</strong>: il caso <strong>RR</strong>.</p>
+</li>
+<li>
+<p>Le cose diventano leggermente più complesse se lo sbilanciamento deriva da un inserimento “incrociato”. Se il nodo è andato a finire nel ramo destro del figlio sinistro, prima si fa una rotazione a sinistra sul figlio sinistro e poi una rotazione a destra sulla radice: questo è il caso <strong>LR</strong>.</p>
+</li>
+<li>
+<p>Infine, se il nodo è nel ramo sinistro del figlio destro, la correzione è simmetrica: prima una rotazione a destra sul figlio destro e poi una rotazione a sinistra sulla radice, cioè il caso <strong>RL</strong>.</p>
+</li>
+</ul>
+<p>Con queste quattro operazioni si riesce a riportare sempre l’albero entro i limiti di bilanciamento. In questo modo, gli alberi AVL garantiscono che le operazioni fondamentali come ricerca, inserimento e cancellazione restino sempre efficienti, con complessità <code>O(log n)</code> anche nei casi peggiori.</p>
+<h3 id="codice-essenziale-avl-insert-rotazioni">Codice essenziale (AVL insert + rotazioni)</h3>
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+typedef struct AVLNode { int key; int height; struct AVLNode *left, *right; } AVLNode;
+
+int max(int a,int b){ return a&gt;b?a:b; }
+int height(AVLNode* n){ return n ? n-&gt;height : 0; }
+
+AVLNode* new_avl_node(int key){ AVLNode* n = malloc(sizeof(AVLNode)); if(!n) return NULL; n-&gt;key=key; n-&gt;left=n-&gt;right=NULL; n-&gt;height=1; return n; }
+
+AVLNode* right_rotate(AVLNode* y){
+    AVLNode* x = y-&gt;left;
+    AVLNode* T2 = x-&gt;right;
+    x-&gt;right = y;
+    y-&gt;left = T2;
+    y-&gt;height = 1 + max(height(y-&gt;left), height(y-&gt;right));
+    x-&gt;height = 1 + max(height(x-&gt;left), height(x-&gt;right));
+    return x; // nuova radice
+}
+
+AVLNode* left_rotate(AVLNode* x){
+    AVLNode* y = x-&gt;right;
+    AVLNode* T2 = y-&gt;left;
+    y-&gt;left = x;
+    x-&gt;right = T2;
+    x-&gt;height = 1 + max(height(x-&gt;left), height(x-&gt;right));
+    y-&gt;height = 1 + max(height(y-&gt;left), height(y-&gt;right));
+    return y;
+}
+
+AVLNode* avl_insert(AVLNode* node, int key){
+    if(!node) return new_avl_node(key);
+    if(key &lt; node-&gt;key) node-&gt;left = avl_insert(node-&gt;left, key);
+    else if(key &gt; node-&gt;key) node-&gt;right = avl_insert(node-&gt;right, key);
+    else return node; // duplicati non gestiti
+
+    node-&gt;height = 1 + max(height(node-&gt;left), height(node-&gt;right));
+    int balance = height(node-&gt;left) - height(node-&gt;right);
+
+    // LL
+    if(balance &gt; 1 &amp;&amp; key &lt; node-&gt;left-&gt;key) return right_rotate(node);
+    // RR
+    if(balance &lt; -1 &amp;&amp; key &gt; node-&gt;right-&gt;key) return left_rotate(node);
+    // LR
+    if(balance &gt; 1 &amp;&amp; key &gt; node-&gt;left-&gt;key){ node-&gt;left = left_rotate(node-&gt;left); return right_rotate(node); }
+    // RL
+    if(balance &lt; -1 &amp;&amp; key &lt; node-&gt;right-&gt;key){ node-&gt;right = right_rotate(node-&gt;right); return left_rotate(node); }
+
+    return node;
+}
+</code></pre>
+<blockquote>
+<p>L'implementazione della cancellazione in AVL è più lunga (si applicano rotazioni dopo la cancellazione per ribilanciare). L'idea è la stessa: dopo ogni modifica si aggiorna <code>height</code> e si controlla il <code>balance</code>.</p>
+</blockquote>
+<h2 id="52-redblack-concetti">5.2 Red‑Black (concetti)</h2>
+<p>Gli <strong>alberi Red-Black</strong> sono un’altra famiglia di alberi binari di ricerca bilanciati. L’idea alla base è un po’ diversa rispetto agli AVL: invece di tenere sotto controllo con precisione l’altezza di ogni nodo, si assegna a ciascun nodo un <strong>colore</strong>, che può essere rosso o nero, e si impongono alcune regole che garantiscono che l’albero resti “abbastanza” bilanciato.</p>
+<p>Le regole fondamentali sono queste:</p>
+<ul>
+<li>
+<p>Ogni nodo deve essere colorato in rosso o in nero.</p>
+</li>
+<li>
+<p>La radice dell’albero è sempre nera.</p>
+</li>
+<li>
+<p>Le foglie vuote (i nodi NIL) vengono considerate nere.</p>
+</li>
+<li>
+<p>Non possono esserci due nodi rossi consecutivi: se un nodo è rosso, allora i suoi figli devono per forza essere neri.</p>
+</li>
+<li>
+<p>Qualunque percorso che parte da un nodo e arriva a una foglia NIL deve attraversare lo stesso numero di nodi neri. Questo valore prende il nome di <strong>black height</strong> e garantisce che i cammini nell’albero non possano divergere troppo in lunghezza.</p>
+</li>
+</ul>
+<p>Grazie a queste proprietà, l’albero Red-Black resta sempre bilanciato in modo “lasco”: non perfettamente come un AVL, ma comunque con altezza proporzionale a <code>log n</code>. Questo significa che operazioni come inserimento, ricerca e cancellazione restano sempre efficienti.</p>
+<p>Naturalmente, mantenere queste regole non è automatico. Dopo un’operazione di inserimento o di cancellazione può capitare che alcune proprietà vengano violate. In questi casi bisogna <strong>aggiustare</strong> la struttura con una combinazione di <strong>rotazioni</strong> (come negli AVL) e cambi di colore. L’algoritmo è un po’ più articolato rispetto agli AVL, ma la garanzia è che dopo pochi passi l’albero torna valido.</p>
+<p>Proprio per la loro efficienza e stabilità, gli alberi Red-Black vengono usati molto spesso in librerie e sistemi reali. Ad esempio, le strutture dati <code>map</code> e <code>set</code> della libreria standard del C++ sono basate su alberi Red-Black, così come molte implementazioni interne nei kernel dei sistemi operativi.</p>
+<hr />
+<h1 id="binary-heap-array-e-heapsort">Binary Heap (array) e Heapsort</h1>
+<h2 id="rappresentazione">Rappresentazione</h2>
+<p>Un <strong>binary heap</strong> è una struttura dati molto efficiente che si può rappresentare in modo estremamente semplice utilizzando un <strong>array</strong>. L’idea è che l’albero binario non venga memorizzato tramite puntatori, ma piuttosto sfruttando la posizione degli elementi nell’array per ricostruire i legami padre-figlio.</p>
+<p>Se consideriamo un array <code>A[0..n-1]</code>, le relazioni sono fisse:</p>
+<ul>
+<li>il padre di un nodo che si trova in posizione <code>i</code> si calcola come <code>(i - 1) / 2</code>;</li>
+<li>il figlio sinistro è in <code>2*i + 1</code>;</li>
+<li>il figlio destro è in <code>2*i + 2</code>.</li>
+</ul>
+<p>In questo modo, non serve memorizzare puntatori espliciti: basta l’indice.</p>
+<p>Ci sono due varianti principali di heap: <strong>min-heap</strong> e <strong>max-heap</strong>. Nel <strong>max-heap</strong>, che è quello più spesso utilizzato, la proprietà da rispettare è che ogni nodo sia maggiore o uguale ai propri figli. In altre parole, il valore nella posizione del padre deve sempre essere almeno grande quanto quello dei suoi figli. Grazie a questa regola, l’elemento massimo dell’intera struttura si trova sempre nella radice, cioè nella cella <code>A[0]</code>. Nel caso del <strong>min-heap</strong>, invece, vale la proprietà opposta: il minimo si trova sempre in cima.</p>
+<p>Questa rappresentazione permette di gestire in maniera molto veloce operazioni come inserimento, estrazione del massimo/minimo e costruzione di un heap a partire da un array. Inoltre, proprio grazie alla sua semplicità, l’heap binario è alla base di un algoritmo di ordinamento molto famoso: l’<strong>heapsort</strong>.</p>
+<h2 id="operazioni-principali">Operazioni principali</h2>
+<p>Le operazioni fondamentali che permettono di lavorare con un <strong>binary heap</strong> sono poche ma molto potenti.</p>
+<p>Quando si vuole <strong>inserire</strong> un nuovo elemento nell’heap, lo si mette inizialmente in fondo all’array, cioè nella prima posizione libera. A questo punto però l’elemento potrebbe violare la proprietà dell’heap (ad esempio, in un max-heap potrebbe essere più grande del suo padre). Per ristabilire l’ordine, si esegue l’operazione chiamata <strong>sift up</strong>: in pratica, si confronta il nodo con il suo padre e, se è maggiore, i due vengono scambiati. Questo controllo continua a salire lungo l’albero finché la proprietà dell’heap non è di nuovo rispettata.</p>
+<p>L’operazione opposta avviene quando si vuole <strong>estrarre l’elemento massimo</strong> (nel max-heap). In questo caso si prende la radice, cioè <code>A[0]</code>, che contiene sempre il valore più grande. Per non lasciare un buco, l’ultimo elemento dell’array viene spostato provvisoriamente in cima. A questo punto però è probabile che la proprietà dell’heap non sia rispettata, quindi bisogna farlo “scendere” nel posto giusto. Questo si fa con l’operazione di <strong>sift down</strong>: si confronta il nodo con i figli e, se uno dei figli è più grande, si scambia con quello più grande dei due. L’operazione continua finché il nodo non si trova in una posizione che rispetta le regole.</p>
+<p>Infine, c’è l’operazione di <strong>build heap</strong>, che costruisce un heap partendo da un array arbitrario di <code>n</code> elementi. Un metodo ingenuo sarebbe inserire gli elementi uno alla volta e fare <code>sift up</code> ogni volta, ma questo porta a una complessità <code>O(n log n)</code>. In realtà, esiste un algoritmo più efficiente: si parte dal basso e si applica <code>sift down</code> solo ai nodi interni (cioè quelli che hanno figli). In questo modo si riesce a trasformare l’intero array in un heap in tempo lineare <code>O(n)</code>.</p>
+<h2 id="codice-e-heapsort">Codice e heapsort</h2>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+void swap(int *a,int *b){ int t=*a; *a=*b; *b=t; }
+
+void sift_down(int *A, int n, int i){
+    int largest = i;
+    int l = 2*i+1, r = 2*i+2;
+    if(l &lt; n &amp;&amp; A[l] &gt; A[largest]) largest = l;
+    if(r &lt; n &amp;&amp; A[r] &gt; A[largest]) largest = r;
+    if(largest != i){ swap(&amp;A[i], &amp;A[largest]); sift_down(A, n, largest); }
+}
+
+void build_heap(int *A, int n){
+    for(int i = n/2 - 1; i &gt;= 0; --i) sift_down(A, n, i);
+}
+
+void heapsort(int *A, int n){
+    build_heap(A, n);
+    for(int i = n-1; i &gt; 0; --i){ swap(&amp;A[0], &amp;A[i]); sift_down(A, i, 0); }
+}
+</code></pre>
+<blockquote>
+<p><code>heapsort</code> è <code>O(n log n)</code> worst/average; uso in‑place, stabile? non stabile.</p>
+</blockquote>
+<h1 id="tree-sort">Tree sort</h1>
+<h3 id="cose-il-treesort">Cos’è il TreeSort</h3>
+<p>Il <strong>TreeSort</strong> è un algoritmo di ordinamento che sfrutta un <strong>albero binario di ricerca (BST)</strong>.<br />
+L’idea è molto semplice:</p>
+<ol>
+<li>Si parte da una sequenza di numeri non ordinati.</li>
+<li>Si inseriscono tutti gli elementi in un BST.<ul>
+<li>L’inserimento segue la regola del BST: i valori minori vanno a sinistra, i maggiori a destra.</li>
+</ul>
+</li>
+<li>Una volta costruito l’albero, si esegue una <strong>visita inorder</strong>.<ul>
+<li>Ricorda che in un BST la visita inorder restituisce sempre gli elementi in ordine crescente.</li>
+</ul>
+</li>
+</ol>
+<p>Il risultato finale sarà la sequenza ordinata.</p>
+<h3 id="complessita">Complessità</h3>
+<ul>
+<li><strong>Caso medio (albero bilanciato)</strong>:<ul>
+<li>Inserire <code>n</code> elementi costa <code>O(n log n)</code> (perché ogni inserimento richiede log n).</li>
+<li>La visita inorder costa <code>O(n)</code>.</li>
+<li>Complessivamente: <strong>O(n log n)</strong>.</li>
+</ul>
+</li>
+<li><strong>Caso peggiore (albero degenerato)</strong>:<ul>
+<li>Se i dati sono già ordinati e si usa un BST semplice (non bilanciato), l’albero diventa una lista.</li>
+<li>Ogni inserimento costa <code>O(n)</code> → tempo totale <code>O(n²)</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Per questo, in pratica il TreeSort è efficiente solo se si utilizza un <strong>albero bilanciato</strong> (AVL, Red-Black). Con un AVL, ad esempio, si garantisce sempre <code>O(n log n)</code>.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+// Nodo dell’albero
+typedef struct Node {
+    int key;
+    struct Node *left, *right;
+} Node;
+
+// Creazione nuovo nodo
+Node* newNode(int key) {
+    Node* node = (Node*) malloc(sizeof(Node));
+    node-&gt;key = key;
+    node-&gt;left = node-&gt;right = NULL;
+    return node;
+}
+
+// Inserimento nel BST
+Node* insert(Node* root, int key) {
+    if (root == NULL) return newNode(key);
+    if (key &lt; root-&gt;key)
+        root-&gt;left = insert(root-&gt;left, key);
+    else
+        root-&gt;right = insert(root-&gt;right, key);
+    return root;
+}
+
+// Visita inorder (stampa ordinata)
+void inorder(Node* root) {
+    if (root != NULL) {
+        inorder(root-&gt;left);
+        printf(&quot;%d &quot;, root-&gt;key);
+        inorder(root-&gt;right);
+    }
+}
+
+// TreeSort: costruisce BST e stampa ordinato
+void treeSort(int arr[], int n) {
+    Node* root = NULL;
+
+    // Costruzione albero
+    for (int i = 0; i &lt; n; i++) {
+        root = insert(root, arr[i]);
+    }
+
+    // Stampa ordinata con inorder
+    inorder(root);
+    printf(&quot;\n&quot;);
+}
+
+int main() {
+    int arr[] = {5, 3, 7, 2, 8, 1, 4};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf(&quot;Array ordinato: &quot;);
+    treeSort(arr, n);
+
+    return 0;
+}
+</code></pre>
+<p>TreeSort è elegante perché sfrutta direttamente le proprietà del BST. Tuttavia, nella pratica viene usato poco rispetto a <strong>QuickSort</strong> o <strong>HeapSort</strong>, proprio perché senza bilanciamento rischia di degradare a <code>O(n²)</code>.</p>
+<h2 id="alberi-threaded">Alberi Threaded</h2>
+<p>Un problema degli alberi binari tradizionali è che spesso contengono molti <strong>puntatori NULL</strong> (quando un nodo non ha figlio sinistro o destro). Un <strong>threaded binary tree</strong> sfrutta questi puntatori vuoti per contenere invece riferimenti speciali che collegano i nodi tra loro in modo da facilitare la visita <strong>inorder</strong>.</p>
+<p>In pratica, se un nodo non ha figlio destro, il puntatore right viene usato per collegarlo direttamente al “successore inorder”. Allo stesso modo, se non ha figlio sinistro, left può puntare al “predecessore inorder”.<br />
+Grazie a questi collegamenti (“threads”), è possibile attraversare l’albero <strong>senza ricorsione né stack</strong>, scorrendo i nodi in ordine.</p>
+<p>Esempio minimo in C:</p>
+<pre><code class="language-c">typedef struct Node {
+    int key;
+    struct Node *left, *right;
+    int ltag, rtag; // 0 = figlio, 1 = thread
+} Node;
+</code></pre>
+<p>Il traversal inorder diventa una semplice camminata seguendo i thread quando non ci sono figli.</p>
+<h3 id="alberi-di-espressione">Alberi di espressione</h3>
+<p>Un <strong>expression tree</strong> rappresenta un’espressione aritmetica come albero binario:
+- Le <strong>foglie</strong> contengono operandi (numeri o variabili).
+- I <strong>nodi interni</strong> contengono operatori (+, -, *, /).</p>
+<p>Esempio: l’espressione <code>(3 + 5) * (2 - 1)</code> si rappresenta così:
+- Radice = <code>*</code>
+- Figlio sinistro = <code>+</code> con figli <code>3</code> e <code>5</code>
+- Figlio destro = <code>-</code> con figli <code>2</code> e <code>1</code></p>
+<p>La valutazione si fa con una visita <strong>postorder</strong>: prima si calcolano i sottoalberi, poi si applica l’operatore.</p>
+<p>Snippet in C per valutazione:</p>
+<pre><code class="language-c">typedef struct Node {
+    char op; // operatore o '\0' se foglia
+    int value;
+    struct Node *left, *right;
+} Node;
+
+int eval(Node* root) {
+    if (root-&gt;op == '\0') return root-&gt;value; // foglia
+    int l = eval(root-&gt;left);
+    int r = eval(root-&gt;right);
+    switch(root-&gt;op) {
+        case '+': return l + r;
+        case '-': return l - r;
+        case '*': return l * r;
+        case '/': return l / r;
+    }
+    return 0;
+}
+</code></pre>
+<h3 id="segment-tree">## Segment Tree</h3>
+<p>Il <strong>segment tree</strong> è un albero che permette di rispondere in modo molto veloce a query su intervalli (es. somma, minimo, massimo su un sottoarray).<br />
+L’idea è rappresentare un array <code>A[0..n-1]</code> in un albero binario dove ogni nodo memorizza l’informazione aggregata di un segmento.</p>
+<ul>
+<li>La radice rappresenta l’intero array.</li>
+<li>Ogni nodo viene diviso in due: sinistra = prima metà, destra = seconda metà.</li>
+<li>Le foglie corrispondono agli elementi singoli.</li>
+</ul>
+<p>Con questa struttura si ottengono:
+- <strong>Costruzione</strong>: <code>O(n)</code>
+- <strong>Query su intervallo</strong>: <code>O(log n)</code>
+- <strong>Aggiornamento</strong>: <code>O(log n)</code></p>
+<p>Esempio in C per segment tree che calcola somme:</p>
+<pre><code class="language-c">#define MAXN 1000
+int seg[4*MAXN];
+
+void build(int arr[], int idx, int l, int r) {
+    if (l == r) {
+        seg[idx] = arr[l];
+        return;
+    }
+    int mid = (l + r) / 2;
+    build(arr, 2*idx, l, mid);
+    build(arr, 2*idx+1, mid+1, r);
+    seg[idx] = seg[2*idx] + seg[2*idx+1];
+}
+
+int query(int idx, int l, int r, int ql, int qr) {
+    if (qr &lt; l || ql &gt; r) return 0; // fuori intervallo
+    if (ql &lt;= l &amp;&amp; r &lt;= qr) return seg[idx]; // interamente dentro
+    int mid = (l + r) / 2;
+    return query(2*idx, l, mid, ql, qr) + query(2*idx+1, mid+1, r, ql, qr);
+}
+
+void update(int idx, int l, int r, int pos, int val) {
+    if (l == r) {
+        seg[idx] = val;
+        return;
+    }
+    int mid = (l + r) / 2;
+    if (pos &lt;= mid) update(2*idx, l, mid, pos, val);
+    else update(2*idx+1, mid+1, r, pos, val);
+    seg[idx] = seg[2*idx] + seg[2*idx+1];
+}
+</code></pre>
+<h2 id="implementazione-per-sistemi-embedded">## Implementazione per sistemi embedded</h2>
+<p>Negli ambienti embedded non è sempre possibile affidarsi al normale <code>malloc</code>/<code>free</code>, sia per motivi di frammentazione, sia perché spesso la memoria dinamica è limitata o non affidabile. Una strategia molto usata è il <strong>pool allocator</strong>: si riserva un array statico di nodi e si gestisce a mano l’allocazione (assegnando nodi liberi da una lista interna). Questo elimina sorprese e rende prevedibili i consumi.</p>
+<p>Altro punto importante è la <strong>ricorsione</strong>. Molti algoritmi sugli alberi si basano su chiamate ricorsive (inorder, inserimenti, balancing, ecc.), ma sugli MCU lo stack può essere ridotto. Due approcci tipici:</p>
+<ul>
+<li>riscrivere le funzioni in modo <strong>iterativo</strong> usando uno stack esplicito o una coda circolare;</li>
+<li>usare strutture alternative (ad es. alberi threaded) per eliminare del tutto la ricorsione.</li>
+</ul>
+<h2 id="tabelle-di-complessita-e-casi-duso">Tabelle di complessità e casi d’uso</h2>
+<p>Una visione d’insieme delle principali strutture:</p>
+<table>
+<thead>
+<tr>
+<th>Struttura</th>
+<th>Inserimento</th>
+<th>Ricerca</th>
+<th>Cancellazione</th>
+<th>Note d’uso principali</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BST semplice</td>
+<td>O(log n) medio / O(n) peggiore</td>
+<td>O(log n) / O(n)</td>
+<td>O(log n) / O(n)</td>
+<td>Semplice, didattico, inefficiente se non bilanciato</td>
+</tr>
+<tr>
+<td>AVL</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+<td>Ottimo per query molto frequenti, altezza minima garantita</td>
+</tr>
+<tr>
+<td>Red-Black</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+<td>Usato in librerie e kernel, inserimenti/cancellazioni più veloci di AVL</td>
+</tr>
+<tr>
+<td>Heap binario</td>
+<td>O(log n) inserimento / estrazione</td>
+<td>O(1) per massimo</td>
+<td>O(log n)</td>
+<td>Base di heapsort, ottimo per code di priorità</td>
+</tr>
+<tr>
+<td>Segment Tree</td>
+<td>O(log n) aggiornamento / query</td>
+<td>—</td>
+<td>—</td>
+<td>Query su intervalli e aggiornamenti veloci</td>
+</tr>
+<tr>
+<td>Expression Tree</td>
+<td>dipende dalla costruzione</td>
+<td>—</td>
+<td>—</td>
+<td>Usato per calcoli simbolici e compilatori</td>
+</tr>
+<tr>
+<td>Threaded Tree</td>
+<td>come BST</td>
+<td>come BST</td>
+<td>come BST</td>
+<td>Evita stack/ricorsione, traversal più leggero</td>
+</tr>
+</tbody>
+</table>
+<h2 id="errori-comuni-debugging-e-best-practice">Errori comuni, debugging e best practice</h2>
+<ul>
+<li><strong>Puntatori NULL mal gestiti</strong>: la causa più tipica di crash negli alberi. Conviene centralizzare la creazione e inizializzazione dei nodi in una funzione unica.</li>
+<li><strong>Sbilanciamento non trattato</strong>: se usi BST puri senza bilanciamento, gli input già ordinati creano liste, degradando a <code>O(n)</code>. Per debugging puoi stampare l’altezza dopo ogni inserimento e controllare se cresce troppo velocemente.</li>
+<li><strong>Memory leak</strong>: dimenticare di liberare i nodi alla cancellazione. Meglio scrivere funzioni di <code>destroy_tree()</code> (postorder) o usare pool allocator che riciclano i nodi.</li>
+<li><strong>Ricorsione profonda</strong>: rischi di stack overflow in MCU. Riscrivi gli algoritmi con cicli e stack manuali.</li>
+<li><strong>Debugging traversal</strong>: per capire lo stato di un albero, stampa sempre le visite preorder/inorder/postorder: danno una “firma” utile. Ad esempio, inorder ti mostra se un BST è ancora valido.</li>
+<li><strong>Rotazioni sbagliate in AVL/RB</strong>: errori classici stanno nella mancata aggiornazione dei puntatori o dei fattori di bilanciamento. Conviene scrivere test unitari con piccoli alberi e disegnare i casi a mano.</li>
+</ul>
+<p>Best practice generali:</p>
+<ul>
+<li>Scrivi funzioni piccole e modulari (es. <code>rotate_left</code>, <code>update_height</code>, <code>fix_violation</code>).</li>
+<li>Inserisci assert o logging sui fattori di bilanciamento / colori per verificare le invarianti.</li>
+<li>Se lavori in embedded, considera la versione <strong>iterativa + pool allocator</strong> come default.    </li>
+</ul>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdint.h&gt;
+
+#define MAX_NODES 32   // massimo numero di nodi gestibili
+#define STACK_SIZE_32
+
+typedef struct Node {
+    int key;
+    struct Node* left;
+    struct Node* right;
+} Node;
+
+// Pool statico
+static Node node_pool[MAX_NODES];
+static int free_list[MAX_NODES];   // stack di indici liberi
+static int free_top = -1;
+
+// Inizializza il pool
+void init_pool(void) {
+    for (int i = 0; i &lt; MAX_NODES; i++) {
+        free_list[++free_top] = i;  // tutti liberi all’inizio
+    }
+}
+
+// Alloca un nodo dal pool
+Node* alloc_node(int key) {
+    if (free_top &lt; 0) {
+        return NULL; // pool esaurito
+    }
+    int idx = free_list[free_top--];
+    Node* n = &amp;node_pool[idx];
+    n-&gt;key = key;
+    n-&gt;left = NULL;
+    n-&gt;right = NULL;
+    return n;
+}
+
+// Rilascia un nodo (lo rimette nel pool)
+void free_node(Node* n) {
+    int idx = n - node_pool;   // calcola indice nell’array
+    free_list[++free_top] = idx;
+}
+</code></pre>
+<p>Implementazione senza ricorsione:</p>
+<pre><code class="language-c">Node* insert_bst(Node* root, int key) {
+    Node* new_node = alloc_node(key);
+    if (!new_node) return root;  // pool pieno
+
+    if (root == NULL) {
+        return new_node; // primo nodo
+    }
+
+    Node* curr = root;
+    Node* parent = NULL;
+
+    while (curr != NULL) {
+        parent = curr;
+        if (key &lt; curr-&gt;key)
+            curr = curr-&gt;left;
+        else
+            curr = curr-&gt;right;
+    }
+
+    if (key &lt; parent-&gt;key)
+        parent-&gt;left = new_node;
+    else
+        parent-&gt;right = new_node;
+
+    return root;
+}
+
+void inorder_iter(Node* root) {
+    Node* stack[STACK_SIZE];
+    int top = -1;
+    Node* curr = root;
+
+    while (curr != NULL || top &gt;= 0) {
+        while (curr != NULL) {
+            stack[++top] = curr;
+            curr = curr-&gt;left;
+        }
+        curr = stack[top--];
+        printf(&quot;%d &quot;, curr-&gt;key);
+        curr = curr-&gt;right;
+    }
+}
+
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

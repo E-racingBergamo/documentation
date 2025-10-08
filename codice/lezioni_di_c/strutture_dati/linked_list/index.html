@@ -8,25 +8,25 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_dati_dinamiche/strutture_dinamiche/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_dati/linked_list/">
       
       
-        <link rel="prev" href="../../puntatori/">
+        <link rel="prev" href="../strutture_dinamiche/">
       
       
-        <link rel="next" href="../../../centralina/">
+        <link rel="next" href="../binary_tree/">
       
       
       <link rel="icon" href="../../../../assets/images/simbolo_blu.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
     
     
       
-        <title>Strutture dinamiche - My Docs</title>
+        <title>Linked list - My Docs</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2a3383ac.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -75,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#linked-list-lista-concatenata" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -106,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Strutture dinamiche
+              Linked list
             
           </span>
         </div>
@@ -508,7 +513,7 @@
   
   
   <span class="md-ellipsis">
-    Strutture dati dinamiche
+    Strutture dati
     
   </span>
   
@@ -519,9 +524,32 @@
         <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_1_8">
             <span class="md-nav__icon md-icon"></span>
-            Strutture dati dinamiche
+            Strutture dati
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../strutture_dinamiche/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strutture dinamiche
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -536,19 +564,85 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Linked list
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    Strutture dinamiche
+    Linked list
     
   </span>
   
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#derivazioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      Derivazioni
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../binary_tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Binary tree
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -617,6 +711,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#derivazioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      Derivazioni
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -632,9 +745,79 @@
 
 
 
-  <h1>Strutture dinamiche</h1>
+<h1 id="linked-list-lista-concatenata">Linked list (Lista concatenata)</h1>
+<p>La <strong>Lista Concatenata</strong> è la SDD più fondamentale. È una sequenza di elementi chiamati <strong>nodi</strong>, dove ogni nodo contiene il dato e un <strong>puntatore</strong> al nodo successivo.</p>
+<p><strong>Struttura di un nodo</strong></p>
+<pre><code class="language-c">typedef struct Nodo {
+    int dato;             // Il dato che il nodo deve memorizzare
+    struct Nodo* prossimo; // Puntatore al nodo successivo nella sequenza
+} Nodo;
 
-<p>gcjgdmthbhfcdmfthtdhmtdhrddhgthf</p>
+// Il puntatore alla testa della lista
+typedef Nodo* Lista;
+</code></pre>
+<p>L'elemento <code>struct Nodo* prossimo;</code> rende la struttura <strong>autoreferenziale</strong>.
+Per gestire la lista, usiamo un puntatore principale, spesso chiamato <strong>testa</strong> (<code>Lista testa = NULL;</code>), che punta al primo nodo. Se la lista è vuota, <code>testa</code> è <code>NULL</code>.</p>
+<p><strong>Inserimento in testa</strong>
+Questa è l'operazione di inserimento più semplice e veloce, con complessità temporale costante (O(1)).</p>
+<pre><code class="language-c">Lista inserisciInTesta(Lista testa, int nuovo_dato) {
+    // 1. Alloca il nuovo nodo
+    Nodo* nuovo_nodo = (Nodo*)malloc(sizeof(Nodo));
+
+    // Controllo allocazione
+    if (nuovo_nodo == NULL) {
+        // Gestione errore
+        return testa;
+    }
+
+    // 2. Inserisce il dato
+    nuovo_nodo-&gt;dato = nuovo_dato;
+
+    // 3. Collega il nuovo nodo alla vecchia testa
+    nuovo_nodo-&gt;prossimo = testa;
+
+    // 4. Aggiorna la testa al nuovo nodo
+    return nuovo_nodo;
+}
+</code></pre>
+<p><strong>Eliminazione dalla testa</strong>
+Operazione semplice come la recedente, fondamentale per deallocare la memoria.</p>
+<pre><code class="language-c">// Funzione per eliminare il nodo in testa
+Lista eliminaTesta(Lista testa) {
+    if (testa == NULL) {
+        return NULL; // La lista è vuota
+    }
+
+    // 1. Salva il puntatore alla testa corrente
+    Nodo* temp = testa;
+
+    // 2. Sposta la testa al prossimo nodo
+    testa = testa-&gt;prossimo;
+
+    // 3. Dealloca il nodo precedente
+    free(temp);
+
+    // 4. Restituisce la nuova testa
+    return testa;
+}
+</code></pre>
+<p><strong>Attraversamento e Stampa (Traversal)</strong>
+Per scorrere la lista, si parte dalla testa e si segue il puntatore <code>prossimo</code> con un ciclo finché non si arriva a <code>NULL</code>, ultimo elemento della lista.</p>
+<pre><code class="language-c">void stampaLista(Lista testa) {
+    Nodo* corrente = testa; // Puntatore ausiliario per lo scorrimento
+    while (corrente != NULL) {
+        printf(&quot;%d -&gt; &quot;, corrente-&gt;dato);
+        corrente = corrente-&gt;prossimo; // Passa al nodo successivo
+    }
+    printf(&quot;NULL\n&quot;);
+}
+</code></pre>
+<h2 id="derivazioni">Derivazioni</h2>
+<p>Oltre alla lista <strong>semplicemente concatenata</strong> che abbiamo visto ci sono principalmente altre due strutture dati che vengono derivate da questa e sono:</p>
+<ul>
+<li><strong>Lista doppiamente concatenata</strong>: ogni nodo ha un puntatore al successivo e uno al <strong>precedente</strong>. Permette di attraversare la lista in entrambe le direzioni e di eliminare un nodo in O(1) (una volta trovato) ma occupa più memoria per il doppio puntatore.</li>
+<li><strong>Lista circolare</strong>: L'ultimo nodo punta al primo, creando un ciclo. Utile per l'implementazione di buffer circolari o round-robin ma bisogna stare attenti a non ciclare all'infinito.</li>
+</ul>
 
 
 

@@ -46,7 +46,7 @@ nav:
               - Strutture dinamiche: codice/lezioni_di_c/strutture_dati/strutture_dinamiche.md
               - Linked list: codice/lezioni_di_c/strutture_dati/linked_list.md
               - Binary tree: codice/lezioni_di_c/strutture_dati/binary_tree.md
-      - Centralina: codice/centralina.md
+      - Centralina: codice/adc.md
   # - Hardware:
   #     - Panoramica hardware: hardware/panoramica_hardware.md
   #     - Schede elettroniche: hardware/schede_elettroniche.md

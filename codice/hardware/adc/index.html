@@ -1122,7 +1122,7 @@ La quantizzazione consiste nell'associare il valore analogico <span class="arith
 <div class="arithmatex">\[f_s = \frac{1}{T_{cycle}} = \frac{1}{t_{acq} + t_{conv}}\]</div>
 <p>Questi parametri (<span class="arithmatex">\(t_{acq}\)</span> e <span class="arithmatex">\(t_{conv}\)</span>) sono fondamentali nei datasheet di un ADC e determinano il <em>throughput</em> (la velocità) massimo del convertitore. Per esempio, un ADC "pipeline" può iniziare l'acquisizione di un nuovo campione <em>mentre</em> sta ancora convertendo quello precedente, ottimizzando la velocità complessiva e disaccoppiando <span class="arithmatex">\(f_s\)</span> dalla somma semplice dei due tempi. Tuttavia, per le architetture più comuni come il SAR (Successive Approximation Register), questo ciclo <span class="arithmatex">\(t_{acq} + t_{conv}\)</span> definisce rigidamente la massima velocità operativa.</p>
 <h2 id="adc-sulla-centralina-fae">ADC sulla centralina FAE</h2>
-<p>![[adcfae.png]]</p>
+<p><img alt="Centralina fae" src="../adcfae.png" /></p>
 <p>Nell'immagine in alto è descritto il <strong>circuito di condizionamento del segnale</strong> che si trova <em>prima</em> dell'ADC nella centralina FAE che al momento utilizziamo.</p>
 <p>Il suo compito è prendere un segnale industriale "grezzo" (come un 0-5V o un 4-20mA), proteggere l'elettronica, filtrarlo e adattarlo affinché possa essere letto correttamente e in sicurezza da un pin di ingresso dell'ADC (presumibilmente un microcontrollore).</p>
 <p>Analizziamo il percorso del segnale, passo dopo passo, per un singolo canale (ad esempio, quello di sinistra, che è identico a quello di destra).</p>

@@ -87,7 +87,7 @@ Questi parametri ($t_{acq}$ e $t_{conv}$) sono fondamentali nei datasheet di un 
 
 ## ADC sulla centralina FAE
 
-![[adcfae.png]]
+![Centralina fae](adcfae.png)
 
 Nell'immagine in alto è descritto il **circuito di condizionamento del segnale** che si trova _prima_ dell'ADC nella centralina FAE che al momento utilizziamo.
 

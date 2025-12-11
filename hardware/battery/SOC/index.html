@@ -1198,16 +1198,20 @@
 <p>Il Coulomb Counting è metodo semplice per stimare lo Stato di Carica (SOC) di una batteria, misurando e <strong>integrando nel tempo la corrente</strong> che entra o esce dalla batteria (Ampere-ora) per calcolare la carica rimanente, partendo da un SOC iniziale noto.
 La formula dell'algoritmo è la seguente:</p>
 <div class="arithmatex">\[SoC(t) = SoC(t_0) - \frac{1}{C_{tot}} \int_{t_0}^{t} I(\tau) d\tau\]</div>
-<p>Dove:
-- <span class="arithmatex">\(SoC(t_0)\)</span> è lo stato di carica iniziale calcolato attraverso il primo metodo delle tensioni.
-- <span class="arithmatex">\(C_{tot}\)</span> è la capacità totale delle celle. Le nostre sono da <span class="arithmatex">\(3000mAh\)</span> e ne abbiamo 4 in parallelo, risulta che la capacità vale <span class="arithmatex">\(12000mAh\)</span>.
-- <span class="arithmatex">\(I(\tau)\)</span> è la corrente fornita o sottratta in un lasso di tempo</p>
+<p>Dove:</p>
+<ul>
+<li><span class="arithmatex">\(SoC(t_0)\)</span> è lo stato di carica iniziale calcolato attraverso il primo metodo delle tensioni.</li>
+<li><span class="arithmatex">\(C_{tot}\)</span> è la capacità totale delle celle. Le nostre sono da <span class="arithmatex">\(3000mAh\)</span> e ne abbiamo 4 in parallelo, risulta che la capacità vale <span class="arithmatex">\(12000mAh\)</span>.</li>
+<li><span class="arithmatex">\(I(\tau)\)</span> è la corrente fornita o sottratta in un lasso di tempo</li>
+</ul>
 <p>Parlando concretamente dobbiamo discretizzare la formula per renderla compatibile con un sistema a tempo discreto come un microcontrollore, allo scopo di effettuare il calcolo ad una frequenza fissa (<span class="arithmatex">\(10Hz\)</span>)</p>
 <div class="arithmatex">\[Q(t) = Q(t-1) + (I_{inst} \times \Delta t)\]</div>
-<p>dove:
-- <span class="arithmatex">\(Q(t)\)</span> è la carica attuale
-- <span class="arithmatex">\(I_{inst}\)</span> è la corrente istantanea letta dal sensore (positiva se è in carica e negativa se è in scarica)
-- <span class="arithmatex">\(\Delta t\)</span> è il lasso di tempo passato dall'ultima lettura, a <span class="arithmatex">\(10Hz\)</span> vale <span class="arithmatex">\(\frac{1}{10}s = 100ms\)</span> </p>
+<p>dove:</p>
+<ul>
+<li><span class="arithmatex">\(Q(t)\)</span> è la carica attuale</li>
+<li><span class="arithmatex">\(I_{inst}\)</span> è la corrente istantanea letta dal sensore (positiva se è in carica e negativa se è in scarica)</li>
+<li><span class="arithmatex">\(\Delta t\)</span> è il lasso di tempo passato dall'ultima lettura, a <span class="arithmatex">\(10Hz\)</span> vale <span class="arithmatex">\(\frac{1}{10}s = 100ms\)</span> </li>
+</ul>
 <div class="admonition tip">
 <p class="admonition-title">Deriva</p>
 <p>Il sensore di corrente avrà per forza uno scostamento rispetto al valore reale a causa di interferenze elettromagnetiche e quant'altro, falsando il calcolo a lungo andare.

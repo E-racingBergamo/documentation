@@ -51,6 +51,7 @@ La formula dell'algoritmo è la seguente:
 $$SoC(t) = SoC(t_0) - \frac{1}{C_{tot}} \int_{t_0}^{t} I(\tau) d\tau$$
 
 Dove:
+
 - $SoC(t_0)$ è lo stato di carica iniziale calcolato attraverso il primo metodo delle tensioni.
 - $C_{tot}$ è la capacità totale delle celle. Le nostre sono da $3000mAh$ e ne abbiamo 4 in parallelo, risulta che la capacità vale $12000mAh$.
 - $I(\tau)$ è la corrente fornita o sottratta in un lasso di tempo
@@ -60,6 +61,7 @@ Parlando concretamente dobbiamo discretizzare la formula per renderla compatibil
 $$Q(t) = Q(t-1) + (I_{inst} \times \Delta t)$$
 
 dove:
+
 - $Q(t)$ è la carica attuale
 - $I_{inst}$ è la corrente istantanea letta dal sensore (positiva se è in carica e negativa se è in scarica)
 - $\Delta t$ è il lasso di tempo passato dall'ultima lettura, a $10Hz$ vale $\frac{1}{10}s = 100ms$ 

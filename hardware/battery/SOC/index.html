@@ -8,31 +8,29 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_dati/strutture_dinamiche/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/hardware/battery/SOC/">
       
       
-        <link rel="prev" href="../../puntatori/">
+        <link rel="prev" href="../../centralina_fae/adc/">
       
-      
-        <link rel="next" href="../linked_list/">
       
       
         
       
       
-      <link rel="icon" href="../../../../assets/images/simbolo_blu.ico">
+      <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
-        <title>Strutture dinamiche - My Docs</title>
+        <title>State Of Charge (SOC) - My Docs</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,7 +51,7 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#strutture-dati-dinamiche" class="md-skip">
+        <a href="#state-of-charge-soc" class="md-skip">
           Skip to content
         </a>
       
@@ -94,9 +92,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
       
-  <img src="../../../../assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Strutture dinamiche
+              State Of Charge (SOC)
             
           </span>
         </div>
@@ -217,9 +215,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
       
-  <img src="../../../../assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     My Docs
@@ -234,7 +232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -258,20 +256,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -292,7 +288,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -307,20 +303,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
         
           
           <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
@@ -341,7 +335,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -359,7 +353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sintassi_base_c/" class="md-nav__link">
+      <a href="../../../codice/lezioni_di_c/sintassi_base_c/" class="md-nav__link">
         
   
   
@@ -387,7 +381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../stdint/" class="md-nav__link">
+      <a href="../../../codice/lezioni_di_c/stdint/" class="md-nav__link">
         
   
   
@@ -415,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+      <a href="../../../codice/lezioni_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
         
   
   
@@ -443,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strutture_controllo/" class="md-nav__link">
+      <a href="../../../codice/lezioni_di_c/strutture_controllo/" class="md-nav__link">
         
   
   
@@ -471,7 +465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strutture_base/" class="md-nav__link">
+      <a href="../../../codice/lezioni_di_c/strutture_base/" class="md-nav__link">
         
   
   
@@ -499,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../funzioni/" class="md-nav__link">
+      <a href="../../../codice/lezioni_di_c/funzioni/" class="md-nav__link">
         
   
   
@@ -527,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../puntatori/" class="md-nav__link">
+      <a href="../../../codice/lezioni_di_c/puntatori/" class="md-nav__link">
         
   
   
@@ -552,20 +546,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_8" >
         
           
           <label class="md-nav__link" for="__nav_2_1_8" id="__nav_2_1_8_label" tabindex="0">
@@ -586,7 +578,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_1_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -601,37 +593,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Strutture dinamiche
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../codice/lezioni_di_c/strutture_dati/strutture_dinamiche/" class="md-nav__link">
         
   
   
@@ -647,132 +612,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#allocazione-e-deallocazione-dinamica" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Allocazione e Deallocazione Dinamica
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Allocazione e Deallocazione Dinamica">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#assenza-di-un-sistema-operativo-completo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Assenza di un "Sistema Operativo" Completo
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#problemi-con-le-funzioni-di-inputoutput-io" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Problemi con le Funzioni di Input/Output (I/O)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Problemi con le Funzioni di Input/Output (I/O)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#printf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        printf()
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gestione-dinamica-della-memoria-il-pericolo-di-malloc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gestione Dinamica della Memoria: Il Pericolo di malloc()
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Gestione Dinamica della Memoria: Il Pericolo di malloc()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#frammentazione-dellheap-e-determinismo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Frammentazione dell'Heap e Determinismo
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#soluzione-di-freertos-heap-management-personalizzato" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Soluzione di FreeRTOS: Heap Management Personalizzato
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sicurezza-e-thread-safety-task-safety" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sicurezza e Thread Safety (Task Safety)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -785,7 +624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../linked_list/" class="md-nav__link">
+      <a href="../../../codice/lezioni_di_c/strutture_dati/linked_list/" class="md-nav__link">
         
   
   
@@ -813,7 +652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../binary_tree/" class="md-nav__link">
+      <a href="../../../codice/lezioni_di_c/strutture_dati/binary_tree/" class="md-nav__link">
         
   
   
@@ -857,7 +696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../centralina/" class="md-nav__link">
+      <a href="../../../codice/centralina/" class="md-nav__link">
         
   
   
@@ -889,18 +728,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -921,7 +762,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -986,7 +827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../hardware/centralina_fae/adc/" class="md-nav__link">
+      <a href="../../centralina_fae/adc/" class="md-nav__link">
         
   
   
@@ -1019,18 +860,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
         
           
           <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
@@ -1051,7 +894,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1066,10 +909,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../../hardware/battery/SOC/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Of Charge (SOC)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1085,6 +955,48 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#primo-metodo-tensioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primo metodo: tensioni
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secondo-metodo-coulomb-counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secondo metodo: Coulomb Counting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1132,108 +1044,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#allocazione-e-deallocazione-dinamica" class="md-nav__link">
+  <a href="#primo-metodo-tensioni" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Allocazione e Deallocazione Dinamica
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Allocazione e Deallocazione Dinamica">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#assenza-di-un-sistema-operativo-completo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Assenza di un "Sistema Operativo" Completo
+        Primo metodo: tensioni
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#problemi-con-le-funzioni-di-inputoutput-io" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#secondo-metodo-coulomb-counting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problemi con le Funzioni di Input/Output (I/O)
+        Secondo metodo: Coulomb Counting
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Problemi con le Funzioni di Input/Output (I/O)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#printf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        printf()
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gestione-dinamica-della-memoria-il-pericolo-di-malloc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gestione Dinamica della Memoria: Il Pericolo di malloc()
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Gestione Dinamica della Memoria: Il Pericolo di malloc()">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#frammentazione-dellheap-e-determinismo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Frammentazione dell'Heap e Determinismo
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#soluzione-di-freertos-heap-management-personalizzato" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Soluzione di FreeRTOS: Heap Management Personalizzato
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sicurezza-e-thread-safety-task-safety" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sicurezza e Thread Safety (Task Safety)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1254,65 +1082,138 @@
 
 
 
-<h1 id="strutture-dati-dinamiche">Strutture dati dinamiche</h1>
-<p>Le <strong>Strutture Dati Dinamiche</strong> (SDD) in C rappresentano un salto di qualità nella programmazione, permettendo di gestire in modo efficiente la memoria e adattarsi alle esigenze reali di un'applicazione. A differenza delle strutture statiche (come gli array, la cui dimensione è fissata a tempo di compilazione), le SDD possono <strong>espandersi o ridursi</strong> durante l'esecuzione del programma.</p>
-<p>Questo è reso possibile dall'uso combinato di due concetti fondamentali in C:</p>
-<ol>
-<li><strong>Allocazione Dinamica della Memoria:</strong> L'uso di funzioni come <code>malloc()</code>, <code>calloc()</code>, <code>realloc()</code> e <code>free()</code> per richiedere e rilasciare memoria sull'<strong>heap</strong> a tempo di esecuzione.</li>
-<li><strong>Puntatori</strong></li>
-</ol>
-<h2 id="allocazione-e-deallocazione-dinamica">Allocazione e Deallocazione Dinamica</h2>
-<p>Per creare e gestire le SDD, se si lavora con un ambiente di sviluppo tipicamente desktop, si utilizzano le funzioni della libreria standard C (<code>stdlib.h</code>). Nei sistemi embedded spesso l'uso della libreria standard è limitato o del tutto proibito, per questo è necessario trovare delle soluzioni alternative.</p>
-<h3 id="assenza-di-un-sistema-operativo-completo">Assenza di un "Sistema Operativo" Completo</h3>
-<p>Le funzioni della CSL (specialmente I/O e gestione della memoria) assumono l'esistenza di un ambiente operativo completo, con:</p>
+<h1 id="state-of-charge-soc">State Of Charge (SOC)</h1>
+<div class="admonition danger">
+<p class="admonition-title">High voltage</p>
+<p>La batteria ha una tensione che oscilla tra 504V e 588V, è una tensione letale. Osservare tutte le indicazioni di sicurezza prima di iniziare a lavorare sul pacco.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Configurazione pacco</p>
+<p>Il nostro pacco batterie è divisa in 14 moduli in serie con 10 celle ciascuno. Ogni cella ha il suo BMS Enepaq tinyAFE per ottenere informazioni riguardanti tensioni e temperature e bilanciare le singole celle.</p>
+<p>Le celle sono delle sony 4p, quindi la struttura totale della batteria è 140S 4P.</p>
+</div>
+<p>Dato che i TinyAFE non sono dei veri e propri BMS, non possono calcolare autonomamente lo state of charge dei moduli, quindi si rendono necessari degli elementi esterni per fare i calcoli:</p>
 <ul>
-<li>Un <strong>file system</strong> (per <code>fopen</code>, <code>fread</code>, <code>fprintf</code>, ecc.).</li>
-<li>Uno <strong>schermo/console</strong> ben definiti (per <code>printf</code>).</li>
-<li>Una <strong>gestione della memoria</strong> (Kernel) che gestisce l'heap in modo robusto.</li>
+<li>Sensore di corrente</li>
+<li>Microcontrollore esterno</li>
+<li>Linea UART isolata</li>
 </ul>
-<p>Nei sistemi embedded, la maggior parte di queste funzionalità è assente o deve essere implementata "da zero" (o tramite driver minimi forniti dal produttore del chip).</p>
-<h3 id="problemi-con-le-funzioni-di-inputoutput-io">Problemi con le Funzioni di Input/Output (I/O)</h3>
-<h4 id="printf"><code>printf()</code></h4>
-<p>La funzione <code>printf()</code> è molto complessa: deve interpretare la stringa di formato, convertire vari tipi di dati (float, interi lunghi), e infine scrivere l'output in un <em>stream</em> standard (che sia un terminale, una console seriale, o un file).</p>
-<ul>
-<li>
-<p><strong>Dimensione del Codice (Footprint):</strong> L'implementazione completa di <code>printf</code> può occupare decine di kilobyte di memoria Flash (ROM), che è una quantità sproporzionata per un microcontrollore con 64KB totali.</p>
-</li>
-<li>
-<p><strong>Reindirizzamento (Retargeting):</strong> La CSL non sa "dove" si trova la console. Per usare <code>printf</code>, lo sviluppatore deve "reindirizzare" le chiamate a una funzione a basso livello che gestisca la comunicazione hardware (es. UART o USB). Questo processo, chiamato <em>retargeting</em>, è specifico per ogni hardware e RTOS.</p>
-</li>
-</ul>
-<h3 id="gestione-dinamica-della-memoria-il-pericolo-di-malloc">Gestione Dinamica della Memoria: Il Pericolo di <code>malloc()</code></h3>
-<p>Questo è l'aspetto più critico e il motivo principale per cui <code>stdlib.h</code> viene spesso evitato.</p>
-<h4 id="frammentazione-dellheap-e-determinismo">Frammentazione dell'Heap e Determinismo</h4>
-<ul>
-<li>
-<p><strong>Frammentazione:</strong> Nei sistemi che devono funzionare per molto tempo, l'uso ripetuto di <code>malloc()</code> e <code>free()</code> può causare la <strong>frammentazione dell'heap</strong> (memoria libera divisa in piccoli blocchi non contigui). A lungo andare, una richiesta di memoria grande potrebbe fallire, anche se c'è abbastanza memoria totale libera.</p>
-</li>
-<li>
-<p><strong>Non Determinismo:</strong> Le implementazioni standard di <code>malloc()</code> e <code>free()</code> non sono pensate per l'ambiente real-time. Il tempo necessario per allocare un blocco di memoria può variare drasticamente (dipende dalla ricerca di un blocco libero), violando i requisiti di <strong>determinismo temporale</strong> di un RTOS.</p>
-</li>
-</ul>
-<h4 id="soluzione-di-freertos-heap-management-personalizzato">Soluzione di FreeRTOS: Heap Management Personalizzato</h4>
-<p>FreeRTOS non usa l'implementazione standard di <code>malloc()</code> ma offre diversi schemi di gestione dell'heap (es. Heap_1, Heap_2, Heap_3, ecc.), progettati per:</p>
-<ul>
-<li>
-<p>Essere <strong>più semplici e veloci</strong> delle implementazioni standard.</p>
-</li>
-<li>
-<p>Offrire un <strong>compromesso</strong> tra consumo di memoria e prevenzione della frammentazione, spesso a costo di non supportare tutte le operazioni standard.</p>
-</li>
-</ul>
-<h3 id="sicurezza-e-thread-safety-task-safety">Sicurezza e Thread Safety (Task Safety)</h3>
-<p>Molte funzioni della CSL (es. <code>strtok()</code>, le funzioni di gestione del tempo) non sono <strong>thread-safe</strong>.</p>
-<ul>
-<li><strong>Variabili Statiche:</strong> Alcune funzioni C utilizzano variabili statiche interne o globali. Se due Task provano a chiamare la stessa funzione contemporaneamente, l'accesso concorrente a queste variabili può portare a <strong>condizioni di gara (race conditions)</strong> e a risultati errati o crash del sistema.</li>
-</ul>
-<p>Nei sistemi FreeRTOS, si devono usare:</p>
-<ol>
-<li><strong>Versioni Thread-Safe:</strong> Molti RTOS forniscono versioni re-entrant delle funzioni C (spesso chiamate con un suffisso come <code>_r</code> o richiedendo l'uso di un mutex).</li>
-<li><strong>Primitive RTOS:</strong> Per tutte le operazioni critiche (I/O, allocazione, comunicazione), è obbligatorio usare le API di FreeRTOS (code, semafori, ecc.) per garantire la sincronizzazione e l'integrità dei dati.</li>
-</ol>
+<p>Ci sono principalmente due metodi per stimare lo stato di carica delle batterie al litio, il primo è basato sulla <strong>tensione</strong>, ma è meno preciso e può dare degli errori anche del 20% quando la batteria è sotto carico, il secondo è il <strong>Coulomb Counting</strong>.</p>
+<h2 id="primo-metodo-tensioni">Primo metodo: tensioni</h2>
+<p>È il metodo più facile e veloce, ma meno preciso. Lo useremo per calibrare il BMS Master all'accensione della vettura.</p>
+<p>Le celle utilizzate all'interno dei moduli sono delle Sony/Murata VTC6-4 (chimica NMC) e hanno una curva di scarica caratteristica fornita dal costruttore e mostrata nell'immagine qua sotto.</p>
+<p><img alt="Curva di scarica" src="../discharge_characteristic.png" /></p>
+<p>Bisogna mappare la tensione del pacco oppure una media delle celle lette dal TinyAFE a una percentuale, usando una tabella estratta dalla curva di scarica al più basso carico. È stato scelto il carico più basso del grafico e non 0 perché ci sono dei componenti, come ad esempio le pompe di raffreddamento, che attingono energia direttamente dal pacco e rischiano di rovinare le celle se si permette l'accensione ad un livello basso senza contare questi consumi. La tensione di fine scarica è stata alzata a 2.80V per motivi di sicurezza e per preservare l'integrità delle celle.</p>
+<table>
+<thead>
+<tr>
+<th><strong>SoC (%)</strong></th>
+<th><strong>Capacità Residua (mAh)</strong></th>
+<th><strong>Tensione Cella (V)</strong></th>
+<th><strong>Note Visive dal Grafico</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>100%</strong></td>
+<td>3000</td>
+<td><strong>4.20 V</strong></td>
+<td>Carica completa</td>
+</tr>
+<tr>
+<td><strong>90%</strong></td>
+<td>2700</td>
+<td><strong>4.08 V</strong></td>
+<td>Caduta iniziale rapida</td>
+</tr>
+<tr>
+<td><strong>80%</strong></td>
+<td>2400</td>
+<td><strong>4.00 V</strong></td>
+<td>Inizio zona lineare</td>
+</tr>
+<tr>
+<td><strong>70%</strong></td>
+<td>2100</td>
+<td><strong>3.91 V</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>60%</strong></td>
+<td>1800</td>
+<td><strong>3.82 V</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>50%</strong></td>
+<td>1500</td>
+<td><strong>3.72 V</strong></td>
+<td>Metà grafico (Asse X = 1500)</td>
+</tr>
+<tr>
+<td><strong>40%</strong></td>
+<td>1200</td>
+<td><strong>3.62 V</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>30%</strong></td>
+<td>900</td>
+<td><strong>3.52 V</strong></td>
+<td>La curva si accentua</td>
+</tr>
+<tr>
+<td><strong>20%</strong></td>
+<td>600</td>
+<td><strong>3.40 V</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>10%</strong></td>
+<td>300</td>
+<td><strong>3.20 V</strong></td>
+<td>Ginocchio della curva (scarica rapida)</td>
+</tr>
+<tr>
+<td><strong>5%</strong></td>
+<td>150</td>
+<td><strong>3.05 V</strong></td>
+<td>Zona critica</td>
+</tr>
+<tr>
+<td><strong>0%</strong></td>
+<td>0</td>
+<td><strong>&lt; 2.80 V</strong></td>
+<td>Cutoff di sicurezza</td>
+</tr>
+<tr>
+<td>Questo metodo fallisce quando il pacco è sotto carico per via del fatto che la tensione scende a causa della resistenza interna. Il ragionamento vale ugualmente anche quando il pacco è in carica solo che invece che scendere, la tensione sale.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="secondo-metodo-coulomb-counting">Secondo metodo: Coulomb Counting</h2>
+<p>Il Coulomb Counting è metodo semplice per stimare lo Stato di Carica (SOC) di una batteria, misurando e <strong>integrando nel tempo la corrente</strong> che entra o esce dalla batteria (Ampere-ora) per calcolare la carica rimanente, partendo da un SOC iniziale noto.
+La formula dell'algoritmo è la seguente:</p>
+<div class="arithmatex">\[SoC(t) = SoC(t_0) - \frac{1}{C_{tot}} \int_{t_0}^{t} I(\tau) d\tau\]</div>
+<p>Dove:
+- <span class="arithmatex">\(SoC(t_0)\)</span> è lo stato di carica iniziale calcolato attraverso il primo metodo delle tensioni.
+- <span class="arithmatex">\(C_{tot}\)</span> è la capacità totale delle celle. Le nostre sono da <span class="arithmatex">\(3000mAh\)</span> e ne abbiamo 4 in parallelo, risulta che la capacità vale <span class="arithmatex">\(12000mAh\)</span>.
+- <span class="arithmatex">\(I(\tau)\)</span> è la corrente fornita o sottratta in un lasso di tempo</p>
+<p>Parlando concretamente dobbiamo discretizzare la formula per renderla compatibile con un sistema a tempo discreto come un microcontrollore, allo scopo di effettuare il calcolo ad una frequenza fissa (<span class="arithmatex">\(10Hz\)</span>)</p>
+<div class="arithmatex">\[Q(t) = Q(t-1) + (I_{inst} \times \Delta t)\]</div>
+<p>dove:
+- <span class="arithmatex">\(Q(t)\)</span> è la carica attuale
+- <span class="arithmatex">\(I_{inst}\)</span> è la corrente istantanea letta dal sensore (positiva se è in carica e negativa se è in scarica)
+- <span class="arithmatex">\(\Delta t\)</span> è il lasso di tempo passato dall'ultima lettura, a <span class="arithmatex">\(10Hz\)</span> vale <span class="arithmatex">\(\frac{1}{10}s = 100ms\)</span> </p>
+<div class="admonition tip">
+<p class="admonition-title">Deriva</p>
+<p>Il sensore di corrente avrà per forza uno scostamento rispetto al valore reale a causa di interferenze elettromagnetiche e quant'altro, falsando il calcolo a lungo andare.
+Per correggere bisogna forzare il SOC al 100% vicino al massimo e allo 0% vicino al minimo.</p>
+</div>
+<p>La frequenza di campionamento è stata impostata a 100ms perché i TinyAFE ci mettono un certo lasso di tempo a rispondere alla chiamata del master e sono 14, una frequenza superiore rischia di falsare il risultato usando valori vecchi.</p>
 
 
 
@@ -1362,10 +1263,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       

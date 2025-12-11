@@ -20,9 +20,17 @@ theme:
         icon: material/weather-sunny
         name: Passa al tema chiaro
 
+plugins:
+  - search    # Mantiene la ricerca (importante!)
+  - callouts  # Abilita il supporto a > [!note] di Obsidian
+
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
+  - admonition
+  - pymdownx.details      
+  - pymdownx.superfences
+  # - pymdownx.blocks.admonition
 
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css
@@ -47,8 +55,11 @@ nav:
               - Linked list: codice/lezioni_di_c/strutture_dati/linked_list.md
               - Binary tree: codice/lezioni_di_c/strutture_dati/binary_tree.md
       - Centralina: codice/centralina.md
-      - Hardware:
-          - ADC: codice/hardware/adc.md
+  - Hardware:
+      - Centralina FAE:
+          - ADC: hardware/centralina_fae/adc.md
+      - Batteria:
+          - State Of Charge (SOC): hardware/battery/SOC.md
   # - Hardware:
   #     - Panoramica hardware: hardware/panoramica_hardware.md
   #     - Schede elettroniche: hardware/schede_elettroniche.md

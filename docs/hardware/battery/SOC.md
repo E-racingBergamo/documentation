@@ -55,6 +55,17 @@ Dove:
 - $C_{tot}$ è la capacità totale delle celle. Le nostre sono da $3000mAh$ e ne abbiamo 4 in parallelo, risulta che la capacità vale $12000mAh$.
 - $I(\tau)$ è la corrente fornita o sottratta in un lasso di tempo
 
-Parlando concretamente dobbiamo discretizzare la formula per renderla compatibile con un sistema a tempo discreto come un microcontrollore, allo scopo di effettuare il calcolo ad una frequenza fissa ($100Hz$)
+Parlando concretamente dobbiamo discretizzare la formula per renderla compatibile con un sistema a tempo discreto come un microcontrollore, allo scopo di effettuare il calcolo ad una frequenza fissa ($10Hz$)
 
 $$Q(t) = Q(t-1) + (I_{inst} \times \Delta t)$$
+
+dove:
+- $Q(t)$ è la carica attuale
+- $I_{inst}$ è la corrente istantanea letta dal sensore (positiva se è in carica e negativa se è in scarica)
+- $\Delta t$ è il lasso di tempo passato dall'ultima lettura, a $10Hz$ vale $\frac{1}{10}s = 100ms$ 
+
+> [!tip] Deriva
+> Il sensore di corrente avrà per forza uno scostamento rispetto al valore reale a causa di interferenze elettromagnetiche e quant'altro, falsando il calcolo a lungo andare.
+> Per correggere bisogna forzare il SOC al 100% vicino al massimo e allo 0% vicino al minimo.
+
+La frequenza di campionamento è stata impostata a 100ms perché i TinyAFE ci mettono un certo lasso di tempo a rispondere alla chiamata del master e sono 14, una frequenza superiore rischia di falsare il risultato usando valori vecchi.

@@ -57,7 +57,7 @@ nav:
       - Centralina: codice/centralina.md
   - Hardware:
       - Inverter:
-          - Gestione termica: hardware/centralina_fae/gestione_termica.md
+          - Gestione termica: hardware/inverter/gestione_termica.md
       - Centralina FAE:
           - ADC: hardware/centralina_fae/adc.md
       - Batteria:

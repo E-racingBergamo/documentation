@@ -8,10 +8,8 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/hardware/battery/SOC/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/hardware/inverter/gestione_termica/">
       
-      
-        <link rel="prev" href="../../centralina_fae/adc/">
       
       
       
@@ -23,7 +21,7 @@
     
     
       
-        <title>State Of Charge (SOC) - My Docs</title>
+        <title>Gestione termica/potenza - My Docs</title>
       
     
     
@@ -76,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#state-of-charge-soc" class="md-skip">
+        <a href="#gestione-termicapotenza" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              State Of Charge (SOC)
+              Gestione termica/potenza
             
           </span>
         </div>
@@ -728,20 +726,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -762,7 +758,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -943,20 +939,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
         
           
           <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
@@ -977,7 +971,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -992,37 +986,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    State Of Charge (SOC)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../battery/SOC/" class="md-nav__link">
         
   
   
@@ -1038,48 +1005,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#primo-metodo-tensioni" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Primo metodo: tensioni
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#secondo-metodo-coulomb-counting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Secondo metodo: Coulomb Counting
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1127,10 +1052,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#primo-metodo-tensioni" class="md-nav__link">
+  <a href="#algoritmo-i2t-integrale-termico" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Primo metodo: tensioni
+        Algoritmo \(I^2t\) (integrale termico)
       
     </span>
   </a>
@@ -1138,10 +1063,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#secondo-metodo-coulomb-counting" class="md-nav__link">
+  <a href="#derating" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Secondo metodo: Coulomb Counting
+        Derating
       
     </span>
   </a>
@@ -1165,142 +1090,42 @@
 
 
 
-<h1 id="state-of-charge-soc">State Of Charge (SOC)</h1>
-<div class="admonition danger">
-<p class="admonition-title">High voltage</p>
-<p>La batteria ha una tensione che oscilla tra 504V e 588V, è una tensione letale. Osservare tutte le indicazioni di sicurezza prima di iniziare a lavorare sul pacco.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Configurazione pacco</p>
-<p>Il nostro pacco batterie è divisa in 14 moduli in serie con 10 celle ciascuno. Ogni cella ha il suo BMS Enepaq tinyAFE per ottenere informazioni riguardanti tensioni e temperature e bilanciare le singole celle.</p>
-<p>Le celle sono delle sony 4p, quindi la struttura totale della batteria è 140S 4P.</p>
-</div>
-<p>Dato che i TinyAFE non sono dei veri e propri BMS, non possono calcolare autonomamente lo state of charge dei moduli, quindi si rendono necessari degli elementi esterni per fare i calcoli:</p>
+<h1 id="gestione-termicapotenza">Gestione termica/potenza</h1>
+<p>La massimizzazione della coppia erogabile è limitata dai vincoli termici del motore, tutti forniti dal datasheet del produttore del relativo modello. Il datasheet del motore AMK DD5-14-10-POW (in uso dal nostro team) indica una corrente nominale di stallo continuativo <span class="arithmatex">\(I_0\)</span> pari a 53,1 Arms. Tuttavia, per garantire la coppia richiesta per le accelerazioni repentine e per le alte velocità, è necessario operare in regime di sovraccarico, sfruttando correnti di picco fino a 105 Arms <span class="arithmatex">\(I_{max}\)</span>, che consentono di raggiungere valori di coppia significativamente superiori al valore nominale, nel nostro caso 21 Nm contro i 9,8 Nm nominali.</p>
+<p>Il problema fondamentale risiede nella natura transitoria del sovraccarico. L'utilizzo di correnti superiori a <span class="arithmatex">\(I_0\)</span> genera un accumulo termico per effetto Joule che il sistema di raffreddamento non è in grado di smaltire istantaneamente. Se tale condizione persiste oltre un tempo critico, si rischia il danneggiamento irreversibile degli avvolgimenti o la smagnetizzazione dei magneti permanenti.</p>
+<p>Per controllare questi limiti si utilizza l'algoritmo <span class="arithmatex">\(I^2t\)</span>, anche detto <strong>integrale termico</strong>. Tale modello permette di stimare in tempo reale l'energia termica accumulata nel motore, consentendo di sfruttare l'intera capacità di sovraccarico per periodi limitati, intervenendo con una riduzione della coppia solo all'approssimarsi della soglia critica definita dal costruttore.</p>
+<h2 id="algoritmo-i2t-integrale-termico">Algoritmo <span class="arithmatex">\(I^2t\)</span> (integrale termico)</h2>
+<p>Prima di cominciare a pensare all'algoritmo è bene tenere a mente alcuni dati importanti strettamente correlati al modello di motore impiegato:</p>
 <ul>
-<li>Sensore di corrente</li>
-<li>Microcontrollore esterno</li>
-<li>Linea UART isolata</li>
+<li><strong>Coppia nominale</strong>: 9,8 Nm</li>
+<li><strong>Corrente di stallo continuo</strong>: <span class="arithmatex">\(I_{cont}\)</span> = 53,1 A, è la corrente che il motore può reggere e dissipare per un tempo indefinito perché il calore viene dissipato in tempo utile. Corrisponde ad una coppia nominale</li>
+<li><strong>Coppia massima</strong>: 21 Nm</li>
+<li><strong>Corrente massima</strong>: <span class="arithmatex">\(I_{max}\)</span> = 105 A, picco massimo assoluto consentito.</li>
+<li><strong>Tempo massimo</strong> <span class="arithmatex">\(T_{lim}\)</span> a <span class="arithmatex">\(I_{max}\)</span> = 1,24 s. Quanto tempo il motore sopravvive al picco massimo.</li>
 </ul>
-<p>Ci sono principalmente due metodi per stimare lo stato di carica delle batterie al litio, il primo è basato sulla <strong>tensione</strong>, ma è meno preciso e può dare degli errori anche del 20% quando la batteria è sotto carico, il secondo è il <strong>Coulomb Counting</strong>.</p>
-<h2 id="primo-metodo-tensioni">Primo metodo: tensioni</h2>
-<p>È il metodo più facile e veloce, ma meno preciso. Lo useremo per calibrare il BMS Master all'accensione della vettura.</p>
-<p>Le celle utilizzate all'interno dei moduli sono delle Sony/Murata VTC6-4 (chimica NMC) e hanno una curva di scarica caratteristica fornita dal costruttore e mostrata nell'immagine qua sotto.</p>
-<p><img alt="Curva di scarica" src="../discharge_characteristic.png" /></p>
-<p>Bisogna mappare la tensione del pacco oppure una media delle celle lette dal TinyAFE a una percentuale, usando una tabella estratta dalla curva di scarica al più basso carico. È stato scelto il carico più basso del grafico e non 0 perché ci sono dei componenti, come ad esempio le pompe di raffreddamento, che attingono energia direttamente dal pacco e rischiano di rovinare le celle se si permette l'accensione ad un livello basso senza contare questi consumi. La tensione di fine scarica è stata alzata a 2.80V per motivi di sicurezza e per preservare l'integrità delle celle.</p>
-<table>
-<thead>
-<tr>
-<th><strong>SoC (%)</strong></th>
-<th><strong>Capacità Residua (mAh)</strong></th>
-<th><strong>Tensione Cella (V)</strong></th>
-<th><strong>Note Visive dal Grafico</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>100%</strong></td>
-<td>3000</td>
-<td><strong>4.20 V</strong></td>
-<td>Carica completa</td>
-</tr>
-<tr>
-<td><strong>90%</strong></td>
-<td>2700</td>
-<td><strong>4.08 V</strong></td>
-<td>Caduta iniziale rapida</td>
-</tr>
-<tr>
-<td><strong>80%</strong></td>
-<td>2400</td>
-<td><strong>4.00 V</strong></td>
-<td>Inizio zona lineare</td>
-</tr>
-<tr>
-<td><strong>70%</strong></td>
-<td>2100</td>
-<td><strong>3.91 V</strong></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>60%</strong></td>
-<td>1800</td>
-<td><strong>3.82 V</strong></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>50%</strong></td>
-<td>1500</td>
-<td><strong>3.72 V</strong></td>
-<td>Metà grafico (Asse X = 1500)</td>
-</tr>
-<tr>
-<td><strong>40%</strong></td>
-<td>1200</td>
-<td><strong>3.62 V</strong></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>30%</strong></td>
-<td>900</td>
-<td><strong>3.52 V</strong></td>
-<td>La curva si accentua</td>
-</tr>
-<tr>
-<td><strong>20%</strong></td>
-<td>600</td>
-<td><strong>3.40 V</strong></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>10%</strong></td>
-<td>300</td>
-<td><strong>3.20 V</strong></td>
-<td>Ginocchio della curva (scarica rapida)</td>
-</tr>
-<tr>
-<td><strong>5%</strong></td>
-<td>150</td>
-<td><strong>3.05 V</strong></td>
-<td>Zona critica</td>
-</tr>
-<tr>
-<td><strong>0%</strong></td>
-<td>0</td>
-<td><strong>&lt; 2.80 V</strong></td>
-<td>Cutoff di sicurezza</td>
-</tr>
-<tr>
-<td>Questo metodo fallisce quando il pacco è sotto carico per via del fatto che la tensione scende a causa della resistenza interna. Il ragionamento vale ugualmente anche quando il pacco è in carica solo che invece che scendere, la tensione sale.</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="secondo-metodo-coulomb-counting">Secondo metodo: Coulomb Counting</h2>
-<p>Il Coulomb Counting è metodo semplice per stimare lo Stato di Carica (SOC) di una batteria, misurando e <strong>integrando nel tempo la corrente</strong> che entra o esce dalla batteria (Ampere-ora) per calcolare la carica rimanente, partendo da un SOC iniziale noto.
-La formula dell'algoritmo è la seguente:</p>
-<div class="arithmatex">\[SoC(t) = SoC(t_0) - \frac{1}{C_{tot}} \int_{t_0}^{t} I(\tau) d\tau\]</div>
-<p>Dove:</p>
+<p>![[tempo.png|500]]</p>
+<p>L'algoritmo opera utilizzando come riferimento un <strong>bucket termico</strong>, che racchiude l'energia termica che viene contenuta nel motore. Il secchio ha una larghezza massima che rappresenta la quantità di calore che il motore riesce a sopportare prima di subire danni irrisolvibili e la smagnetizzazione dei magneti permanenti. L'unita di misura del <strong>budget termico</strong> è in <span class="arithmatex">\(A^2s\)</span> e si calcola come:</p>
+<div class="arithmatex">\[E_{max}=(I^2_{max}-I^2_{cont})\times t_{lim}\]</div>
+<p>Sostituendo i valori si ha <span class="arithmatex">\((105^2-53,1^2)\times1,24 = \mathbf{10.175 \, A^2s}\)</span>, valore che può raggiungere l'integratore prima che il motore si consideri surriscaldato.</p>
+<p>Dopo aver calcolato il budget termico si inizia a misurare effettivamente il budget utilizzato secondo la stessa formula. Dato che il microcontrollore all'interno della vettura è un dispositivo a tempo discreto è opportuno definire un intervallo di tempo (<span class="arithmatex">\(\Delta t\)</span>) a cui eseguire la funzione che calcola l'energia termica generata o dissipata nel motore. Una frequenza che ci risulta ottimale è 100 Hz, quindi 10 ms tra una misura e l'altra.</p>
+<p>Per il calcolo serve la corrente media erogata durante quel tempo, <span class="arithmatex">\(I_{feedback}\)</span></p>
+<div class="arithmatex">\[\Delta_{term}=(I^2_{feedback}-I^2_{cont})\times \Delta t\]</div>
+<p>Se <span class="arithmatex">\(I_{feedback}\)</span> è minore di <span class="arithmatex">\(I_{cont}\)</span>, l'energia risulterà negativa, quindi il motore sta dissipando il calore.
+Come ultimo passo si aggiorna l'integratore:</p>
+<div class="arithmatex">\[\text{thermal\_integrator} = \text{thermal\_integrator} + \Delta_{term}\]</div>
+<h2 id="derating">Derating</h2>
+<p>Non vogliamo che la coppia massima cali drasticamente dal massimo alla coppia nominale quando l'integratore arriva al 100%, ma si deve ridurre dolcemente la potenza erogata.</p>
+<p>Ci sono principalmente due soglie importanti:</p>
 <ul>
-<li><span class="arithmatex">\(SoC(t_0)\)</span> è lo stato di carica iniziale calcolato attraverso il primo metodo delle tensioni.</li>
-<li><span class="arithmatex">\(C_{tot}\)</span> è la capacità totale delle celle. Le nostre sono da <span class="arithmatex">\(3000mAh\)</span> e ne abbiamo 4 in parallelo, risulta che la capacità vale <span class="arithmatex">\(12000mAh\)</span>.</li>
-<li><span class="arithmatex">\(I(\tau)\)</span> è la corrente fornita o sottratta in un lasso di tempo</li>
+<li>La <strong>soglia warning</strong> contraddistingue il limite al quale si inizia a tagliare la coppia e corrisponde all'80% di <span class="arithmatex">\(E_{max}\)</span></li>
+<li><strong>Soglia critica</strong> di stop: il bucket è pieno e il motore non può permettersi di accumulare altro calore per evitare danni permanenti, la coppia va tagliata al di sotto della nominale per permettere anche un raffreddamento</li>
 </ul>
-<p>Parlando concretamente dobbiamo discretizzare la formula per renderla compatibile con un sistema a tempo discreto come un microcontrollore, allo scopo di effettuare il calcolo ad una frequenza fissa (<span class="arithmatex">\(10Hz\)</span>)</p>
-<div class="arithmatex">\[Q(t) = Q(t-1) + (I_{inst} \times \Delta t)\]</div>
-<p>dove:</p>
+<p>Allo scopo di implementare il derating bisogna calcolare il limite <span class="arithmatex">\(I_{limit}\)</span> ia ogni ciclo utilizzando le soglie.</p>
 <ul>
-<li><span class="arithmatex">\(Q(t)\)</span> è la carica attuale</li>
-<li><span class="arithmatex">\(I_{inst}\)</span> è la corrente istantanea letta dal sensore (positiva se è in carica e negativa se è in scarica)</li>
-<li><span class="arithmatex">\(\Delta t\)</span> è il lasso di tempo passato dall'ultima lettura, a <span class="arithmatex">\(10Hz\)</span> vale <span class="arithmatex">\(\frac{1}{10}s = 100ms\)</span> </li>
+<li>Se l'integratore è sotto all'80%, <span class="arithmatex">\(I_{limit}\)</span> = <span class="arithmatex">\(I_{max}\)</span>, quindi abbiamo la possibilità di erogare tutta la corrente disponibile.</li>
+<li>Se è tra l'80% e il 100% bisogna abbassare linearmente la corrente da 105 A a 53 A. Per l'interpolazione si usa: $<span class="arithmatex">\(Factor = \frac{\text{integrator} - \text{Soglia}_{warn}}{\text{Soglia}_{crit} - \text{Soglia}_{warn}}\)</span>$ Dove factor va d 0 a 1 man mano che il motore si scalda $<span class="arithmatex">\(I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})\)</span>$
+![[temperatura.png|500]]</li>
 </ul>
-<div class="admonition tip">
-<p class="admonition-title">Deriva</p>
-<p>Il sensore di corrente avrà per forza uno scostamento rispetto al valore reale a causa di interferenze elettromagnetiche e quant'altro, falsando il calcolo a lungo andare.
-Per correggere bisogna forzare il SOC al 100% vicino al massimo e allo 0% vicino al minimo.</p>
-</div>
-<p>La frequenza di campionamento è stata impostata a 100ms perché i TinyAFE ci mettono un certo lasso di tempo a rispondere alla chiamata del master e sono 14, una frequenza superiore rischia di falsare il risultato usando valori vecchi.</p>
 
 
 

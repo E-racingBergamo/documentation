@@ -56,6 +56,8 @@ nav:
               - Binary tree: codice/lezioni_di_c/strutture_dati/binary_tree.md
       - Centralina: codice/centralina.md
   - Hardware:
+      - Inverter:
+          - Gestione termica: hardware/centralina_fae/gestione_termica.md
       - Centralina FAE:
           - ADC: hardware/centralina_fae/adc.md
       - Batteria:

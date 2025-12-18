@@ -1180,7 +1180,7 @@
 <li><strong>Corrente massima</strong>: <span class="arithmatex">\(I_{max}\)</span> = 105 A, picco massimo assoluto consentito.</li>
 <li><strong>Tempo massimo</strong> <span class="arithmatex">\(T_{lim}\)</span> a <span class="arithmatex">\(I_{max}\)</span> = 1,24 s. Quanto tempo il motore sopravvive al picco massimo.</li>
 </ul>
-<p>![[tempo.png|500]]</p>
+<p><img alt="ciao" src="../tempo.png" /></p>
 <p>L'algoritmo opera utilizzando come riferimento un <strong>bucket termico</strong>, che racchiude l'energia termica che viene contenuta nel motore. Il secchio ha una larghezza massima che rappresenta la quantità di calore che il motore riesce a sopportare prima di subire danni irrisolvibili e la smagnetizzazione dei magneti permanenti. L'unita di misura del <strong>budget termico</strong> è in <span class="arithmatex">\(A^2s\)</span> e si calcola come:</p>
 <div class="arithmatex">\[E_{max}=(I^2_{max}-I^2_{cont})\times t_{lim}\]</div>
 <p>Sostituendo i valori si ha <span class="arithmatex">\((105^2-53,1^2)\times1,24 = \mathbf{10.175 \, A^2s}\)</span>, valore che può raggiungere l'integratore prima che il motore si consideri surriscaldato.</p>
@@ -1189,7 +1189,7 @@
 <div class="arithmatex">\[\Delta_{term}=(I^2_{feedback}-I^2_{cont})\times \Delta t\]</div>
 <p>Se <span class="arithmatex">\(I_{feedback}\)</span> è minore di <span class="arithmatex">\(I_{cont}\)</span>, l'energia risulterà negativa, quindi il motore sta dissipando il calore.
 Come ultimo passo si aggiorna l'integratore:</p>
-<div class="arithmatex">\[\text{thermal\_integrator} = \text{thermal\_integrator} + \Delta_{term}\]</div>
+<div class="arithmatex">\[\text{thermal integrator} = \text{thermal integrator} + \Delta_{term}\]</div>
 <h2 id="derating">Derating</h2>
 <p>Non vogliamo che la coppia massima cali drasticamente dal massimo alla coppia nominale quando l'integratore arriva al 100%, ma si deve ridurre dolcemente la potenza erogata.</p>
 <p>Ci sono principalmente due soglie importanti:</p>
@@ -1201,7 +1201,7 @@ Come ultimo passo si aggiorna l'integratore:</p>
 <ul>
 <li>Se l'integratore è sotto all'80%, <span class="arithmatex">\(I_{limit}\)</span> = <span class="arithmatex">\(I_{max}\)</span>, quindi abbiamo la possibilità di erogare tutta la corrente disponibile.</li>
 <li>Se è tra l'80% e il 100% bisogna abbassare linearmente la corrente da 105 A a 53 A. Per l'interpolazione si usa: $<span class="arithmatex">\(Factor = \frac{\text{integrator} - \text{Soglia}_{warn}}{\text{Soglia}_{crit} - \text{Soglia}_{warn}}\)</span>$ Dove factor va d 0 a 1 man mano che il motore si scalda $<span class="arithmatex">\(I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})\)</span>$
-![[temperatura.png|500]]</li>
+<img alt="temp" src="../temperatura.png" /></li>
 </ul>
 
 

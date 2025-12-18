@@ -49,8 +49,8 @@ Allo scopo di implementare il derating bisogna calcolare il limite $I_{limit}$ i
 
 	$$Factor = \frac{\text{integrator} - \text{Soglia}_{warn}}{\text{Soglia}_{crit} - \text{Soglia}_{warn}}$$
 	
-	 Dove factor va d 0 a 1 man mano che il motore si scalda 
+	Dove factor va da 0 a 1 man mano che il motore si scalda 
 	 
-	 $$I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})$$
+	$$I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})$$
 	 
 ![temp](temperatura.png)

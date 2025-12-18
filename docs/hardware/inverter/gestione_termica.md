@@ -45,5 +45,9 @@ Ci sono principalmente due soglie importanti:
 Allo scopo di implementare il derating bisogna calcolare il limite $I_{limit}$ ia ogni ciclo utilizzando le soglie.
 
 - Se l'integratore è sotto all'80%, $I_{limit}$ = $I_{max}$, quindi abbiamo la possibilità di erogare tutta la corrente disponibile.
-- Se è tra l'80% e il 100% bisogna abbassare linearmente la corrente da 105 A a 53 A. Per l'interpolazione si usa: $$Factor = \frac{\text{integrator} - \text{Soglia}_{warn}}{\text{Soglia}_{crit} - \text{Soglia}_{warn}}$$ Dove factor va d 0 a 1 man mano che il motore si scalda $$I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})$$
+- Se è tra l'80% e il 100% bisogna abbassare linearmente la corrente da 105 A a 53 A. Per l'interpolazione si usa: 
+
+	$$Factor = \frac{\text{integrator} - \text{Soglia}_{warn}}{\text{Soglia}_{crit} - \text{Soglia}_{warn}}$$
+	
+	 Dove factor va d 0 a 1 man mano che il motore si scalda $$I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})$$
 ![temp](temperatura.png)

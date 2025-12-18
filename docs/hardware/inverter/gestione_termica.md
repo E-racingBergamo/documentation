@@ -15,7 +15,7 @@ Prima di cominciare a pensare all'algoritmo è bene tenere a mente alcuni dati i
 - **Corrente massima**: $I_{max}$ = 105 A, picco massimo assoluto consentito.
 - **Tempo massimo** $T_{lim}$ a $I_{max}$ = 1,24 s. Quanto tempo il motore sopravvive al picco massimo.
 
-![[tempo.png|500]]
+![ciao](tempo.png)
 
 L'algoritmo opera utilizzando come riferimento un **bucket termico**, che racchiude l'energia termica che viene contenuta nel motore. Il secchio ha una larghezza massima che rappresenta la quantità di calore che il motore riesce a sopportare prima di subire danni irrisolvibili e la smagnetizzazione dei magneti permanenti. L'unita di misura del **budget termico** è in $A^2s$ e si calcola come:
 
@@ -32,7 +32,7 @@ $$\Delta_{term}=(I^2_{feedback}-I^2_{cont})\times \Delta t$$
 Se $I_{feedback}$ è minore di $I_{cont}$, l'energia risulterà negativa, quindi il motore sta dissipando il calore.
 Come ultimo passo si aggiorna l'integratore:
 
-$$\text{thermal\_integrator} = \text{thermal\_integrator} + \Delta_{term}$$
+$$\text{thermal integrator} = \text{thermal integrator} + \Delta_{term}$$
 
 ## Derating
 Non vogliamo che la coppia massima cali drasticamente dal massimo alla coppia nominale quando l'integratore arriva al 100%, ma si deve ridurre dolcemente la potenza erogata.
@@ -46,4 +46,4 @@ Allo scopo di implementare il derating bisogna calcolare il limite $I_{limit}$ i
 
 - Se l'integratore è sotto all'80%, $I_{limit}$ = $I_{max}$, quindi abbiamo la possibilità di erogare tutta la corrente disponibile.
 - Se è tra l'80% e il 100% bisogna abbassare linearmente la corrente da 105 A a 53 A. Per l'interpolazione si usa: $$Factor = \frac{\text{integrator} - \text{Soglia}_{warn}}{\text{Soglia}_{crit} - \text{Soglia}_{warn}}$$ Dove factor va d 0 a 1 man mano che il motore si scalda $$I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})$$
-![[temperatura.png|500]]
+![temp](temperatura.png)

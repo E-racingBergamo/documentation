@@ -1203,8 +1203,8 @@ Come ultimo passo si aggiorna l'integratore:</p>
 <li>
 <p>Se è tra l'80% e il 100% bisogna abbassare linearmente la corrente da 105 A a 53 A. Per l'interpolazione si usa: </p>
 <div class="arithmatex">\[Factor = \frac{\text{integrator} - \text{Soglia}_{warn}}{\text{Soglia}_{crit} - \text{Soglia}_{warn}}\]</div>
-<p>Dove factor va d 0 a 1 man mano che il motore si scalda </p>
-<p>$<span class="arithmatex">\(I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})\)</span>$</p>
+<p>Dove factor va da 0 a 1 man mano che il motore si scalda </p>
+<div class="arithmatex">\[I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})\]</div>
 </li>
 </ul>
 <p><img alt="temp" src="../temperatura.png" /></p>

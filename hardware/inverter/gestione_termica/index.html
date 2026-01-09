@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -912,6 +912,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#temperatura-liquido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperatura liquido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frenata-rigenerativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frenata rigenerativa
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1150,6 +1172,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#temperatura-liquido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temperatura liquido
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frenata-rigenerativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frenata rigenerativa
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1189,7 +1233,7 @@
 <div class="arithmatex">\[\Delta_{term}=(I^2_{feedback}-I^2_{cont})\times \Delta t\]</div>
 <p>Se <span class="arithmatex">\(I_{feedback}\)</span> è minore di <span class="arithmatex">\(I_{cont}\)</span>, l'energia risulterà negativa, quindi il motore sta dissipando il calore.
 Come ultimo passo si aggiorna l'integratore:</p>
-<div class="arithmatex">\[\text{thermal integrator} = \text{thermal integrator} + \Delta_{term}\]</div>
+<div class="arithmatex">\[\text{Thermal Integrator} = \text{thermal integrator} + \Delta_{term}\]</div>
 <h2 id="derating">Derating</h2>
 <p>Non vogliamo che la coppia massima cali drasticamente dal massimo alla coppia nominale quando l'integratore arriva al 100%, ma si deve ridurre dolcemente la potenza erogata.</p>
 <p>Ci sono principalmente due soglie importanti:</p>
@@ -1197,7 +1241,7 @@ Come ultimo passo si aggiorna l'integratore:</p>
 <li>La <strong>soglia warning</strong> contraddistingue il limite al quale si inizia a tagliare la coppia e corrisponde all'80% di <span class="arithmatex">\(E_{max}\)</span></li>
 <li><strong>Soglia critica</strong> di stop: il bucket è pieno e il motore non può permettersi di accumulare altro calore per evitare danni permanenti, la coppia va tagliata al di sotto della nominale per permettere anche un raffreddamento</li>
 </ul>
-<p>Allo scopo di implementare il derating bisogna calcolare il limite <span class="arithmatex">\(I_{limit}\)</span> ia ogni ciclo utilizzando le soglie.</p>
+<p>Allo scopo di implementare il derating bisogna calcolare il limite <span class="arithmatex">\(I_{limit}\)</span> a ogni ciclo utilizzando le soglie.</p>
 <ul>
 <li>Se l'integratore è sotto all'80%, <span class="arithmatex">\(I_{limit}\)</span> = <span class="arithmatex">\(I_{max}\)</span>, quindi abbiamo la possibilità di erogare tutta la corrente disponibile.</li>
 <li>
@@ -1208,6 +1252,25 @@ Come ultimo passo si aggiorna l'integratore:</p>
 </li>
 </ul>
 <p><img alt="temp" src="../temperatura.png" /></p>
+<h2 id="temperatura-liquido">Temperatura liquido</h2>
+<p>Un aspetto importante da tenere in considerazione è la temperatura del liquido di raffreddamento all'interno del circuito: se il liquido si trova ad una temperatura di 60°C non condurrà calore efficientemente come se fosse a 20°C o 40°C. </p>
+<p>Bisogna aggiustare il bucket per tenere in considerazione la temperatura iniziale dell'acqua, un <span class="arithmatex">\(\Delta t\)</span> più basso tra fluido e motori diventa un problema perché abbiamo meno margine prima di raggiungere la <span class="arithmatex">\(T_{limit}\)</span>.</p>
+<p><strong>Soluzione</strong>
+Invece di inizializzare a 0 il bucket, bisogna riempirlo ad un valore che riflette la temperatura attuale del motore.</p>
+<p>Definendo la temperatura iniziale del motore a <span class="arithmatex">\(T_{start}\)</span>:</p>
+<div class="arithmatex">\[\text{Thermal Integrator} = \text{ThermalLimit}\times\frac{T_{start}-T_{coolant}}{T_{max\_motor}-T_{coolant}}\]</div>
+<p>Logicamente, se la capacità di smaltire il calore del liquido è ridotta, bisogna aggiustare il derating per compensare la perdita di efficienza. Quello che ci interessa nello specifico è la corrente che il motore può sopportare continuativamente all'attuale temperatura del fluido <span class="arithmatex">\(I_{cont\_actual}\)</span>:</p>
+<div class="arithmatex">\[I_{cont\_actual} = I_{nominale} \times \sqrt{\frac{T_{max} - T_{coolant}}{T_{max} - T_{nominale}}}\]</div>
+<p>l modello base è stato esteso introducendo un fattore di derating dipendente dalla temperatura del fluido di raffreddamento <span class="arithmatex">\(T_{coolant}\)</span>. Poiché la capacità di dissipazione termica è proporzionale al gradiente termico <span class="arithmatex">\(\Delta T\)</span>, la corrente di stallo continuativo <span class="arithmatex">\(I_{cont}\)</span> viene ricalcolata dinamicamente ad ogni ciclo di controllo. Questo previene il surriscaldamento in condizioni di raffreddamento degradato (es. radiatori caldi a fine gara).</p>
+<h2 id="frenata-rigenerativa">Frenata rigenerativa</h2>
+<p>Durante la frenata rigenerativa il problema termico è esattamente lo stesso, sia che la corrente abbia segno negativo che positivo non cambia assolutamente nulla. Il motivo sta nel fatto che la corrente viene elevata al quadrato, quindi che si abbia un corrente di +40A o -40A il risultato sarà lo stesso: gli avvolgimenti si riscaldano.</p>
+<p>Il nuovo problema da considerare è la capacità di ricarica della batteria. Solitamente le celle hanno due limiti di corrente diversi per carica e scarica. Il limite massimo in scarica è dettato dalla <span class="arithmatex">\(I_{max\_discharge}\)</span> dei motori che vale 105A, mentre i limite in carica è dettato dalla capacità della batteria <span class="arithmatex">\(I_{max\_charge}\)</span> che vale 16A. Questo dato è stato recuperato dal datasheet delle celle che utilizziamo, ricordando che con 4 in parallelo si somma (la singola è 4A).</p>
+<p><img alt="charge_characteristics" src="../../battery/charge_characteristics.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">Limite batteria</p>
+<p>Il datasheet mostra che si può arrivare ad una <span class="arithmatex">\(I_{max\_charge}\)</span> di 19.6A, ma se ci arriviamo esplode tutto. NON si fa.</p>
+</div>
+<p>Un altra cosa da tenere in considerazione è l'aumento del DC voltage in relazione all'assorbimento di corrente della batteria. Se il pacco è carico al 100% e freniamo generando 16A, l'assorbimento è ridotto è la tensione sale, questo comportamento dovrebbe essere tenuto in considerazione dall'inverter che taglia la coppia di frenata in caso di DC voltage troppo alto, ma io non mi fido e mi sembra il caso di tenerlo in conto quando facciamo i nostri calcoli.</p>
 
 
 
@@ -1257,10 +1320,10 @@ Come ultimo passo si aggiorna l'integratore:</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       

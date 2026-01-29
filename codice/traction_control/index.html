@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/centralina/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/codice/traction_control/">
       
       
-        <link rel="prev" href="../lezioni_di_c/strutture_dati/binary_tree/">
+        <link rel="prev" href="../centralina/">
       
       
-        <link rel="next" href="../traction_control/">
+        <link rel="next" href="../../hardware/inverter/gestione_termica/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Centralina - My Docs</title>
+        <title>Traction control - My Docs</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#centralina" class="md-skip">
+        <a href="#traction-control" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Centralina
+              Traction control
             
           </span>
         </div>
@@ -697,6 +697,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../centralina/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralina
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -716,7 +744,7 @@
   <span class="md-ellipsis">
     
   
-    Centralina
+    Traction control
   
 
     
@@ -734,7 +762,7 @@
   <span class="md-ellipsis">
     
   
-    Centralina
+    Traction control
   
 
     
@@ -760,77 +788,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#architettura-generale" class="md-nav__link">
+  <a href="#anti-slittamento" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Architettura generale
+        Anti slittamento
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#freertos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FreeRTOS
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#macchine-a-stati" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Macchine a stati
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#logging" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Logging
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#comunicazioni" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comunicazioni
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Comunicazioni">
+    <nav class="md-nav" aria-label="Anti slittamento">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#can" class="md-nav__link">
+  <a href="#implementazione" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CAN
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#uart" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        UART
+        Implementazione
       
     </span>
   </a>
@@ -843,10 +816,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#moduli-futuri" class="md-nav__link">
+  <a href="#torque-vectoring" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Moduli futuri
+        Torque vectoring
       
     </span>
   </a>
@@ -857,34 +830,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../traction_control/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Traction control
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1227,77 +1172,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#architettura-generale" class="md-nav__link">
+  <a href="#anti-slittamento" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Architettura generale
+        Anti slittamento
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#freertos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FreeRTOS
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#macchine-a-stati" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Macchine a stati
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#logging" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Logging
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#comunicazioni" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Comunicazioni
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Comunicazioni">
+    <nav class="md-nav" aria-label="Anti slittamento">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#can" class="md-nav__link">
+  <a href="#implementazione" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CAN
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#uart" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        UART
+        Implementazione
       
     </span>
   </a>
@@ -1310,10 +1200,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#moduli-futuri" class="md-nav__link">
+  <a href="#torque-vectoring" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Moduli futuri
+        Torque vectoring
       
     </span>
   </a>
@@ -1337,77 +1227,60 @@
 
 
 
-<h1 id="centralina">Centralina</h1>
-<p>Questa sezione documenta il software sviluppato per la centralina.</p>
-<hr />
-<h2 id="architettura-generale">Architettura generale</h2>
-<p>Il codice è organizzato in più moduli, ciascuno con responsabilità precise:</p>
+<h1 id="traction-control">Traction Control</h1>
+<p>Il controllo di trazione agisce sulle ruote motrici di una vettura e ha come obiettivo quello di mantenere lo slip ratio <span class="arithmatex">\(\lambda\)</span> tra il 10% e il 20%, dove la forza longitudinale tra pneumatico e asfalto è massima. Lo slip ratio è un parametro che descrive la differenza relativa tra la velocità lineare della ruota e la velocità del veicolo stesso.</p>
+<h2 id="anti-slittamento"><strong>Anti slittamento</strong></h2>
+<p>La prossima sezione prova a risolvere l'errore dello slittamento della ruota sull'asfalto.
+A fronte dei calcoli è necessario recuperare i dati riguardanti tutte e quattro le velocità delle ruote, che nel nostro caso sono rilevati dai due encoder dei motori per l'asse posteriore e dalle ruote foniche sulle ruote dell'asse anteriore. Una volta che si hanno i dati bisogna darli in pasto ad un controllore PID, con lo scopo di minimizzare l'errore di slittamento <span class="arithmatex">\(e(t)\)</span>, quindi la differenza tra lo slittamento desiderato e lo slittamento reale.</p>
+<div class="arithmatex">\[e(t)=\lambda_{target}-\lambda_{reale}\]</div>
+<p>Un controllore PID è diviso in tre parti: proporzionale, integrale e derivativa. Una volta effettuati i calcoli vengono semplicemente sommati i risultati per generare un certo output.</p>
+<div class="arithmatex">\[u(t)= u_P(t) + u_I(t) + u_D(t)\]</div>
+<p><strong>Proporzionale</strong></p>
+<p>L'azione proporzionale reagisce all'errore istantaneo. In caso di forte slittamento, questa componente agisce tagliando la coppia in modo proporzionale allo slittamento. L'uscita si ottiene moltiplicando l'errore con una costante.</p>
+<div class="arithmatex">\[u_P(t)=K_P\cdot e(t)\]</div>
+<p>Questa componente non è sufficiente per eseguire un controllo completo su un processo instabile perché per effettuare una correzione è necessario che <span class="arithmatex">\(e(t)&gt;0\)</span>. È anche importante capire che una costante <span class="arithmatex">\(K_P\)</span> troppo grande risulta in un sistema instabile che inizia ad oscillare in modo accentuato. Mentre se è troppo basso il sistema non sarà in grado ci correggere lo slittamento.</p>
+<p><strong>Integrale</strong></p>
+<p>L'azione integrale permette di considerare la storia dell'errore. In caso di errore stazionario, quindi quando lo slittamento persiste nel tempo, l'integrale accumula l'errore e aumenta l'intervento del traction control.</p>
+<div class="arithmatex">\[u_{I}=K_{I}\cdot\int_{0}^te(\tau)d\tau\]</div>
+<p>Questa parte fa in modo che si raggiunga sempre l'obiettivo del PID ma genera anche un problema: l'effetto <strong>windup</strong>. Se il valore persiste per un prolungato periodo di tempo, l'integrale cresce molto e può continuare a tagliare la coppia anche se la situazione si è stabilizzata e non c'è più slittamento.</p>
+<p><strong>Differenziale</strong></p>
+<p>Serve a smorzare gli errori che vengono dalla componente proporzionale. Se la velocità della ruota cambia repentinamente, quindi sta iniziando a slittare, questa componente interviene tempestivamente.</p>
+<div class="arithmatex">\[u_D(t) = K_d \cdot \frac{de(t)}{dt}\]</div>
+<h3 id="implementazione"><strong>Implementazione</strong></h3>
+<p>L'uscita del PID non viene utilizzato per controllare direttamente la ruota ma agisce sulla coppia che viene inviata al motore.
+Prima di tutto bisogna calcolare lo slip della gomma utilizzando la media della velocità delle ruote davanti per definire la velocità del veicolo.</p>
+<div class="arithmatex">\[\lambda = \frac{\omega \cdot r - v}{v}\]</div>
+<p>Successivamente bisogna definire un target ideale di slip, per esempio il 15%.</p>
+<div class="arithmatex">\[\lambda_{target}=15\%\]</div>
+<p>I dati finiscono in pasto al PID che come output ha la variazione di coppia che dobbiamo applicare a quella richiesta per ridurre lo slittamento.</p>
+<div class="arithmatex">\[Coppia_{effettiva} = Coppia_{pilota} - U_{tot}\]</div>
+<p><span class="arithmatex">\(U_{tot}\)</span> risulta essere una coppia perché le costanti <span class="arithmatex">\(K\)</span> sono scalate in modo tale da trasformare quel valore in una coppia effettiva.</p>
+<h2 id="torque-vectoring"><strong>Torque vectoring</strong></h2>
+<p>Il torque vectoring è quel dispositivo che permette di erogare una coppia diversa per ogni ruota motrice della vettura in modo tale da rendere più fluide le virate ed evitare sovrasterzo e sottosterzo. La nostra auto ha solo due ruote motrici posteriori, quindi i seguenti calcoli e considerazioni sono eseguiti di conseguenza.</p>
+<p>Concretamente l'obiettivo è quello di creare un momento di imbardata aggiuntivo intorno all'asse verticale della vettura. Il sistema utilizza vari sensori, tra i quali:</p>
 <ul>
-<li><strong>CAN controller</strong>: codifica e decodifica di messaggi sulla linea CAN.</li>
-<li><strong>ADC controller</strong>: gestisce i sensori analogici.</li>
-<li><strong>Digital I/O</strong>: per ingressi e uscite digitali.</li>
-<li><strong>Hall sensors</strong>: legge i sensori a effetto Hall.</li>
-<li><strong>Inverter</strong>: comunicazione con inverter e motori</li>
-<li><strong>Telemetry</strong>: formatta i messaggi di telemetria e li mette in coda per essere spediti su una periferica a scelta.</li>
-<li><strong>Ticker</strong>: sincronizza le task periodiche come la lettura dei sensori o l'esecuzione della macchina a stati dell'inverter.</li>
-<li><strong>Tractive system manager</strong>: gestisce la macchina a stati complessiva della macchina e fornisce le autorizzazioni per accendere gli inverter.</li>
+<li>Sensore dello sterzo per ottenere il dato riguardante la sterzata desiderata dal pilota.</li>
+<li>Accelerometro per ottenere l'angolo di imbardata attuale della vettura.</li>
+<li>Sensore di velocità.</li>
 </ul>
-<hr />
-<h2 id="freertos">FreeRTOS</h2>
-<p>FreeRTOS è un sistema operativo real-time open source progettato per microcontrollori.<br />
-Offre meccanismi per:</p>
+<p>Il momento desiderato viene calcolato come</p>
+<div class="arithmatex">\[M_{TV}=\Delta F_{x}\frac{W}2\]</div>
+<p>Con <span class="arithmatex">\(W\)</span> distanza ruota-ruota (carreggiata) e <span class="arithmatex">\(\Delta F_{x}\)</span> la differenza di coppia tra le due ruote motrici. L'efficacia del torque vectoring aumenta all'aumentare della carreggiata perché aumenta il braccio di leva.</p>
+<p>L'implementazione di questo sistema si divide nelle operazioni di feedfarward e feedback.</p>
+<p><strong>Feedfarward</strong></p>
+<p>Il controllore calcola l'imbardata desiderata <span class="arithmatex">\(\dot{\psi}_{target}\)</span> in base all'angolo di sterzata e alla velocità della vettura.</p>
+<div class="arithmatex">\[\dot{\psi}_{target} = \frac{v}{L + K_{us} \cdot v^2} \cdot \delta\]</div>
+<p>Con <span class="arithmatex">\(L\)</span> che è il passo della vettura, <span class="arithmatex">\(K_{us}\)</span> coefficiente di sottosterzo e <span class="arithmatex">\(\delta\)</span> angolo di sterzo. una volta ottenuto il dato si da in pasto al secondo controllore PID che si occuperà di variare il <span class="arithmatex">\(\Delta F_{x}\)</span> in modo da ottenere l'imbardata target.</p>
+<p><strong>Feedback</strong></p>
+<p>Come nel controllo dello slittamento abbiamo un controllore PID che cerca di minimizzare l'errore di imbardata, calcolato come</p>
+<div class="arithmatex">\[e(t) = \dot{\psi}_{target} - \dot{\psi}_{actual}\]</div>
 <ul>
-<li>Creare e gestire <strong>task</strong> che vengono eseguiti in modo concorrente.</li>
-<li>Sincronizzare l’esecuzione tramite <strong>code</strong>, <strong>semafori</strong> e <strong>mutex</strong>.</li>
-<li>Pianificare attività periodiche con <strong>timer software</strong>.</li>
+<li><span class="arithmatex">\(e(t)&lt;0\)</span> corrisponde al sottosterzo</li>
+<li><span class="arithmatex">\(e(t)&gt;0\)</span> corrisponde al sovrasterzo</li>
 </ul>
-<p>Il suo utilizzo permette di strutturare il firmware in moduli indipendenti e ben organizzati, migliorando la scalabilità e la manutenibilità del progetto.</p>
-<hr />
-<h2 id="macchine-a-stati">Macchine a stati</h2>
-<p>Le FSM sono implementate in <strong>C</strong> utilizzando la struttura <code>switch-case</code>.
-Ogni stato rappresenta una fase di funzionamento, ad esempio:</p>
-<div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">INIT</span><span class="p">:</span>
-<span class="w">        </span><span class="c1">// Inizializzazione</span>
-<span class="w">        </span><span class="k">break</span><span class="p">;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">RUN</span><span class="p">:</span>
-<span class="w">        </span><span class="c1">// Esecuzione principale</span>
-<span class="w">        </span><span class="k">break</span><span class="p">;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">ERROR</span><span class="p">:</span>
-<span class="w">        </span><span class="c1">// Gestione errori</span>
-<span class="w">        </span><span class="k">break</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<hr />
-<h2 id="logging">Logging</h2>
-<p>Il logging è gestito tramite <strong>UART</strong> con code di output.
-Caratteristiche principali:</p>
-<ul>
-<li>Supporto a più livelli di log (INFO, WARN, ERROR).</li>
-<li>Invio asincrono dei messaggi.</li>
-</ul>
-<p>Esempio di utilizzo:</p>
-<div class="highlight"><pre><span></span><code><span class="n">LOG_INFO</span><span class="p">(</span><span class="s">&quot;Sistema inizializzato correttamente&quot;</span><span class="p">);</span>
-<span class="n">LOG_ERROR</span><span class="p">(</span><span class="s">&quot;Errore durante la trasmissione CAN&quot;</span><span class="p">);</span>
-</code></pre></div>
-<hr />
-<h2 id="comunicazioni">Comunicazioni</h2>
-<h3 id="can">CAN</h3>
-<ul>
-<li>Supporto a due linee can.</li>
-<li>Callback per la gestione asincrona dei messaggi.</li>
-</ul>
-<h3 id="uart">UART</h3>
-<ul>
-<li>Utilizzata per logging e debug.</li>
-<li>Interfaccia DMA per migliorare le prestazioni.</li>
-</ul>
-<hr />
-<h2 id="moduli-futuri">Moduli futuri</h2>
-<ul>
-<li><strong>Telemetria</strong>: invio dati in tempo reale a un server esterno.</li>
-<li><strong>Strategie di controllo avanzate</strong>: da integrare in base agli sviluppi del progetto.</li>
-</ul>
+<p>L'uscita del PID corrisponde ad una differenza di coppia da applicare ai due motori.</p>
+<div class="arithmatex">\[T_{Posterior\_SX} = \frac{T_{total}}{2} - T_{diff}\]</div>
+<div class="arithmatex">\[T_{Posterior\_DX} = \frac{T_{total}}{2} + T_{diff}\]</div>
 
 
 

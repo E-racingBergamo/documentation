@@ -1,4 +1,4 @@
-site_name: My Docs
+site_name: E-Racing bergamo docs
 site_url: https://e-racingbergamo.github.io/documentation
 theme:
   name: material
@@ -29,7 +29,11 @@ markdown_extensions:
       generic: true
   - admonition
   - pymdownx.details      
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   # - pymdownx.blocks.admonition
 
 extra_css:

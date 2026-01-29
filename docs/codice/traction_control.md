@@ -87,3 +87,84 @@ L'uscita del PID corrisponde ad una differenza di coppia da applicare ai due mot
 $$T_{Posterior\_SX} = \frac{T_{total}}{2} - T_{diff}$$
 
 $$T_{Posterior\_DX} = \frac{T_{total}}{2} + T_{diff}$$
+
+```mermaid
+graph LR
+    %% DEFINIZIONE STILI
+    classDef sensori fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef logica fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef attuatori fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px;
+    classDef pilota fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+
+    %% BLOCCO 1: INPUT PILOTA E SENSORI
+    subgraph INPUT ["INPUT & SENSORI"]
+        direction TB
+        Pedale("Pedale Accel (T_req)"):::pilota
+        Volante("Angolo Sterzo (delta)"):::pilota
+        Sens_Vel("Encoder Ruote (w)"):::sensori
+        Sens_IMU("Giroscopio (Yaw Rate)"):::sensori
+    end
+
+    %% BLOCCO 2: STIMA DELLO STATO
+    subgraph STIMA ["STIMA STATO"]
+        direction TB
+        Calc_Slip("Calcolo Slip Ratio (lambda)"):::logica
+        Calc_Vel("Stima Vel. Veicolo (v)"):::logica
+        Calc_Yaw("Yaw Rate Reale"):::logica
+    end
+
+    %% BLOCCO 3: CONTROLLO TRAZIONE (TC)
+    subgraph TC_LOGIC ["TRACTION CONTROL (TC)"]
+        direction TB
+        Target_Slip("Target Slip (0.15)")
+        Error_Slip("Errore (e = Target - Reale)")
+        PID_TC("PID Antislittamento"):::logica
+        Torque_Limit("Calcolo T_cut"):::logica
+    end
+
+    %% BLOCCO 4: TORQUE VECTORING (TV)
+    subgraph TV_LOGIC ["TORQUE VECTORING (TV)"]
+        direction TB
+        Target_Yaw("Modello Bicicletta (Yaw Target)")
+        Error_Yaw("Errore (e = Target - Reale)")
+        PID_TV("PID Vectoring"):::logica
+        Torque_Diff("Calcolo T_diff"):::logica
+    end
+
+    %% BLOCCO 5: MIXER (ALLOCATION)
+    subgraph MIXER ["CONTROL ALLOCATION"]
+        Eq_SX("Motore SX: (T_req - T_cut)/2 - T_diff"):::attuatori
+        Eq_DX("Motore DX: (T_req - T_cut)/2 + T_diff"):::attuatori
+    end
+
+    %% COLLEGAMENTI
+    Sens_Vel --> Calc_Vel
+    Sens_Vel --> Calc_Slip
+    Calc_Vel --> Calc_Slip
+    Sens_IMU --> Calc_Yaw
+    
+    %% Flusso TC
+    Calc_Slip --> Error_Slip
+    Target_Slip --> Error_Slip
+    Error_Slip --> PID_TC
+    PID_TC --> Torque_Limit
+    Pedale --> Torque_Limit
+    
+    %% Flusso TV
+    Volante --> Target_Yaw
+    Calc_Vel --> Target_Yaw
+    Target_Yaw --> Error_Yaw
+    Calc_Yaw --> Error_Yaw
+    Error_Yaw --> PID_TV
+    PID_TV --> Torque_Diff
+
+    %% Output al Mixer
+    Torque_Limit -- "T_total (Limittata)" --> Eq_SX
+    Torque_Limit -- "T_total (Limitata)" --> Eq_DX
+    Torque_Diff -- "Delta Torque" --> Eq_SX
+    Torque_Diff -- "Delta Torque" --> Eq_DX
+
+    %% Output Finale
+    Eq_SX --> INVERTER_SX((Inverter SX))
+    Eq_DX --> INVERTER_DX((Inverter DX))
+```

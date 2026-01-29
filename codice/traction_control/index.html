@@ -25,7 +25,7 @@
     
     
       
-        <title>Traction control - My Docs</title>
+        <title>Traction control - E-Racing bergamo docs</title>
       
     
     
@@ -94,7 +94,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../.." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
   <img src="../../assets/images/simbolo_blu.ico" alt="logo">
 
@@ -107,7 +107,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            My Docs
+            E-Racing bergamo docs
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -217,12 +217,12 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+    <a href="../.." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
   <img src="../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
-    My Docs
+    E-Racing bergamo docs
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -1281,6 +1281,84 @@ Prima di tutto bisogna calcolare lo slip della gomma utilizzando la media della 
 <p>L'uscita del PID corrisponde ad una differenza di coppia da applicare ai due motori.</p>
 <div class="arithmatex">\[T_{Posterior\_SX} = \frac{T_{total}}{2} - T_{diff}\]</div>
 <div class="arithmatex">\[T_{Posterior\_DX} = \frac{T_{total}}{2} + T_{diff}\]</div>
+<pre class="mermaid"><code>graph LR
+    %% DEFINIZIONE STILI
+    classDef sensori fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef logica fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef attuatori fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px;
+    classDef pilota fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+
+    %% BLOCCO 1: INPUT PILOTA E SENSORI
+    subgraph INPUT ["INPUT &amp; SENSORI"]
+        direction TB
+        Pedale("Pedale Accel (T_req)"):::pilota
+        Volante("Angolo Sterzo (delta)"):::pilota
+        Sens_Vel("Encoder Ruote (w)"):::sensori
+        Sens_IMU("Giroscopio (Yaw Rate)"):::sensori
+    end
+
+    %% BLOCCO 2: STIMA DELLO STATO
+    subgraph STIMA ["STIMA STATO"]
+        direction TB
+        Calc_Slip("Calcolo Slip Ratio (lambda)"):::logica
+        Calc_Vel("Stima Vel. Veicolo (v)"):::logica
+        Calc_Yaw("Yaw Rate Reale"):::logica
+    end
+
+    %% BLOCCO 3: CONTROLLO TRAZIONE (TC)
+    subgraph TC_LOGIC ["TRACTION CONTROL (TC)"]
+        direction TB
+        Target_Slip("Target Slip (0.15)")
+        Error_Slip("Errore (e = Target - Reale)")
+        PID_TC("PID Antislittamento"):::logica
+        Torque_Limit("Calcolo T_cut"):::logica
+    end
+
+    %% BLOCCO 4: TORQUE VECTORING (TV)
+    subgraph TV_LOGIC ["TORQUE VECTORING (TV)"]
+        direction TB
+        Target_Yaw("Modello Bicicletta (Yaw Target)")
+        Error_Yaw("Errore (e = Target - Reale)")
+        PID_TV("PID Vectoring"):::logica
+        Torque_Diff("Calcolo T_diff"):::logica
+    end
+
+    %% BLOCCO 5: MIXER (ALLOCATION)
+    subgraph MIXER ["CONTROL ALLOCATION"]
+        Eq_SX("Motore SX: (T_req - T_cut)/2 - T_diff"):::attuatori
+        Eq_DX("Motore DX: (T_req - T_cut)/2 + T_diff"):::attuatori
+    end
+
+    %% COLLEGAMENTI
+    Sens_Vel --&gt; Calc_Vel
+    Sens_Vel --&gt; Calc_Slip
+    Calc_Vel --&gt; Calc_Slip
+    Sens_IMU --&gt; Calc_Yaw
+
+    %% Flusso TC
+    Calc_Slip --&gt; Error_Slip
+    Target_Slip --&gt; Error_Slip
+    Error_Slip --&gt; PID_TC
+    PID_TC --&gt; Torque_Limit
+    Pedale --&gt; Torque_Limit
+
+    %% Flusso TV
+    Volante --&gt; Target_Yaw
+    Calc_Vel --&gt; Target_Yaw
+    Target_Yaw --&gt; Error_Yaw
+    Calc_Yaw --&gt; Error_Yaw
+    Error_Yaw --&gt; PID_TV
+    PID_TV --&gt; Torque_Diff
+
+    %% Output al Mixer
+    Torque_Limit -- "T_total (Limittata)" --&gt; Eq_SX
+    Torque_Limit -- "T_total (Limitata)" --&gt; Eq_DX
+    Torque_Diff -- "Delta Torque" --&gt; Eq_SX
+    Torque_Diff -- "Delta Torque" --&gt; Eq_DX
+
+    %% Output Finale
+    Eq_SX --&gt; INVERTER_SX((Inverter SX))
+    Eq_DX --&gt; INVERTER_DX((Inverter DX))</code></pre>
 
 
 

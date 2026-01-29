@@ -55,6 +55,7 @@ nav:
               - Linked list: codice/lezioni_di_c/strutture_dati/linked_list.md
               - Binary tree: codice/lezioni_di_c/strutture_dati/binary_tree.md
       - Centralina: codice/centralina.md
+      - Traction control: codice/traction_control.md
   - Hardware:
       - Inverter:
           - Gestione termica: hardware/inverter/gestione_termica.md

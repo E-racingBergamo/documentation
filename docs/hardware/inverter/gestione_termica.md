@@ -83,3 +83,6 @@ Il nuovo problema da considerare è la capacità di ricarica della batteria. Sol
 
 Un altra cosa da tenere in considerazione è l'aumento del DC voltage in relazione all'assorbimento di corrente della batteria. Se il pacco è carico al 100% e freniamo generando 16A, l'assorbimento è ridotto è la tensione sale, questo comportamento dovrebbe essere tenuto in considerazione dall'inverter che taglia la coppia di frenata in caso di DC voltage troppo alto, ma io non mi fido e mi sembra il caso di tenerlo in conto quando facciamo i nostri calcoli.
 
+# hjfhfhhjghj
+## fghfyfhggfh
+$$I_{slkdjfslkdjflskjdf}^{dfskjdfhskdjhfsk}\frac{fjhsakdf}{askjhfjkasha}\Delta$$

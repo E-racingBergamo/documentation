@@ -45,42 +45,42 @@ nav:
   - Home: index.md
 
   # 1. PER CHI INIZIA (Placeholder per future guide)
-  - Onboarding:
-      - 'Setup Ambiente (TODO)': risorse_utili/strumenti_software.md # Se esiste, altrimenti commenta
-      - 'Git & Workflow (TODO)': risorse_utili/git_github.md # Se esiste, altrimenti commenta
+  # - Onboarding:
+  #     - 'Setup Ambiente (TODO)': risorse_utili/strumenti_software.md # Se esiste, altrimenti commenta
+  #     - 'Git & Workflow (TODO)': risorse_utili/git_github.md # Se esiste, altrimenti commenta
 
   # 2. TEORIA E FORMAZIONE (Ex "Lezioni di C")
   - Academy:
       - Fondamenti di C:
-          - Sintassi di base: codice/lezioni_di_c/sintassi_base_c.md
-          - Tipi e Standard int: codice/lezioni_di_c/stdint.md
-          - Visibilità variabili: codice/lezioni_di_c/visibilità_delle_variabili.md
-          - Funzioni: codice/lezioni_di_c/funzioni.md
-          - Strutture di controllo: codice/lezioni_di_c/strutture_controllo.md
+          - Sintassi di base: academy/fondamenti_di_c/sintassi_base_c.md
+          - Tipi e Standard int: academy/fondamenti_di_c/stdint.md
+          - Visibilità variabili: academy/fondamenti_di_c/visibilità_delle_variabili.md
+          - Funzioni: academy/fondamenti_di_c/funzioni.md
+          - Strutture di controllo: academy/fondamenti_di_c/strutture_controllo.md
       - Memoria e Puntatori:
-          - Puntatori: codice/lezioni_di_c/puntatori.md
-          - Strutture dati base: codice/lezioni_di_c/strutture_base.md
+          - Puntatori: academy/memoria_puntatori/puntatori.md
+          - Strutture dati base: academy/memoria_puntatori/strutture_base.md
       - Strutture Dati Avanzate:
-          - Strutture dinamiche: codice/lezioni_di_c/strutture_dati/strutture_dinamiche.md
-          - Linked list: codice/lezioni_di_c/strutture_dati/linked_list.md
-          - Binary tree: codice/lezioni_di_c/strutture_dati/binary_tree.md
+          - Strutture dinamiche: academy/strutture_dati/strutture_dinamiche.md
+          - Linked list: academy/strutture_dati/linked_list.md
+          - Binary tree: academy/strutture_dati/binary_tree.md
 
   # 3. ARCHITETTURA FIRMWARE (Struttura del codice)
   - Firmware Architecture:
-      - Panoramica Centralina: codice/centralina.md
+      - Panoramica Centralina: firmware_architecture/centralina.md
       - Driver & HAL:
-          - ADC Config: hardware/centralina_fae/adc.md
+          - ADC Config: firmware_architecture/driver_hal/adc.md
 
   # 4. ALGORITMI E CONTROLLI (La logica del veicolo)
   - Moduli di Controllo:
       - Vehicle Dynamics:
-          - Traction Control: codice/traction_control.md
+          - Traction Control: control_modules/vehicle_dinamics/traction_control.md
       - Powertrain:
-          - Gestione Termica Inverter: hardware/inverter/gestione_termica.md
+          - Gestione Termica Inverter: control_modules/powertrain/gestione_termica.md
       - Battery Management:
-          - State Of Charge (SOC): hardware/battery/SOC.md
+          - State Of Charge (SOC): control_modules/battery_soc/SOC.md
 
   # 5. HARDWARE (Schede fisiche)
   # Qui dovrai aggiungere i file puramente hardware quando li creerai
-  - Hardware & Elettronica:
-      - 'Overview Hardware (TODO)': hardware/panoramica_hardware.md # Se esiste
+  # - Hardware & Elettronica:
+  #     - 'Overview Hardware (TODO)': hardware/panoramica_hardware.md # Se esiste

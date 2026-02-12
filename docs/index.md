@@ -1,57 +1,62 @@
-# ERB documentation
+# Benvenuto nella Documentazione Tecnica ERB
 
-## Introduzione
+Questa è la knowledge base ufficiale del reparto **Elettronica & Software** di E-Racing Bergamo.
+Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra vettura di muoversi, comunicare e performare in pista.
 
-Questa documentazione raccoglie tutte le informazioni necessarie per comprendere e lavorare sul progetto della **centralina di controllo della macchina**.  
-È pensata sia per i membri esperti del team sia per i nuovi ragazzi che iniziano a collaborare: fornisce quindi spiegazioni passo per passo, a partire dalle basi del linguaggio C fino ad arrivare ai dettagli di firmware, hardware e schede elettroniche.
+La documentazione è divisa in due macro-aree:
 
----
-
-## Obiettivi della documentazione
-
-- Offrire una panoramica chiara del progetto nella sua interezza.  
-- Fornire materiale di formazione per i nuovi membri, senza dare nulla per scontato.  
-- Creare un manuale di riferimento tecnico per lo sviluppo e la manutenzione.  
-- Centralizzare tutte le informazioni in un unico posto facilmente consultabile.  
+1. **Academy**: Il percorso formativo per portare i nuovi membri da zero a sviluppatori embedded.
+2. **Engineering**: Le specifiche tecniche, l'architettura firmware e i datasheet dell'hardware installato in vettura.
 
 ---
 
-## Cosa troverai in queste pagine
+## La nostra Filosofia
 
-1. **Fondamenti di programmazione in C**  
-   Per chi non ha mai programmato o ha bisogno di ripasso.  
+Il software in un veicolo da corsa è mission-critical. Un errore non causa solo un crash del programma, ma può fermare la macchina in gara o creare situazioni di pericolo. Per questo motivo, questa documentazione serve a garantire:
 
-2. **Embedded e microcontrollore**  
-   Spiegazione del funzionamento di un microcontrollore e degli strumenti di sviluppo.  
-
-3. **FreeRTOS**  
-   Introduzione al sistema operativo real-time usato nel firmware.  
-
-4. **Architettura software**  
-   Struttura del progetto: task, FSM, logging, parser CAN.  
-
-5. **Hardware e schede elettroniche**  
-   Panoramica della centralina, dei sensori e delle altre PCB.  
-
-6. **Comunicazioni**  
-   CAN bus, UART e telemetria.  
-
-7. **Guide pratiche**  
-   Esempi passo per passo per aggiungere nuove funzionalità al sistema.  
+* **Affidabilità**: Ogni riga di codice deve essere comprensibile e manutenibile.
+* **Knowledge Transfer**: Il sapere non deve "laurearsi" con i membri senior, ma rimanere nel team.
+* **Standardizzazione**: Scriviamo codice seguendo regole comuni, non stili personali.
 
 ---
 
-## Destinatari
+## Da dove inizio?
 
-Questa documentazione è rivolta a:
+Non tutti devono leggere tutto. Scegli il percorso più adatto al tuo ruolo:
 
-- Studenti e nuovi membri del team che devono imparare da zero.  
-- Chi si occupa di sviluppo software e firmware.  
-- Chi lavora sull’hardware o sull’integrazione dei sistemi.  
+!!! tip "Sono una nuova recluta 👶"
+    Benvenuto a bordo! Il tuo obiettivo ora è configurare il PC e imparare le basi.
+
+    1.  Vai su **Onboarding > Setup Ambiente** per installare i tool.
+    2.  Studia la sezione **Academy**: parti dai *Fondamenti di C* se serve ripasso, poi passa a *Embedded & RTOS*.
+    3.  Non toccare il codice della macchina finché non hai completato i primi esercizi!
+
+!!! abstract "Sono uno Sviluppatore Firmware 💻"
+    Sai già come programmare. Ti serve capire come funziona questa macchina.
+
+    1.  Leggi **Firmware Architecture** per capire come girano i task e la FSM.
+    2.  Consulta **Moduli di Controllo** per la logica specifica (es. Traction Control).
+    3.  Usa le **Guide Operative** per imparare a flashare e debuggare la ECU.
+
+!!! success "Mi occupo di Hardware/Cablaggi 🔌"
+    Ti serve sapere dove collegare i fili.
+
+    1.  Vai diretto alla sezione **Hardware & Elettronica**.
+    2.  Consulta i pinout della **Centralina** e le specifiche dei **Sensori**.
 
 ---
 
-## Come utilizzare la documentazione
+## Stack Tecnologico
 
-Ti consigliamo di partire dalla sezione **Fondamenti di C**, per poi proseguire con le parti embedded e gradualmente arrivare alle implementazioni specifiche della macchina.  
-Ogni capitolo è indipendente e può essere letto anche separatamente come riferimento tecnico.
+Una panoramica rapida degli strumenti che utilizziamo:
+
+| Ambito | Tecnologia |
+| :--- | :--- |
+| **Linguaggio** | C (Standard C99/C11) |
+| **OS** | FreeRTOS, Mbed |
+| **Hardware** | STM32 (ARM Cortex-M), MIMXRT1064 |
+| **Protocolli** | CAN Bus, UART, SPI |
+| **Version Control** | Git & GitHub |
+| **Ambiente di sviluppo** | MCUXpressoIDE, STM32CubeIDE |
+
+> *"Talk is cheap. Show me the code."* — Linus Torvalds

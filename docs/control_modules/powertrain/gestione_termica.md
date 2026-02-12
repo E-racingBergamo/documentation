@@ -7,6 +7,7 @@ Il problema fondamentale risiede nella natura transitoria del sovraccarico. L'ut
 Per controllare questi limiti si utilizza l'algoritmo $I^2t$, anche detto **integrale termico**. Tale modello permette di stimare in tempo reale l'energia termica accumulata nel motore, consentendo di sfruttare l'intera capacità di sovraccarico per periodi limitati, intervenendo con una riduzione della coppia solo all'approssimarsi della soglia critica definita dal costruttore.
 
 ## Algoritmo $I^2t$ (integrale termico)
+
 Prima di cominciare a pensare all'algoritmo è bene tenere a mente alcuni dati importanti strettamente correlati al modello di motore impiegato:
 
 - **Coppia nominale**: 9,8 Nm
@@ -35,6 +36,7 @@ Come ultimo passo si aggiorna l'integratore:
 $$\text{Thermal Integrator} = \text{thermal integrator} + \Delta_{term}$$
 
 ## Derating
+
 Non vogliamo che la coppia massima cali drasticamente dal massimo alla coppia nominale quando l'integratore arriva al 100%, ma si deve ridurre dolcemente la potenza erogata.
 
 Ci sono principalmente due soglie importanti:
@@ -45,17 +47,19 @@ Ci sono principalmente due soglie importanti:
 Allo scopo di implementare il derating bisogna calcolare il limite $I_{limit}$ a ogni ciclo utilizzando le soglie.
 
 - Se l'integratore è sotto all'80%, $I_{limit}$ = $I_{max}$, quindi abbiamo la possibilità di erogare tutta la corrente disponibile.
-- Se è tra l'80% e il 100% bisogna abbassare linearmente la corrente da 105 A a 53 A. Per l'interpolazione si usa: 
+- Se è tra l'80% e il 100% bisogna abbassare linearmente la corrente da 105 A a 53 A. Per l'interpolazione si usa:
 
-	$$Factor = \frac{\text{integrator} - \text{Soglia}_{warn}}{\text{Soglia}_{crit} - \text{Soglia}_{warn}}$$
-	
-	Dove factor va da 0 a 1 man mano che il motore si scalda 
-	 
-	$$I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})$$
-	 
+ $$Factor = \frac{\text{integrator} - \text{Soglia}_{warn}}{\text{Soglia}_{crit} - \text{Soglia}_{warn}}$$
+
+ Dove factor va da 0 a 1 man mano che il motore si scalda
+  
+ $$I_{limit} = I_{max} - Factor \times (I_{max} - I_{cont})$$
+  
 ![temp](temperatura.png)
+
 ## Temperatura liquido
-Un aspetto importante da tenere in considerazione è la temperatura del liquido di raffreddamento all'interno del circuito: se il liquido si trova ad una temperatura di 60°C non condurrà calore efficientemente come se fosse a 20°C o 40°C. 
+
+Un aspetto importante da tenere in considerazione è la temperatura del liquido di raffreddamento all'interno del circuito: se il liquido si trova ad una temperatura di 60°C non condurrà calore efficientemente come se fosse a 20°C o 40°C.
 
 Bisogna aggiustare il bucket per tenere in considerazione la temperatura iniziale dell'acqua, un $\Delta t$ più basso tra fluido e motori diventa un problema perché abbiamo meno margine prima di raggiungere la $T_{limit}$.
 
@@ -71,12 +75,14 @@ Logicamente, se la capacità di smaltire il calore del liquido è ridotta, bisog
 $$I_{cont\_actual} = I_{nominale} \times \sqrt{\frac{T_{max} - T_{coolant}}{T_{max} - T_{nominale}}}$$
 
 l modello base è stato esteso introducendo un fattore di derating dipendente dalla temperatura del fluido di raffreddamento $T_{coolant}$. Poiché la capacità di dissipazione termica è proporzionale al gradiente termico $\Delta T$, la corrente di stallo continuativo $I_{cont}$ viene ricalcolata dinamicamente ad ogni ciclo di controllo. Questo previene il surriscaldamento in condizioni di raffreddamento degradato (es. radiatori caldi a fine gara).
+
 ## Frenata rigenerativa
+
 Durante la frenata rigenerativa il problema termico è esattamente lo stesso, sia che la corrente abbia segno negativo che positivo non cambia assolutamente nulla. Il motivo sta nel fatto che la corrente viene elevata al quadrato, quindi che si abbia un corrente di +40A o -40A il risultato sarà lo stesso: gli avvolgimenti si riscaldano.
 
 Il nuovo problema da considerare è la capacità di ricarica della batteria. Solitamente le celle hanno due limiti di corrente diversi per carica e scarica. Il limite massimo in scarica è dettato dalla $I_{max\_discharge}$ dei motori che vale 105A, mentre i limite in carica è dettato dalla capacità della batteria $I_{max\_charge}$ che vale 16A. Questo dato è stato recuperato dal datasheet delle celle che utilizziamo, ricordando che con 4 in parallelo si somma (la singola è 4A).
 
-![charge_characteristics](../battery/charge_characteristics.png)
+![charge_characteristics](../battery_soc/charge_characteristics.png)
 
 >[!danger] Limite batteria
 > Il datasheet mostra che si può arrivare ad una $I_{max\_charge}$ di 19.6A, ma se ci arriviamo esplode tutto. NON si fa.
@@ -84,5 +90,7 @@ Il nuovo problema da considerare è la capacità di ricarica della batteria. Sol
 Un altra cosa da tenere in considerazione è l'aumento del DC voltage in relazione all'assorbimento di corrente della batteria. Se il pacco è carico al 100% e freniamo generando 16A, l'assorbimento è ridotto è la tensione sale, questo comportamento dovrebbe essere tenuto in considerazione dall'inverter che taglia la coppia di frenata in caso di DC voltage troppo alto, ma io non mi fido e mi sembra il caso di tenerlo in conto quando facciamo i nostri calcoli.
 
 # hjfhfhhjghj
+
 ## fghfyfhggfh
+
 $$I_{slkdjfslkdjflskjdf}^{dfskjdfhskdjhfsk}\frac{fjhsakdf}{askjhfjkasha}\Delta$$

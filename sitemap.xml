@@ -5,71 +5,63 @@
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/centralina/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/fondamenti_di_c/funzioni/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/traction_control/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/fondamenti_di_c/sintassi_base_c/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/funzioni/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/fondamenti_di_c/stdint/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/puntatori/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/fondamenti_di_c/strutture_controllo/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/sintassi_base_c/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/fondamenti_di_c/visibilit%C3%A0_delle_variabili/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/stdint/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/memoria_puntatori/puntatori/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_base/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/memoria_puntatori/strutture_base/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_controllo/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/strutture_dati/binary_tree/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/visibilit%C3%A0_delle_variabili/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/strutture_dati/linked_list/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_dati/binary_tree/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/academy/strutture_dati/strutture_dinamiche/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_dati/linked_list/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/control_modules/battery_soc/SOC/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/codice/lezioni_di_c/strutture_dati/strutture_dinamiche/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/control_modules/powertrain/gestione_termica/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/hardware/battery/SOC/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/control_modules/vehicle_dinamics/traction_control/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/hardware/centralina_fae/adc/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/firmware_architecture/centralina/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
-         <loc>https://e-racingbergamo.github.io/documentation/hardware/inverter/gestione_termica/</loc>
-         <lastmod>2026-02-12</lastmod>
-    </url>
-    <url>
-         <loc>https://e-racingbergamo.github.io/documentation/schede/schede/</loc>
-         <lastmod>2026-02-12</lastmod>
-    </url>
-    <url>
-         <loc>https://e-racingbergamo.github.io/documentation/sensori/sensori/</loc>
+         <loc>https://e-racingbergamo.github.io/documentation/firmware_architecture/driver_hal/adc/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
 </urlset>

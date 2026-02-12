@@ -8,29 +8,31 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/control_modules/vehicle_dinamics/traction_control/">
       
       
+        <link rel="prev" href="../../../firmware_architecture/driver_hal/adc/">
       
-        <link rel="next" href="academy/fondamenti_di_c/sintassi_base_c/">
+      
+        <link rel="next" href="../../powertrain/gestione_termica/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/simbolo_blu.ico">
+      <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>E-Racing bergamo docs</title>
+        <title>Traction Control - E-Racing bergamo docs</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +53,7 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#benvenuto-nella-documentazione-tecnica-erb" class="md-skip">
+        <a href="#traction-control" class="md-skip">
           Skip to content
         </a>
       
@@ -92,9 +94,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Traction Control
             
           </span>
         </div>
@@ -215,9 +217,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     E-Racing bergamo docs
@@ -229,37 +231,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -275,59 +250,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        La nostra Filosofia
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Da dove inizio?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stack Tecnologico
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -433,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/sintassi_base_c/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/sintassi_base_c/" class="md-nav__link">
         
   
   
@@ -461,7 +383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/stdint/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/stdint/" class="md-nav__link">
         
   
   
@@ -489,7 +411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
         
   
   
@@ -517,7 +439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/funzioni/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/funzioni/" class="md-nav__link">
         
   
   
@@ -545,7 +467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/strutture_controllo/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/strutture_controllo/" class="md-nav__link">
         
   
   
@@ -628,7 +550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/puntatori/" class="md-nav__link">
+      <a href="../../../academy/memoria_puntatori/puntatori/" class="md-nav__link">
         
   
   
@@ -656,7 +578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/strutture_base/" class="md-nav__link">
+      <a href="../../../academy/memoria_puntatori/strutture_base/" class="md-nav__link">
         
   
   
@@ -739,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/strutture_dinamiche/" class="md-nav__link">
+      <a href="../../../academy/strutture_dati/strutture_dinamiche/" class="md-nav__link">
         
   
   
@@ -767,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/linked_list/" class="md-nav__link">
+      <a href="../../../academy/strutture_dati/linked_list/" class="md-nav__link">
         
   
   
@@ -795,7 +717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/binary_tree/" class="md-nav__link">
+      <a href="../../../academy/strutture_dati/binary_tree/" class="md-nav__link">
         
   
   
@@ -885,7 +807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/centralina/" class="md-nav__link">
+      <a href="../../../firmware_architecture/centralina/" class="md-nav__link">
         
   
   
@@ -960,7 +882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/driver_hal/adc/" class="md-nav__link">
+      <a href="../../../firmware_architecture/driver_hal/adc/" class="md-nav__link">
         
   
   
@@ -1000,18 +922,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1032,7 +956,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1047,18 +971,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
         
           
           <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
@@ -1079,7 +1005,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1094,10 +1020,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="control_modules/vehicle_dinamics/traction_control/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traction Control
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1113,6 +1066,65 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#anti-slittamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anti slittamento
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anti slittamento">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementazione" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementazione
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#torque-vectoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Torque vectoring
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1180,7 +1192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/powertrain/gestione_termica/" class="md-nav__link">
+      <a href="../../powertrain/gestione_termica/" class="md-nav__link">
         
   
   
@@ -1263,7 +1275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/battery_soc/SOC/" class="md-nav__link">
+      <a href="../../battery_soc/SOC/" class="md-nav__link">
         
   
   
@@ -1326,32 +1338,38 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
+  <a href="#anti-slittamento" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La nostra Filosofia
+        Anti slittamento
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anti slittamento">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementazione" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementazione
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Da dove inizio?
-      
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
+  <a href="#torque-vectoring" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Stack Tecnologico
+        Torque vectoring
       
     </span>
   </a>
@@ -1375,91 +1393,138 @@
 
 
 
-<h1 id="benvenuto-nella-documentazione-tecnica-erb">Benvenuto nella Documentazione Tecnica ERB</h1>
-<p>Questa è la knowledge base ufficiale del reparto <strong>Elettronica &amp; Software</strong> di E-Racing Bergamo.
-Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra vettura di muoversi, comunicare e performare in pista.</p>
-<p>La documentazione è divisa in due macro-aree:</p>
-<ol>
-<li><strong>Academy</strong>: Il percorso formativo per portare i nuovi membri da zero a sviluppatori embedded.</li>
-<li><strong>Engineering</strong>: Le specifiche tecniche, l'architettura firmware e i datasheet dell'hardware installato in vettura.</li>
-</ol>
-<hr />
-<h2 id="la-nostra-filosofia">La nostra Filosofia</h2>
-<p>Il software in un veicolo da corsa è mission-critical. Un errore non causa solo un crash del programma, ma può fermare la macchina in gara o creare situazioni di pericolo. Per questo motivo, questa documentazione serve a garantire:</p>
+<h1 id="traction-control">Traction Control</h1>
+<p>Il controllo di trazione agisce sulle ruote motrici di una vettura e ha come obiettivo quello di mantenere lo slip ratio <span class="arithmatex">\(\lambda\)</span> tra il 10% e il 20%, dove la forza longitudinale tra pneumatico e asfalto è massima. Lo slip ratio è un parametro che descrive la differenza relativa tra la velocità lineare della ruota e la velocità del veicolo stesso.</p>
+<h2 id="anti-slittamento"><strong>Anti slittamento</strong></h2>
+<p>La prossima sezione prova a risolvere l'errore dello slittamento della ruota sull'asfalto.
+A fronte dei calcoli è necessario recuperare i dati riguardanti tutte e quattro le velocità delle ruote, che nel nostro caso sono rilevati dai due encoder dei motori per l'asse posteriore e dalle ruote foniche sulle ruote dell'asse anteriore. Una volta che si hanno i dati bisogna darli in pasto ad un controllore PID, con lo scopo di minimizzare l'errore di slittamento <span class="arithmatex">\(e(t)\)</span>, quindi la differenza tra lo slittamento desiderato e lo slittamento reale.</p>
+<div class="arithmatex">\[e(t)=\lambda_{target}-\lambda_{reale}\]</div>
+<p>Un controllore PID è diviso in tre parti: proporzionale, integrale e derivativa. Una volta effettuati i calcoli vengono semplicemente sommati i risultati per generare un certo output.</p>
+<div class="arithmatex">\[u(t)= u_P(t) + u_I(t) + u_D(t)\]</div>
+<p><strong>Proporzionale</strong></p>
+<p>L'azione proporzionale reagisce all'errore istantaneo. In caso di forte slittamento, questa componente agisce tagliando la coppia in modo proporzionale allo slittamento. L'uscita si ottiene moltiplicando l'errore con una costante.</p>
+<div class="arithmatex">\[u_P(t)=K_P\cdot e(t)\]</div>
+<p>Questa componente non è sufficiente per eseguire un controllo completo su un processo instabile perché per effettuare una correzione è necessario che <span class="arithmatex">\(e(t)&gt;0\)</span>. È anche importante capire che una costante <span class="arithmatex">\(K_P\)</span> troppo grande risulta in un sistema instabile che inizia ad oscillare in modo accentuato. Mentre se è troppo basso il sistema non sarà in grado di correggere lo slittamento.</p>
+<p><strong>Integrale</strong></p>
+<p>L'azione integrale permette di considerare la storia dell'errore. In caso di errore stazionario, quindi quando lo slittamento persiste nel tempo, l'integrale accumula l'errore e aumenta l'intervento del traction control.</p>
+<div class="arithmatex">\[u_{I}=K_{I}\cdot\int_{0}^te(\tau)d\tau\]</div>
+<p>Questa parte fa in modo che si raggiunga sempre l'obiettivo del PID ma genera anche un problema: l'effetto <strong>windup</strong>. Se il valore persiste per un prolungato periodo di tempo, l'integrale cresce molto e può continuare a tagliare la coppia anche se la situazione si è stabilizzata e non c'è più slittamento.</p>
+<p><strong>Differenziale</strong></p>
+<p>Serve a smorzare gli errori che vengono dalla componente proporzionale. Se la velocità della ruota cambia repentinamente, quindi sta iniziando a slittare, questa componente interviene tempestivamente.</p>
+<div class="arithmatex">\[u_D(t) = K_d \cdot \frac{de(t)}{dt}\]</div>
+<h3 id="implementazione"><strong>Implementazione</strong></h3>
+<p>L'uscita del PID non viene utilizzato per controllare direttamente la ruota ma agisce sulla coppia che viene inviata al motore.
+Prima di tutto bisogna calcolare lo slip della gomma utilizzando la media della velocità delle ruote davanti per definire la velocità del veicolo.</p>
+<div class="arithmatex">\[\lambda = \frac{\omega \cdot r - v}{v}\]</div>
+<p>Successivamente bisogna definire un target ideale di slip, per esempio il 15%.</p>
+<div class="arithmatex">\[\lambda_{target}=15\%\]</div>
+<p>I dati finiscono in pasto al PID che come output ha la variazione di coppia che dobbiamo applicare a quella richiesta per ridurre lo slittamento.</p>
+<div class="arithmatex">\[Coppia_{effettiva} = Coppia_{pilota} - U_{tot}\]</div>
+<p><span class="arithmatex">\(U_{tot}\)</span> risulta essere una coppia perché le costanti <span class="arithmatex">\(K\)</span> sono scalate in modo tale da trasformare quel valore in una coppia effettiva.</p>
+<h2 id="torque-vectoring"><strong>Torque vectoring</strong></h2>
+<p>Il torque vectoring è quel dispositivo che permette di erogare una coppia diversa per ogni ruota motrice della vettura in modo tale da rendere più fluide le virate ed evitare sovrasterzo e sottosterzo. La nostra auto ha solo due ruote motrici posteriori, quindi i seguenti calcoli e considerazioni sono eseguiti di conseguenza.</p>
+<p>Concretamente l'obiettivo è quello di creare un momento di imbardata aggiuntivo intorno all'asse verticale della vettura. Il sistema utilizza vari sensori, tra i quali:</p>
 <ul>
-<li><strong>Affidabilità</strong>: Ogni riga di codice deve essere comprensibile e manutenibile.</li>
-<li><strong>Knowledge Transfer</strong>: Il sapere non deve "laurearsi" con i membri senior, ma rimanere nel team.</li>
-<li><strong>Standardizzazione</strong>: Scriviamo codice seguendo regole comuni, non stili personali.</li>
+<li>Sensore dello sterzo per ottenere il dato riguardante la sterzata desiderata dal pilota.</li>
+<li>Accelerometro per ottenere l'angolo di imbardata attuale della vettura.</li>
+<li>Sensore di velocità.</li>
 </ul>
-<hr />
-<h2 id="da-dove-inizio">Da dove inizio?</h2>
-<p>Non tutti devono leggere tutto. Scegli il percorso più adatto al tuo ruolo:</p>
-<div class="admonition tip">
-<p class="admonition-title">Sono una nuova recluta 👶</p>
-<p>Benvenuto a bordo! Il tuo obiettivo ora è configurare il PC e imparare le basi.</p>
-<ol>
-<li>Vai su <strong>Onboarding &gt; Setup Ambiente</strong> per installare i tool.</li>
-<li>Studia la sezione <strong>Academy</strong>: parti dai <em>Fondamenti di C</em> se serve ripasso, poi passa a <em>Embedded &amp; RTOS</em>.</li>
-<li>Non toccare il codice della macchina finché non hai completato i primi esercizi!</li>
-</ol>
-</div>
-<div class="admonition abstract">
-<p class="admonition-title">Sono uno Sviluppatore Firmware 💻</p>
-<p>Sai già come programmare. Ti serve capire come funziona questa macchina.</p>
-<ol>
-<li>Leggi <strong>Firmware Architecture</strong> per capire come girano i task e la FSM.</li>
-<li>Consulta <strong>Moduli di Controllo</strong> per la logica specifica (es. Traction Control).</li>
-<li>Usa le <strong>Guide Operative</strong> per imparare a flashare e debuggare la ECU.</li>
-</ol>
-</div>
-<div class="admonition success">
-<p class="admonition-title">Mi occupo di Hardware/Cablaggi 🔌</p>
-<p>Ti serve sapere dove collegare i fili.</p>
-<ol>
-<li>Vai diretto alla sezione <strong>Hardware &amp; Elettronica</strong>.</li>
-<li>Consulta i pinout della <strong>Centralina</strong> e le specifiche dei <strong>Sensori</strong>.</li>
-</ol>
-</div>
-<hr />
-<h2 id="stack-tecnologico">Stack Tecnologico</h2>
-<p>Una panoramica rapida degli strumenti che utilizziamo:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Ambito</th>
-<th style="text-align: left;">Tecnologia</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Linguaggio</strong></td>
-<td style="text-align: left;">C (Standard C99/C11)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>OS</strong></td>
-<td style="text-align: left;">FreeRTOS, Mbed</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Hardware</strong></td>
-<td style="text-align: left;">STM32 (ARM Cortex-M), MIMXRT1064</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Protocolli</strong></td>
-<td style="text-align: left;">CAN Bus, UART, SPI</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Version Control</strong></td>
-<td style="text-align: left;">Git &amp; GitHub</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Ambiente di sviluppo</strong></td>
-<td style="text-align: left;">MCUXpressoIDE, STM32CubeIDE</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><em>"Talk is cheap. Show me the code."</em> — Linus Torvalds</p>
-</blockquote>
+<p>Il momento desiderato viene calcolato come</p>
+<div class="arithmatex">\[M_{TV}=\Delta F_{x}\frac{W}2\]</div>
+<p>Con <span class="arithmatex">\(W\)</span> distanza ruota-ruota (carreggiata) e <span class="arithmatex">\(\Delta F_{x}\)</span> la differenza di coppia tra le due ruote motrici. L'efficacia del torque vectoring aumenta all'aumentare della carreggiata perché aumenta il braccio di leva.</p>
+<p>L'implementazione di questo sistema si divide nelle operazioni di feedfarward e feedback.</p>
+<p><strong>Feedfarward</strong></p>
+<p>Il controllore calcola l'imbardata desiderata <span class="arithmatex">\(\dot{\psi}_{target}\)</span> in base all'angolo di sterzata e alla velocità della vettura.</p>
+<div class="arithmatex">\[\dot{\psi}_{target} = \frac{v}{L + K_{us} \cdot v^2} \cdot \delta\]</div>
+<p>Con <span class="arithmatex">\(L\)</span> che è il passo della vettura, <span class="arithmatex">\(K_{us}\)</span> coefficiente di sottosterzo e <span class="arithmatex">\(\delta\)</span> angolo di sterzo. una volta ottenuto il dato si da in pasto al secondo controllore PID che si occuperà di variare il <span class="arithmatex">\(\Delta F_{x}\)</span> in modo da ottenere l'imbardata target.</p>
+<p><strong>Feedback</strong></p>
+<p>Come nel controllo dello slittamento abbiamo un controllore PID che cerca di minimizzare l'errore di imbardata, calcolato come</p>
+<div class="arithmatex">\[e(t) = \dot{\psi}_{target} - \dot{\psi}_{actual}\]</div>
+<ul>
+<li><span class="arithmatex">\(e(t)&lt;0\)</span> corrisponde al sottosterzo</li>
+<li><span class="arithmatex">\(e(t)&gt;0\)</span> corrisponde al sovrasterzo</li>
+</ul>
+<p>L'uscita del PID corrisponde ad una differenza di coppia da applicare ai due motori.</p>
+<div class="arithmatex">\[T_{Posterior\_SX} = \frac{T_{total}}{2} - T_{diff}\]</div>
+<div class="arithmatex">\[T_{Posterior\_DX} = \frac{T_{total}}{2} + T_{diff}\]</div>
+<pre class="mermaid"><code>graph LR
+    %% DEFINIZIONE STILI
+    classDef sensori fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef logica fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef attuatori fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px;
+    classDef pilota fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+
+    %% BLOCCO 1: INPUT PILOTA E SENSORI
+    subgraph INPUT ["INPUT &amp; SENSORI"]
+        direction TB
+        Pedale("Pedale Accel (T_req)"):::pilota
+        Volante("Angolo Sterzo (delta)"):::pilota
+        Sens_Vel("Encoder Ruote (w)"):::sensori
+        Sens_IMU("Giroscopio (Yaw Rate)"):::sensori
+    end
+
+    %% BLOCCO 2: STIMA DELLO STATO
+    subgraph STIMA ["STIMA STATO"]
+        direction TB
+        Calc_Slip("Calcolo Slip Ratio (lambda)"):::logica
+        Calc_Vel("Stima Vel. Veicolo (v)"):::logica
+        Calc_Yaw("Yaw Rate Reale"):::logica
+    end
+
+    %% BLOCCO 3: CONTROLLO TRAZIONE (TC)
+    subgraph TC_LOGIC ["TRACTION CONTROL (TC)"]
+        direction TB
+        Target_Slip("Target Slip (0.15)")
+        Error_Slip("Errore (e = Target - Reale)")
+        PID_TC("PID Antislittamento"):::logica
+        Torque_Limit("Calcolo T_cut"):::logica
+    end
+
+    %% BLOCCO 4: TORQUE VECTORING (TV)
+    subgraph TV_LOGIC ["TORQUE VECTORING (TV)"]
+        direction TB
+        Target_Yaw("Modello Bicicletta (Yaw Target)")
+        Error_Yaw("Errore (e = Target - Reale)")
+        PID_TV("PID Vectoring"):::logica
+        Torque_Diff("Calcolo T_diff"):::logica
+    end
+
+    %% BLOCCO 5: MIXER (ALLOCATION)
+    subgraph MIXER ["CONTROL ALLOCATION"]
+        Eq_SX("Motore SX: (T_req - T_cut)/2 - T_diff"):::attuatori
+        Eq_DX("Motore DX: (T_req - T_cut)/2 + T_diff"):::attuatori
+    end
+
+    %% COLLEGAMENTI
+    Sens_Vel --&gt; Calc_Vel
+    Sens_Vel --&gt; Calc_Slip
+    Calc_Vel --&gt; Calc_Slip
+    Sens_IMU --&gt; Calc_Yaw
+
+    %% Flusso TC
+    Calc_Slip --&gt; Error_Slip
+    Target_Slip --&gt; Error_Slip
+    Error_Slip --&gt; PID_TC
+    PID_TC --&gt; Torque_Limit
+    Pedale --&gt; Torque_Limit
+
+    %% Flusso TV
+    Volante --&gt; Target_Yaw
+    Calc_Vel --&gt; Target_Yaw
+    Target_Yaw --&gt; Error_Yaw
+    Calc_Yaw --&gt; Error_Yaw
+    Error_Yaw --&gt; PID_TV
+    PID_TV --&gt; Torque_Diff
+
+    %% Output al Mixer
+    Torque_Limit -- "T_total (Limittata)" --&gt; Eq_SX
+    Torque_Limit -- "T_total (Limitata)" --&gt; Eq_DX
+    Torque_Diff -- "Delta Torque" --&gt; Eq_SX
+    Torque_Diff -- "Delta Torque" --&gt; Eq_DX
+
+    %% Output Finale
+    Eq_SX --&gt; INVERTER_SX((Inverter SX))
+    Eq_DX --&gt; INVERTER_DX((Inverter DX))</code></pre>
 
 
 
@@ -1509,10 +1574,10 @@ Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

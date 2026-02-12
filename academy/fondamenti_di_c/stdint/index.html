@@ -8,29 +8,31 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/academy/fondamenti_di_c/stdint/">
       
       
+        <link rel="prev" href="../sintassi_base_c/">
       
-        <link rel="next" href="academy/fondamenti_di_c/sintassi_base_c/">
+      
+        <link rel="next" href="../visibilit%C3%A0_delle_variabili/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/simbolo_blu.ico">
+      <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>E-Racing bergamo docs</title>
+        <title>Tipi e Standard int - E-Racing bergamo docs</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +53,7 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#benvenuto-nella-documentazione-tecnica-erb" class="md-skip">
+        <a href="#tipi-di-stdinth" class="md-skip">
           Skip to content
         </a>
       
@@ -92,9 +94,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Tipi e Standard int
             
           </span>
         </div>
@@ -215,9 +217,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     E-Racing bergamo docs
@@ -227,6 +229,159 @@
     
       
       
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Academy
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Academy
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fondamenti di C
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fondamenti di C
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sintassi_base_c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sintassi di base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
   
   
     
@@ -248,7 +403,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    Tipi e Standard int
   
 
     
@@ -259,14 +414,14 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    Home
+    Tipi e Standard int
   
 
     
@@ -292,10 +447,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
+  <a href="#tipi-interi-con-dimensione-precisa" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La nostra Filosofia
+        Tipi interi con dimensione precisa
       
     </span>
   </a>
@@ -303,10 +458,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
+  <a href="#buona-pratica" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Da dove inizio?
+        Buona pratica
       
     </span>
   </a>
@@ -314,13 +469,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
+  <a href="#confronto-tra-tipi-standard-e-tipi-di-stdinth" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Stack Tecnologico
+        Confronto tra tipi standard e tipi di stdint.h
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Confronto tra tipi standard e tipi di stdint.h">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perche-e-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perché è importante?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -331,127 +503,6 @@
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Academy
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Academy
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
-        
-          
-          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Fondamenti di C
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_1">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Fondamenti di C
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/sintassi_base_c/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Sintassi di base
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -461,35 +512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/stdint/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tipi e Standard int
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+      <a href="../visibilit%C3%A0_delle_variabili/" class="md-nav__link">
         
   
   
@@ -517,7 +540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/funzioni/" class="md-nav__link">
+      <a href="../funzioni/" class="md-nav__link">
         
   
   
@@ -545,7 +568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/strutture_controllo/" class="md-nav__link">
+      <a href="../strutture_controllo/" class="md-nav__link">
         
   
   
@@ -628,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/puntatori/" class="md-nav__link">
+      <a href="../../memoria_puntatori/puntatori/" class="md-nav__link">
         
   
   
@@ -656,7 +679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/strutture_base/" class="md-nav__link">
+      <a href="../../memoria_puntatori/strutture_base/" class="md-nav__link">
         
   
   
@@ -739,7 +762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/strutture_dinamiche/" class="md-nav__link">
+      <a href="../../strutture_dati/strutture_dinamiche/" class="md-nav__link">
         
   
   
@@ -767,7 +790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/linked_list/" class="md-nav__link">
+      <a href="../../strutture_dati/linked_list/" class="md-nav__link">
         
   
   
@@ -795,7 +818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/binary_tree/" class="md-nav__link">
+      <a href="../../strutture_dati/binary_tree/" class="md-nav__link">
         
   
   
@@ -885,7 +908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/centralina/" class="md-nav__link">
+      <a href="../../../firmware_architecture/centralina/" class="md-nav__link">
         
   
   
@@ -960,7 +983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/driver_hal/adc/" class="md-nav__link">
+      <a href="../../../firmware_architecture/driver_hal/adc/" class="md-nav__link">
         
   
   
@@ -1097,7 +1120,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/vehicle_dinamics/traction_control/" class="md-nav__link">
+      <a href="../../../control_modules/vehicle_dinamics/traction_control/" class="md-nav__link">
         
   
   
@@ -1180,7 +1203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/powertrain/gestione_termica/" class="md-nav__link">
+      <a href="../../../control_modules/powertrain/gestione_termica/" class="md-nav__link">
         
   
   
@@ -1263,7 +1286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/battery_soc/SOC/" class="md-nav__link">
+      <a href="../../../control_modules/battery_soc/SOC/" class="md-nav__link">
         
   
   
@@ -1326,10 +1349,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
+  <a href="#tipi-interi-con-dimensione-precisa" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La nostra Filosofia
+        Tipi interi con dimensione precisa
       
     </span>
   </a>
@@ -1337,10 +1360,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
+  <a href="#buona-pratica" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Da dove inizio?
+        Buona pratica
       
     </span>
   </a>
@@ -1348,13 +1371,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
+  <a href="#confronto-tra-tipi-standard-e-tipi-di-stdinth" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Stack Tecnologico
+        Confronto tra tipi standard e tipi di stdint.h
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Confronto tra tipi standard e tipi di stdint.h">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perche-e-importante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perché è importante?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1375,91 +1415,123 @@
 
 
 
-<h1 id="benvenuto-nella-documentazione-tecnica-erb">Benvenuto nella Documentazione Tecnica ERB</h1>
-<p>Questa è la knowledge base ufficiale del reparto <strong>Elettronica &amp; Software</strong> di E-Racing Bergamo.
-Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra vettura di muoversi, comunicare e performare in pista.</p>
-<p>La documentazione è divisa in due macro-aree:</p>
-<ol>
-<li><strong>Academy</strong>: Il percorso formativo per portare i nuovi membri da zero a sviluppatori embedded.</li>
-<li><strong>Engineering</strong>: Le specifiche tecniche, l'architettura firmware e i datasheet dell'hardware installato in vettura.</li>
-</ol>
+<h1 id="tipi-di-stdinth">Tipi di <code>stdint.h</code></h1>
+<p>In C la dimensione di tipi come <code>int</code>, <code>long</code>, <code>short</code> può variare a seconda del compilatore e dell’architettura.<br />
+Per i microcontrollori questo è un problema, perché dobbiamo sapere con certezza quanti <strong>bit</strong> occupa una variabile.</p>
+<p>Per questo si usa l’header <strong><code>&lt;stdint.h&gt;</code></strong>, che definisce tipi con dimensione <strong>fissa</strong>.</p>
 <hr />
-<h2 id="la-nostra-filosofia">La nostra Filosofia</h2>
-<p>Il software in un veicolo da corsa è mission-critical. Un errore non causa solo un crash del programma, ma può fermare la macchina in gara o creare situazioni di pericolo. Per questo motivo, questa documentazione serve a garantire:</p>
+<h2 id="tipi-interi-con-dimensione-precisa">Tipi interi con dimensione precisa</h2>
 <ul>
-<li><strong>Affidabilità</strong>: Ogni riga di codice deve essere comprensibile e manutenibile.</li>
-<li><strong>Knowledge Transfer</strong>: Il sapere non deve "laurearsi" con i membri senior, ma rimanere nel team.</li>
-<li><strong>Standardizzazione</strong>: Scriviamo codice seguendo regole comuni, non stili personali.</li>
+<li><code>int8_t</code> → intero con segno a 8 bit (da -128 a 127)  </li>
+<li><code>uint8_t</code> → intero senza segno a 8 bit (da 0 a 255)  </li>
+<li><code>int16_t</code> → intero con segno a 16 bit  </li>
+<li><code>uint16_t</code> → intero senza segno a 16 bit  </li>
+<li><code>int32_t</code> → intero con segno a 32 bit  </li>
+<li><code>uint32_t</code> → intero senza segno a 32 bit  </li>
+<li><code>int64_t</code> → intero con segno a 64 bit  </li>
+<li><code>uint64_t</code> → intero senza segno a 64 bit  </li>
 </ul>
+<p>Esempio:
+<div class="highlight"><pre><span></span><code><span class="kt">uint16_t</span><span class="w"> </span><span class="n">valore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50000</span><span class="p">;</span><span class="w"> </span><span class="c1">// sicuro che è 16 bit senza segno</span>
+<span class="err">````</span>
+
+<span class="o">---</span>
+
+<span class="cp">## Tipi minimi e massimi</span>
+
+<span class="n">Oltre</span><span class="w"> </span><span class="n">ai</span><span class="w"> </span><span class="n">tipi</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">dimensione</span><span class="w"> </span><span class="n">fissa</span><span class="p">,</span><span class="w"> </span><span class="err">`</span><span class="n">stdint</span><span class="p">.</span><span class="n">h</span><span class="err">`</span><span class="w"> </span><span class="n">fornisce</span><span class="w"> </span><span class="n">anche</span><span class="w"> </span><span class="n">tipi</span><span class="w"> </span><span class="n">che</span><span class="w"> </span><span class="n">garantiscono</span><span class="w"> </span><span class="n">almeno</span><span class="w"> </span><span class="n">una</span><span class="w"> </span><span class="n">certa</span><span class="w"> </span><span class="n">dimensione</span><span class="o">:</span>
+
+<span class="o">-</span><span class="w"> </span><span class="err">`</span><span class="kt">int_least8_t</span><span class="err">`</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">almeno</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="n">bit</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="n">segno</span>
+<span class="o">-</span><span class="w"> </span><span class="err">`</span><span class="kt">uint_least16_t</span><span class="err">`</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">almeno</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="n">bit</span><span class="w"> </span><span class="n">senza</span><span class="w"> </span><span class="n">segno</span>
+<span class="o">-</span><span class="w"> </span><span class="err">`</span><span class="kt">int_fast32_t</span><span class="err">`</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">il</span><span class="w"> </span><span class="n">tipo</span><span class="w"> </span><span class="n">intero</span><span class="w"> </span><span class="err">“</span><span class="n">più</span><span class="w"> </span><span class="n">veloce</span><span class="err">”</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="n">almeno</span><span class="w"> </span><span class="mi">32</span><span class="w"> </span><span class="n">bit</span>
+
+<span class="n">Questi</span><span class="w"> </span><span class="n">sono</span><span class="w"> </span><span class="n">meno</span><span class="w"> </span><span class="n">usati</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">embedded</span><span class="p">,</span><span class="w"> </span><span class="n">ma</span><span class="w"> </span><span class="n">possono</span><span class="w"> </span><span class="n">tornare</span><span class="w"> </span><span class="n">utili</span><span class="w"> </span><span class="n">se</span><span class="w"> </span><span class="n">non</span><span class="w"> </span><span class="n">importa</span><span class="w"> </span><span class="n">la</span><span class="w"> </span><span class="n">dimensione</span><span class="w"> </span><span class="n">esatta</span><span class="p">,</span><span class="w"> </span><span class="n">ma</span><span class="w"> </span><span class="n">solo</span><span class="w"> </span><span class="n">la</span><span class="w"> </span><span class="n">minima</span><span class="p">.</span>
+
+<span class="o">---</span>
+
+<span class="cp">## Costanti con dimensione fissa</span>
+
+<span class="err">`</span><span class="n">stdint</span><span class="p">.</span><span class="n">h</span><span class="err">`</span><span class="w"> </span><span class="n">definisce</span><span class="w"> </span><span class="n">anche</span><span class="w"> </span><span class="o">**</span><span class="n">macro</span><span class="o">**</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">scrivere</span><span class="w"> </span><span class="n">costanti</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="n">la</span><span class="w"> </span><span class="n">dimensione</span><span class="w"> </span><span class="n">giusta</span><span class="o">:</span>
+
+<span class="err">```</span><span class="n">c</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UINT32_C</span><span class="p">(</span><span class="mh">0xFFFF0000</span><span class="p">);</span>
+</code></pre></div></p>
+<p>Così evitiamo warning o errori quando usiamo numeri grandi.</p>
 <hr />
-<h2 id="da-dove-inizio">Da dove inizio?</h2>
-<p>Non tutti devono leggere tutto. Scegli il percorso più adatto al tuo ruolo:</p>
-<div class="admonition tip">
-<p class="admonition-title">Sono una nuova recluta 👶</p>
-<p>Benvenuto a bordo! Il tuo obiettivo ora è configurare il PC e imparare le basi.</p>
-<ol>
-<li>Vai su <strong>Onboarding &gt; Setup Ambiente</strong> per installare i tool.</li>
-<li>Studia la sezione <strong>Academy</strong>: parti dai <em>Fondamenti di C</em> se serve ripasso, poi passa a <em>Embedded &amp; RTOS</em>.</li>
-<li>Non toccare il codice della macchina finché non hai completato i primi esercizi!</li>
-</ol>
-</div>
-<div class="admonition abstract">
-<p class="admonition-title">Sono uno Sviluppatore Firmware 💻</p>
-<p>Sai già come programmare. Ti serve capire come funziona questa macchina.</p>
-<ol>
-<li>Leggi <strong>Firmware Architecture</strong> per capire come girano i task e la FSM.</li>
-<li>Consulta <strong>Moduli di Controllo</strong> per la logica specifica (es. Traction Control).</li>
-<li>Usa le <strong>Guide Operative</strong> per imparare a flashare e debuggare la ECU.</li>
-</ol>
-</div>
-<div class="admonition success">
-<p class="admonition-title">Mi occupo di Hardware/Cablaggi 🔌</p>
-<p>Ti serve sapere dove collegare i fili.</p>
-<ol>
-<li>Vai diretto alla sezione <strong>Hardware &amp; Elettronica</strong>.</li>
-<li>Consulta i pinout della <strong>Centralina</strong> e le specifiche dei <strong>Sensori</strong>.</li>
-</ol>
-</div>
-<hr />
-<h2 id="stack-tecnologico">Stack Tecnologico</h2>
-<p>Una panoramica rapida degli strumenti che utilizziamo:</p>
+<h2 id="buona-pratica">Buona pratica</h2>
+<p>In un progetto embedded è consigliato:</p>
+<ul>
+<li>usare sempre i tipi di <code>stdint.h</code> (<code>uint8_t</code>, <code>int32_t</code>, …)</li>
+<li>evitare i tipi “classici” (<code>int</code>, <code>long</code>, …) perché non sempre hanno la stessa dimensione tra PC e microcontrollore</li>
+<li>abbinare <code>stdbool.h</code> e <code>stdint.h</code> per scrivere codice più leggibile e portabile</li>
+</ul>
+<h2 id="confronto-tra-tipi-standard-e-tipi-di-stdinth">Confronto tra tipi standard e tipi di <code>stdint.h</code></h2>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Ambito</th>
-<th style="text-align: left;">Tecnologia</th>
+<th>Tipo classico</th>
+<th>Dimensione (dipende da architettura)</th>
+<th>Possibili valori</th>
+<th>Equivalente <code>stdint.h</code> (fisso)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Linguaggio</strong></td>
-<td style="text-align: left;">C (Standard C99/C11)</td>
+<td><code>char</code></td>
+<td>8 bit (di solito)</td>
+<td>-128 … 127 / 0 … 255</td>
+<td><code>int8_t</code> / <code>uint8_t</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>OS</strong></td>
-<td style="text-align: left;">FreeRTOS, Mbed</td>
+<td><code>short</code></td>
+<td>almeno 16 bit (spesso 16)</td>
+<td>-32.768 … 32.767</td>
+<td><code>int16_t</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Hardware</strong></td>
-<td style="text-align: left;">STM32 (ARM Cortex-M), MIMXRT1064</td>
+<td><code>unsigned short</code></td>
+<td>almeno 16 bit (spesso 16)</td>
+<td>0 … 65.535</td>
+<td><code>uint16_t</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Protocolli</strong></td>
-<td style="text-align: left;">CAN Bus, UART, SPI</td>
+<td><code>int</code></td>
+<td>almeno 16 bit (spesso 32 su ARM)</td>
+<td>dipende da piattaforma</td>
+<td><code>int32_t</code> (se serve 32 bit certi)</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Version Control</strong></td>
-<td style="text-align: left;">Git &amp; GitHub</td>
+<td><code>unsigned int</code></td>
+<td>almeno 16 bit (spesso 32)</td>
+<td>dipende da piattaforma</td>
+<td><code>uint32_t</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Ambiente di sviluppo</strong></td>
-<td style="text-align: left;">MCUXpressoIDE, STM32CubeIDE</td>
+<td><code>long</code></td>
+<td>almeno 32 bit (può essere 32 o 64)</td>
+<td>dipende da compilatore</td>
+<td><code>int32_t</code> o <code>int64_t</code></td>
+</tr>
+<tr>
+<td><code>unsigned long</code></td>
+<td>almeno 32 bit (può essere 32 o 64)</td>
+<td>dipende da compilatore</td>
+<td><code>uint32_t</code> o <code>uint64_t</code></td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><em>"Talk is cheap. Show me the code."</em> — Linus Torvalds</p>
-</blockquote>
+<hr />
+<h3 id="perche-e-importante">Perché è importante?</h3>
+<p>Su un <strong>PC a 64 bit</strong>:<br />
+- <code>int</code> è spesso 32 bit.<br />
+- <code>long</code> è 64 bit (Linux) o 32 bit (Windows).  </p>
+<p>Su un <strong>microcontrollore ARM Cortex-M</strong>:<br />
+- <code>int</code> è quasi sempre 32 bit.<br />
+- <code>long</code> è 32 bit (non 64!).  </p>
+<p>Quindi lo stesso codice scritto con <code>int</code> e <code>long</code> può comportarsi in modo diverso a seconda di dove gira.<br />
+Con <code>stdint.h</code> questo problema non esiste: la dimensione è sempre quella dichiarata.</p>
 
 
 
@@ -1509,10 +1581,10 @@ Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

@@ -8,29 +8,29 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/control_modules/battery_soc/SOC/">
       
       
+        <link rel="prev" href="../../powertrain/gestione_termica/">
       
-        <link rel="next" href="academy/fondamenti_di_c/sintassi_base_c/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/simbolo_blu.ico">
+      <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>E-Racing bergamo docs</title>
+        <title>State Of Charge (SOC) - E-Racing bergamo docs</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +51,7 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#benvenuto-nella-documentazione-tecnica-erb" class="md-skip">
+        <a href="#state-of-charge-soc" class="md-skip">
           Skip to content
         </a>
       
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              State Of Charge (SOC)
             
           </span>
         </div>
@@ -215,9 +215,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     E-Racing bergamo docs
@@ -229,37 +229,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -275,59 +248,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        La nostra Filosofia
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Da dove inizio?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stack Tecnologico
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -433,7 +353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/sintassi_base_c/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/sintassi_base_c/" class="md-nav__link">
         
   
   
@@ -461,7 +381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/stdint/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/stdint/" class="md-nav__link">
         
   
   
@@ -489,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
         
   
   
@@ -517,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/funzioni/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/funzioni/" class="md-nav__link">
         
   
   
@@ -545,7 +465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/strutture_controllo/" class="md-nav__link">
+      <a href="../../../academy/fondamenti_di_c/strutture_controllo/" class="md-nav__link">
         
   
   
@@ -628,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/puntatori/" class="md-nav__link">
+      <a href="../../../academy/memoria_puntatori/puntatori/" class="md-nav__link">
         
   
   
@@ -656,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/strutture_base/" class="md-nav__link">
+      <a href="../../../academy/memoria_puntatori/strutture_base/" class="md-nav__link">
         
   
   
@@ -739,7 +659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/strutture_dinamiche/" class="md-nav__link">
+      <a href="../../../academy/strutture_dati/strutture_dinamiche/" class="md-nav__link">
         
   
   
@@ -767,7 +687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/linked_list/" class="md-nav__link">
+      <a href="../../../academy/strutture_dati/linked_list/" class="md-nav__link">
         
   
   
@@ -795,7 +715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/binary_tree/" class="md-nav__link">
+      <a href="../../../academy/strutture_dati/binary_tree/" class="md-nav__link">
         
   
   
@@ -885,7 +805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/centralina/" class="md-nav__link">
+      <a href="../../../firmware_architecture/centralina/" class="md-nav__link">
         
   
   
@@ -960,7 +880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/driver_hal/adc/" class="md-nav__link">
+      <a href="../../../firmware_architecture/driver_hal/adc/" class="md-nav__link">
         
   
   
@@ -1000,18 +920,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1032,7 +954,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1097,7 +1019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/vehicle_dinamics/traction_control/" class="md-nav__link">
+      <a href="../../vehicle_dinamics/traction_control/" class="md-nav__link">
         
   
   
@@ -1180,7 +1102,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/powertrain/gestione_termica/" class="md-nav__link">
+      <a href="../../powertrain/gestione_termica/" class="md-nav__link">
         
   
   
@@ -1213,18 +1135,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
         
           
           <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
@@ -1245,7 +1169,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1260,10 +1184,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="control_modules/battery_soc/SOC/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Of Charge (SOC)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1279,6 +1230,48 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#primo-metodo-tensioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primo metodo: tensioni
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secondo-metodo-coulomb-counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secondo metodo: Coulomb Counting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1326,10 +1319,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
+  <a href="#primo-metodo-tensioni" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La nostra Filosofia
+        Primo metodo: tensioni
       
     </span>
   </a>
@@ -1337,21 +1330,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
+  <a href="#secondo-metodo-coulomb-counting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Da dove inizio?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stack Tecnologico
+        Secondo metodo: Coulomb Counting
       
     </span>
   </a>
@@ -1375,91 +1357,142 @@
 
 
 
-<h1 id="benvenuto-nella-documentazione-tecnica-erb">Benvenuto nella Documentazione Tecnica ERB</h1>
-<p>Questa è la knowledge base ufficiale del reparto <strong>Elettronica &amp; Software</strong> di E-Racing Bergamo.
-Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra vettura di muoversi, comunicare e performare in pista.</p>
-<p>La documentazione è divisa in due macro-aree:</p>
-<ol>
-<li><strong>Academy</strong>: Il percorso formativo per portare i nuovi membri da zero a sviluppatori embedded.</li>
-<li><strong>Engineering</strong>: Le specifiche tecniche, l'architettura firmware e i datasheet dell'hardware installato in vettura.</li>
-</ol>
-<hr />
-<h2 id="la-nostra-filosofia">La nostra Filosofia</h2>
-<p>Il software in un veicolo da corsa è mission-critical. Un errore non causa solo un crash del programma, ma può fermare la macchina in gara o creare situazioni di pericolo. Per questo motivo, questa documentazione serve a garantire:</p>
+<h1 id="state-of-charge-soc">State Of Charge (SOC)</h1>
+<div class="admonition danger">
+<p class="admonition-title">High voltage</p>
+<p>La batteria ha una tensione che oscilla tra 504V e 588V, è una tensione letale. Osservare tutte le indicazioni di sicurezza prima di iniziare a lavorare sul pacco.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Configurazione pacco</p>
+<p>Il nostro pacco batterie è divisa in 14 moduli in serie con 10 celle ciascuno. Ogni cella ha il suo BMS Enepaq tinyAFE per ottenere informazioni riguardanti tensioni e temperature e bilanciare le singole celle.</p>
+<p>Le celle sono delle sony 4p, quindi la struttura totale della batteria è 140S 4P.</p>
+</div>
+<p>Dato che i TinyAFE non sono dei veri e propri BMS, non possono calcolare autonomamente lo state of charge dei moduli, quindi si rendono necessari degli elementi esterni per fare i calcoli:</p>
 <ul>
-<li><strong>Affidabilità</strong>: Ogni riga di codice deve essere comprensibile e manutenibile.</li>
-<li><strong>Knowledge Transfer</strong>: Il sapere non deve "laurearsi" con i membri senior, ma rimanere nel team.</li>
-<li><strong>Standardizzazione</strong>: Scriviamo codice seguendo regole comuni, non stili personali.</li>
+<li>Sensore di corrente</li>
+<li>Microcontrollore esterno</li>
+<li>Linea UART isolata</li>
 </ul>
-<hr />
-<h2 id="da-dove-inizio">Da dove inizio?</h2>
-<p>Non tutti devono leggere tutto. Scegli il percorso più adatto al tuo ruolo:</p>
-<div class="admonition tip">
-<p class="admonition-title">Sono una nuova recluta 👶</p>
-<p>Benvenuto a bordo! Il tuo obiettivo ora è configurare il PC e imparare le basi.</p>
-<ol>
-<li>Vai su <strong>Onboarding &gt; Setup Ambiente</strong> per installare i tool.</li>
-<li>Studia la sezione <strong>Academy</strong>: parti dai <em>Fondamenti di C</em> se serve ripasso, poi passa a <em>Embedded &amp; RTOS</em>.</li>
-<li>Non toccare il codice della macchina finché non hai completato i primi esercizi!</li>
-</ol>
-</div>
-<div class="admonition abstract">
-<p class="admonition-title">Sono uno Sviluppatore Firmware 💻</p>
-<p>Sai già come programmare. Ti serve capire come funziona questa macchina.</p>
-<ol>
-<li>Leggi <strong>Firmware Architecture</strong> per capire come girano i task e la FSM.</li>
-<li>Consulta <strong>Moduli di Controllo</strong> per la logica specifica (es. Traction Control).</li>
-<li>Usa le <strong>Guide Operative</strong> per imparare a flashare e debuggare la ECU.</li>
-</ol>
-</div>
-<div class="admonition success">
-<p class="admonition-title">Mi occupo di Hardware/Cablaggi 🔌</p>
-<p>Ti serve sapere dove collegare i fili.</p>
-<ol>
-<li>Vai diretto alla sezione <strong>Hardware &amp; Elettronica</strong>.</li>
-<li>Consulta i pinout della <strong>Centralina</strong> e le specifiche dei <strong>Sensori</strong>.</li>
-</ol>
-</div>
-<hr />
-<h2 id="stack-tecnologico">Stack Tecnologico</h2>
-<p>Una panoramica rapida degli strumenti che utilizziamo:</p>
+<p>Ci sono principalmente due metodi per stimare lo stato di carica delle batterie al litio, il primo è basato sulla <strong>tensione</strong>, ma è meno preciso e può dare degli errori anche del 20% quando la batteria è sotto carico, il secondo è il <strong>Coulomb Counting</strong>.</p>
+<h2 id="primo-metodo-tensioni">Primo metodo: tensioni</h2>
+<p>È il metodo più facile e veloce, ma meno preciso. Lo useremo per calibrare il BMS Master all'accensione della vettura.</p>
+<p>Le celle utilizzate all'interno dei moduli sono delle Sony/Murata VTC6-4 (chimica NMC) e hanno una curva di scarica caratteristica fornita dal costruttore e mostrata nell'immagine qua sotto.</p>
+<p><img alt="Curva di scarica" src="../discharge_characteristic.png" /></p>
+<p>Bisogna mappare la tensione del pacco oppure una media delle celle lette dal TinyAFE a una percentuale, usando una tabella estratta dalla curva di scarica al più basso carico. È stato scelto il carico più basso del grafico e non 0 perché ci sono dei componenti, come ad esempio le pompe di raffreddamento, che attingono energia direttamente dal pacco e rischiano di rovinare le celle se si permette l'accensione ad un livello basso senza contare questi consumi. La tensione di fine scarica è stata alzata a 2.80V per motivi di sicurezza e per preservare l'integrità delle celle.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Ambito</th>
-<th style="text-align: left;">Tecnologia</th>
+<th><strong>SoC (%)</strong></th>
+<th><strong>Capacità Residua (mAh)</strong></th>
+<th><strong>Tensione Cella (V)</strong></th>
+<th><strong>Note Visive dal Grafico</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Linguaggio</strong></td>
-<td style="text-align: left;">C (Standard C99/C11)</td>
+<td><strong>100%</strong></td>
+<td>3000</td>
+<td><strong>4.20 V</strong></td>
+<td>Carica completa</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>OS</strong></td>
-<td style="text-align: left;">FreeRTOS, Mbed</td>
+<td><strong>90%</strong></td>
+<td>2700</td>
+<td><strong>4.08 V</strong></td>
+<td>Caduta iniziale rapida</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Hardware</strong></td>
-<td style="text-align: left;">STM32 (ARM Cortex-M), MIMXRT1064</td>
+<td><strong>80%</strong></td>
+<td>2400</td>
+<td><strong>4.00 V</strong></td>
+<td>Inizio zona lineare</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Protocolli</strong></td>
-<td style="text-align: left;">CAN Bus, UART, SPI</td>
+<td><strong>70%</strong></td>
+<td>2100</td>
+<td><strong>3.91 V</strong></td>
+<td></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Version Control</strong></td>
-<td style="text-align: left;">Git &amp; GitHub</td>
+<td><strong>60%</strong></td>
+<td>1800</td>
+<td><strong>3.82 V</strong></td>
+<td></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Ambiente di sviluppo</strong></td>
-<td style="text-align: left;">MCUXpressoIDE, STM32CubeIDE</td>
+<td><strong>50%</strong></td>
+<td>1500</td>
+<td><strong>3.72 V</strong></td>
+<td>Metà grafico (Asse X = 1500)</td>
+</tr>
+<tr>
+<td><strong>40%</strong></td>
+<td>1200</td>
+<td><strong>3.62 V</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>30%</strong></td>
+<td>900</td>
+<td><strong>3.52 V</strong></td>
+<td>La curva si accentua</td>
+</tr>
+<tr>
+<td><strong>20%</strong></td>
+<td>600</td>
+<td><strong>3.40 V</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>10%</strong></td>
+<td>300</td>
+<td><strong>3.20 V</strong></td>
+<td>Ginocchio della curva (scarica rapida)</td>
+</tr>
+<tr>
+<td><strong>5%</strong></td>
+<td>150</td>
+<td><strong>3.05 V</strong></td>
+<td>Zona critica</td>
+</tr>
+<tr>
+<td><strong>0%</strong></td>
+<td>0</td>
+<td><strong>&lt; 2.80 V</strong></td>
+<td>Cutoff di sicurezza</td>
+</tr>
+<tr>
+<td>Questo metodo fallisce quando il pacco è sotto carico per via del fatto che la tensione scende a causa della resistenza interna. Il ragionamento vale ugualmente anche quando il pacco è in carica solo che invece che scendere, la tensione sale.</td>
+<td></td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><em>"Talk is cheap. Show me the code."</em> — Linus Torvalds</p>
-</blockquote>
+<h2 id="secondo-metodo-coulomb-counting">Secondo metodo: Coulomb Counting</h2>
+<p>Il Coulomb Counting è metodo semplice per stimare lo Stato di Carica (SOC) di una batteria, misurando e <strong>integrando nel tempo la corrente</strong> che entra o esce dalla batteria (Ampere-ora) per calcolare la carica rimanente, partendo da un SOC iniziale noto.
+La formula dell'algoritmo è la seguente:</p>
+<div class="arithmatex">\[SoC(t) = SoC(t_0) - \frac{1}{C_{tot}} \int_{t_0}^{t} I(\tau) d\tau\]</div>
+<p>Dove:</p>
+<ul>
+<li><span class="arithmatex">\(SoC(t_0)\)</span> è lo stato di carica iniziale calcolato attraverso il primo metodo delle tensioni.</li>
+<li><span class="arithmatex">\(C_{tot}\)</span> è la capacità totale delle celle. Le nostre sono da <span class="arithmatex">\(3000mAh\)</span> e ne abbiamo 4 in parallelo, risulta che la capacità vale <span class="arithmatex">\(12000mAh\)</span>.</li>
+<li><span class="arithmatex">\(I(\tau)\)</span> è la corrente fornita o sottratta in un lasso di tempo</li>
+</ul>
+<p>Parlando concretamente dobbiamo discretizzare la formula per renderla compatibile con un sistema a tempo discreto come un microcontrollore, allo scopo di effettuare il calcolo ad una frequenza fissa (<span class="arithmatex">\(10Hz\)</span>)</p>
+<div class="arithmatex">\[Q(t) = Q(t-1) + (I_{inst} \times \Delta t)\]</div>
+<p>dove:</p>
+<ul>
+<li><span class="arithmatex">\(Q(t)\)</span> è la carica attuale</li>
+<li><span class="arithmatex">\(I_{inst}\)</span> è la corrente istantanea letta dal sensore (positiva se è in carica e negativa se è in scarica)</li>
+<li><span class="arithmatex">\(\Delta t\)</span> è il lasso di tempo passato dall'ultima lettura, a <span class="arithmatex">\(10Hz\)</span> vale <span class="arithmatex">\(\frac{1}{10}s = 100ms\)</span> </li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Deriva</p>
+<p>Il sensore di corrente avrà per forza uno scostamento rispetto al valore reale a causa di interferenze elettromagnetiche e quant'altro, falsando il calcolo a lungo andare.
+Per correggere bisogna forzare il SOC al 100% vicino al massimo e allo 0% vicino al minimo.</p>
+</div>
+<p>La frequenza di campionamento è stata impostata a 100ms perché i TinyAFE ci mettono un certo lasso di tempo a rispondere alla chiamata del master e sono 14, una frequenza superiore rischia di falsare il risultato usando valori vecchi.</p>
 
 
 
@@ -1509,10 +1542,10 @@ Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

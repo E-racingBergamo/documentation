@@ -8,29 +8,31 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/academy/strutture_dati/strutture_dinamiche/">
       
       
+        <link rel="prev" href="../../memoria_puntatori/strutture_base/">
       
-        <link rel="next" href="academy/fondamenti_di_c/sintassi_base_c/">
+      
+        <link rel="next" href="../linked_list/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/simbolo_blu.ico">
+      <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>E-Racing bergamo docs</title>
+        <title>Strutture dinamiche - E-Racing bergamo docs</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +53,7 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#benvenuto-nella-documentazione-tecnica-erb" class="md-skip">
+        <a href="#strutture-dati-dinamiche" class="md-skip">
           Skip to content
         </a>
       
@@ -92,9 +94,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Strutture dinamiche
             
           </span>
         </div>
@@ -215,9 +217,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     E-Racing bergamo docs
@@ -229,37 +231,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -275,59 +250,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        La nostra Filosofia
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Da dove inizio?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stack Tecnologico
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -336,18 +258,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -368,7 +292,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -433,7 +357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/sintassi_base_c/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/sintassi_base_c/" class="md-nav__link">
         
   
   
@@ -461,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/stdint/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/stdint/" class="md-nav__link">
         
   
   
@@ -489,7 +413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
         
   
   
@@ -517,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/funzioni/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/funzioni/" class="md-nav__link">
         
   
   
@@ -545,7 +469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/strutture_controllo/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/strutture_controllo/" class="md-nav__link">
         
   
   
@@ -628,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/puntatori/" class="md-nav__link">
+      <a href="../../memoria_puntatori/puntatori/" class="md-nav__link">
         
   
   
@@ -656,7 +580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/strutture_base/" class="md-nav__link">
+      <a href="../../memoria_puntatori/strutture_base/" class="md-nav__link">
         
   
   
@@ -689,18 +613,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
@@ -721,7 +647,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -736,10 +662,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="academy/strutture_dati/strutture_dinamiche/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strutture dinamiche
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -755,6 +708,132 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#allocazione-e-deallocazione-dinamica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allocazione e Deallocazione Dinamica
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Allocazione e Deallocazione Dinamica">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assenza-di-un-sistema-operativo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assenza di un "Sistema Operativo" Completo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problemi-con-le-funzioni-di-inputoutput-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problemi con le Funzioni di Input/Output (I/O)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problemi con le Funzioni di Input/Output (I/O)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#printf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        printf()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestione-dinamica-della-memoria-il-pericolo-di-malloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestione Dinamica della Memoria: Il Pericolo di malloc()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestione Dinamica della Memoria: Il Pericolo di malloc()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frammentazione-dellheap-e-determinismo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frammentazione dell'Heap e Determinismo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soluzione-di-freertos-heap-management-personalizzato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soluzione di FreeRTOS: Heap Management Personalizzato
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sicurezza-e-thread-safety-task-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sicurezza e Thread Safety (Task Safety)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -767,7 +846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/linked_list/" class="md-nav__link">
+      <a href="../linked_list/" class="md-nav__link">
         
   
   
@@ -795,7 +874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/binary_tree/" class="md-nav__link">
+      <a href="../binary_tree/" class="md-nav__link">
         
   
   
@@ -885,7 +964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/centralina/" class="md-nav__link">
+      <a href="../../../firmware_architecture/centralina/" class="md-nav__link">
         
   
   
@@ -960,7 +1039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/driver_hal/adc/" class="md-nav__link">
+      <a href="../../../firmware_architecture/driver_hal/adc/" class="md-nav__link">
         
   
   
@@ -1097,7 +1176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/vehicle_dinamics/traction_control/" class="md-nav__link">
+      <a href="../../../control_modules/vehicle_dinamics/traction_control/" class="md-nav__link">
         
   
   
@@ -1180,7 +1259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/powertrain/gestione_termica/" class="md-nav__link">
+      <a href="../../../control_modules/powertrain/gestione_termica/" class="md-nav__link">
         
   
   
@@ -1263,7 +1342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/battery_soc/SOC/" class="md-nav__link">
+      <a href="../../../control_modules/battery_soc/SOC/" class="md-nav__link">
         
   
   
@@ -1326,35 +1405,108 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
+  <a href="#allocazione-e-deallocazione-dinamica" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La nostra Filosofia
+        Allocazione e Deallocazione Dinamica
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Allocazione e Deallocazione Dinamica">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assenza-di-un-sistema-operativo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assenza di un "Sistema Operativo" Completo
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#problemi-con-le-funzioni-di-inputoutput-io" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Da dove inizio?
+        Problemi con le Funzioni di Input/Output (I/O)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problemi con le Funzioni di Input/Output (I/O)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#printf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        printf()
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestione-dinamica-della-memoria-il-pericolo-di-malloc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Stack Tecnologico
+        Gestione Dinamica della Memoria: Il Pericolo di malloc()
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Gestione Dinamica della Memoria: Il Pericolo di malloc()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frammentazione-dellheap-e-determinismo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frammentazione dell'Heap e Determinismo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soluzione-di-freertos-heap-management-personalizzato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soluzione di FreeRTOS: Heap Management Personalizzato
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sicurezza-e-thread-safety-task-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sicurezza e Thread Safety (Task Safety)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1375,91 +1527,65 @@
 
 
 
-<h1 id="benvenuto-nella-documentazione-tecnica-erb">Benvenuto nella Documentazione Tecnica ERB</h1>
-<p>Questa è la knowledge base ufficiale del reparto <strong>Elettronica &amp; Software</strong> di E-Racing Bergamo.
-Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra vettura di muoversi, comunicare e performare in pista.</p>
-<p>La documentazione è divisa in due macro-aree:</p>
+<h1 id="strutture-dati-dinamiche">Strutture dati dinamiche</h1>
+<p>Le <strong>Strutture Dati Dinamiche</strong> (SDD) in C rappresentano un salto di qualità nella programmazione, permettendo di gestire in modo efficiente la memoria e adattarsi alle esigenze reali di un'applicazione. A differenza delle strutture statiche (come gli array, la cui dimensione è fissata a tempo di compilazione), le SDD possono <strong>espandersi o ridursi</strong> durante l'esecuzione del programma.</p>
+<p>Questo è reso possibile dall'uso combinato di due concetti fondamentali in C:</p>
 <ol>
-<li><strong>Academy</strong>: Il percorso formativo per portare i nuovi membri da zero a sviluppatori embedded.</li>
-<li><strong>Engineering</strong>: Le specifiche tecniche, l'architettura firmware e i datasheet dell'hardware installato in vettura.</li>
+<li><strong>Allocazione Dinamica della Memoria:</strong> L'uso di funzioni come <code>malloc()</code>, <code>calloc()</code>, <code>realloc()</code> e <code>free()</code> per richiedere e rilasciare memoria sull'<strong>heap</strong> a tempo di esecuzione.</li>
+<li><strong>Puntatori</strong></li>
 </ol>
-<hr />
-<h2 id="la-nostra-filosofia">La nostra Filosofia</h2>
-<p>Il software in un veicolo da corsa è mission-critical. Un errore non causa solo un crash del programma, ma può fermare la macchina in gara o creare situazioni di pericolo. Per questo motivo, questa documentazione serve a garantire:</p>
+<h2 id="allocazione-e-deallocazione-dinamica">Allocazione e Deallocazione Dinamica</h2>
+<p>Per creare e gestire le SDD, se si lavora con un ambiente di sviluppo tipicamente desktop, si utilizzano le funzioni della libreria standard C (<code>stdlib.h</code>). Nei sistemi embedded spesso l'uso della libreria standard è limitato o del tutto proibito, per questo è necessario trovare delle soluzioni alternative.</p>
+<h3 id="assenza-di-un-sistema-operativo-completo">Assenza di un "Sistema Operativo" Completo</h3>
+<p>Le funzioni della CSL (specialmente I/O e gestione della memoria) assumono l'esistenza di un ambiente operativo completo, con:</p>
 <ul>
-<li><strong>Affidabilità</strong>: Ogni riga di codice deve essere comprensibile e manutenibile.</li>
-<li><strong>Knowledge Transfer</strong>: Il sapere non deve "laurearsi" con i membri senior, ma rimanere nel team.</li>
-<li><strong>Standardizzazione</strong>: Scriviamo codice seguendo regole comuni, non stili personali.</li>
+<li>Un <strong>file system</strong> (per <code>fopen</code>, <code>fread</code>, <code>fprintf</code>, ecc.).</li>
+<li>Uno <strong>schermo/console</strong> ben definiti (per <code>printf</code>).</li>
+<li>Una <strong>gestione della memoria</strong> (Kernel) che gestisce l'heap in modo robusto.</li>
 </ul>
-<hr />
-<h2 id="da-dove-inizio">Da dove inizio?</h2>
-<p>Non tutti devono leggere tutto. Scegli il percorso più adatto al tuo ruolo:</p>
-<div class="admonition tip">
-<p class="admonition-title">Sono una nuova recluta 👶</p>
-<p>Benvenuto a bordo! Il tuo obiettivo ora è configurare il PC e imparare le basi.</p>
+<p>Nei sistemi embedded, la maggior parte di queste funzionalità è assente o deve essere implementata "da zero" (o tramite driver minimi forniti dal produttore del chip).</p>
+<h3 id="problemi-con-le-funzioni-di-inputoutput-io">Problemi con le Funzioni di Input/Output (I/O)</h3>
+<h4 id="printf"><code>printf()</code></h4>
+<p>La funzione <code>printf()</code> è molto complessa: deve interpretare la stringa di formato, convertire vari tipi di dati (float, interi lunghi), e infine scrivere l'output in un <em>stream</em> standard (che sia un terminale, una console seriale, o un file).</p>
+<ul>
+<li>
+<p><strong>Dimensione del Codice (Footprint):</strong> L'implementazione completa di <code>printf</code> può occupare decine di kilobyte di memoria Flash (ROM), che è una quantità sproporzionata per un microcontrollore con 64KB totali.</p>
+</li>
+<li>
+<p><strong>Reindirizzamento (Retargeting):</strong> La CSL non sa "dove" si trova la console. Per usare <code>printf</code>, lo sviluppatore deve "reindirizzare" le chiamate a una funzione a basso livello che gestisca la comunicazione hardware (es. UART o USB). Questo processo, chiamato <em>retargeting</em>, è specifico per ogni hardware e RTOS.</p>
+</li>
+</ul>
+<h3 id="gestione-dinamica-della-memoria-il-pericolo-di-malloc">Gestione Dinamica della Memoria: Il Pericolo di <code>malloc()</code></h3>
+<p>Questo è l'aspetto più critico e il motivo principale per cui <code>stdlib.h</code> viene spesso evitato.</p>
+<h4 id="frammentazione-dellheap-e-determinismo">Frammentazione dell'Heap e Determinismo</h4>
+<ul>
+<li>
+<p><strong>Frammentazione:</strong> Nei sistemi che devono funzionare per molto tempo, l'uso ripetuto di <code>malloc()</code> e <code>free()</code> può causare la <strong>frammentazione dell'heap</strong> (memoria libera divisa in piccoli blocchi non contigui). A lungo andare, una richiesta di memoria grande potrebbe fallire, anche se c'è abbastanza memoria totale libera.</p>
+</li>
+<li>
+<p><strong>Non Determinismo:</strong> Le implementazioni standard di <code>malloc()</code> e <code>free()</code> non sono pensate per l'ambiente real-time. Il tempo necessario per allocare un blocco di memoria può variare drasticamente (dipende dalla ricerca di un blocco libero), violando i requisiti di <strong>determinismo temporale</strong> di un RTOS.</p>
+</li>
+</ul>
+<h4 id="soluzione-di-freertos-heap-management-personalizzato">Soluzione di FreeRTOS: Heap Management Personalizzato</h4>
+<p>FreeRTOS non usa l'implementazione standard di <code>malloc()</code> ma offre diversi schemi di gestione dell'heap (es. Heap_1, Heap_2, Heap_3, ecc.), progettati per:</p>
+<ul>
+<li>
+<p>Essere <strong>più semplici e veloci</strong> delle implementazioni standard.</p>
+</li>
+<li>
+<p>Offrire un <strong>compromesso</strong> tra consumo di memoria e prevenzione della frammentazione, spesso a costo di non supportare tutte le operazioni standard.</p>
+</li>
+</ul>
+<h3 id="sicurezza-e-thread-safety-task-safety">Sicurezza e Thread Safety (Task Safety)</h3>
+<p>Molte funzioni della CSL (es. <code>strtok()</code>, le funzioni di gestione del tempo) non sono <strong>thread-safe</strong>.</p>
+<ul>
+<li><strong>Variabili Statiche:</strong> Alcune funzioni C utilizzano variabili statiche interne o globali. Se due Task provano a chiamare la stessa funzione contemporaneamente, l'accesso concorrente a queste variabili può portare a <strong>condizioni di gara (race conditions)</strong> e a risultati errati o crash del sistema.</li>
+</ul>
+<p>Nei sistemi FreeRTOS, si devono usare:</p>
 <ol>
-<li>Vai su <strong>Onboarding &gt; Setup Ambiente</strong> per installare i tool.</li>
-<li>Studia la sezione <strong>Academy</strong>: parti dai <em>Fondamenti di C</em> se serve ripasso, poi passa a <em>Embedded &amp; RTOS</em>.</li>
-<li>Non toccare il codice della macchina finché non hai completato i primi esercizi!</li>
+<li><strong>Versioni Thread-Safe:</strong> Molti RTOS forniscono versioni re-entrant delle funzioni C (spesso chiamate con un suffisso come <code>_r</code> o richiedendo l'uso di un mutex).</li>
+<li><strong>Primitive RTOS:</strong> Per tutte le operazioni critiche (I/O, allocazione, comunicazione), è obbligatorio usare le API di FreeRTOS (code, semafori, ecc.) per garantire la sincronizzazione e l'integrità dei dati.</li>
 </ol>
-</div>
-<div class="admonition abstract">
-<p class="admonition-title">Sono uno Sviluppatore Firmware 💻</p>
-<p>Sai già come programmare. Ti serve capire come funziona questa macchina.</p>
-<ol>
-<li>Leggi <strong>Firmware Architecture</strong> per capire come girano i task e la FSM.</li>
-<li>Consulta <strong>Moduli di Controllo</strong> per la logica specifica (es. Traction Control).</li>
-<li>Usa le <strong>Guide Operative</strong> per imparare a flashare e debuggare la ECU.</li>
-</ol>
-</div>
-<div class="admonition success">
-<p class="admonition-title">Mi occupo di Hardware/Cablaggi 🔌</p>
-<p>Ti serve sapere dove collegare i fili.</p>
-<ol>
-<li>Vai diretto alla sezione <strong>Hardware &amp; Elettronica</strong>.</li>
-<li>Consulta i pinout della <strong>Centralina</strong> e le specifiche dei <strong>Sensori</strong>.</li>
-</ol>
-</div>
-<hr />
-<h2 id="stack-tecnologico">Stack Tecnologico</h2>
-<p>Una panoramica rapida degli strumenti che utilizziamo:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Ambito</th>
-<th style="text-align: left;">Tecnologia</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Linguaggio</strong></td>
-<td style="text-align: left;">C (Standard C99/C11)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>OS</strong></td>
-<td style="text-align: left;">FreeRTOS, Mbed</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Hardware</strong></td>
-<td style="text-align: left;">STM32 (ARM Cortex-M), MIMXRT1064</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Protocolli</strong></td>
-<td style="text-align: left;">CAN Bus, UART, SPI</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Version Control</strong></td>
-<td style="text-align: left;">Git &amp; GitHub</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Ambiente di sviluppo</strong></td>
-<td style="text-align: left;">MCUXpressoIDE, STM32CubeIDE</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><em>"Talk is cheap. Show me the code."</em> — Linus Torvalds</p>
-</blockquote>
 
 
 
@@ -1509,10 +1635,10 @@ Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

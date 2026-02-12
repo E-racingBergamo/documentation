@@ -8,29 +8,31 @@
       
       
       
-        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/">
+        <link rel="canonical" href="https://e-racingbergamo.github.io/documentation/academy/strutture_dati/linked_list/">
       
       
+        <link rel="prev" href="../strutture_dinamiche/">
       
-        <link rel="next" href="academy/fondamenti_di_c/sintassi_base_c/">
+      
+        <link rel="next" href="../binary_tree/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/simbolo_blu.ico">
+      <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>E-Racing bergamo docs</title>
+        <title>Linked list - E-Racing bergamo docs</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -51,7 +53,7 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#benvenuto-nella-documentazione-tecnica-erb" class="md-skip">
+        <a href="#linked-list-lista-concatenata" class="md-skip">
           Skip to content
         </a>
       
@@ -92,9 +94,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-header__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Linked list
             
           </span>
         </div>
@@ -215,9 +217,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
+    <a href="../../.." title="E-Racing bergamo docs" class="md-nav__button md-logo" aria-label="E-Racing bergamo docs" data-md-component="logo">
       
-  <img src="assets/images/simbolo_blu.ico" alt="logo">
+  <img src="../../../assets/images/simbolo_blu.ico" alt="logo">
 
     </a>
     E-Racing bergamo docs
@@ -229,37 +231,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -275,59 +250,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        La nostra Filosofia
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Da dove inizio?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stack Tecnologico
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -336,18 +258,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -368,7 +292,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -433,7 +357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/sintassi_base_c/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/sintassi_base_c/" class="md-nav__link">
         
   
   
@@ -461,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/stdint/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/stdint/" class="md-nav__link">
         
   
   
@@ -489,7 +413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/visibilit%C3%A0_delle_variabili/" class="md-nav__link">
         
   
   
@@ -517,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/funzioni/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/funzioni/" class="md-nav__link">
         
   
   
@@ -545,7 +469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/fondamenti_di_c/strutture_controllo/" class="md-nav__link">
+      <a href="../../fondamenti_di_c/strutture_controllo/" class="md-nav__link">
         
   
   
@@ -628,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/puntatori/" class="md-nav__link">
+      <a href="../../memoria_puntatori/puntatori/" class="md-nav__link">
         
   
   
@@ -656,7 +580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/memoria_puntatori/strutture_base/" class="md-nav__link">
+      <a href="../../memoria_puntatori/strutture_base/" class="md-nav__link">
         
   
   
@@ -689,18 +613,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
@@ -721,7 +647,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -739,7 +665,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/strutture_dinamiche/" class="md-nav__link">
+      <a href="../strutture_dinamiche/" class="md-nav__link">
         
   
   
@@ -764,10 +690,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="academy/strutture_dati/linked_list/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linked list
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -783,6 +736,37 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#derivazioni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Derivazioni
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -795,7 +779,7 @@
   
   
     <li class="md-nav__item">
-      <a href="academy/strutture_dati/binary_tree/" class="md-nav__link">
+      <a href="../binary_tree/" class="md-nav__link">
         
   
   
@@ -885,7 +869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/centralina/" class="md-nav__link">
+      <a href="../../../firmware_architecture/centralina/" class="md-nav__link">
         
   
   
@@ -960,7 +944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="firmware_architecture/driver_hal/adc/" class="md-nav__link">
+      <a href="../../../firmware_architecture/driver_hal/adc/" class="md-nav__link">
         
   
   
@@ -1097,7 +1081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/vehicle_dinamics/traction_control/" class="md-nav__link">
+      <a href="../../../control_modules/vehicle_dinamics/traction_control/" class="md-nav__link">
         
   
   
@@ -1180,7 +1164,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/powertrain/gestione_termica/" class="md-nav__link">
+      <a href="../../../control_modules/powertrain/gestione_termica/" class="md-nav__link">
         
   
   
@@ -1263,7 +1247,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_modules/battery_soc/SOC/" class="md-nav__link">
+      <a href="../../../control_modules/battery_soc/SOC/" class="md-nav__link">
         
   
   
@@ -1326,32 +1310,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#la-nostra-filosofia" class="md-nav__link">
+  <a href="#derivazioni" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La nostra Filosofia
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#da-dove-inizio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Da dove inizio?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#stack-tecnologico" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Stack Tecnologico
+        Derivazioni
       
     </span>
   </a>
@@ -1375,91 +1337,79 @@
 
 
 
-<h1 id="benvenuto-nella-documentazione-tecnica-erb">Benvenuto nella Documentazione Tecnica ERB</h1>
-<p>Questa è la knowledge base ufficiale del reparto <strong>Elettronica &amp; Software</strong> di E-Racing Bergamo.
-Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra vettura di muoversi, comunicare e performare in pista.</p>
-<p>La documentazione è divisa in due macro-aree:</p>
-<ol>
-<li><strong>Academy</strong>: Il percorso formativo per portare i nuovi membri da zero a sviluppatori embedded.</li>
-<li><strong>Engineering</strong>: Le specifiche tecniche, l'architettura firmware e i datasheet dell'hardware installato in vettura.</li>
-</ol>
-<hr />
-<h2 id="la-nostra-filosofia">La nostra Filosofia</h2>
-<p>Il software in un veicolo da corsa è mission-critical. Un errore non causa solo un crash del programma, ma può fermare la macchina in gara o creare situazioni di pericolo. Per questo motivo, questa documentazione serve a garantire:</p>
+<h1 id="linked-list-lista-concatenata">Linked list (Lista concatenata)</h1>
+<p>La <strong>Lista Concatenata</strong> è la SDD più fondamentale. È una sequenza di elementi chiamati <strong>nodi</strong>, dove ogni nodo contiene il dato e un <strong>puntatore</strong> al nodo successivo.</p>
+<p><strong>Struttura di un nodo</strong>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Nodo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dato</span><span class="p">;</span><span class="w">             </span><span class="c1">// Il dato che il nodo deve memorizzare</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Nodo</span><span class="o">*</span><span class="w"> </span><span class="n">prossimo</span><span class="p">;</span><span class="w"> </span><span class="c1">// Puntatore al nodo successivo nella sequenza</span>
+<span class="p">}</span><span class="w"> </span><span class="n">Nodo</span><span class="p">;</span>
+
+<span class="c1">// Il puntatore alla testa della lista</span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">Nodo</span><span class="o">*</span><span class="w"> </span><span class="n">Lista</span><span class="p">;</span>
+</code></pre></div></p>
+<p>L'elemento <code>struct Nodo* prossimo;</code> rende la struttura <strong>autoreferenziale</strong>.
+Per gestire la lista, usiamo un puntatore principale, spesso chiamato <strong>testa</strong> (<code>Lista testa = NULL;</code>), che punta al primo nodo. Se la lista è vuota, <code>testa</code> è <code>NULL</code>.</p>
+<p><strong>Inserimento in testa</strong>
+Questa è l'operazione di inserimento più semplice e veloce, con complessità temporale costante (O(1)).</p>
+<div class="highlight"><pre><span></span><code><span class="n">Lista</span><span class="w"> </span><span class="nf">inserisciInTesta</span><span class="p">(</span><span class="n">Lista</span><span class="w"> </span><span class="n">testa</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nuovo_dato</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 1. Alloca il nuovo nodo</span>
+<span class="w">    </span><span class="n">Nodo</span><span class="o">*</span><span class="w"> </span><span class="n">nuovo_nodo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Nodo</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Nodo</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// Controllo allocazione</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nuovo_nodo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Gestione errore</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">testa</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 2. Inserisce il dato</span>
+<span class="w">    </span><span class="n">nuovo_nodo</span><span class="o">-&gt;</span><span class="n">dato</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nuovo_dato</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 3. Collega il nuovo nodo alla vecchia testa</span>
+<span class="w">    </span><span class="n">nuovo_nodo</span><span class="o">-&gt;</span><span class="n">prossimo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testa</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 4. Aggiorna la testa al nuovo nodo</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">nuovo_nodo</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Eliminazione dalla testa</strong>
+Operazione semplice come la recedente, fondamentale per deallocare la memoria.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Funzione per eliminare il nodo in testa</span>
+<span class="n">Lista</span><span class="w"> </span><span class="nf">eliminaTesta</span><span class="p">(</span><span class="n">Lista</span><span class="w"> </span><span class="n">testa</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">testa</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="c1">// La lista è vuota</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 1. Salva il puntatore alla testa corrente</span>
+<span class="w">    </span><span class="n">Nodo</span><span class="o">*</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testa</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 2. Sposta la testa al prossimo nodo</span>
+<span class="w">    </span><span class="n">testa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testa</span><span class="o">-&gt;</span><span class="n">prossimo</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 3. Dealloca il nodo precedente</span>
+<span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 4. Restituisce la nuova testa</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">testa</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Attraversamento e Stampa (Traversal)</strong>
+Per scorrere la lista, si parte dalla testa e si segue il puntatore <code>prossimo</code> con un ciclo finché non si arriva a <code>NULL</code>, ultimo elemento della lista.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">stampaLista</span><span class="p">(</span><span class="n">Lista</span><span class="w"> </span><span class="n">testa</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Nodo</span><span class="o">*</span><span class="w"> </span><span class="n">corrente</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testa</span><span class="p">;</span><span class="w"> </span><span class="c1">// Puntatore ausiliario per lo scorrimento</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">corrente</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d -&gt; &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">corrente</span><span class="o">-&gt;</span><span class="n">dato</span><span class="p">);</span>
+<span class="w">        </span><span class="n">corrente</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">corrente</span><span class="o">-&gt;</span><span class="n">prossimo</span><span class="p">;</span><span class="w"> </span><span class="c1">// Passa al nodo successivo</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;NULL</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="derivazioni">Derivazioni</h2>
+<p>Oltre alla lista <strong>semplicemente concatenata</strong> che abbiamo visto ci sono principalmente altre due strutture dati che vengono derivate da questa e sono:</p>
 <ul>
-<li><strong>Affidabilità</strong>: Ogni riga di codice deve essere comprensibile e manutenibile.</li>
-<li><strong>Knowledge Transfer</strong>: Il sapere non deve "laurearsi" con i membri senior, ma rimanere nel team.</li>
-<li><strong>Standardizzazione</strong>: Scriviamo codice seguendo regole comuni, non stili personali.</li>
+<li><strong>Lista doppiamente concatenata</strong>: ogni nodo ha un puntatore al successivo e uno al <strong>precedente</strong>. Permette di attraversare la lista in entrambe le direzioni e di eliminare un nodo in O(1) (una volta trovato) ma occupa più memoria per il doppio puntatore.</li>
+<li><strong>Lista circolare</strong>: L'ultimo nodo punta al primo, creando un ciclo. Utile per l'implementazione di buffer circolari o round-robin ma bisogna stare attenti a non ciclare all'infinito.</li>
 </ul>
-<hr />
-<h2 id="da-dove-inizio">Da dove inizio?</h2>
-<p>Non tutti devono leggere tutto. Scegli il percorso più adatto al tuo ruolo:</p>
-<div class="admonition tip">
-<p class="admonition-title">Sono una nuova recluta 👶</p>
-<p>Benvenuto a bordo! Il tuo obiettivo ora è configurare il PC e imparare le basi.</p>
-<ol>
-<li>Vai su <strong>Onboarding &gt; Setup Ambiente</strong> per installare i tool.</li>
-<li>Studia la sezione <strong>Academy</strong>: parti dai <em>Fondamenti di C</em> se serve ripasso, poi passa a <em>Embedded &amp; RTOS</em>.</li>
-<li>Non toccare il codice della macchina finché non hai completato i primi esercizi!</li>
-</ol>
-</div>
-<div class="admonition abstract">
-<p class="admonition-title">Sono uno Sviluppatore Firmware 💻</p>
-<p>Sai già come programmare. Ti serve capire come funziona questa macchina.</p>
-<ol>
-<li>Leggi <strong>Firmware Architecture</strong> per capire come girano i task e la FSM.</li>
-<li>Consulta <strong>Moduli di Controllo</strong> per la logica specifica (es. Traction Control).</li>
-<li>Usa le <strong>Guide Operative</strong> per imparare a flashare e debuggare la ECU.</li>
-</ol>
-</div>
-<div class="admonition success">
-<p class="admonition-title">Mi occupo di Hardware/Cablaggi 🔌</p>
-<p>Ti serve sapere dove collegare i fili.</p>
-<ol>
-<li>Vai diretto alla sezione <strong>Hardware &amp; Elettronica</strong>.</li>
-<li>Consulta i pinout della <strong>Centralina</strong> e le specifiche dei <strong>Sensori</strong>.</li>
-</ol>
-</div>
-<hr />
-<h2 id="stack-tecnologico">Stack Tecnologico</h2>
-<p>Una panoramica rapida degli strumenti che utilizziamo:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Ambito</th>
-<th style="text-align: left;">Tecnologia</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>Linguaggio</strong></td>
-<td style="text-align: left;">C (Standard C99/C11)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>OS</strong></td>
-<td style="text-align: left;">FreeRTOS, Mbed</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Hardware</strong></td>
-<td style="text-align: left;">STM32 (ARM Cortex-M), MIMXRT1064</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Protocolli</strong></td>
-<td style="text-align: left;">CAN Bus, UART, SPI</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Version Control</strong></td>
-<td style="text-align: left;">Git &amp; GitHub</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Ambiente di sviluppo</strong></td>
-<td style="text-align: left;">MCUXpressoIDE, STM32CubeIDE</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><em>"Talk is cheap. Show me the code."</em> — Linus Torvalds</p>
-</blockquote>
 
 
 
@@ -1509,10 +1459,10 @@ Qui non troverai solo codice, ma il know-how accumulato che permette alla nostra
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

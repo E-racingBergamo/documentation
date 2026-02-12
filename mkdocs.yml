@@ -1,9 +1,7 @@
 site_name: E-Racing bergamo docs
-site_url: https://e-racingbergamo.github.io/documentation
+site_url: https://e-racingbergamo.github.io/documentation/
 theme:
   name: material
-  # features:
-  #   - katex
   favicon: assets/images/simbolo_blu.ico
   logo: assets/images/simbolo_blu.ico
   palette:
@@ -21,8 +19,8 @@ theme:
         name: Passa al tema chiaro
 
 plugins:
-  - search    # Mantiene la ricerca (importante!)
-  - callouts  # Abilita il supporto a > [!note] di Obsidian
+  - search
+  - callouts
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -34,45 +32,55 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  # - pymdownx.blocks.admonition
 
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css
 
 extra_javascript:
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  # NOTA DI SICUREZZA: Rimuovi polyfill.io (vedi nota a fine risposta)
+  # - https://polyfill.io/v3/polyfill.min.js?features=es6 
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
   - Home: index.md
-  - Codice:
-      - Lezioni di C:
+
+  # 1. PER CHI INIZIA (Placeholder per future guide)
+  - Onboarding:
+      - 'Setup Ambiente (TODO)': risorse_utili/strumenti_software.md # Se esiste, altrimenti commenta
+      - 'Git & Workflow (TODO)': risorse_utili/git_github.md # Se esiste, altrimenti commenta
+
+  # 2. TEORIA E FORMAZIONE (Ex "Lezioni di C")
+  - Academy:
+      - Fondamenti di C:
           - Sintassi di base: codice/lezioni_di_c/sintassi_base_c.md
-          - Standard int: codice/lezioni_di_c/stdint.md
-          - Visibilità e durata delle variabili: codice/lezioni_di_c/visibilità_delle_variabili.md
-          - Strutture di controllo: codice/lezioni_di_c/strutture_controllo.md
-          - Strutture dati di base: codice/lezioni_di_c/strutture_base.md
+          - Tipi e Standard int: codice/lezioni_di_c/stdint.md
+          - Visibilità variabili: codice/lezioni_di_c/visibilità_delle_variabili.md
           - Funzioni: codice/lezioni_di_c/funzioni.md
+          - Strutture di controllo: codice/lezioni_di_c/strutture_controllo.md
+      - Memoria e Puntatori:
           - Puntatori: codice/lezioni_di_c/puntatori.md
-          - Strutture dati:
-              - Strutture dinamiche: codice/lezioni_di_c/strutture_dati/strutture_dinamiche.md
-              - Linked list: codice/lezioni_di_c/strutture_dati/linked_list.md
-              - Binary tree: codice/lezioni_di_c/strutture_dati/binary_tree.md
-      - Centralina: codice/centralina.md
-      - Traction control: codice/traction_control.md
-  - Hardware:
-      - Inverter:
-          - Gestione termica: hardware/inverter/gestione_termica.md
-      - Centralina FAE:
-          - ADC: hardware/centralina_fae/adc.md
-      - Batteria:
+          - Strutture dati base: codice/lezioni_di_c/strutture_base.md
+      - Strutture Dati Avanzate:
+          - Strutture dinamiche: codice/lezioni_di_c/strutture_dati/strutture_dinamiche.md
+          - Linked list: codice/lezioni_di_c/strutture_dati/linked_list.md
+          - Binary tree: codice/lezioni_di_c/strutture_dati/binary_tree.md
+
+  # 3. ARCHITETTURA FIRMWARE (Struttura del codice)
+  - Firmware Architecture:
+      - Panoramica Centralina: codice/centralina.md
+      - Driver & HAL:
+          - ADC Config: hardware/centralina_fae/adc.md
+
+  # 4. ALGORITMI E CONTROLLI (La logica del veicolo)
+  - Moduli di Controllo:
+      - Vehicle Dynamics:
+          - Traction Control: codice/traction_control.md
+      - Powertrain:
+          - Gestione Termica Inverter: hardware/inverter/gestione_termica.md
+      - Battery Management:
           - State Of Charge (SOC): hardware/battery/SOC.md
-  # - Hardware:
-  #     - Panoramica hardware: hardware/panoramica_hardware.md
-  #     - Schede elettroniche: hardware/schede_elettroniche.md
-  #     - Sensori e attuatori: hardware/sensori_attuatori.md
-  # - Risorse utili:
-  #     - Strumenti software: risorse_utili/strumenti_software.md
-  #     - Stile di codice: risorse_utili/stile_di_codice.md
-  #     - Git e GitHub: risorse_utili/git_github.md
-  #     - Link utili: risorse_utili/link_utili.md
+
+  # 5. HARDWARE (Schede fisiche)
+  # Qui dovrai aggiungere i file puramente hardware quando li creerai
+  - Hardware & Elettronica:
+      - 'Overview Hardware (TODO)': hardware/panoramica_hardware.md # Se esiste

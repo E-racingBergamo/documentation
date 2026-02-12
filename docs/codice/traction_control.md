@@ -17,7 +17,7 @@ L'azione proporzionale reagisce all'errore istantaneo. In caso di forte slittame
 
 $$u_P(t)=K_P\cdot e(t)$$
 
-Questa componente non è sufficiente per eseguire un controllo completo su un processo instabile perché per effettuare una correzione è necessario che $e(t)>0$. È anche importante capire che una costante $K_P$ troppo grande risulta in un sistema instabile che inizia ad oscillare in modo accentuato. Mentre se è troppo basso il sistema non sarà in grado ci correggere lo slittamento.
+Questa componente non è sufficiente per eseguire un controllo completo su un processo instabile perché per effettuare una correzione è necessario che $e(t)>0$. È anche importante capire che una costante $K_P$ troppo grande risulta in un sistema instabile che inizia ad oscillare in modo accentuato. Mentre se è troppo basso il sistema non sarà in grado di correggere lo slittamento.
 
 **Integrale**
 

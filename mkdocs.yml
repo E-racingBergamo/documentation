@@ -21,6 +21,8 @@ theme:
 plugins:
   - search
   - callouts
+  # - obsidian-bridge
+  - roamlinks
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -32,6 +34,9 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
 
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.15.0/dist/katex.min.css
@@ -79,6 +84,7 @@ nav:
           - Gestione Termica Inverter: control_modules/powertrain/gestione_termica.md
       - Battery Management:
           - State Of Charge (SOC): control_modules/battery_soc/SOC.md
+          - Frenata Rigenerativa: control_modules/battery_regenerative_braking/regenerative_braking.md
 
   # 5. HARDWARE (Schede fisiche)
   # Qui dovrai aggiungere i file puramente hardware quando li creerai

@@ -237,7 +237,7 @@ Ogni cella ha una Resistenza Interna $R_{int}$. L'enorme corrente di ricarica in
 
 **B. Il Lithium Plating**
 
-Questa è la principale causa di degrad legata al regen.
+Questa è la principale causa di degrado legata al regen.
 
 Durante la ricarica, gli ioni di litio devono viaggiare dal catodo all'anodo e intercalarsi nella struttura in grafite. Se la corrente di regen è troppo alta, o se le celle sono troppo fredde, gli ioni non fanno in tempo a intercalarsi e si accumulano sulla superficie dell'anodo, trasformandosi in Litio Metallico solido (Plating).
 

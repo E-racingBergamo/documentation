@@ -77,7 +77,7 @@ jobs:
       # Questa configurazione forza Git a usare il token per ogni clone/fetch
       - name: Configure Git Credentials
         run: |
-          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+          git config --global url."https://x-access-token:${{ secrets.MY_ACCESS_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
       - name: Build and deploy
         run: python -m mkdocs gh-deploy --force

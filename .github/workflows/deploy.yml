@@ -69,9 +69,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          # Pin mkdocs<2.0 to avoid the breaking changes warned by the Material team
           pip install "mkdocs<2.0" mkdocs-material mkdocs-material-extensions pymdown-extensions mkdocs-callouts mkdocs-roamlinks-plugin mkdocs-multirepo-plugin mkdoxy
 
-      # Use python -m to guarantee execution in the correct virtual environment
+      # Questa riga è quella che risolve l'errore di autenticazione
+      - name: Configure Git for private repositories
+        run: |
+          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
       - name: Build and deploy
         run: python -m mkdocs gh-deploy --force

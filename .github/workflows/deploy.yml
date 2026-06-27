@@ -1,3 +1,46 @@
+# name: Deploy to GitHub Pages
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       # 1. Controlla il repository
+#       - uses: actions/checkout@v4
+
+#       # 2. Configura Git per il commit
+#       - run: |
+#           git config --global user.name "GitHub Actions"
+#           git config --global user.email "actions@github.com"
+
+#       # 3. Configura Node.js
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: '18'
+
+#       # Configura Python
+#       - uses: actions/setup-python@v6
+#         with:
+#           python-version: '3.13'
+
+#       # Installa dipendenze Python
+#       - run: |
+#           python -m pip install --upgrade pip
+#           pip install mkdocs-material mkdocs-material-extensions pymdown-extensions mkdocs-callouts mkdocs-roamlinks-plugin mkdocs-multirepo-plugin mkdoxy
+#       # Costruisci il sito MkDocs
+#       - run: mkdocs build
+
+#       # 4. Installa gh-pages
+#       - run: npm install gh-pages
+
+#       # 5. Pubblica la cartella `site` usando il token
+#       - run: npx gh-pages -d site -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
 name: Deploy to GitHub Pages
 
 on:
@@ -10,33 +53,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Controlla il repository
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # 2. Configura Git per il commit
-      - run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+      # Doxygen is required to parse the C/C++ ECU code via mkdoxy
+      - name: Install Doxygen
+        run: sudo apt-get update && sudo apt-get install -y doxygen
 
-      # 3. Configura Node.js
-      - uses: actions/setup-node@v3
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          node-version: '18'
+          # Downgrade to 3.11 or 3.12 for better plugin stability
+          python-version: '3.12' 
 
-      # Configura Python
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.13'
-
-      # Installa dipendenze Python
-      - run: |
+      - name: Install dependencies
+        run: |
           python -m pip install --upgrade pip
-          pip install mkdocs-material mkdocs-material-extensions pymdown-extensions mkdocs-callouts mkdocs-roamlinks-plugin mkdocs-multirepo-plugin mkdoxy
-      # Costruisci il sito MkDocs
-      - run: mkdocs build
+          # Pin mkdocs<2.0 to avoid the breaking changes warned by the Material team
+          pip install "mkdocs<2.0" mkdocs-material mkdocs-material-extensions pymdown-extensions mkdocs-callouts mkdocs-roamlinks-plugin mkdocs-multirepo-plugin mkdoxy
 
-      # 4. Installa gh-pages
-      - run: npm install gh-pages
-
-      # 5. Pubblica la cartella `site` usando il token
-      - run: npx gh-pages -d site -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+      # Use python -m to guarantee execution in the correct virtual environment
+      - name: Build and deploy
+        run: python -m mkdocs gh-deploy --force

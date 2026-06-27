@@ -21,8 +21,9 @@ theme:
 plugins:
   - search
   - callouts
-  # - obsidian-bridge
   - roamlinks
+  - multirepo:
+      cleanup: true
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -48,6 +49,7 @@ extra_javascript:
 
 nav:
   - Home: index.md
+  - Main ECU: '!import https://github.com/E-racingBergamo/programmazionecentralina?branch=documentation'
 
   # 1. PER CHI INIZIA (Placeholder per future guide)
   # - Onboarding:

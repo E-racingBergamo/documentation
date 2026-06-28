@@ -41,6 +41,52 @@
 #       # 5. Pubblica la cartella `site` usando il token
 #       - run: npx gh-pages -d site -r https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
+# name: Deploy Global Documentation
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     # IMPORTANTE: Permessi necessari per leggere altri repository
+#     permissions:
+#       contents: read
+#       pages: write
+#       id-token: write
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Install Doxygen
+#         run: sudo apt-get update && sudo apt-get install -y doxygen
+
+#       - name: Setup Python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: '3.12'
+
+#       - name: Install dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install "mkdocs<2.0" mkdocs-material mkdocs-material-extensions pymdown-extensions mkdocs-callouts mkdocs-roamlinks-plugin mkdocs-multirepo-plugin mkdoxy
+
+#       # Questa configurazione forza Git a usare il token per ogni clone/fetch
+#       - name: Configure Git for private repositories and PUSH
+#         run: |
+#           # Questa configurazione imposta il PAT per tutte le interazioni con github.com
+#           git config --global url."https://x-access-token:${{ secrets.MY_ACCESS_TOKEN }}@github.com/".insteadOf "https://github.com/"
+#           git config --global user.name "s-stasi"
+#           git config --global user.email "samuele.stasi2002@gmail.com" # Metti la tua email di GitHub
+
+#       - name: Build and deploy
+#         # Rimuoviamo il push automatico di gh-deploy e usiamo un approccio più robusto
+#         # che rispetta le configurazioni Git che abbiamo appena impostato
+#         run: python -m mkdocs gh-deploy --force
+
 name: Deploy Global Documentation
 
 on:
@@ -49,17 +95,14 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    # IMPORTANTE: Permessi necessari per leggere altri repository
     permissions:
       contents: read
-      pages: write
-      id-token: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Install Doxygen
         run: sudo apt-get update && sudo apt-get install -y doxygen
@@ -74,15 +117,28 @@ jobs:
           python -m pip install --upgrade pip
           pip install "mkdocs<2.0" mkdocs-material mkdocs-material-extensions pymdown-extensions mkdocs-callouts mkdocs-roamlinks-plugin mkdocs-multirepo-plugin mkdoxy
 
-      # Questa configurazione forza Git a usare il token per ogni clone/fetch
-      - name: Configure Git for private repositories and PUSH
+      - name: Configure Git for private repositories
         run: |
-          # Questa configurazione imposta il PAT per tutte le interazioni con github.com
           git config --global url."https://x-access-token:${{ secrets.MY_ACCESS_TOKEN }}@github.com/".insteadOf "https://github.com/"
-          git config --global user.name "s-stasi"
-          git config --global user.email "samuele.stasi2002@gmail.com" # Metti la tua email di GitHub
 
-      - name: Build and deploy
-        # Rimuoviamo il push automatico di gh-deploy e usiamo un approccio più robusto
-        # che rispetta le configurazioni Git che abbiamo appena impostato
-        run: python -m mkdocs gh-deploy --force
+      - name: Build site
+        run: python -m mkdocs build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './site'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

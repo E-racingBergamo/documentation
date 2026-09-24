@@ -71,3 +71,24 @@ dove:
 > Per correggere bisogna forzare il SOC al 100% vicino al massimo e allo 0% vicino al minimo.
 
 La frequenza di campionamento è stata impostata a 100ms perché i TinyAFE ci mettono un certo lasso di tempo a rispondere alla chiamata del master e sono 14, una frequenza superiore rischia di falsare il risultato usando valori vecchi.
+
+
+# ksdhfksjfkwjs
+## sajdahjkha
+
+
+| dkfalkjfqe | jgjkjh |     |
+| ---------- | ------ | --- |
+| sdfsdsd    | sdfsds |     |
+|            |        |     |
+
+```c
+jkdfhgajkhfgakeg dkjvhadf() {
+}
+```
+
+pitagora funziona così: $\sqrt{()x_{2} -x_{1})^2 }$ sdfsfwsw
+$$
+dfjkhs 
+$$
+

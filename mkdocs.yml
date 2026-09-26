@@ -49,7 +49,7 @@ extra_javascript:
 
 nav:
   - Home: index.md
-  - Main ECU: '!import https://github.com/E-racingBergamo/programmazionecentralina?branch=documentation'
+  # - Main ECU: '!import https://github.com/E-racingBergamo/programmazionecentralina?branch=documentation'
 
   # 1. PER CHI INIZIA (Placeholder per future guide)
   # - Onboarding:
@@ -92,4 +92,6 @@ nav:
   # Qui dovrai aggiungere i file puramente hardware quando li creerai
   - Hardware & Elettronica:
       - 'Overview Hardware (TODO)': hardware/panoramica_hardware.md # Se esiste
-      - 'Telemetria': telemetry/Test.md
+      - 'Telemetria':
+          - 'Telemetria': telemetry/telemetry_pcb.md
+          - 'Telemetria 2026-2027': telemetry/telemetry_board_stasi.md

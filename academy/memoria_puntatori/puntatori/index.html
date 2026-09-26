@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1421,6 +1421,199 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware & Elettronica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware & Elettronica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hardware/panoramica_hardware.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview Hardware (TODO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telemetria
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Telemetria
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../telemetry/telemetry_pcb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telemetria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../telemetry/telemetry_board_stasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telemetria 2026-2027
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1643,7 +1836,7 @@ Dichiarazione:</p>
 <span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
 
 <span class="n">p</span><span class="o">++</span><span class="p">;</span><span class="w">        </span><span class="c1">// ora punta a a[1]</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">);</span><span class="w"> </span><span class="c1">// stampa 20</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">);</span><span class="w"> </span><span class="c1">// stampa 20</span>
 </code></pre></div>
 <p>L’operatore <code>+</code> o <code>-</code> muove il puntatore di un numero di elementi, non di byte.<br />
 La sottrazione tra puntatori restituisce il numero di elementi tra loro.</p>
@@ -1654,7 +1847,7 @@ La sottrazione tra puntatori restituisce il numero di elementi tra loro.</p>
 Passare un array a una funzione significa passare un puntatore:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">stampa</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[],</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d "</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1681,14 +1874,14 @@ Passare un array a una funzione significa passare un puntatore:</p>
 <p><code>void *</code> è un puntatore generico, senza tipo.<br />
 Serve quando vogliamo passare un indirizzo di memoria senza sapere il tipo, ad esempio in buffer generici o callback.</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">stampa_generico</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">tipo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">tipo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;i&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">ptr</span><span class="p">);</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">tipo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;f&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">tipo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">'i'</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">tipo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">'f'</span><span class="p">)</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">"%f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">ptr</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 <hr />
 <h3 id="array-di-puntatori-e-puntatori-a-puntatori">Array di puntatori e puntatori a puntatori</h3>
 <p>È possibile avere array di puntatori:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">nomi</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Mario&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Luigi&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Peach&quot;</span><span class="p">};</span>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">nomi</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"Mario"</span><span class="p">,</span><span class="w"> </span><span class="s">"Luigi"</span><span class="p">,</span><span class="w"> </span><span class="s">"Peach"</span><span class="p">};</span>
 </code></pre></div>
 <p>O puntatori a puntatori, utili ad esempio per gestire array dinamici di stringhe:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">strs</span><span class="p">;</span>
@@ -1697,13 +1890,13 @@ Serve quando vogliamo passare un indirizzo di memoria senza sapere il tipo, ad e
 <p>Di default, il C passa gli argomenti alle funzioni "per valore", creando una copia della variabile. Qualsiasi modifica all'interno della funzione non influisce sulla variabile originale. Passando un puntatore a una funzione, possiamo simulare un "passaggio per riferimento", permettendo alla funzione di modificare la variabile originale.</p>
 <p>Esempio riassuntivo:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">incrementa</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">valore</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="p">(</span><span class="o">*</span><span class="n">valore</span><span class="p">)</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="c1">// Incrementa il valore a cui punta &#39;valore&#39;</span>
+<span class="w">    </span><span class="p">(</span><span class="o">*</span><span class="n">valore</span><span class="p">)</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="c1">// Incrementa il valore a cui punta 'valore'</span>
 <span class="p">}</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
-<span class="w">    </span><span class="n">incrementa</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// Passiamo l&#39;indirizzo di &#39;a&#39;</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Valore di a dopo l&#39;incremento: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// Stampa 11</span>
+<span class="w">    </span><span class="n">incrementa</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// Passiamo l'indirizzo di 'a'</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Valore di a dopo l'incremento: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// Stampa 11</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1734,20 +1927,20 @@ Serve quando vogliamo passare un indirizzo di memoria senza sapere il tipo, ad e
 <span class="w">    </span><span class="n">array_dinamico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">array_dinamico</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Allocazione di memoria fallita!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"Allocazione di memoria fallita!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// Usa l&#39;array come un normale array</span>
+<span class="w">    </span><span class="c1">// Usa l'array come un normale array</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">array_dinamico</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">array_dinamico</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d "</span><span class="p">,</span><span class="w"> </span><span class="n">array_dinamico</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// È FONDAMENTALE liberare la memoria quando non serve più</span>
 <span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">array_dinamico</span><span class="p">);</span>
-<span class="w">    </span><span class="n">array_dinamico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="c1">// Buona pratica per evitare &quot;dangling pointers&quot;</span>
+<span class="w">    </span><span class="n">array_dinamico</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"> </span><span class="c1">// Buona pratica per evitare "dangling pointers"</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1761,9 +1954,9 @@ Serve quando vogliamo passare un indirizzo di memoria senza sapere il tipo, ad e
 <span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">;</span>
 <span class="kt">int</span><span class="w"> </span><span class="o">**</span><span class="n">pp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">p</span><span class="p">;</span>
 
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Valore di x: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Valore tramite p: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Valore tramite pp: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">pp</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Valore di x: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Valore tramite p: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"Valore tramite pp: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">pp</span><span class="p">);</span>
 </code></pre></div></p>
 <p>Sono utili, ad esempio, per creare array di stringhe o per modificare un puntatore all'interno di una funzione.</p>
 <h3 id="puntatori-a-funzioni">Puntatori a Funzioni</h3>
@@ -1777,8 +1970,8 @@ Serve quando vogliamo passare un indirizzo di memoria senza sapere il tipo, ad e
 <span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">operazione</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span><span class="w"> </span><span class="c1">// Dichiara un puntatore a funzione</span>
 <span class="w">    </span><span class="n">operazione</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">somma</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">risultato</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operazione</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// Chiama la funzione &#39;somma&#39; tramite il puntatore</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Risultato: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">risultato</span><span class="p">);</span><span class="w"> </span><span class="c1">// Stampa 8</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">risultato</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operazione</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// Chiama la funzione 'somma' tramite il puntatore</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Risultato: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">risultato</span><span class="p">);</span><span class="w"> </span><span class="c1">// Stampa 8</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -1833,7 +2026,7 @@ Serve quando vogliamo passare un indirizzo di memoria senza sapere il tipo, ad e
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

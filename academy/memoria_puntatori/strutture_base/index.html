@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../../assets/images/simbolo_blu.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1344,6 +1344,199 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware & Elettronica
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hardware & Elettronica
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hardware/panoramica_hardware.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview Hardware (TODO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telemetria
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Telemetria
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../telemetry/telemetry_pcb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telemetria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../telemetry/telemetry_board_stasi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Telemetria 2026-2027
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1452,13 +1645,13 @@ Quando si dichiara un array, si deve indicare il tipo degli elementi e la dimens
 <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">};</span><span class="w"> </span><span class="c1">// dimensione 3 dedotta dal compilatore</span>
 </code></pre></div>
 <p>Gli array di caratteri sono spesso usati per rappresentare stringhe terminate dal carattere nullo <code>'\0'</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">nome</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ciao&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// occuperà 5 celle: &#39;c&#39;,&#39;i&#39;,&#39;a&#39;,&#39;o&#39;,&#39;\0&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">nome</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"ciao"</span><span class="p">;</span><span class="w"> </span><span class="c1">// occuperà 5 celle: 'c','i','a','o','\0'</span>
 </code></pre></div>
 <p>Negli ambienti embedded gli array vengono utilizzati anche come <strong>buffer</strong> per la comunicazione (es. pacchetti CAN, UART). In questi casi è fondamentale rispettare sempre la dimensione massima per evitare corruzione di memoria.</p>
 <p>Un array in C si comporta quasi sempre come un <strong>puntatore al suo primo elemento</strong>. Questo significa che se passo un array a una funzione, in realtà passo l’indirizzo della prima cella, non una copia dell’intero array:</p>
 <div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">stampa</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[],</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d "</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -1474,7 +1667,7 @@ Quando si dichiara un array, si deve indicare il tipo degli elementi e la dimens
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Punto</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">};</span>
 </code></pre></div>
 <p>Ogni campo si accede con l’operatore <code>.</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">x</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="n">printf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span><span class="w"> </span><span class="n">p1</span><span class="p">.</span><span class="n">x</span><span class="p">);</span>
 </code></pre></div>
 <p>Le struct possono contenere anche array o altre struct:</p>
 <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Rettangolo</span><span class="w"> </span><span class="p">{</span>
@@ -1532,18 +1725,18 @@ Questo significa che una union occupa tanta memoria quanta ne richiede il campo 
 <div class="highlight"><pre><span></span><code><span class="k">union</span><span class="w"> </span><span class="nc">Valore</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">intero</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">reale</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">byte</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="kt">byte</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
 <span class="p">};</span>
 <span class="err">````</span>
 
-<span class="n">In</span><span class="w"> </span><span class="n">questo</span><span class="w"> </span><span class="n">caso</span><span class="w"> </span><span class="err">`</span><span class="k">union</span><span class="w"> </span><span class="nc">Valore</span><span class="err">`</span><span class="w"> </span><span class="n">occupa</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">byte</span><span class="p">,</span><span class="w"> </span><span class="n">perché</span><span class="w"> </span><span class="n">il</span><span class="w"> </span><span class="n">campo</span><span class="w"> </span><span class="n">più</span><span class="w"> </span><span class="n">grande</span><span class="w"> </span><span class="p">(</span><span class="err">`</span><span class="kt">uint32_t</span><span class="err">`</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="err">`</span><span class="kt">float</span><span class="err">`</span><span class="p">)</span><span class="w"> </span><span class="n">è</span><span class="w"> </span><span class="n">di</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">byte</span><span class="p">.</span><span class="w">  </span>
-<span class="n">Se</span><span class="w"> </span><span class="n">assegniamo</span><span class="w"> </span><span class="n">un</span><span class="w"> </span><span class="n">valore</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="err">`</span><span class="n">intero</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="n">possiamo</span><span class="w"> </span><span class="n">leggere</span><span class="w"> </span><span class="n">la</span><span class="w"> </span><span class="n">sua</span><span class="w"> </span><span class="n">rappresentazione</span><span class="w"> </span><span class="n">binaria</span><span class="w"> </span><span class="n">attraverso</span><span class="w"> </span><span class="n">l</span><span class="err">’</span><span class="n">array</span><span class="w"> </span><span class="err">`</span><span class="n">byte</span><span class="err">`</span><span class="o">:</span>
+<span class="n">In</span><span class="w"> </span><span class="n">questo</span><span class="w"> </span><span class="n">caso</span><span class="w"> </span><span class="err">`</span><span class="k">union</span><span class="w"> </span><span class="nc">Valore</span><span class="err">`</span><span class="w"> </span><span class="n">occupa</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="n">perché</span><span class="w"> </span><span class="n">il</span><span class="w"> </span><span class="n">campo</span><span class="w"> </span><span class="n">più</span><span class="w"> </span><span class="n">grande</span><span class="w"> </span><span class="p">(</span><span class="err">`</span><span class="kt">uint32_t</span><span class="err">`</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="err">`</span><span class="kt">float</span><span class="err">`</span><span class="p">)</span><span class="w"> </span><span class="n">è</span><span class="w"> </span><span class="n">di</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="kt">byte</span><span class="p">.</span><span class="w">  </span>
+<span class="n">Se</span><span class="w"> </span><span class="n">assegniamo</span><span class="w"> </span><span class="n">un</span><span class="w"> </span><span class="n">valore</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="err">`</span><span class="n">intero</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="n">possiamo</span><span class="w"> </span><span class="n">leggere</span><span class="w"> </span><span class="n">la</span><span class="w"> </span><span class="n">sua</span><span class="w"> </span><span class="n">rappresentazione</span><span class="w"> </span><span class="n">binaria</span><span class="w"> </span><span class="n">attraverso</span><span class="w"> </span><span class="n">l</span><span class="err">’</span><span class="n">array</span><span class="w"> </span><span class="err">`</span><span class="kt">byte</span><span class="err">`</span><span class="o">:</span>
 
 <span class="err">```</span><span class="n">c</span>
 <span class="k">union</span><span class="w"> </span><span class="nc">Valore</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
 <span class="n">v</span><span class="p">.</span><span class="n">intero</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x12345678</span><span class="p">;</span>
 
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%02X %02X %02X %02X</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">byte</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">byte</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">byte</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">byte</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%02X %02X %02X %02X</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="kt">byte</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="kt">byte</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="kt">byte</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="kt">byte</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
 </code></pre></div>
 <p>Il risultato dipenderà dall’<strong>endianness</strong> del processore (little endian o big endian), perché determina l’ordine dei byte in memoria.</p>
 <p>Le union sono molto potenti, ma bisogna usarle con attenzione: scrivere in un campo e leggere da un altro non sempre è portabile al 100% secondo lo standard C, anche se in pratica nei sistemi embedded è una tecnica comune.</p>
@@ -1610,7 +1803,7 @@ Questo significa che una union occupa tanta memoria quanta ne richiede il campo 
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

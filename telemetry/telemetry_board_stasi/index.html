@@ -1512,6 +1512,56 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#l9616-can-transceiver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L9616 CAN Transceiver
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adp3339-ldo-regulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADP3339 LDO Regulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schematico-e-pcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schematico e PCB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Schematico e PCB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power stage
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1612,6 +1662,56 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#l9616-can-transceiver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L9616 CAN Transceiver
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adp3339-ldo-regulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADP3339 LDO Regulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schematico-e-pcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schematico e PCB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Schematico e PCB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#power-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Power stage
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1643,6 +1743,10 @@
 <p>Per la persistenza in locale si è optato per una semplice scheda sd.</p>
 <p>I dati verranno ricevuti dalla scheda attraverso una linea CAN 2.0A/2.0B</p>
 <h2 id="componenti-di-base">Componenti di base</h2>
+<details class="info">
+<summary>Riguardi</summary>
+<p>Questo progetto tiene conto di possibili sviluppi futuri, avere un occhio di riguardo per queste cose permette di avere un progetto molto solido e di risparmiare tempo e soldi per eventuali modifiche</p>
+</details>
 <h3 id="e22-900m30s-sx1262-868915mhz-wireless-module"><strong>E22-900M30S - SX1262 868/915MHz Wireless Module</strong></h3>
 <p>Questo modulo è un'evoluzione dei prodotti precedenti e che contiene un modulo avanzato per la comunicazione LoRa, le principali caratteristiche sono le seguenti:</p>
 <ul>
@@ -1674,7 +1778,39 @@ Il consumo di corrente varia dai 14mA in sola ricezione ai 650mA istantanei in t
 <p><strong>Matrice GPIO e Flessibilità di Routing</strong></p>
 <p>Un fattore decisivo nella scelta della famiglia ESP32-S3 è l'avanzata matrice GPIO. A differenza dei microcontrollori tradizionali dove le periferiche hardware sono legate a pin fissi, l'ESP32-S3 permette di instradare quasi ogni segnale digitale (SPI, UART, I2C, PWM) su qualsiasi pin libero. Questa caratteristica ha semplificato drasticamente lo sbroglio (routing) del PCB: ha permesso di sbrogliare le piste del bus SPI verso la MicroSD e le linee di comunicazione verso il modulo LoRa in modo diretto e parallelo, riducendo al minimo l'uso di via passanti e migliorando l'integrità dei segnali.</p>
 <p><img alt="ESP32_pin_layout.png" src="../ESP32_pin_layout.png" width="300" /><img alt="ESP32_pinout.png" src="../ESP32_pinout.png" width="350" /></p>
-<p>Le immagini sopra mostrano il layout fisico del modulo ESP32-S3 e la corrente congirurazione di pinout scelta per ottimizzare lo sbroglio in fase di progettazione della PCB.</p>
+<p>Le immagini sopra mostrano il layout fisico del modulo ESP32-S3 e la corrente configurazione di pinout scelta per ottimizzare lo sbroglio in fase di progettazione della PCB.</p>
+<p><strong>Controller CAN nativo (TWAI)</strong></p>
+<p>Il microcontrollore integra nativamente un controller TWAI (Two-Wire Automotive Interface), pienamente compatibile con le specifiche CAN 2.0A e 2.0B. Grazie a questo hardware interno, la scheda non necessita di controller CAN esterni, ma richiede unicamente un transceiver fisico che è stato identificato essere il componente L9616 per interfacciarsi ai livelli di tensione del bus della vettura, riducendo i punti di fallimento, la latenza di lettura e l'ingombro sul PCB.</p>
+<p>Molto probabilmente su questa linea verrà utilizzato il CAN 2.0B per garantire il massimo flusso di dati con una minima quantità di bit di servizio come i bit di id o terminazione. Non necessario sulle altre linee perché non c'è la necessità di avere tanti dati in sequenza quanto avere il dato giusto al momento giusto.</p>
+<p><strong>Consumi</strong></p>
+<p>A livello energetico, l'ESP32-S3 richiede una gestione termica adeguata implementata tramite pad termico e vie di dissipazione sul PCB. I consumi variano in base allo stato:</p>
+<ul>
+<li><strong>Deep Sleep:</strong> ~7 µA</li>
+<li><strong>Elaborazione attiva (Radio Off):</strong> ~20-30 mA</li>
+<li><strong>Picco di trasmissione Wi-Fi:</strong> Fino a ~350 mA</li>
+</ul>
+<h3 id="l9616-can-transceiver">L9616 CAN Transceiver</h3>
+<p>Per il funzionamento della scheda si è resa necessaria la scelta di un transceiver CAN che fosse affidabile e che permettesse di gestire il data rate in modo dinamico, in questo caso il modello L9616 prodotto da ST Microelectronics.</p>
+<p>I consumi di corrente sono ridotti, con picchi di massimo 80mA durante la fase di trasmissione di un bit dominante. La sua tolleranza elettrica lo rende anche ottimo per future implementazioni su soluzioni che utilizzano il CAN a 5V, grazie a un'ampia flessibilità dei rail di alimentazione che può sopportare transitori dai -0.3V ai +7V (come da specifiche assolute).</p>
+<p>A protezione del transceiver contro i forti disturbi elettromagnetici dell'inverter, la linea fisica è stata equipaggiata con un array di diodi TVS e un Common Mode Choke con footprint standardizzato, permettendo di testare dinamicamente induttanze diverse.</p>
+<h3 id="adp3339-ldo-regulator">ADP3339 LDO Regulator</h3>
+<p>Il regolatore di tensione è una parte importantissima del progetto, perché mette insieme considerazioni riguardanti l'ambiente di funzionamento e le necessità degli altri componenti sulla scheda. In primo luogo bisogna considerare le emissioni EMI della scheda che monta non una ma ben due antenne ad alte prestazioni su frequenze diverse: l'ESP32 genera un segnale wifi e un segnale bluetooth che hanno il potenziale per generare dei disturbi indotti nelle piste del resto della scheda, aggiungendosi anche al disturbo emesso dall'inverter e dal chip LoRa.
+La scelta è ricaduta su un regolatore lineare LDO perché non aggiunge ulteriori disturbi alle alimentazioni rispetto ad un regolatore DC-DC switching e, con qualche accortezza, può non essere un problema dal punto di vista termico.</p>
+<p>La corrente di picco del ADP3339 raggiunge 1.5A, il che lascia un margine comodo per l'alimentazione di ESP32, transceiver CAN e MicroSD. Inoltre l'architettura Low Dropout dell'ADP3339 garantisce la stabilizzazione a 3.3V anche se la tensione di ingresso a 5V dovesse subire fluttuazioni o cali dovuti a picchi di assorbimento su altre centraline collegate allo stesso cablaggio della vettura, assicurando la continuità della telemetria in ogni condizione di gara.</p>
+<p>Una scelta importante è stata quella di dividere l'alimentazione del modulo LoRa per attingere direttamente dall'alimentazione principale a 5V della scheda che attiva dall'esterno. Questo evita all'LDO di farsi carico dei 650mA di picco che viene consumato in trasmissione, lasciando un'alimentazione pulita e senza sbalzi di tensione al microcontrollore.</p>
+<h2 id="schematico-e-pcb">Schematico e PCB</h2>
+<p>In un ambiente duro come quello della Formula Student ogni componente deve essere scelto e posizionato con cura per evitare una serie di problematiche note che possono essere:</p>
+<ul>
+<li>Disturbi elettromagnetici</li>
+<li>Vibrazioni</li>
+<li>Temperature</li>
+</ul>
+<p>Nei prossimi capitoli verranno analizzati in dettaglio i blocchi logici che compongono lo schematico e la PCB, motivando le scelte di design.</p>
+<h3 id="power-stage">Power stage</h3>
+<p><img alt="power_stage_schematic.png" src="../power_stage_schematic.png" /></p>
+<p>Il power stage è diviso in due blocchi concettuali, le protezioni per sovratensioni e inversioni di polarità e il regolatore LDO.</p>
+<p>Analizzando il primo blocco si può notare che l'inversione di polarità è stata gestita attraverso il diodo schottky D5 che è stato dimensionato per sopportare la somma delle correnti dei singoli moduli, lasciando ovviamente un ampio margine. Non serve essere precisi con le correnti perché si rischierebbe di bruciare il diodo se si eccedono le sue specifiche, inoltre serve solo come protezione verso le inversioni di polarità, non è fatto per diventare un e-fuse.</p>
+<p>Il secondo componente importante è il diodo TVS (Transient Voltage Suppressor) bidirezionale D6, che serve per sopprimere i transienti(picchi momentanei) di tensione indotti nell'alimentazione dai disturbi e a garantire una tensione massima di 5V ai suoi capi. In questo caso è necessario essere precisi perché una sovratensione potrebbe friggere il regolatore e danneggiare il modulo LoRa (max 5.5V continuativi). </p>
 
 
 

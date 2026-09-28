@@ -164,7 +164,7 @@ Il filtro di modo comune è l'elemento più critico per sopravvivere al rumore d
 
 ### LoRa
 
-![[lora_schematic.png|350]]![[lora_layout.png|350]]
+![[lora_schematic.png|330]]![[lora_layout.png|330]]
 
 L'integrazione di un trasmettitore da 1W (E22-900M30S) direttamente su un circuito compatto pone sfide severe in termini di integrità del segnale e immunità ai disturbi. Un segnale RF ad alta potenza può facilmente accoppiarsi con le piste vicine, corrompendo i dati del bus SPI o inducendo reset anomali nel microcontrollore. Per evitare questo scenario, il layout del modulo LoRa è stato progettato attorno a tre strategie chiave:
 
@@ -173,3 +173,143 @@ L'integrazione di un trasmettitore da 1W (E22-900M30S) direttamente su un circui
 - **Power Delivery**: il modulo LoRa è alimentato in modo indipendente dalla linea a 5V per preservare la stabilità dell'LDO. Tuttavia, trasmettere pacchetti a 1W richiede picchi di assorbimento transitori molto rapidi, fino a 650mA. Per evitare che l'induttanza parassita delle piste a 5V rallentasse l'erogazione di corrente causando cali di tensione, il condensatore di bulk primario C2 è stato posizionato fisicamente a ridosso del pin VCC del modulo. Questo condensatore funge da riserva di energia locale, garantendo la massima potenza senza stressare il cablaggio generale.
 
 Le due piste a sinistra sono i due segnali `LORA_TXEN` e `LORA_RXEN`, che servono a settare la modalità dell'antenna in trasmissione e ricezione. Affinché questi comandi arrivino in modo perfettamente sincrono, è stata applicata la tecnica del length tuning (ricciolo a serpentina sulla pista di sinistra) per equalizzarne la lunghezza e annullare le differenze di tempo di propagazione. Infine, le connessioni nella parte inferiore costituiscono il bus SPI ad alta velocità, instradato in modo compatto e diretto per trasportare i comandi e i dati tra il modulo LoRa e il microcontrollore.
+
+### Microcontrollore
+![[ESP_schematic.png|330]]![[ESP_layout.png|330]]
+
+Al centro del footprint dell'ESP32 è ben visibile il grande pad termico esposto. Invece di affidare la dissipazione alla sola superficie del layer Top, il pad è stato ancorato al piano di massa interno tramite un array geometrico di 9 via passanti. Questa soluzione abbassa la resistenza termica del componente, trasferendo il calore generato durante le trasmissioni Wi-Fi o i calcoli intensivi agli strati interni, sfruttando l'intera massa di rame del PCB come radiatore.
+
+Un elemento critico per l'affidabilità di qualsiasi microcontrollore è il power-on reset. Come visibile dallo sbroglio evidenziato in rosso, il pin `ENABLE` dell'ESP32 è controllato da una specifica rete RC, composta dalla resistenza di pull-up R1 e da un condensatore a massa. Questo circuito hardware ritarda l'accensione del microcontrollore di qualche millisecondo rispetto all'erogazione dell'alimentazione. In questo modo si garantisce che l'ESP32 inizi l'esecuzione del firmware solo quando il piano dei 3.3V è perfettamente stabilizzato, prevenendo crash, stati logici indefiniti o scritture corrotte sulla MicroSD all'avvio. Sono stati inoltre integrati due pulsanti tattili BOOT ed ENABLE per consentire il reset manuale e l'ingresso forzato in modalità bootloader per il flashing del firmware durante lo sviluppo del software.
+
+Sui pin di alimentazione sul lato destro del chip, si notano i condensatori di decoupling. La loro  vicinanza ai pin VCC non è casuale: serve a minimizzare l'induttanza parassita delle piste. Questi condensatori agiscono come serbatoi che forniscono energia istantanea alle porte logiche interne dell'ESP32 durante le rapide commutazioni, sopprimendo al contempo il rumore ad alta frequenza prima che possa inquinare il piano di alimentazione 3V3_MAIN.
+
+### MicroSD
+
+![[microsd_layout.png|400]]
+
+A livello meccanico, il socket per la MicroSD è stato collocato strategicamente lungo il perimetro esterno del PCB. Questa scelta non risponde solo a criteri di sbroglio, ma è una precisa esigenza di usabilità in pista: permette l'estrazione rapida della scheda senza dover smontare la centralina. In questo modo è possibile scaricare fisicamente i log della telemetria sul PC qualora lo scaricamento OTA tramite Wi-Fi non fosse utilizzabile.
+
+## Gestione della Banda
+
+Questa sezione del documento punta a verificare che il carico di dati sia in linea con la capacità di canale di LoRa. Qualora non fosse sufficiente si esploreranno alcuni possibili algoritmi per introdurre un datarate variabile basato sulle misurazione in tempo reale della potenza del segnale da parte del modulo di trasmissione integrato.
+
+Il firmware dell'ECU gestisce l'acquisizione dei dati serializzando due pacchetti strutturati in C privi di padding grazie all'istruzione `__attribute__((packed))`, entrambi validati da un codice a ridondanza ciclica CRC16 per identificare e scartare i pacchetti corrotti:
+
+- Il primo pacchetto `TelemetryPacket_t` arriva dalla centralina e contiene i dati dei sensori, i parametri dell'inverter, le macchine a stati e le elaborazioni dinamiche che fa la ECU. Il pacchetto pesa `140byte` e viene trasmesso a 200Hz
+```cpp
+typedef struct __attribute__((packed)) {
+// --- Telemetry packet id and metadata ---
+uint8_t startByte1; // 0xCC
+uint8_t startByte2; // 0x11
+uint32_t timestamp; // Incremental
+// --- Wheel velocities ---
+float front_left_velocity; // km/h
+float front_right_velocity; // km/h
+float rear_left_velocity; // m/s
+float rear_right_velocity; // m/s
+// --- Suspension length ---
+// The sensor is implemented but the measurement unit is at this time unknown
+// 0<->4096
+float front_left_suspension; // To be defined
+float front_right_suspension; // To be defined
+// --- APPS ---
+uint16_t accelerator1; // 0<->4096
+uint16_t accelerator2; // 0<->4096
+float accelerator_mapped; // 0<->1
+// --- Brake ---
+uint16_t brake1; // 0<->4096
+uint16_t brake2; // 0<->4096
+// --- Steer ---
+float steer; // Degrees
+// --- Digital in ---
+uint8_t sdc; // Digital 0/1
+uint8_t ready_to_drive_button; // Digital 0/1
+uint8_t ecu_reset_button; // Digital 0/1
+uint8_t tractive_system_on_button; // Digital 0/1
+// --- Battery (EMMA) ---
+float emma_current; // A
+float emma_voltage; // V
+float emma_yaw; // deg/s
+uint16_t emma_error; // Emma error struct
+// --- Vehicle Dynamics & Powertrain Targets ---
+float mean_velocity; // m/s
+float real_yaw_rate; // deg/s
+float total_torque_request;
+float torque_tv_L; // nm
+float torque_tv_R; // nm
+float slip_L; // Adimensional raw
+float slip_R; // Adimensional raw
+float torque_reduction_L;
+float torque_reduction_R;
+float final_torque_target_L; // nm
+float final_torque_target_R; // nm
+// --- Inverter Internal Data ---
+int16_t inv_L_torqueCurrent; // Raw data A?
+int16_t inv_L_magnetizingCurrent; // Raw data A?
+int16_t inv_L_tempMotor; // °C
+int16_t inv_R_torqueCurrent; // Raw data A?
+int16_t inv_R_magnetizingCurrent; // Raw data A?
+int16_t inv_R_tempMotor; // °C
+// --- External Thermal Data ---
+float left_coolant_temp; // °C
+float right_coolant_temp; // °C
+// --- State machines ---
+uint8_t left_inverter_fsm; // FSM struct
+uint8_t right_inverter_fsm; // FSM struct
+uint8_t tractive_system_fsm; // FSM struct
+// --- ECU mode ---
+uint8_t ECU_Mode; // ECU mode struct
+uint16_t IMDInsulationValue; // KOhm
+// --- Inverter diagnostics (AMK diagnostic number, cfr. INVERTER_Errors.h) ---
+// 0 = nessuna diagnostica attiva. E' lo stesso numero mostrato sul display
+// dell'inverter: si decodifica a terra con la tabella di INVERTER_Errors.h
+uint16_t inv_L_errorInfo;
+uint16_t inv_R_errorInfo;
+// --- CRC for corrupted packages ---
+uint16_t crc16; // CRC16
+
+} TelemetryPacket_t;
+```
+
+- `TelemetryPacket_EMMA_t` pesa 81 Byte e contiene lo Stato di Carica, le matrici di tensione e temperatura delle singole celle, e il registro dei moduli attivi per la diagnostica del pacco batteria. La sua frequenza di trasmissione è di 5Hz
+```cpp
+typedef struct __attribute((packed)){
+// --- Telemetry packet id and metadata ---
+uint8_t startByte1; // 0xEE
+uint8_t startByte2; // 0x11
+uint32_t timestamp;
+
+// --- Module states ---
+uint8_t state_of_charge; // percentage
+uint8_t module_voltage[14]; // V
+uint16_t module_temperatures[28]; // degrees 0.1 °C
+uint16_t onlineModules;
+
+// --- CRC for corrupted packages ---
+uint16_t crc16;
+
+} TelemetryPacket_EMMA_t;
+```
+
+Per calcolare la banda:
+
+- `TelemetryPacket_t`: $140 b * 200 = 28.000 b/s = 224 kbps$.
+- `TelemetryPacket_EMMA_t`: $79 b * 5 = 395 B/s = 3,16 kbps$.
+- **Totale flusso dati utile:** 227,16 kbps.
+
+**Analisi Bottleneck**
+Sommando i flussi dei due pacchetti di telemetria si ottiene un totale di flusso di 227,16kbps, che pur essendo ridotto, è comunque eccessivo per il modulo LoRa che nella sua modalità normale ha una capacità di canale massima teorica di 62,5kbps. Risulta quindi fisicamente impossibile trasmettere l'intero flusso dati in tempo reale via radio senza incorrere in saturazione della banda, collisioni o svuotamento incontrollato del FIFO di trasmissione.
+
+Per risolvere la situazione si utilizzano due instradamenti diversi per i dati: appena i pacchetti arrivano vengono instradati direttamente nella memoria della scheda MicroSD con lo scopo di di salvare tutti i dati senza perdere di risoluzione nel post processing. Nell'instradamento del canale viene utilizzato un algoritmo che ridimensiona la frequenza del primo pacchetto di telemetria in termini di frequenza a 10Hz-20Hz, rendendo la capacità totale richiesta a circa 15-25 kbps.
+
+Per massimizzare l'efficienza di trasmissione, si prevede l'implementazione di un sistema di **Adaptive Data Rate**.
+
+**1. Il Feedback Loop (Rilevamento della Qualità del Link)** Affinché il microcontrollore possa adattare il traffico dati, necessita di una metrica sulla qualità del canale. Sfruttando i registri interni del ricetrasmettitore SX1262, è possibile leggere in hardware il valore **RSSI** (Received Signal Strength Indicator) e l'**SNR** (Signal-to-Noise Ratio). L'architettura software prevederà l'invio di un pacchetto di ACK periodico dalla Ground Station verso la vettura; analizzando l'RSSI di questo pacchetto in ingresso, l'ESP32 avrà una stima istantanea del Path Loss del canale radio.
+
+**2. Strategie di Adattamento Dinamico** Una volta nota la qualità del segnale, il firmware interverrà su due parametri fondamentali:
+
+- **Adattamento della Modulazione (SF Scaling):** Il protocollo LoRa permette di modificare dinamicamente lo Spreading Factor. Con un segnale forte (RSSI elevato), l'algoritmo imposterà un SF basso, massimizzando il bitrate e permettendo l'invio del `TelemetryPacket_t` fino a 30 Hz. All'allontanarsi della vettura, l'algoritmo scalerà gradualmente verso un SF maggiore, che aumenta esponenzialmente la robustezza e la sensibilità del ricevitore fino a -148 dBm al costo di un drastico calo della banda passante.
+    
+- **Decimazione Adattiva (Dynamic Downsampling):** Parallelamente allo scaling hardware, il software interverrà sulla frequenza di accodamento. Una macchina a stati finiti valuterà la banda disponibile stimata e adatterà il tasso di decimazione in tempo reale, come invio a 20 Hz con RSSI > -70 dBm; invio a 2 Hz con RSSI < -100 dBm.
+    
+- **Priority Payload:** In condizioni critiche di segnale, l'ESP32 sospenderà l'invio del pacchetto dinamico da 140 byte, commutando su un pacchetto "Emergency" ultra-ridotto di circa 20 byte contenente esclusivamente informazioni di sicurezza.

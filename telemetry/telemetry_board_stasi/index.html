@@ -1595,8 +1595,41 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#microcontrollore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microcontrollore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MicroSD
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestione-della-banda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestione della Banda
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1778,8 +1811,41 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#microcontrollore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microcontrollore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MicroSD
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestione-della-banda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestione della Banda
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1949,7 +2015,7 @@ La scelta è ricaduta su un regolatore lineare LDO perché non aggiunge ulterior
 <p>i segnali CAN_H e CAN_L sono segnali differenziali e, in quanto tali, sono state instradate in modo parallelo e accoppiato per tutta la lunghezza della pista. il segnale segue precisamente un ordine fisico che è il seguente: Connettore <span class="arithmatex">\(\rightarrow\)</span> Terminazione Split <span class="arithmatex">\(\rightarrow\)</span> Common Mode Choke <span class="arithmatex">\(\rightarrow\)</span> Diodo TVS <span class="arithmatex">\(\rightarrow\)</span> Transceiver.</p>
 <p>Il filtro di modo comune è l'elemento più critico per sopravvivere al rumore dell'inverter. Spesso è impossibile calcolare l'induttanza perfetta, poiché la capacità parassita del cablaggio e dei diodi TVS può innescare circuiti LC risonanti che distorcono il segnale. Per mitigare questo rischio si è optato per una strategia flessibile: è stato previsto un footprint SMD standard 1210 per il Common Mode Choke. Questo permette di testare diversi valori di induttanza (es. 11 µH, 22 µH, 51 µH) o di sostituire il filtro con resistenze da 0 Ohm o jumper qualora si rilevasse una distorsione del segnale dovuta a un'induttanza eccessiva (come già successo su altre schede).</p>
 <h3 id="lora">LoRa</h3>
-<p><img alt="lora_schematic.png" src="../lora_schematic.png" width="350" /><img alt="lora_layout.png" src="../lora_layout.png" width="350" /></p>
+<p><img alt="lora_schematic.png" src="../lora_schematic.png" width="330" /><img alt="lora_layout.png" src="../lora_layout.png" width="330" /></p>
 <p>L'integrazione di un trasmettitore da 1W (E22-900M30S) direttamente su un circuito compatto pone sfide severe in termini di integrità del segnale e immunità ai disturbi. Un segnale RF ad alta potenza può facilmente accoppiarsi con le piste vicine, corrompendo i dati del bus SPI o inducendo reset anomali nel microcontrollore. Per evitare questo scenario, il layout del modulo LoRa è stato progettato attorno a tre strategie chiave:</p>
 <ul>
 <li><strong>Schermatura RF e Stitching</strong>: Il modulo integrato che contiene l'antenna LoRa ha al di sopra una schermatura metallica che impedisce l'uscita di radiofrequenze se non dall'antenna. Per riprodurre un effetto simile, sotto il modulo è stata introdotto un piano continuo di rame sul primo layer, collegato al piano di massa da un array di via. Questa struttura crea una vera e propria gabbia di faraday che intrappola al suo interno tutti i segnale che vengono Generati dal modulo.</li>
@@ -1957,6 +2023,138 @@ La scelta è ricaduta su un regolatore lineare LDO perché non aggiunge ulterior
 <li><strong>Power Delivery</strong>: il modulo LoRa è alimentato in modo indipendente dalla linea a 5V per preservare la stabilità dell'LDO. Tuttavia, trasmettere pacchetti a 1W richiede picchi di assorbimento transitori molto rapidi, fino a 650mA. Per evitare che l'induttanza parassita delle piste a 5V rallentasse l'erogazione di corrente causando cali di tensione, il condensatore di bulk primario C2 è stato posizionato fisicamente a ridosso del pin VCC del modulo. Questo condensatore funge da riserva di energia locale, garantendo la massima potenza senza stressare il cablaggio generale.</li>
 </ul>
 <p>Le due piste a sinistra sono i due segnali <code>LORA_TXEN</code> e <code>LORA_RXEN</code>, che servono a settare la modalità dell'antenna in trasmissione e ricezione. Affinché questi comandi arrivino in modo perfettamente sincrono, è stata applicata la tecnica del length tuning (ricciolo a serpentina sulla pista di sinistra) per equalizzarne la lunghezza e annullare le differenze di tempo di propagazione. Infine, le connessioni nella parte inferiore costituiscono il bus SPI ad alta velocità, instradato in modo compatto e diretto per trasportare i comandi e i dati tra il modulo LoRa e il microcontrollore.</p>
+<h3 id="microcontrollore">Microcontrollore</h3>
+<p><img alt="ESP_schematic.png" src="../ESP_schematic.png" width="330" /><img alt="ESP_layout.png" src="../ESP_layout.png" width="330" /></p>
+<p>Al centro del footprint dell'ESP32 è ben visibile il grande pad termico esposto. Invece di affidare la dissipazione alla sola superficie del layer Top, il pad è stato ancorato al piano di massa interno tramite un array geometrico di 9 via passanti. Questa soluzione abbassa la resistenza termica del componente, trasferendo il calore generato durante le trasmissioni Wi-Fi o i calcoli intensivi agli strati interni, sfruttando l'intera massa di rame del PCB come radiatore.</p>
+<p>Un elemento critico per l'affidabilità di qualsiasi microcontrollore è il power-on reset. Come visibile dallo sbroglio evidenziato in rosso, il pin <code>ENABLE</code> dell'ESP32 è controllato da una specifica rete RC, composta dalla resistenza di pull-up R1 e da un condensatore a massa. Questo circuito hardware ritarda l'accensione del microcontrollore di qualche millisecondo rispetto all'erogazione dell'alimentazione. In questo modo si garantisce che l'ESP32 inizi l'esecuzione del firmware solo quando il piano dei 3.3V è perfettamente stabilizzato, prevenendo crash, stati logici indefiniti o scritture corrotte sulla MicroSD all'avvio. Sono stati inoltre integrati due pulsanti tattili BOOT ed ENABLE per consentire il reset manuale e l'ingresso forzato in modalità bootloader per il flashing del firmware durante lo sviluppo del software.</p>
+<p>Sui pin di alimentazione sul lato destro del chip, si notano i condensatori di decoupling. La loro  vicinanza ai pin VCC non è casuale: serve a minimizzare l'induttanza parassita delle piste. Questi condensatori agiscono come serbatoi che forniscono energia istantanea alle porte logiche interne dell'ESP32 durante le rapide commutazioni, sopprimendo al contempo il rumore ad alta frequenza prima che possa inquinare il piano di alimentazione 3V3_MAIN.</p>
+<h3 id="microsd">MicroSD</h3>
+<p><img alt="microsd_layout.png" src="../microsd_layout.png" width="400" /></p>
+<p>A livello meccanico, il socket per la MicroSD è stato collocato strategicamente lungo il perimetro esterno del PCB. Questa scelta non risponde solo a criteri di sbroglio, ma è una precisa esigenza di usabilità in pista: permette l'estrazione rapida della scheda senza dover smontare la centralina. In questo modo è possibile scaricare fisicamente i log della telemetria sul PC qualora lo scaricamento OTA tramite Wi-Fi non fosse utilizzabile.</p>
+<h2 id="gestione-della-banda">Gestione della Banda</h2>
+<p>Questa sezione del documento punta a verificare che il carico di dati sia in linea con la capacità di canale di LoRa. Qualora non fosse sufficiente si esploreranno alcuni possibili algoritmi per introdurre un datarate variabile basato sulle misurazione in tempo reale della potenza del segnale da parte del modulo di trasmissione integrato.</p>
+<p>Il firmware dell'ECU gestisce l'acquisizione dei dati serializzando due pacchetti strutturati in C privi di padding grazie all'istruzione <code>__attribute__((packed))</code>, entrambi validati da un codice a ridondanza ciclica CRC16 per identificare e scartare i pacchetti corrotti:</p>
+<ul>
+<li>
+<p>Il primo pacchetto <code>TelemetryPacket_t</code> arriva dalla centralina e contiene i dati dei sensori, i parametri dell'inverter, le macchine a stati e le elaborazioni dinamiche che fa la ECU. Il pacchetto pesa <code>140byte</code> e viene trasmesso a 200Hz
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// --- Telemetry packet id and metadata ---</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">startByte1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0xCC</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">startByte2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0x11</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span><span class="w"> </span><span class="c1">// Incremental</span>
+<span class="c1">// --- Wheel velocities ---</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">front_left_velocity</span><span class="p">;</span><span class="w"> </span><span class="c1">// km/h</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">front_right_velocity</span><span class="p">;</span><span class="w"> </span><span class="c1">// km/h</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">rear_left_velocity</span><span class="p">;</span><span class="w"> </span><span class="c1">// m/s</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">rear_right_velocity</span><span class="p">;</span><span class="w"> </span><span class="c1">// m/s</span>
+<span class="c1">// --- Suspension length ---</span>
+<span class="c1">// The sensor is implemented but the measurement unit is at this time unknown</span>
+<span class="c1">// 0&lt;-&gt;4096</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">front_left_suspension</span><span class="p">;</span><span class="w"> </span><span class="c1">// To be defined</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">front_right_suspension</span><span class="p">;</span><span class="w"> </span><span class="c1">// To be defined</span>
+<span class="c1">// --- APPS ---</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">accelerator1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0&lt;-&gt;4096</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">accelerator2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0&lt;-&gt;4096</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">accelerator_mapped</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0&lt;-&gt;1</span>
+<span class="c1">// --- Brake ---</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">brake1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0&lt;-&gt;4096</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">brake2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0&lt;-&gt;4096</span>
+<span class="c1">// --- Steer ---</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">steer</span><span class="p">;</span><span class="w"> </span><span class="c1">// Degrees</span>
+<span class="c1">// --- Digital in ---</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">sdc</span><span class="p">;</span><span class="w"> </span><span class="c1">// Digital 0/1</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">ready_to_drive_button</span><span class="p">;</span><span class="w"> </span><span class="c1">// Digital 0/1</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">ecu_reset_button</span><span class="p">;</span><span class="w"> </span><span class="c1">// Digital 0/1</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">tractive_system_on_button</span><span class="p">;</span><span class="w"> </span><span class="c1">// Digital 0/1</span>
+<span class="c1">// --- Battery (EMMA) ---</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">emma_current</span><span class="p">;</span><span class="w"> </span><span class="c1">// A</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">emma_voltage</span><span class="p">;</span><span class="w"> </span><span class="c1">// V</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">emma_yaw</span><span class="p">;</span><span class="w"> </span><span class="c1">// deg/s</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">emma_error</span><span class="p">;</span><span class="w"> </span><span class="c1">// Emma error struct</span>
+<span class="c1">// --- Vehicle Dynamics &amp; Powertrain Targets ---</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">mean_velocity</span><span class="p">;</span><span class="w"> </span><span class="c1">// m/s</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">real_yaw_rate</span><span class="p">;</span><span class="w"> </span><span class="c1">// deg/s</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">total_torque_request</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">torque_tv_L</span><span class="p">;</span><span class="w"> </span><span class="c1">// nm</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">torque_tv_R</span><span class="p">;</span><span class="w"> </span><span class="c1">// nm</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">slip_L</span><span class="p">;</span><span class="w"> </span><span class="c1">// Adimensional raw</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">slip_R</span><span class="p">;</span><span class="w"> </span><span class="c1">// Adimensional raw</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">torque_reduction_L</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">torque_reduction_R</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">final_torque_target_L</span><span class="p">;</span><span class="w"> </span><span class="c1">// nm</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">final_torque_target_R</span><span class="p">;</span><span class="w"> </span><span class="c1">// nm</span>
+<span class="c1">// --- Inverter Internal Data ---</span>
+<span class="kt">int16_t</span><span class="w"> </span><span class="n">inv_L_torqueCurrent</span><span class="p">;</span><span class="w"> </span><span class="c1">// Raw data A?</span>
+<span class="kt">int16_t</span><span class="w"> </span><span class="n">inv_L_magnetizingCurrent</span><span class="p">;</span><span class="w"> </span><span class="c1">// Raw data A?</span>
+<span class="kt">int16_t</span><span class="w"> </span><span class="n">inv_L_tempMotor</span><span class="p">;</span><span class="w"> </span><span class="c1">// °C</span>
+<span class="kt">int16_t</span><span class="w"> </span><span class="n">inv_R_torqueCurrent</span><span class="p">;</span><span class="w"> </span><span class="c1">// Raw data A?</span>
+<span class="kt">int16_t</span><span class="w"> </span><span class="n">inv_R_magnetizingCurrent</span><span class="p">;</span><span class="w"> </span><span class="c1">// Raw data A?</span>
+<span class="kt">int16_t</span><span class="w"> </span><span class="n">inv_R_tempMotor</span><span class="p">;</span><span class="w"> </span><span class="c1">// °C</span>
+<span class="c1">// --- External Thermal Data ---</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">left_coolant_temp</span><span class="p">;</span><span class="w"> </span><span class="c1">// °C</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">right_coolant_temp</span><span class="p">;</span><span class="w"> </span><span class="c1">// °C</span>
+<span class="c1">// --- State machines ---</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">left_inverter_fsm</span><span class="p">;</span><span class="w"> </span><span class="c1">// FSM struct</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">right_inverter_fsm</span><span class="p">;</span><span class="w"> </span><span class="c1">// FSM struct</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">tractive_system_fsm</span><span class="p">;</span><span class="w"> </span><span class="c1">// FSM struct</span>
+<span class="c1">// --- ECU mode ---</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">ECU_Mode</span><span class="p">;</span><span class="w"> </span><span class="c1">// ECU mode struct</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">IMDInsulationValue</span><span class="p">;</span><span class="w"> </span><span class="c1">// KOhm</span>
+<span class="c1">// --- Inverter diagnostics (AMK diagnostic number, cfr. INVERTER_Errors.h) ---</span>
+<span class="c1">// 0 = nessuna diagnostica attiva. E' lo stesso numero mostrato sul display</span>
+<span class="c1">// dell'inverter: si decodifica a terra con la tabella di INVERTER_Errors.h</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">inv_L_errorInfo</span><span class="p">;</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">inv_R_errorInfo</span><span class="p">;</span>
+<span class="c1">// --- CRC for corrupted packages ---</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">crc16</span><span class="p">;</span><span class="w"> </span><span class="c1">// CRC16</span>
+
+<span class="p">}</span><span class="w"> </span><span class="n">TelemetryPacket_t</span><span class="p">;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><code>TelemetryPacket_EMMA_t</code> pesa 81 Byte e contiene lo Stato di Carica, le matrici di tensione e temperatura delle singole celle, e il registro dei moduli attivi per la diagnostica del pacco batteria. La sua frequenza di trasmissione è di 5Hz
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">__attribute</span><span class="p">((</span><span class="n">packed</span><span class="p">)){</span>
+<span class="c1">// --- Telemetry packet id and metadata ---</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">startByte1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0xEE</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">startByte2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 0x11</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
+
+<span class="c1">// --- Module states ---</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">state_of_charge</span><span class="p">;</span><span class="w"> </span><span class="c1">// percentage</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">module_voltage</span><span class="p">[</span><span class="mi">14</span><span class="p">];</span><span class="w"> </span><span class="c1">// V</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">module_temperatures</span><span class="p">[</span><span class="mi">28</span><span class="p">];</span><span class="w"> </span><span class="c1">// degrees 0.1 °C</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">onlineModules</span><span class="p">;</span>
+
+<span class="c1">// --- CRC for corrupted packages ---</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">crc16</span><span class="p">;</span>
+
+<span class="p">}</span><span class="w"> </span><span class="n">TelemetryPacket_EMMA_t</span><span class="p">;</span>
+</code></pre></div></p>
+</li>
+</ul>
+<p>Per calcolare la banda:</p>
+<ul>
+<li><code>TelemetryPacket_t</code>: <span class="arithmatex">\(140 b * 200 = 28.000 b/s = 224 kbps\)</span>.</li>
+<li><code>TelemetryPacket_EMMA_t</code>: <span class="arithmatex">\(79 b * 5 = 395 B/s = 3,16 kbps\)</span>.</li>
+<li><strong>Totale flusso dati utile:</strong> 227,16 kbps.</li>
+</ul>
+<p><strong>Analisi Bottleneck</strong>
+Sommando i flussi dei due pacchetti di telemetria si ottiene un totale di flusso di 227,16kbps, che pur essendo ridotto, è comunque eccessivo per il modulo LoRa che nella sua modalità normale ha una capacità di canale massima teorica di 62,5kbps. Risulta quindi fisicamente impossibile trasmettere l'intero flusso dati in tempo reale via radio senza incorrere in saturazione della banda, collisioni o svuotamento incontrollato del FIFO di trasmissione.</p>
+<p>Per risolvere la situazione si utilizzano due instradamenti diversi per i dati: appena i pacchetti arrivano vengono instradati direttamente nella memoria della scheda MicroSD con lo scopo di di salvare tutti i dati senza perdere di risoluzione nel post processing. Nell'instradamento del canale viene utilizzato un algoritmo che ridimensiona la frequenza del primo pacchetto di telemetria in termini di frequenza a 10Hz-20Hz, rendendo la capacità totale richiesta a circa 15-25 kbps.</p>
+<p>Per massimizzare l'efficienza di trasmissione, si prevede l'implementazione di un sistema di <strong>Adaptive Data Rate</strong>.</p>
+<p><strong>1. Il Feedback Loop (Rilevamento della Qualità del Link)</strong> Affinché il microcontrollore possa adattare il traffico dati, necessita di una metrica sulla qualità del canale. Sfruttando i registri interni del ricetrasmettitore SX1262, è possibile leggere in hardware il valore <strong>RSSI</strong> (Received Signal Strength Indicator) e l'<strong>SNR</strong> (Signal-to-Noise Ratio). L'architettura software prevederà l'invio di un pacchetto di ACK periodico dalla Ground Station verso la vettura; analizzando l'RSSI di questo pacchetto in ingresso, l'ESP32 avrà una stima istantanea del Path Loss del canale radio.</p>
+<p><strong>2. Strategie di Adattamento Dinamico</strong> Una volta nota la qualità del segnale, il firmware interverrà su due parametri fondamentali:</p>
+<ul>
+<li>
+<p><strong>Adattamento della Modulazione (SF Scaling):</strong> Il protocollo LoRa permette di modificare dinamicamente lo Spreading Factor. Con un segnale forte (RSSI elevato), l'algoritmo imposterà un SF basso, massimizzando il bitrate e permettendo l'invio del <code>TelemetryPacket_t</code> fino a 30 Hz. All'allontanarsi della vettura, l'algoritmo scalerà gradualmente verso un SF maggiore, che aumenta esponenzialmente la robustezza e la sensibilità del ricevitore fino a -148 dBm al costo di un drastico calo della banda passante.</p>
+</li>
+<li>
+<p><strong>Decimazione Adattiva (Dynamic Downsampling):</strong> Parallelamente allo scaling hardware, il software interverrà sulla frequenza di accodamento. Una macchina a stati finiti valuterà la banda disponibile stimata e adatterà il tasso di decimazione in tempo reale, come invio a 20 Hz con RSSI &gt; -70 dBm; invio a 2 Hz con RSSI &lt; -100 dBm.</p>
+</li>
+<li>
+<p><strong>Priority Payload:</strong> In condizioni critiche di segnale, l'ESP32 sospenderà l'invio del pacchetto dinamico da 140 byte, commutando su un pacchetto "Emergency" ultra-ridotto di circa 20 byte contenente esclusivamente informazioni di sicurezza.</p>
+</li>
+</ul>
 
 
 

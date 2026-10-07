@@ -91,6 +91,7 @@ nav:
   # 5. HARDWARE (Schede fisiche)
   # Qui dovrai aggiungere i file puramente hardware quando li creerai
   - Hardware & Elettronica:
+      - 'Scheda sensori': control_modules/scheda_sensori/scheda_sensori.md
       - 'Overview Hardware (TODO)': hardware/panoramica_hardware.md # Se esiste
       - 'Telemetria':
           - 'Telemetria': telemetry/telemetry_pcb.md

@@ -6,7 +6,7 @@ Per la scheda sensori si pensava di svilupparla nell'ottica di alleggerire la mo
 
 # DANIELE VILLA - GABRIEL BILLECI - GIOVANNI BRIGNOLI (08/10/26)
 
-Dopo aver confrontato le diverse soluzioni disponibili, la scelta ricade sullo STM32G491CCU6 a 48 pin per la scheda. [Datasheet STM32G491CCU6](file:///C:/Users/danie/Downloads/DS_stm32g491kc.pdf)
+Dopo aver confrontato le diverse soluzioni disponibili, la scelta ricade sullo STM32G491CCU6 a 48 pin per la scheda. [Datasheet STM32G491CCU6](https://www.st.com/resource/en/datasheet/stm32g491cc.pdf)
 
 La decisione è stata presa considerando non solo i requisiti attuali del progetto, ma anche le possibili evoluzioni future del sistema. A parità di architettura e prestazioni di calcolo, l'STM32G491 offre infatti 256 kB di Flash e 112 kB di SRAM, garantendo un margine significativamente superiore rispetto allo STM32G431. Questa maggiore disponibilità di memoria permette di implementare con tranquillità funzionalità aggiuntive, algoritmi di elaborazione più complessi, filtri digitali, strategie di diagnostica e logging avanzato senza il rischio di saturare rapidamente le risorse del microcontrollore.
 
@@ -39,7 +39,7 @@ Il micro che abbiamo scelto ci dà la possibilità di avere 18 ingressi analogic
 # DANIELE VILLA - GABRIEL BILLECI - GIOVANNI BRIGNOLI (10/10/26)
 
 Esempio di una scheda Nucleo64 STM32G4 che aiuta per lo sviluppo della scheda sensori
-[Download datasheet]([Nucleo Esempio (mb1367-g491re-c04_schematic).pdf](file:///C:/Users/danie/OneDrive/Desktop/ERB/Elettronica/Scheda%20Sensori/Nucleo%20Esempio%20\(mb1367-g491re-c04_schematic\).pdf))
+[Download datasheet](https://www.st.com/resource/en/schematic_pack/mb1367-g491re-c04_schematic.pdf)
 
 # DANIELE VILLA - GABRIEL BILLECI - GIOVANNI BRIGNOLI (11/10/26)
 

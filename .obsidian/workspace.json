@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "docs/scheda_sensori/scheda_sensori_history.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -187,10 +187,15 @@
   },
   "active": "60be23e6097d6114",
   "lastOpenFiles": [
+    "docs/scheda_sensori/datasheet_frequenza_tipica_HSE.png",
     "docs/scheda_sensori/scheda_sensori_docs.md",
+    "docs/scheda_sensori/datasheet_numero_pin_analogici.png",
     "docs/scheda_sensori/scheda_sensori_history.md",
-    "about.md",
+    "docs/telemetry/telemetry_board_stasi.md",
+    "Pasted image 20261030140331.png",
+    "docs/scheda_sensori/Numero di pin analogici (Datasheet).png",
     "docs/telemetry/telemetry_pcb.md",
+    "about.md",
     "docs/telemetry/Test.md"
   ]
 }

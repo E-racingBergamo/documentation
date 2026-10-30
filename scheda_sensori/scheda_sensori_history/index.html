@@ -1605,7 +1605,7 @@
 <h1 id="daniele-villa-gabriel-billeci-giovanni-brignoli-011026">DANIELE VILLA - GABRIEL BILLECI - GIOVANNI BRIGNOLI (01/10/26)</h1>
 <p>Per la scheda sensori si pensava di svilupparla nell'ottica di alleggerire la mole di lavoro della centralina. Questa scheda dovrà prendere il controllo degli attuali sensori della pedaliera e dovrà essere in grado di tirare fuori i dati puliti ed eventualmente svolgere dei calcoli sui dati acquisiti.</p>
 <h1 id="daniele-villa-gabriel-billeci-giovanni-brignoli-081026">DANIELE VILLA - GABRIEL BILLECI - GIOVANNI BRIGNOLI (08/10/26)</h1>
-<p>Dopo aver confrontato le diverse soluzioni disponibili, la scelta ricade sullo STM32G491CCU6 a 48 pin per la scheda. <a href="file:///C:/Users/danie/Downloads/DS_stm32g491kc.pdf">Datasheet STM32G491CCU6</a></p>
+<p>Dopo aver confrontato le diverse soluzioni disponibili, la scelta ricade sullo STM32G491CCU6 a 48 pin per la scheda. <a href="https://www.st.com/resource/en/datasheet/stm32g491cc.pdf">Datasheet STM32G491CCU6</a></p>
 <p>La decisione è stata presa considerando non solo i requisiti attuali del progetto, ma anche le possibili evoluzioni future del sistema. A parità di architettura e prestazioni di calcolo, l'STM32G491 offre infatti 256 kB di Flash e 112 kB di SRAM, garantendo un margine significativamente superiore rispetto allo STM32G431. Questa maggiore disponibilità di memoria permette di implementare con tranquillità funzionalità aggiuntive, algoritmi di elaborazione più complessi, filtri digitali, strategie di diagnostica e logging avanzato senza il rischio di saturare rapidamente le risorse del microcontrollore.</p>
 <p>La scelta del package 48 pin è stata preferita rispetto alla versione da 32 pin principalmente per la maggiore disponibilità di periferiche e di ingressi analogici.</p>
 <p>Dal punto di vista delle prestazioni computazionali, il core Cortex-M4 a 170 MHz con FPU e la presenza del CAN-FD integrato rendono il dispositivo pienamente adeguato alle esigenze di acquisizione, elaborazione e trasmissione dati richieste dall'applicazione Formula Student. La notevole disponibilità di RAM permette inoltre di gestire con maggiore semplicità buffer di acquisizione, filtri software e future elaborazioni in tempo reale.</p>
@@ -1627,7 +1627,7 @@
 <a href="https://www.nope-engineering.com/prodotti/catalogo-sensori/#flipbook-df_4040/8/">Catalogo sensori Nope Engineering</a></p>
 <h1 id="daniele-villa-gabriel-billeci-giovanni-brignoli-101026">DANIELE VILLA - GABRIEL BILLECI - GIOVANNI BRIGNOLI (10/10/26)</h1>
 <p>Esempio di una scheda Nucleo64 STM32G4 che aiuta per lo sviluppo della scheda sensori
-<a href="[Nucleo Esempio (mb1367-g491re-c04_schematic).pdf](file:///C:/Users/danie/OneDrive/Desktop/ERB/Elettronica/Scheda%20Sensori/Nucleo%20Esempio%20\(mb1367-g491re-c04_schematic\).pdf)">Download datasheet</a></p>
+<a href="https://www.st.com/resource/en/schematic_pack/mb1367-g491re-c04_schematic.pdf">Download datasheet</a></p>
 <h1 id="daniele-villa-gabriel-billeci-giovanni-brignoli-111026">DANIELE VILLA - GABRIEL BILLECI - GIOVANNI BRIGNOLI (11/10/26)</h1>
 <p>Per la scheda sensori si valuta la scelta di un oscillatore esterno per avere una maggiore precisione anche per il trascriver della linea can. 
 Dal datascheet del microcontrollore la frequenza typical dell'oscillatore è di 8MHz. </p>

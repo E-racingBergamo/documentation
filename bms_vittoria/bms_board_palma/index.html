@@ -1591,7 +1591,7 @@
   <a href="#informazioni-principali-tsac-erb03" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ==🟡Informazioni principali TSAC ERB03==
+        🟡Informazioni principali TSAC ERB03
       
     </span>
   </a>
@@ -1602,7 +1602,7 @@
   <a href="#il-componente" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ==🟡Il componente==
+        🟡Il componente
       
     </span>
   </a>
@@ -1613,7 +1613,7 @@
   <a href="#alimentazione-del-componente" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ==🟡Alimentazione del componente==
+        🟡Alimentazione del componente
       
     </span>
   </a>
@@ -1624,7 +1624,7 @@
   <a href="#filtraggio-e-bilanciamento-di-carica" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ==🟡Filtraggio e bilanciamento di carica==
+        🟡Filtraggio e bilanciamento di carica
       
     </span>
   </a>
@@ -1635,12 +1635,12 @@
   <a href="#temperature-sensing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ==🟡Temperature sensing==
+        🟡Temperature sensing
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="==🟡Temperature sensing==">
+    <nav class="md-nav" aria-label="🟡Temperature sensing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1696,12 +1696,12 @@
   <a href="#comunicazione-isospi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ==🟡Comunicazione isoSPI==
+        🟡Comunicazione isoSPI
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="==🟡Comunicazione isoSPI==">
+    <nav class="md-nav" aria-label="🟡Comunicazione isoSPI">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1796,7 +1796,7 @@
   <a href="#fase-di-testing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ==🟠Fase di testing==
+        🟠Fase di testing
       
     </span>
   </a>
@@ -1833,7 +1833,7 @@
 <p>In questi anni di E racing Bergamo, abbiamo adottato dei BMS già prodotti, i Tiny AFE v1.1 di ENEPAQ. Durante i test pre-gara svolti nell'estate 2026, abbiamo notato una grande sofferenza ai disturbi emessi dall'inverter, in fase di alimentazione dei motori. In particolare, non riuscivamo a leggere i dati dei BMS quando la macchina è in funzione. Dopo tentativi di migliorare la schermatura, utilizzo di ferriti, non siamo riusciti a risolvere il problema. </p>
 <p>L'obiettivo postoci per la stagione 2026/2027 è quella di trovare una soluzione a questo problema, anche cambiando tecnologia dei BMS. Dopo esserci consultati anche con altri team di Formula student, abbiamo notato che l'utilizzo di un componente di Analog Device con comunicazione isoSPI ha risolto il problema. 
 Dopo aver consultato datasheet di vari componenti della stessa famiglia di ADI, abbiamo deciso di adottare l'ADBMS6815.</p>
-<h3 id="informazioni-principali-tsac-erb03">==🟡Informazioni principali TSAC ERB03==</h3>
+<h3 id="informazioni-principali-tsac-erb03"><mark>🟡Informazioni principali TSAC ERB03</mark></h3>
 <table>
 <thead>
 <tr>
@@ -1875,7 +1875,7 @@ Dopo aver consultato datasheet di vari componenti della stessa famiglia di ADI, 
 <td></td>
 </tr>
 <tr>
-<td>### ==🟡Informazioni principali ADBMS6815==</td>
+<td>### <mark>🟡Informazioni principali ADBMS6815</mark></td>
 <td></td>
 </tr>
 </tbody>
@@ -1893,7 +1893,7 @@ Dopo aver consultato datasheet di vari componenti della stessa famiglia di ADI, 
 2. Più dispositivi vengono collegati in una configurazione a cascata (<em>daisy chain</em>) con una singola connessione al processore host
 3. La comunicazione può avvenire in entrambe le direzioni, garantendo l'integrità dei dati anche in caso di guasto lungo il percorso di comunicazione.
 <img alt="ADBMS6815 schema generale.png" src="../ADBMS6815%20schema%20generale.png" width="300" />(schema generale)</p>
-<h3 id="il-componente">==🟡Il componente==</h3>
+<h3 id="il-componente"><mark>🟡Il componente</mark></h3>
 <p><img alt="ADBMS6815 componente.png" src="../ADBMS6815%20componente.png" width="300" />
 I pin:
 1) <strong>V+</strong> è il pin a cui si collega il positivo della serie di celle (dove avremo al max 42V)<br />
@@ -1905,7 +1905,7 @@ I pin:
 7) <strong>ISOMD</strong> è un digital input. Mandandolo alto configuriamo il BMS per la comunicazione isoSPI (2 cavi), mandandolo basso invece lo configura per la comunicazione SPI (4 cavi)
 8) <span class="arithmatex">\(V_{REF1}\)</span> e <span class="arithmatex">\(V_{REF2}\)</span> forniscono una tensione di riferimento. Entrambi hanno bisogno del condensatore di bypass. Solo la <span class="arithmatex">\(V_{REF2}\)</span> possiamo usarla per fornire tensione di riferimento ai sensori di temperatura
 9) <strong>ISOTHR</strong> </p>
-<h3 id="alimentazione-del-componente">==🟡Alimentazione del componente==</h3>
+<h3 id="alimentazione-del-componente"><mark>🟡Alimentazione del componente</mark></h3>
 <p>Il pin primario per fornire alimentazione al componente è il Vreg (input pin a 5V).</p>
 <table>
 <thead>
@@ -2075,7 +2075,7 @@ I pin:
 </tr>
 </tbody>
 </table>
-<h3 id="filtraggio-e-bilanciamento-di-carica">==🟡Filtraggio e bilanciamento di carica==</h3>
+<h3 id="filtraggio-e-bilanciamento-di-carica"><mark>🟡Filtraggio e bilanciamento di carica</mark></h3>
 <p><img alt="F&amp;S basso.png" src="../F%26S%20basso.png" width="300" />
 Tranne per il pin C0, che si collega al V- della serie di celle, tutti i pin <strong>Cx</strong> misurano la tensione sulla cella. In mezzo c'è un filtro passa basso RC prima che filtra i rumori prima del pin collegato all'ADC interno. I valori di resistenza (<span class="arithmatex">\(470\Omega\)</span>) e del condensatore (<span class="arithmatex">\(2200nF\)</span>) sono consigliati dal datasheet, che suggerisce di tenere valori  <span class="arithmatex">\(\le470\Omega\)</span>  e  <span class="arithmatex">\(\ge2200nF\)</span>  per minimizzare l'errore di misura.
 La resistenza da <span class="arithmatex">\(200\Omega\)</span> è la resistenza che protegge il componente dai picchi di tensione.
@@ -2090,7 +2090,7 @@ Quindi la potenza :$<span class="arithmatex">\(P_{scarica}= I^2R= (0.132mA)^2*15
 motiva la scelta di una resistenza di dimensione 2512 da 1W, sfruttabile se si aumenta la corrente di scarica. </p>
 <p>Nell'immagine successiva, la parte di circuito in cui vengono collegate le celle 9 e 10 e come si collegano i pin del componente <span class="arithmatex">\(C_{11}\)</span> e <span class="arithmatex">\(C_{12}\)</span> inutilizzati.
 <img alt="fine bilanciamento.png" src="../fine%20bilanciamento.png" width="300" /></p>
-<h3 id="temperature-sensing">==🟡Temperature sensing==</h3>
+<h3 id="temperature-sensing"><mark>🟡Temperature sensing</mark></h3>
 <h4 id="monitoraggio-della-temperatura-delle-celle">Monitoraggio della temperatura delle celle</h4>
 <p>Il regolamento Formula Student richiede il monitoraggio di almeno il 30% delle temperature delle celle presenti nel TSAC. Considerando che ciascun modulo è composto da 10 gruppi di celle in serie, sono stati installati <strong>5 sensori di temperatura per modulo</strong>, consentendo il monitoraggio del 50% delle celle e aumentando la probabilità di individuare tempestivamente eventuali punti caldi (<em>hot-spots</em>) o condizioni anomale di funzionamento.</p>
 <p>Per mantenere la compatibilità con l'architettura attualmente utilizzata dal team, è stato scelto lo stesso sensore di temperatura impiegato nei moduli esistenti. Il dispositivo è un <strong>temperature-variable voltage shunt</strong>, ovvero un sensore che genera una tensione dipendente dalla temperatura. A differenza dei comuni termistori NTC, il parametro misurato non è la resistenza ma direttamente la tensione ai terminali del sensore.</p>
@@ -2181,7 +2181,7 @@ Le prove previste comprendono:
 4. valutazione dell'errore massimo nel range operativo;
 5. verifica della robustezza delle misure in presenza dei disturbi elettromagnetici generati dall'inverter.</p>
 <p>L'obiettivo è verificare che la catena di misura composta da sensore, circuito di condizionamento e ADC interno dell'ADBMS6815 fornisca una precisione adeguata ai requisiti di monitoraggio e sicurezza del pacco batterie.</p>
-<h3 id="comunicazione-isospi">==🟡Comunicazione isoSPI==</h3>
+<h3 id="comunicazione-isospi"><mark>🟡Comunicazione isoSPI</mark></h3>
 <h4 id="architettura-di-comunicazione">Architettura di comunicazione</h4>
 <p>Per la comunicazione tra i moduli di monitoraggio e il controllore principale è stata adottata l'interfaccia <strong>isoSPI</strong> integrata nell'ADBMS6815. Questa tecnologia è stata sviluppata da Analog Devices per applicazioni Battery Management System ad alta tensione e consente di realizzare collegamenti robusti in ambienti caratterizzati da elevato rumore elettromagnetico.
 Ogni ADBMS6815 dispone di due porte isoSPI indipendenti:
@@ -2221,7 +2221,7 @@ Le prove previste comprendono:
 - monitoraggio di eventuali errori di comunicazione o perdita di pacchetti;
 - confronto delle prestazioni tra accoppiamento capacitivo e accoppiamento magnetico.</p>
 <p>L'obiettivo finale è individuare la configurazione che garantisca la massima affidabilità della comunicazione BMS nelle condizioni operative reali del veicolo.</p>
-<h3 id="fase-di-testing">==🟠Fase di testing==</h3>
+<h3 id="fase-di-testing"><mark>🟠Fase di testing</mark></h3>
 <p>Dopo aver revisionato la scheda, partirà la fase di prototipazione con 5 schede da testare. Per la comunicazione l'idea iniziale è quella di acquistare l'evaluation board di ADI, la DC2792B che monta il componente LTC6820 che converte la comunicazione isoSPI a SPI collegabile al microcontrollore della scheda di controllo del pacco batterie. Un primo test sarà attraverso una board di ST, affinché il codice software possa essere già validato per la scheda presente nel pacco batterie.
 In fase di testing schede bisognerà verificare:
 - immunità EMI

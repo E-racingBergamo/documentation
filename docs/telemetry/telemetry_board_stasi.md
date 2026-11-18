@@ -8,11 +8,13 @@
 
 L'obiettivo è progettare produrre e programmare una scheda di telemetria che supporti sia l'acquisizione dati in locale che la telemetria wireless. La motivazione che ci ha spinto ad iniziare il presente progetto è la necessità di avere un supporto tecnologico più robusto, sia dal punto di vista elettrico che dal punto di vista della trasmissione dati.
 
-La scheda utilizzerà una trasmissione LoRa a 868MHz ad alta potenza per garantire un'adeguata portata del segnale e una relativamente alta sopportazione dei disturbi elettromagnetici. A supporto di future necessità verrà scelto un modulo di trasmissione che sia in grado di trasmettere anche segnali in modalità FSK, che gli sbloccano una capacità di canale molto più ampia se ci si trova entro una data distanza. Maggiori informazioni verranno fornite nel prossimo capitolo.
+La scheda utilizzerà una trasmissione LoRa a 2.4GHz ad alta potenza per garantire un'adeguata portata del segnale e una relativamente alta sopportazione dei disturbi elettromagnetici. A supporto di future necessità verrà scelto un modulo di trasmissione che sia in grado di trasmettere anche segnali in modalità FSK, che gli sbloccano una capacità di canale molto più ampia se ci si trova entro una data distanza. Maggiori informazioni verranno fornite nel prossimo capitolo.
 
 Per la persistenza in locale si è optato per una semplice scheda MicroSD.
 
-I dati verranno ricevuti dalla scheda attraverso una linea CAN 2.0A/2.0B
+I dati verranno ricevuti dalla scheda attraverso una linea CAN FD.
+
+Per semplicità di progettazione la ground station sarà la copia della stazione in auto.
 
 ## Gestione della Banda
 
@@ -168,7 +170,7 @@ La frequenza dei 433Mhz non è praticabile per via del suo ridotto bitrate, quin
 | 868.7 – 869.2 MHz  | 25 mW ERP   | 0.1%       | Uso generale, duty cycle molto restrittivo         |
 | 869.4 – 869.65 MHz | 500 mW ERP  | 10%        | **Sub-banda usata da MeshCore e Meshtastic**       |
 | 869.7 – 870.0 MHz  | 25 mW ERP   | 1%         | Uso generale                                       |
-| 4.4GHz             | 200 mW ERP  | 100%       | Uso generale                                       |
+| 2.4GHz             | 200 mW ERP  | 100%       | Uso generale                                       |
 
 #### Analisi Bottleneck
 Sommando i flussi dei due pacchetti di telemetria si ottiene un totale di flusso di 326,36kbps, che pur essendo ridotto, è comunque eccessivo per il modulo LoRa che nella sua modalità normale ha una capacità di canale massima teorica di 62,5kbps. Risulta quindi fisicamente impossibile trasmettere l'intero flusso dati in tempo reale via radio senza incorrere in saturazione della banda, collisioni o svuotamento incontrollato del FIFO di trasmissione.
@@ -219,7 +221,7 @@ Questo modulo contiene un chip avanzato per la comunicazione LoRa. Le principali
 - **Potenza di Trasmissione:** Amplificatore di potenza (PA) integrato fino a 27 dBm (500 mW), scalabile via software per rispettare il limite europeo ETSI di 20 dBm (100 mW) EIRP.
 - **Sensibilità in Ricezione:** Fino a -132 dBm in modalità LoRa, garantendo un eccellente link budget.
 - **Frequenza Operativa:** Banda ISM 2.4 GHz, utilizzabile legalmente e senza limitazioni di Duty Cycle.
-- **Alimentazione:** Tolleranza da 2.5V a 5.5V.
+- **Alimentazione:** 3.3V.
 - **Interfaccia di Controllo:** Bus SPI ad alta velocità compatibile con i livelli logici a 3.3V del microcontrollore.
 
 Da questi dati risulta palese il motivo architetturale della scelta: il modulo risolve definitivamente il collo di bottiglia della banda passante. In particolare, la modulazione proprietaria **FLRC** offre il compromesso perfetto per il motorsport, garantendo un flusso dati massiccio unito a un forte Forward Error Correction capace di tollerare i disturbi elettromagnetici condotti generati dall'inverter (resistendo a SNR leggermente negativi).
@@ -267,7 +269,7 @@ A livello energetico, l'ESP32-S3 richiede una gestione termica adeguata implemen
 
 Per mantenere le comunicazioni pulite tra il microcontrollore e le periferiche evitando di aggiungere complessità software per l'arbitraggio è stato deciso di utilizzare una linea diversa per ognuno:
 
-- il modulo di comunicazione LoRa sulla SPI3
+- il modulo di comunicazione LoRa sulla SPI2
 - il modulo SD può essere cablato sulla periferica **SDMMC**, specificatamente progettata per comunicare con le MicroSD
 - il controller CAN va sulla SPI3
 
@@ -440,7 +442,7 @@ Analizzando il primo blocco si può notare che l'inversione di polarità è stat
 
 Il secondo componente importante è il diodo TVS (Transient Voltage Suppressor) bidirezionale D6, che serve per sopprimere i transienti(picchi momentanei) di tensione indotti nell'alimentazione dai disturbi. Il TVS è dimensionato per rimanere inattivo alla tensione nominale, ma interviene rapidamente scaricando a massa i picchi prima che possano friggere il regolatore o, peggio, danneggiare il modulo LoRa (che ha un limite operativo massimo di 5.5V continuativi).
 
-Nel secondo blocco è presente il regolatore che abbassa la tensione dai 5V ai 3V3. La peculiarità di questo regolatore è che la tensione fissa di uscita evita l'aggiunta del partitore di tensione tra l'uscita e il pin di regolazione. Il datasheet indica che per mantenere la tensione in uscita stabile è necessario mettere due condensatori da 1$\micro F$ in ingresso e in uscita. In questo caso nono stati messi da 10 perché in un ambiente rumoroso come il nostro è meglio non rischiare.
+Nel secondo blocco è presente il regolatore che abbassa la tensione dai 5V ai 3V3. La peculiarità di questo regolatore è che la tensione fissa di uscita evita l'aggiunta del partitore di tensione tra l'uscita e il pin di regolazione. Il datasheet indica che per mantenere la tensione in uscita stabile è necessario mettere due condensatori da 1$\mu F$ in ingresso e in uscita. In questo caso nono stati messi da 10 perché in un ambiente rumoroso come il nostro è meglio non rischiare.
 
 Gli ultimi componenti sono i LED di stato, che indicano l'accensione del power stage e dell'alimentazione principale.
 
@@ -520,44 +522,292 @@ A livello meccanico, il socket per la MicroSD è stato collocato strategicamente
 
 ## Algoritmo ADR
 
-L'adozione del modulo E28-2G4M27SX permette di superare il limite della larghezza di banda. Per fare in modo di avere sempre il maggior data rate possibile in qualsiasi condizione è possibile operare su tre parametri fondamentali della rete LoRa:
+L'adozione del modulo E28-2G4M27SX permette di superare il limite della larghezza di banda. Per fare in modo di avere sempre il maggior data rate possibile in qualsiasi condizione, è possibile operare su tre parametri fondamentali della rete:
 
 - **Spreading Factor (SF)**
 - **Bandwidth (BW)**
-- **Potenza di Trasmissione (TX Power)**
 - **Modulazione**
+
+### Normative
+
+Le trasmissioni nella banda a 2,4 GHz non richiedono licenza, ma devono rispettare le regole europee sull'uso dello spettro. Queste regole fissano la potenza massima irradiata e il comportamento che il trasmettitore deve avere verso gli altri utenti della banda, e determinano quindi il punto di partenza di tutti i calcoli che seguono.
+
+#### Quadro normativo
+
+- **Direttiva 2014/53/UE (RED, Radio Equipment Directive)**: stabilisce i requisiti essenziali che ogni apparato radio deve soddisfare per essere messo in servizio nell'Unione Europea.
+- **ETSI EN 300 328 V2.2.2 (2019-07)**, *Wideband transmission systems; Data transmission equipment operating in the 2,4 GHz band; Harmonised Standard for access to radio spectrum*: è la norma armonizzata per la trasmissione dati nella banda 2400–2483,5 MHz (clausola 1). Rispettarla dà presunzione di conformità ai requisiti della RED (allegato A), ed è quindi il riferimento tecnico del progetto.
+
+La norma distingue tra apparati a salto di frequenza (FHSS) e apparati a frequenza fissa (non-FHSS, clausola 4.3.2). Il sistema descritto usa un canale fisso e rientra quindi nel secondo caso.
+
+#### Potenza e densità spettrale
+
+La potenza massima è definita come EIRP media durante la trasmissione (clausola 4.3.2.2.2), e il suo limite vale per qualsiasi combinazione di potenza e antenna:
+
+> The RF output power for non-FHSS equipment shall be equal to or less than 20 dBm.
+> 
+> NOTE: For Non-adaptive FHSS equipment, the manufacturer may have declared a reduced RF Output Power (see clause 5.4.1 m)) and associated Duty Cycle (see clause 5.4.1 e)) that will ensure that the equipment meets the requirement for the Medium Utilization (MU) factor further described in clause 4.3.2.5. This is verified by the conformance test referred to in clause 4.3.2.5.4.
+> 
+> For non-adaptive non-FHSS equipment, where the manufacturer has declared an RF output power of less than 20 dBm e.i.r.p., the RF output power shall be equal to or less than that declared value. 
+> 
+> This limit shall apply for any combination of power level and intended antenna assembly.
+
+Oltre alla potenza totale è limitata la densità spettrale di potenza, misurata su 1 MHz di banda (clausola 4.3.2.3):
+
+> The maximum Power Spectral Density for non-FHSS equipment is 10 dBm per MHz.
+
+Sotto i 10 dBm EIRP il limite di densità spettrale è sempre rispettato, perché la potenza contenuta in 1 MHz non può superare la potenza totale.
+
+#### Esenzione sotto 10 dBm EIRP
+
+Sopra i 10 dBm EIRP la norma impone due alternative. L'apparato può essere *non adattivo*: in questo caso deve limitare la durata delle trasmissioni (clausola 4.3.2.4) e l'occupazione del canale, misurata dal fattore di utilizzo del mezzo MU = (P_out / 100 mW) × DC, che non deve superare il 10% (clausola 4.3.2.5). Oppure può essere *adattivo*: in questo caso deve verificare che il canale sia libero prima di trasmettere (Listen Before Talk, clausola 4.3.2.6.3) o rilevare ed evitare le altre trasmissioni (Detect and Avoid, clausola 4.3.2.6.2).
+
+Questi requisiti non si applicano agli apparati che trasmettono sotto i 10 dBm EIRP:
+
+> [EN 300 328, clausola 4.3.2.4.1]
+> These requirements apply to non-adaptive equipment or to adaptive equipment when operating in a non-adaptive mode.
+> The equipment is non-FHSS equipment.
+> These requirements do not apply for equipment with a declared RF Output power level of less than 10 dBm e.i.r.p. or for equipment when operating in a mode where the RF Output power is less than 10 dBm e.i.r.p.
+
+> [EN 300 328, clausola 4.3.2.5.1]
+> This requirement does not apply to adaptive non-FHSS equipment unless operating in a non-adaptive mode.In addition, this requirement does not apply for non-FHSS equipment with a maximum declared RF Output power level of less than 10 dBm e.i.r.p. or for non-FHSS equipment when operating in a mode where the RF Output power is less than 10 dBm e.i.r.p.
+> 
+> NOTE: Although this requirement does not apply to non-FHSS equipment with an RF Output power level of less than 10 dBm e.i.r.p. the actual value the Medium Utilization factor even for equipment operating at an RF Output power level of less than 10 dBm may be used elsewhere in the present document e.g. for defining the applicable receiver category in clause 4.2.3.2.
+
+> [EN 300 328, clausola 4.3.2.6.1]
+> This requirement does not apply to non-adaptive non-FHSS equipment or adaptive non-FHSS equipment operating in a non-adaptive mode.
+> 
+> In addition, this requirement does not apply for non-FHSS equipment with a maximum declared RF Output power level of less than 10 dBm e.i.r.p. or for non-FHSS equipment when operating in a mode where the RF Output power is less than 10 dBm e.i.r.p.
+> 
+> Adaptive non-FHSS equipment uses a mechanism by which it can adapt to its radio environment by identifying other transmissions present within its Occupied Channel Bandwidth.
+> 
+> Adaptive non-FHSS equipment shall implement either of the mechanisms provided in clause 4.3.2.6.2 or clause 4.3.2.6.3.
+> 
+> Adaptive non-FHSS equipment is allowed to switch dynamically between different adaptive modes.
+
+Un apparato sotto questa soglia può quindi trasmettere in modo continuo, su canale fisso e senza LBT. La soglia è *strettamente minore* di 10 dBm: l'EIRP di progetto viene fissata a 9 dBm, lasciando 1 dB di margine per le tolleranze del modulo.
+
+Lo stesso livello di potenza determina la categoria del ricevitore: un apparato con EIRP massima tra 0 e 10 dBm appartiene alla **categoria 2** (clausola 4.2.3.2.2, pag. 16), per la quale la norma fissa i requisiti di resistenza ai segnali forti fuori canale (receiver blocking, clausola 4.3.2.11).
+
+#### Opzioni valutate
+
+| Opzione                           | EIRP          | Requisiti (EN 300 328)                                                                                       | Valutazione                                                                         |
+| --------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| **A.** Canale fisso, sotto 10 dBm | < 10 dBm      | Esente da duty cycle, MU e adattività (4.3.2.4.1, 4.3.2.5.1, 4.3.2.6.1)                                      | **Scelta**: la più semplice, margini ancora ampi                                    |
+| **B.** Canale fisso, non adattivo | 10–20 dBm     | Tx-sequence ≤ 10 ms, Tx-gap ≥ Tx-sequence (minimo 3,5 ms) (4.3.2.4.3); MU ≤ 10% (4.3.2.5.3)                   | A 20 dBm il duty cycle massimo è del 10%: incompatibile con la telemetria           |
+| **C.** Canale fisso, LBT          | 10–20 dBm     | Verifica del canale prima di ogni trasmissione, durata delle trasmissioni limitata (4.3.2.6.3)               | Guadagno di potenza, ma con il Wi-Fi in pista il canale risulterebbe spesso occupato |
+| **D.** FHSS adattivo              | fino a 20 dBm | ≥ 15 frequenze su ≥ 70% della banda, tempo per frequenza limitato, LBT a ogni salto (4.3.1)                   | +10 dB e diversità contro il Wi-Fi, ma sincronizzazione, ADR e fallback molto più complessi |
+
+L'obiettivo è avere un sistema utilizzabile nella stagione corrente, quindi il tempo di sviluppo hardware e software pesa sulla scelta. Un FHSS adattivo con LBT richiederebbe almeno due mesi aggiuntivi di sviluppo e test. Per la prima versione si adotta quindi l'opzione A, con **EIRP di 9 dBm, canale fisso e nessun LBT**, e tutti i calcoli seguenti fanno riferimento a questo valore. Il passaggio all'opzione D resta un possibile sviluppo futuro, con un guadagno fino a 11 dB sul link budget.
+
+#### Conseguenze sull'hardware
+
+Con un'antenna da 5 dBi e 1 dB di perdita nel cavo, un'EIRP di 9 dBm corrisponde a 5 dBm in uscita dal modulo. Il modulo E28-2G4M27SX integra però un amplificatore da circa 27 dB dopo l'SX1280, la cui potenza minima programmabile è −18 dBm: la potenza minima in uscita dal modulo risulta quindi vicina ai 9 dBm, sopra il valore richiesto. Per rispettare il limite va misurata la potenza effettiva al minimo e, se necessario, va inserito un attenuatore sulla linea d'antenna o usata un'antenna con guadagno inferiore. (È anche possibile considerare perdite ulteriori per un connettore aggiuntivo nel caso in cui venga deciso di utilizzare un packaging metallico)
 
 ### Parametri fondamentali
 
 È necessario acquisire due metriche fondamentali: il **Margine di Link (LM)** e il **Packet Error Rate (PER)**.
 
-Il mattone base per la scelta del modem e per la transizione tra le diverse modulazioni è la comprensione della distanza tra le prestazioni hardware e il limite teorico della fisica delle telecomunicazioni. In particolare il teorema di Shannon descrive la capacità teorica di canale mettendo in relazione SNR e larghezza di banda.
+Il mattone base per la scelta del modem e per la transizione tra le diverse modulazioni è la comprensione della distanza tra le prestazioni hardware e il limite teorico della fisica delle telecomunicazioni. In particolare il teorema di Shannon descrive la capacità teorica di canale mettendo in relazione SNR (Signal to Noise Ratio) e larghezza di banda.
 
 Guardando il datasheet del chip all'interno del modulo si ottiene questa relazione: 
 
 ![[modem_selection.png|300]]
 
-Nel grafico, la linea blu rappresenta il limite di Shannon, ovvero la sensibilità teorica minima assoluta per una comunicazione priva di errori a un dato bit rate. Le altre curve rappresentano le performance hardware reali dei modem integrati. Come si evince, la modulazione LoRa grazie alle tecniche Spread Spectrum si avvicina maggiormente al limite teorico rispetto al GFSK convenzionale, garantendo una superiore tolleranza al rumore e permettendo la demodulazione di segnali con SNR fortemente negativi fino a -22.5 dB.
+Nel grafico, la linea blu rappresenta il limite di Shannon, ovvero la sensibilità teorica minima assoluta per una comunicazione priva di errori a un dato bit rate. Le altre curve rappresentano le performance hardware reali dei modem integrati. Come si evince, la modulazione LoRa, grazie alle tecniche Spread Spectrum, si avvicina maggiormente al limite teorico rispetto al GFSK convenzionale, garantendo una superiore tolleranza al rumore e permettendo la demodulazione di segnali con SNR fortemente negativi fino a -22.5 dB.
 
-tuttavia, nella vita reale, il rumore non è costante. I transienti elettromagnetici ad alta frequenza generati dall'inverter di trazione e lo shadowing causato dagli ostacoli abbattono repentinamente l'SNR. Per non rischiare disconnessioni, l'algoritmo ADR non si spinge mai fino al limite teorico consentito dalla modulazione, ma calcola un margine di link (es. 6 dB). Questo cuscinetto di sicurezza garantisce che, anche in caso di un forte picco di rumore EMI condotto, il collegamento rimanga robusto e il packet error rate contenuto.
+Tuttavia, nella vita reale, il rumore non è costante. I transienti elettromagnetici ad alta frequenza, generati dall'inverter e lo shadowing causato dagli ostacoli, abbattono repentinamente l'SNR. Per non rischiare disconnessioni, l'algoritmo ADR non si spinge mai fino al limite teorico consentito dalla modulazione, ma calcola un margine di link (es. 6 dB). Questo cuscinetto di sicurezza garantisce che, anche in caso di un forte picco di rumore EMI condotto, il collegamento rimanga robusto e il packet error rate contenuto.
+
+### Link budget e distanze
+
+```ad-note
+title: Unità di misura
+collapse: open
+Tutte le unità di misura sono dB, dBi o dBm, quindi per calcolare le potenze basta solo sommare
+
+```
+
+Prima di parlare di ADR bisogna capire dove sta davvero il limite del link su un circuito di Formula Student, partendo dall'equazione fondamentale della potenza del segnale che arriva al ricevitore:
+
+$$P_{rx} = P_{tx} + G_{tx} - L_{tx} - PL(d) + G_{rx} - L_{rx}$$
+
+dove $P_{tx}$ è la potenza in uscita dal modulo, $G$ i guadagni d'antenna in dBi, $L$ le perdite di cavi e connettori e $PL(d)$ l'attenuazione del percorso alla distanza $d$.
+
+Le normative europee utilizzano la dicitura E.I.R.P. per definire i massimi livelli di potenza irradiata dall'antenna trasmittente. Utilizzando un'antenna con guadagno di 5 dBi e una prolunga coassiale con perdita stimata di 1dB, il modulo può trasmettere  alla potenza massima di 6 dBm, come dimostrato dalla seguente equazione
+
+$$
+\mathrm{EIRP} = P_{tx} + G_{tx} - L_{tx} \le 10 \mathrm{dBm} \quad\Rightarrow\quad P_{tx,\max} = 10 - G_{tx} + L_{tx}
+$$
+
+#### Attenuazione in spazio libero
+
+Ogni segnale elettromagnetico subisce un'attenuazione quando attraversa l'aria, questa dipende dalla distanza che la trasmissione percorre prima di raggiungere la ricevente.
+
+$$
+PL_{FS}(d) = 20\log_{10} d + 20\log_{10} f - 147.55 \overset{f = 2.44 \mathrm{GHz}}= 40.2 + 20 \log_{10} d [\mathrm{dB}]
+$$
+
+| Distanza | PL spazio libero | $P_{rx}$  |
+| -------- | ---------------- | --------- |
+| 50 m     | 74,2 dB          | −60,2 dBm |
+| 100 m    | 80,2 dB          | −66,2 dBm |
+| 200 m    | 86,2 dB          | −72,2 dBm |
+| 500 m    | 94,2 dB          | −80,2 dBm |
+| 1000 m   | 100,2 dB         | −86,2 dBm |
+
+La tabella dice che, in spazio aperto, anche le modulazioni più veloci hanno una ampio margine, dimostrando che ci devono essere altri fattori che abbattono la potenza del segnale. Le potenziali cause da analizzare sono:
+
+- **Shadowing**: causato da carrozzeria, pilota, persone, altre vetture, o muretti. È l’attenuazione dovuta a un ostacolo sul percorso e varia lentamente
+- **Fading veloce** da cammini multipli.
+- **Aumento del rumore** al ricevitore: causato principalmente da altre tecnologie che operano alla stessa banda di frequenze (come può essere il Wi-Fi) e dai disturbi del nostro inverter.
+
+L’ADR insegue solo le variazioni lente con l'obiettivo di mitigarle; quelle veloci le assorbono il FEC e la tolleranza a qualche pacchetto perso.
+
+#### Modello di shadowing
+
+Lo shadowing si modella come una variabile log-normale (gaussiana in dB) con deviazione standard $\sigma$. Il modello di Gudmundson descrive come lo shadowing è correlato nello spazio.
+
+$$\rho(\Delta d) = e^{-\frac{|\Delta d|}{d_{corr}}}$$
+
+Il modello è un processo regressivo del primo ordine che si basa sulla distanza di correlazione e sulla deviazione standard dello shadowing. ==🔵(10m e 4db sono i valori di 3GPP TR 38.901 LOS, senza LOS sono 7,8 dB e 13 m)==
+
+``` python
+correlation = exp(-distance_moved_m / decorrelation_distance)
+
+noise_std = std_dev_db * sqrt(1 - correlation**2)
+
+# Generate the independent random component W ~ N(0, noise_std^2)
+w = np.random.normal(0, noise_std)
+
+current_shadowing = (correlation * current_shadowing) + w
+```
+
+
+#### Fading veloce
+
+Il fading veloce si ha in assenza di visibilità diretta con la ricevente e segue la distribuzione di Rayleigh.
+
+$$P_{fade}(F) = 1 - e^{-10^{-F/10}} \approx 10^{-F/10}$$
+
+Nel caso peggiore: l'1% del tempo sotto la media di 20 dB, il 10% sotto di 10 dB. Questi buchi durano frazioni di lunghezza d'onda (12 cm a 2,4 GHz), cioè millisecondi a 65 km/h: l'ADR è troppo lento per inseguirli. Li assorbono la correzione d'errore, la ripetizione e la tolleranza a qualche pacchetto perso. L'ADR deve seguire solo le variazioni lente: shadowing e rumore.
+
+### Rumore e sensibilità
+
+Il link budget dice quanta potenza arriva al ricevitore, ma non basta a capire se un pacchetto verrà ricevuto correttamente. Un ricevitore non riconosce un segnale dalla sua potenza assoluta, ma da quanto emerge dal rumore che lo accompagna. Lo stesso segnale a −90 dBm può arrivare senza errori in un canale pulito e perdersi del tutto vicino a un access point Wi-Fi o a un inverter sotto carico.
+
+Servono quindi due grandezze: il **rumore** all'ingresso del ricevitore e il **rapporto segnale/rumore minimo** che ogni modulazione richiede per demodulare. Sommandole si ottiene la **sensibilità**, cioè la potenza minima che deve arrivare per ricevere correttamente il 99% dei pacchetti. La differenza tra la potenza ricevuta e la sensibilità è il **margine di link**, il numero su cui si basa tutto l'algoritmo ADR.
+
+Questa analisi mostra anche perché l'ADR è necessario. Ogni modo più veloce occupa più banda o richiede più SNR, quindi ha bisogno di più potenza in ingresso. Nessun modo è insieme il più veloce e il più robusto: bisogna scegliere di volta in volta in base al margine disponibile.
+
+Partiamo dal rumore termico, che non si può eliminare e definisce il punto di partenza per calcolare sensibilità e margine. Dipende dalla banda del ricevitore:
+
+$$N_{th} = -174 + 10\log_{10} B + NF \quad [\mathrm{dBm}]$$
+
+dove −174 dBm/Hz è la densità di rumore termico a temperatura ambiente, B è la banda in Hz e NF è la cifra di rumore (Noise Figure), cioè il rumore aggiunto dal ricevitore stesso. Il datasheet non la dichiara, ma si ricava dalla sensibilità: a SF12/203 kHz la sensibilità è −130 dBm e l'SNR richiesto è −20 dB (vedi più avanti), quindi
+
+$$NF = S - \mathrm{SNR}_{req} + 174 - 10\log_{10} B = -130 + 20 + 174 - 53{,}1 \approx 11\ \mathrm{dB}$$
+
+(circa 9 dB in modalità ad alta sensibilità). Da questa relazione segue che, a parità di SNR richiesto, raddoppiare la banda peggiora la sensibilità di circa 3 dB.
+
+| Modo          | B         | $-174 + 10\log_{10}B$ | $N_{th}$ con NF = 11 dB |
+| ------------- | --------- | --------------------- | ----------------------- |
+| LoRa 406 kHz  | 406 kHz   | −117,9 dBm            | −106,9 dBm              |
+| FLRC 0,6 MHz  | 600 kHz   | −116,2 dBm            | −105,2 dBm              |
+| LoRa 812 kHz  | 812 kHz   | −114,9 dBm            | −103,9 dBm              |
+| FLRC 1,2 MHz  | 1,2 MHz   | −113,2 dBm            | −102,2 dBm              |
+| LoRa 1625 kHz | 1,625 MHz | −111,9 dBm            | −100,9 dBm              |
+| FSK 2,4 MHz   | 2,4 MHz   | −110,2 dBm            | −99,2 dBm               |
+
+Le sensibilità del datasheet sono misurate con solo questo rumore: tutto quello che si aggiunge in pista, che chiameremo $\Delta N$, va sottratto al margine. La scheda lo misurerà in esercizio.
+
+#### Rumore aggiuntivo
+
+Oltre al rumore termico, in pista ci sono due sorgenti di disturbo, che pesano su lati diversi del collegamento:
+
+- il **Wi-Fi** delle altre squadre e del paddock, che disturba soprattutto il ricevitore a terra;
+- l'**inverter** della vettura, che disturba il ricevitore a bordo.
+
+**Wi-Fi.** Il Wi-Fi occupa la stessa banda a 2,4 GHz, ma a differenza del rumore termico e di quello dell'inverter, non alza il rumore in modo continuo: trasmette a raffiche, e un pacchetto che si sovrappone a una raffica sullo stesso canale viene perso indipendentemente dal margine di link. L'effetto è quindi un aumento del PER, non una riduzione del margine, e per questo non rientra in ΔN. Dipende dagli apparati presenti, dal canale usato e dal traffico, ed è difficile da prevedere: non viene modellato in questa analisi né nel simulatore. Le contromisure sono scegliere un canale lontano dai canali Wi-Fi in uso, sfruttando la scansione con `GetRssiInst` all'avvio, e misurarne l'effetto reale in pista.
+
+**Inverter.** L'inverter commuta i transistor del ponte trifase a 8 kHz. I fronti di commutazione sono molto ripidi e generano disturbi a banda larga, che arrivano al ricevitore a 2,4 GHz sia per irraggiamento sia attraverso l'alimentazione e la massa della scheda. Quanta parte di questo disturbo cada effettivamente nella banda del ricevitore non è noto finché non si misura, quindi si usa un modello fenomenologico: l'inverter alza il rumore del ricevitore di bordo di una quantità $\Delta N_{inv}$, al massimo $\Delta N_{max}$ (ipotesi: 15 dB).
+
+L'aumento non è costante, ma dipende da due fattori:
+
+- **il battimento tra i due inverter**: commutano a frequenze leggermente diverse e la differenza  $f_{env} \approx 15$ Hz fa sommare i loro disturbi alternativamente in fase e in controfase;
+- **la potenza erogata dai motori**, rappresentata dalla posizione del pedale $p(t)$, tra 0 e 1, approssimata con una sinusoide di frequenza $f_p = 0{,}65$ Hz.
+
+$$\Delta N_{inv}(t) = p(t) \cdot \Delta N_{max} \cdot B(t)$$
+
+$$p(t) = \tfrac{1}{2}\left(1 + \cos(2\pi f_p t)\right) \qquad B(t) = \tfrac{1}{2}\left(1 + \cos(2\pi f_{env} t)\right)$$
+
+dove $B(t)$ è l'inviluppo del battimento. Il modello è volutamente semplice: in controfase azzera il disturbo, mentre nella realtà resterebbe almeno quello di un singolo inverter. $\Delta N_{max}$, $f_{env}$ e la dipendenza dalla coppia sono ipotesi, da sostituire con le misure in vettura.
+
+![[inverter_envelope.png|400]]
+
+Il disturbo oscilla a 15 Hz, troppo velocemente perché l'ADR possa inseguirlo. Per questo non si usa il valore istantaneo di ΔN ma un valore alto su una finestra di tempo (per esempio il 90° percentile), che entra nella sensibilità effettiva:
+
+$$S_{eff} = S + \Delta N$$
+
+#### Sensibilità e margine
+
+La sensibilità $S$ è la minima potenza ricevuta con cui il ricevitore demodula i pacchetti con un PER dell'1%. Dipende dal rumore e dal rapporto segnale/rumore minimo richiesto dal modo:
+
+$$S = N_{th} + \mathrm{SNR}_{req} = -174 + 10\log_{10} B + NF + \mathrm{SNR}_{req}$$
+
+La distanza tra la potenza ricevuta e la sensibilità è il **margine di link**:
+
+$$LM = P_{rx} - S$$
+
+Un margine positivo indica che il pacchetto viene ricevuto, ma nel modello $P_{rx}$ è un valore medio: lo shadowing e il fading lo fanno oscillare di diversi dB. Per questo si fissa un **margine minimo** $LM_{min} = 6\ \mathrm{dB}$, sotto il quale il modo corrente non è più considerato affidabile. Con lo shadowing a $\sigma = 4$ dB, 6 dB corrispondono a circa $1{,}5\sigma$ e coprono circa il 93% delle variazioni lente. Il fading veloce non è coperto dal margine e viene gestito tramite il PER e l'isteresi.
+
+| Distanza | PL spazio libero | $P_{rx}$  | LM FLRC 1,3 CR1 (−96 dBm) | LM LoRa SF7/812 (−112 dBm) | LM FSK 2,0 (−83 dBm) |
+| -------- | ---------------- | --------- | ------------------------- | -------------------------- | -------------------- |
+| 50 m     | 74,2 dB          | −60,2 dBm | 35,8 dB                   | 51,8 dB                    | 22,8 dB              |
+| 100 m    | 80,2 dB          | −66,2 dBm | 29,8 dB                   | 45,8 dB                    | 16,8 dB              |
+| 200 m    | 86,2 dB          | −72,2 dBm | 23,8 dB                   | 39,8 dB                    | 10,8 dB              |
+| 500 m    | 94,2 dB          | −80,2 dBm | 15,8 dB                   | 31,8 dB                    | 2,8 dB               |
+| 1000 m   | 100,2 dB         | −86,2 dBm | 9,8 dB                    | 25,8 dB                    | −3,2 dB              |
+
+*Ipotesi: EIRP 10 dBm, antenna della ground station 5 dBi, 1 dB di cavo ($P_{rx} = 14 - PL$). Sensibilità del datasheet, senza $\Delta N$, shadowing e fading.*
+
+In spazio libero l'FSK scende sotto il margine minimo già oltre i 350 m circa, l'FLRC regge fino a circa 1,5 km e il LoRa SF7 ha margine abbondante a qualsiasi distanza del circuito. I valori sono ottimistici: il rumore aggiuntivo $\Delta N$ riduce ogni margine della stessa quantità.
+
+Le sensibilità del datasheet sono misurate con pacchetti più corti di quelli trasmessi dalla scheda. A parità di SNR un pacchetto più lungo ha più probabilità di contenere un errore, quindi il PER sale. Si stima che servano 1–2 dB di segnale in più, e questa perdita viene compresa nel margine minimo.
+
+#### Packet Error Rate (PER)
+
+Il margine di link misura la potenza media del segnale, ma non vede le perdite dovute a eventi brevi come il fading veloce o le raffiche del Wi-Fi: in questi casi i pacchetti vengono persi anche con un margine ampio. Per questo l'ADR usa una seconda metrica, il **Packet Error Rate**, calcolato sugli ultimi $N$ pacchetti attesi:
+
+$$\mathrm{PER} = \frac{N_{persi}}{N_{tot}}$$
+
+I pacchetti persi si ricavano dal numero di sequenza contenuto nell'header: ogni salto nella numerazione corrisponde a pacchetti non ricevuti. La finestra deve essere abbastanza lunga da non reagire al singolo pacchetto perso: con $N = 100$ e una soglia del 5% servono almeno 5 pacchetti persi per superarla.
+
+La soglia è fissata a $\mathrm{PER}_{max} = 5\%$: è più alta dell'1% con cui il datasheet definisce la sensibilità, perché la telemetria tollera qualche perdita, ed è un valore da verificare durante i test.
+
+Il PER va letto insieme al margine:
+
+| Margine          | PER       | Causa probabile                      | Azione                                                                                |
+| ---------------- | --------- | ------------------------------------ | ------------------------------------------------------------------------------------- |
+| sopra $LM_{min}$ | sotto 5%  | collegamento buono                   | nessuna, o si sale di gradino                                                         |
+| sotto $LM_{min}$ | qualsiasi | segnale debole                       | si scende di gradino                                                                  |
+| sopra $LM_{min}$ | sopra 5%  | fading veloce o interferenza (Wi-Fi) | non si scende: un modo più lento allunga il pacchetto in aria e aumenta le collisioni |
 
 ### Cambi di modulazione e spreading factor
 
-I cambi che l'ADR deve effettuare non sono mai repentini, ma dei gradini più morbidi, che permettano di non portare troppo in basso il margine di link. Per ricavale quale siano questi salti dobbiamo partire dalla modulazione più robusta e basilare, LoRa.
+I cambi che l'ADR deve effettuare non sono mai repentini, ma dei gradini più morbidi che permettano di non portare troppo in basso il margine di link. Per ricavare quale siano questi salti dobbiamo partire dalla modulazione più robusta e basilare: LoRa.
 Partiamo da LoRa perché possiede la maggiore immunità al rumore e permette la ricezione corretta dei pacchetti anche con un SNR fortemente negativo.
 
-All'interno della modulazione si può agire sulla regolazione dello spreading factor, che rappresenta il numero di bit di informazione codificati all'interno di un singolo chip. Uno spreading factor più basso permette di modulare il messaggio più rapidamente, quindi sblocca velocità di trasmissione superiori. Normalmente LoRa possiede solo 6 SF da SF7 a SF14, ma noi con questo modulo partiamo da SF5.
+All'interno della modulazione si può agire sulla regolazione dello spreading factor, che indica quanti bit trasporta ogni simbolo: un simbolo con SF bit è formato da $2^{SF}$ chip, quindi ogni SF in più raddoppia la durata del simbolo, abbassa la velocità e migliora la sensibilità di circa 2,5–3 dB. Uno spreading factor più basso permette di modulare il messaggio più rapidamente, sbloccando quindi velocità di trasmissione superiori. Normalmente LoRa possiede solo 6 livelli di SF (da SF7 a SF14), ma noi con questo modulo possiamo partire da SF5 o SF6.
 
 ![[lora_sf.jpeg]]
 
-La seguente tabella mostra la sensitività in relazione a larghezza di banda e spreading factor
+La seguente tabella mostra la sensibilità in relazione a larghezza di banda e spreading factor
 
 | **Bandwidth [kHz]** | **SF5 [dBm]** | **SF6 [dBm]** | **SF7 [dBm]** | **SF8 [dBm]** | **SF9 [dBm]** | **SF10 [dBm]** | **SF11 [dBm]** | **SF12 [dBm]** |
 | ------------------- | ------------- | ------------- | ------------- | ------------- | ------------- | -------------- | -------------- | -------------- |
 | **203**             | -109          | -111          | -115          | -118          | -121          | -124           | -127           | -130           |
 | **406**             | -107          | -110          | -113          | -116          | -119          | -122           | -125           | ==🟢-128==     |
-| **812**             | -105          | -108          | -112          | -115          | -117          | -120           | ==🟢-123==     | -126           |
-| **1625**            | ==🟢-99==     | -103          | ==🟢-106==    | -109          | ==🟢-111==    | -114           | -117           | -120           |
+| **812**             | -105          | -108          | ==🟢-112==    | -115          | ==🟢-117==    | -120           | ==🟢-123==     | -126           |
+| **1625**            | -99           | -103          | -106          | -109          | -111          | -114           | -117           | -120           |
 
 Mentre questa mostra il datarate
 
@@ -565,6 +815,241 @@ Mentre questa mostra il datarate
 | ------------------- | -------------- | -------------- | -------------- | -------------- | -------------- | --------------- | --------------- | --------------- |
 | **203**             | 31.72          | 19.03          | 11.10          | 6.34           | 3.57           | 1.98            | 1.09            | 0.595           |
 | **406**             | 63.44          | 38.06          | 22.20          | 12.69          | 7.14           | 3.96            | 2.18            | ==🟢1.190==     |
-| **812**             | 126.88         | 76.13          | 44.41          | 25.38          | 14.27          | 7.93            | ==🟢4.36==      | 2.380           |
-| **1625**            | ==🟢253.91==   | 152.34         | ==🟢88.87==    | 50.78          | ==🟢28.56==    | 15.87           | 8.73            | 4.760           |
-Le sezioni evidenziate in verde
+| **812**             | 126.88         | 76.13          | ==🟢44.41==    | 25.38          | ==🟢14.27==    | 7.93            | ==🟢4.36==      | 2.380           |
+| **1625**            | 253.91         | 152.34         | 88.87          | 50.78          | 28.56          | 15.87           | 8.73            | 4.760           |
+
+Le celle evidenziate contengono la combinazione di SF e Bandwidth scelte per i cambi di modulazione. Quelle con SF11 e SF12 sono da utilizzare in caso di emergenza, cioè se la trasmissione è molto disturbata o molto distante.
+
+Naturalmente la modulazione LoRa ha il limite teorico di 253.91kb/s, per poter scalare abbiamo bisogno delle altre due modulazioni: FLRC e FSK.
+
+**FLRC**
+
+FLRC è una modulazione proprietaria della Semtech progettata per operare esclusivamente sulla banda a 2.4 GHz. È un ibrido ingegneristico che cerca di unire la velocità pura di una modulazione tradizionale (GMSK/FSK) con l'immunità ai disturbi tipica dei protocolli a lungo raggio. Per configurare l'FLRC, il comando `SetModulationParam()` del chip richiede la definizione di tre parametri principali: Raw Data Rate e Bandwidth, Coding Rate (CR) e Bandwidth Time (BT) per il filtro Gaussiano.
+
+A differenza del LoRa, dove si imposta esplicitamente SF e bandwidth per ottenere una velocità risultante, in FLRC si seleziona una combinazione fissa e supportata di data rate grezzo e larghezza di banda.
+
+| Symbol                     | Raw Programmed Data Rate Rb​<br>[Mb/s] | Programmed Coding Rate CR | Effective Data Rate Rbeff​<br>[Mb/s] | Sensitivity [dBm]<br><br>at PER 1% |
+| -------------------------- | -------------------------------------- | ------------------------- | ------------------------------------ | ---------------------------------- |
+| ==🟢FLRC_BR_1_300_BW_1_2== | 1.3                                    | ==🟢1==                   | ==🟢1.300==                          | ==🟢-96==                          |
+| ==🟢FLRC_BR_1_300_BW_1_2== | 1.3                                    | ==🟢3/4==                 | ==🟢0.975==                          | ==🟢-100==                         |
+| FLRC_BR_1_300_BW_1_2       | 1.3                                    | 1/2                       | 0.650                                | -99                                |
+| FLRC_BR_1_040_BW_1_2       | 1.04                                   | 1                         | 1.040                                | -97                                |
+| FLRC_BR_1_040_BW_1_2       | 1.04                                   | 3/4                       | 0.780                                | -100                               |
+| FLRC_BR_1_040_BW_1_2       | 1.04                                   | 1/2                       | 0.520                                | -101                               |
+| FLRC_BR_0_650_BW_0_6       | 0.65                                   | 1                         | 0.650                                | -99                                |
+| ==🟢FLRC_BR_0_650_BW_0_6== | 0.65                                   | ==🟢3/4==                 | ==🟢0.488==                          | ==🟢-103==                         |
+| FLRC_BR_0_650_BW_0_6       | 0.65                                   | 1/2                       | 0.325                                | -104                               |
+| FLRC_BR_0_520_BW_0_6       | 0.52                                   | 1                         | 0.520                                | -100                               |
+| FLRC_BR_0_520_BW_0_6       | 0.52                                   | 3/4                       | 0.390                                | -104                               |
+| FLRC_BR_0_520_BW_0_6       | 0.52                                   | 1/2                       | 0.260                                | -104                               |
+| FLRC_BR_0_325_BW_0_3       | 0.325                                  | 1                         | 0.325                                | -101                               |
+| ==🟢FLRC_BR_0_325_BW_0_3== | 0.325                                  | ==🟢3/4==                 | ==🟢0.244==                          | ==🟢-106==                         |
+| FLRC_BR_0_325_BW_0_3       | 0.325                                  | 1/2                       | 0.163                                | -106                               |
+| FLRC_BR_0_260_BW_0_3       | 0.260                                  | 1                         | 0.260                                | -103                               |
+| FLRC_BR_0_260_BW_0_3       | 0.260                                  | 3/4                       | 0.195                                | -105                               |
+| FLRC_BR_0_260_BW_0_3       | 0.260                                  | 1/2                       | 0.130                                | -106                               |
+
+Il coding rate è il parametro che regola il forward error correction, che aggiunge dei bit al messaggio per rafforzarne l'immunità ai disturbi ed essere in grado di ricostruire alcune parti dei messaggi corrotti. Avere il CR a 3/4 vuole effettivamente dire che ogni 3 bit di informazione si inserisce un bit di correzione.
+
+Nella nostra applicazione è utile per mantenere un bitrate elevato pur mantenendo anche una minima immunità ai disturbi, per questo sono state scelte le modulazioni sopra indicate. Nell’ultimo gradino FLRC il FEC viene disattivato: costa 4 dB di sensibilità, ma a quel gradino si arriva solo con un margine ampio, e in cambio la velocità aumenta del 33%.
+
+**FSK**
+
+Nella modulazione FSK pura non esiste il concetto di Forward Error Correction, quindi la resistenza agli errori diminuisce. Questo è il motivo per il quale ho scelto questa modulazione come gradino più alto della scala, solo nel caso in cui il segnale è straordinariamente pulito e privo di rumore.
+
+| **Symbol**                | **Raw Bitrate Rb​[Mb/s]** | **Bandwidth BW[MHz DSB]** | **Sensitivity[dBm]** |
+| ------------------------- | ------------------------- | ------------------------- | -------------------- |
+| ==🟢FSK_BR_2_000_BW_2_4== | 2.0                       | 2.4                       | ==🟢-83==            |
+| FSK_BR_1_600_BW_2_4       | 1.6                       | 2.4                       | -84                  |
+| FSK_BR_1_000_BW_2_4       | 1.0                       | 2.4                       | -87                  |
+| FSK_BR_1_000_BW_1_2       | 1.0                       | 1.2                       | -88                  |
+| FSK_BR_0_800_BW_2_4       | 0.8                       | 2.4                       | -87                  |
+| FSK_BR_0_800_BW_1_2       | 0.8                       | 1.2                       | -89                  |
+| FSK_BR_0_500_BW_1_2       | 0.5                       | 1.2                       | -90                  |
+| FSK_BR_0_500_BW_0_6       | 0.5                       | 0.6                       | -89                  |
+| FSK_BR_0_400_BW_1_2       | 0.4                       | 1.2                       | -91                  |
+| FSK_BR_0_400_BW_0_6       | 0.4                       | 0.6                       | -90                  |
+| FSK_BR_0_250_BW_0_6       | 0.25                      | 0.6                       | -92                  |
+| FSK_BR_0_250_BW_0_3       | 0.25                      | 0.3                       | -93                  |
+| FSK_BR_0_125_BW_0_3       | 0.125                     | 0.3                       | -95                  |
+
+_(Nota: Data l'assenza di un codice di correzione degli errori nel modem FSK, non esiste il concetto di data rate effettivo)._
+
+### Scala dei modi (LoRa, FLRC, FSK)
+
+I gradini sono stati scelti con due criteri. Il primo è escludere i modi **dominati**, cioè quelli per cui esiste un altro modo con sensibilità uguale o migliore e velocità maggiore: per esempio LoRa SF7/1625 (−106 dBm, 88,9 kb/s) è dominato da FLRC 0,325 CR 3/4 (−106 dBm, 244 kb/s), e FLRC 1,04 CR 3/4 (−100 dBm, 780 kb/s) da FLRC 1,3 CR 3/4 (−100 dBm, 975 kb/s). Il secondo è mantenere tra un gradino e il successivo un salto di sensibilità ΔS di 3–6 dB: abbastanza grande da giustificare il cambio, abbastanza piccolo da non far crollare il margine. L’unica eccezione è il passaggio da FLRC a FSK (13 dB), accettato perché l’FSK si usa solo a breve distanza, entro circa 350 m.
+
+| #   | Modo              | S [dBm] | ΔS  | Velocità grezza       |
+| --- | ----------------- | ------- | --- | --------------------- |
+| 1   | LoRa SF12/406     | −128    | —   | 1,19 kb/s (emergenza) |
+| 2   | LoRa SF11/812     | −123    | 5   | 4,36 kb/s (emergenza) |
+| 3   | LoRa SF9/812      | −117    | 6   | 14,3 kb/s             |
+| 4   | LoRa SF7/812      | −112    | 5   | 44,4 kb/s             |
+| 5   | FLRC 0,325 CR 3/4 | −106    | 6   | 244 kb/s              |
+| 6   | FLRC 0,65 CR 3/4  | −103    | 3   | 488 kb/s              |
+| 7   | FLRC 1,3 CR 3/4   | −100    | 3   | 975 kb/s              |
+| 8   | FLRC 1,3 CR 1     | −96     | 4   | 1300 kb/s             |
+| 9   | FSK 2,0           | −83     | 13  | 2000 kb/s             |
+
+*(Nota: Per FLRC, le combinazioni ADR scelte implementano un Forward Error Correction (CR) a $3/4$ per garantire una ridondanza adeguata al rumore dell'inverter, eccezion fatta per la velocità di punta a 1.3 Mbps dove il FEC è disattivato ($CR=1$) per massimizzare il throughput netto).*
+
+Il confronto tra LoRa e FLRC è indicativo, perché il datasheet non misura le due sensibilità con lo stesso tipo di pacchetti. Inoltre, a parità di sensibilità, il LoRa resiste meglio ai disturbi a banda stretta: il passaggio dal gradino 4 al 5 va quindi verificato con le misure in pista.
+
+### Velocità reali
+
+Le velocità riportate dal datasheet sono velocità grezze: considerano solo il ritmo con cui vengono trasmessi i bit e non tengono conto di preambolo, header, CRC e, per il LoRa, del coding rate. La velocità con cui arrivano i dati utili è quindi più bassa, e per stimarla bisogna considerare il formato del pacchetto di ogni modo e la dimensione del payload.
+
+La prima cosa da considerare è la lunghezza massima dei payload, che con l'SX1280 sono di:
+
+- 255 byte per il modem LoRa
+- da 6 a 127 byte per il modem FLRC (ha bisogno di riempimento per ack o messaggi più piccoli di 6 byte)
+- 255 byte per il modem GFSK
+
+Si adotta 127 byte come dimensione massima per tutte le modulazioni: in questo modo lo stesso pacchetto può essere trasmesso su qualsiasi gradino della scala, e un cambio di modo non richiede di dividere i dati in modo diverso.
+
+Ogni modulazione ha il suo tipo di pacchetto con sezioni diverse, per questo motivo è opportuno calcolare il data rate efficace analizzandoli singolarmente.
+
+#### Pacchetto LoRa
+
+Un pacchetto LoRa può avere l'header esplicito o implicito.
+
+![[lora_explicit_header_packet.png]]
+![[lora_implicit_header_packet.png]]
+
+- Il **preambolo** (12 simboli di default) serve al ricevitore per rilevare il pacchetto e sincronizzarsi; è seguito da 2 simboli di sync word e 2,25 simboli di delimitatore, da cui il termine 4,25 nelle formule.
+- L'**header**, presente solo in modalità esplicita, contiene la lunghezza del payload, il coding rate e la presenza del CRC, ed è protetto da un proprio CRC. Viene sempre trasmesso con CR 4/8 nei primi 8 simboli dopo il preambolo, da cui il termine 8.
+- Il **payload** (da 1 a 255 byte) e il **CRC** opzionale da 16 bit sono codificati con il coding rate scelto.
+
+Con l'header implicito questi parametri non vengono trasmessi e devono essere già noti a entrambi i lati. Si usa sempre l'header esplicito: telemetria, ACK e comandi dell'ADR hanno lunghezze diverse, e l'header permette al ricevitore di decodificarli senza conoscerle in anticipo. Il costo è di pochi simboli per pacchetto.
+
+Il tempo in aria di un pacchetto è:
+
+$$T_{pkt} = N_{symbol} \cdot \frac{2^{SF}}{BW}$$
+
+dove $N_{symbol}$ dipende dallo spreading factor:
+
+**SF < 7**
+
+$$N_{symbol} = N_{symbol\_preamble} + 6{,}25 + 8 + \left\lceil \frac{\max\left(8 N_{byte\_payload} + N_{bit\_CRC} - 4\,SF + N_{symbol\_header},\ 0\right)}{4\,SF} \right\rceil \cdot (CR + 4)$$
+
+**7 ≤ SF ≤ 10**
+
+$$N_{symbol} = N_{symbol\_preamble} + 4{,}25 + 8 + \left\lceil \frac{\max\left(8 N_{byte\_payload} + N_{bit\_CRC} - 4\,SF + 8 + N_{symbol\_header},\ 0\right)}{4\,SF} \right\rceil \cdot (CR + 4)$$
+
+**SF > 10**
+
+$$N_{symbol} = N_{symbol\_preamble} + 4{,}25 + 8 + \left\lceil \frac{\max\left(8 N_{byte\_payload} + N_{bit\_CRC} - 4\,SF + 8 + N_{symbol\_header},\ 0\right)}{4\,(SF - 2)} \right\rceil \cdot (CR + 4)$$
+
+con:
+- $N_{bit\_CRC} = 16$ se il CRC è attivo, 0 altrimenti;
+- $N_{symbol\_header} = 20$ con header esplicito, 0 con header implicito;
+- $CR = 1, 2, 3, 4$ per i coding rate 4/5, 4/6, 4/7, 4/8.
+
+Per SF > 10 il denominatore diventa $4\,(SF-2)$: con simboli così lunghi ogni simbolo trasporta 2 bit in meno, per rendere la ricezione più tollerante alle derive di frequenza.
+
+Le formule valgono con l'interleaving standard; con il long interleaving il datasheet fornisce formule diverse.
+
+La velocità effettiva si ricava dal tempo in aria:
+
+$$R_{eff} = \frac{8\,N_{byte\_payload}}{T_{pkt}}$$
+
+Nella tabella riassuntiva si usano: preambolo di 12 simboli, header esplicito, CRC attivo, CR 4/5.
+
+#### Pacchetto FLRC
+
+Anche il pacchetto FLRC ha due formati: a lunghezza variabile, con header, e a lunghezza fissa, senza header.
+
+![[FLRC_explicit_header_packet.png]]
+![[FLRC_implicit_header_packet.png]]
+
+- L'**AGC preamble** (da 1 a 4 byte) serve al ricevitore per regolare il guadagno; a 1,3 Mb/s può essere ridotto a 1 byte, alle altre velocità ne servono almeno 2.
+- Il **preambolo** da 21 bit serve a recuperare la temporizzazione dei bit.
+- La **sync word** da 32 bit (31 configurabili) identifica l'inizio del pacchetto.
+- L'**header** da 16 bit, presente solo nel formato a lunghezza variabile, contiene la lunghezza del payload (7 bit) e 9 bit riservati.
+- Il **payload** va da 6 a 127 byte.
+- Il **CRC** (2, 3 o 4 byte) è calcolato su tutto il pacchetto tranne i preamboli.
+- La **coda** (*tail*) di 6 bit a zero chiude la codifica convoluzionale.
+
+Solo payload, CRC e coda sono codificati con il coding rate scelto; preamboli, sync word e header sono trasmessi senza codifica. Come per il LoRa si usa il formato a lunghezza variabile, perché i pacchetti dell'ADR hanno lunghezze diverse.
+
+Il tempo in aria è la somma dei bit non codificati e di quelli codificati, moltiplicata per la durata di un bit:
+
+$$n_{uncoded} = n_{AGC\_preamble} + n_{preamble} + n_{sync\_word} + n_{header}$$
+
+$$n_{coded} = \left\lceil \frac{n_{payload} + n_{CRC} + n_{tail}}{CR} \right\rceil$$
+
+$$t_{bit} = \frac{1}{R_b}$$
+
+$$T_{pkt} = t_{bit} \cdot \left(n_{uncoded} + n_{coded}\right)$$
+
+con:
+- $n_{header} = 16$ bit nel formato a lunghezza variabile, 0 in quello a lunghezza fissa;
+- $n_{tail} = 6$ bit se $CR = 1/2$ o $3/4$, 0 se $CR = 1$;
+- $CR = 1/2, 3/4, 1$ il coding rate programmato;
+- $R_b$ il data rate grezzo della combinazione scelta.
+
+La velocità effettiva si ricava come per il LoRa:
+
+$$R_{eff} = \frac{8\,N_{byte\_payload}}{T_{pkt}}$$
+
+Nella tabella riassuntiva si usano: AGC preamble di 2 byte, formato a lunghezza variabile, CRC di 2 byte.
+
+#### Pacchetto FSK
+
+Anche il pacchetto FSK (GFSK nel datasheet) ha due formati: a lunghezza variabile, con header, e a lunghezza fissa, senza header.
+
+![[FSK_explicit_header_packet.png]]
+![[FSK_implicit_header_packet.png]]
+
+- Il **preambolo** (da 0,5 a 4 byte, a passi di mezzo byte) serve al ricevitore per sincronizzarsi; a 1 Mb/s è consigliato almeno 1 byte, alle altre velocità ne servono almeno 2.
+- La **sync word** (da 1 a 5 byte) identifica l'inizio del pacchetto.
+- L'**header** da 9 bit, presente solo nel formato a lunghezza variabile, contiene la lunghezza del payload (8 bit) e 1 bit riservato.
+- Il **payload** va da 0 a 255 byte (da 1 a 255 nel formato a lunghezza fissa).
+- Il **CRC** (1 o 2 byte) è calcolato sul solo payload.
+
+Opzionalmente si può attivare il **whitening** su payload e CRC: i dati vengono mescolati con una sequenza pseudo-casuale per evitare lunghe serie di 0 o di 1, che rendono più difficile al ricevitore mantenere la sincronizzazione. Non aggiunge bit e non cambia il tempo in aria.
+
+Nell'FSK non c'è codifica di canale, quindi tutti i bit sono trasmessi al data rate grezzo e il tempo in aria è:
+
+$$T_{pkt} = \frac{n_{preamble} + n_{sync\_word} + n_{header} + 8\,N_{byte\_payload} + n_{CRC}}{R_b}$$
+
+con $n_{header} = 9$ bit nel formato a lunghezza variabile e 0 in quello a lunghezza fissa. Il datasheet non fornisce una formula esplicita: questa si ricava direttamente dal formato del pacchetto.
+
+La velocità effettiva è, come per le altre modulazioni:
+
+$$R_{eff} = \frac{8\,N_{byte\_payload}}{T_{pkt}}$$
+
+Nella tabella riassuntiva si usano: preambolo di 2 byte, sync word di 4 byte, formato a lunghezza variabile, CRC di 2 byte.
+
+#### Tabella riassuntiva delle velocità reali
+
+| #   | Modo              | Velocità grezza | ToA 64 B | Eff. 32 B | Eff. 64 B | Eff. 127 B |
+| --- | ----------------- | --------------- | -------- | --------- | --------- | ---------- |
+| 1   | LoRa SF12/406     | 1,19 kb/s       | 900 ms   | 0,4 kb/s  | 0,6 kb/s  | 0,7 kb/s   |
+| 2   | LoRa SF11/812     | 4,36 kb/s       | 250 ms   | 1,6 kb/s  | 2,0 kb/s  | 2,4 kb/s   |
+| 3   | LoRa SF9/812      | 14,3 kb/s       | 62,5 ms  | 6,3 kb/s  | 8,2 kb/s  | 9,5 kb/s   |
+| 4   | LoRa SF7/812      | 44,4 kb/s       | 18,8 ms  | 21,9 kb/s | 27,3 kb/s | 30,8 kb/s  |
+| 5   | FLRC 0,325 CR 3/4 | 244 kb/s        | 2,45 ms  | 183 kb/s  | 209 kb/s  | 225 kb/s   |
+| 6   | FLRC 0,65 CR 3/4  | 488 kb/s        | 1,23 ms  | 365 kb/s  | 418 kb/s  | 450 kb/s   |
+| 7   | FLRC 1,3 CR 3/4   | 975 kb/s        | 0,61 ms  | 730 kb/s  | 835 kb/s  | 899 kb/s   |
+| 8   | FLRC 1,3 CR 1     | 1300 kb/s       | 0,47 ms  | 932 kb/s  | 1086 kb/s | 1182 kb/s  |
+| 9   | FSK 2,0           | 2000 kb/s       | 0,29 ms  | 1556 kb/s | 1750 kb/s | 1866 kb/s  |
+
+Velocità effettiva = 8 · payload / tempo in aria, con i parametri indicati per ogni modulazione. Per il LoRa la velocità grezza del datasheet non include il coding rate 4/5, da cui la differenza maggiore rispetto alle altre modulazioni. Sono esclusi i tempi di commutazione TX/RX e l’ACK.
+
+### Isteresi
+
+
+
+### Sincronizzazione e Feedback Loop
+
+L'algoritmo ADR opera come un sistema di controllo ad anello chiuso. Affinché il microcontrollore a bordo macchina possa svolgere il suo lavoro al meglio ha bisogno di un feedback da parte della ground station, per questo è imperativo costruire una connessione bidirezionale. Questo principalmente per due motivi:
+
+- **Metriche della comunicazione**: l'antenna a bordo non è in grado di rilevare le metriche riguardanti i pacchetti che invia, quindi è compito della ground station rilevare lo stato del link e permettere all'algoritmo di operare seguendo le specifiche. Senza questo feedback, non sarebbe possibile calcolare il margine di rumore all'interno della vettura.
+
+- **Parametri di trasmissione e modulazione**: il chip Semtech SX1280 riesce a stabilire il link solo se i parametri fisici (Modulazione, Bandwidth, Spreading Factor e Coding Rate) sono identici sia in ricezione che in trasmissione. Qualsiasi transizione della macchina a stati deve essere coordinato tra le antenne in modo deterministico.
+
+??? Info "Fallback"
+	Potrebbe capitare che, a causa di errori imprevisti o situazioni straordinarie, la connessione tra le due schede si interrompa e che si perda la sincronizzazione della macchina a stati. Per evitare una disconnessione permanente si può utilizzare un set di impostazioni di base da utilizzare.
+	Naturalmente si utilizza questo metodo anche all'accensione della scheda.
+

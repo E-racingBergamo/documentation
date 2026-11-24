@@ -8,13 +8,60 @@
 
 L'obiettivo è progettare produrre e programmare una scheda di telemetria che supporti sia l'acquisizione dati in locale che la telemetria wireless. La motivazione che ci ha spinto ad iniziare il presente progetto è la necessità di avere un supporto tecnologico più robusto, sia dal punto di vista elettrico che dal punto di vista della trasmissione dati.
 
-La scheda utilizzerà una trasmissione LoRa a 2.4GHz ad alta potenza per garantire un'adeguata portata del segnale e una relativamente alta sopportazione dei disturbi elettromagnetici. A supporto di future necessità verrà scelto un modulo di trasmissione che sia in grado di trasmettere anche segnali in modalità FSK, che gli sbloccano una capacità di canale molto più ampia se ci si trova entro una data distanza. Maggiori informazioni verranno fornite nel prossimo capitolo.
+La scheda utilizzerà una trasmissione LoRa a 2.4GHz per garantire un'adeguata portata del segnale e una relativamente alta sopportazione dei disturbi elettromagnetici. A supporto di future necessità verrà scelto un modulo di trasmissione che sia in grado di trasmettere anche segnali in modalità FSK e FLRC, che gli sbloccano una capacità di canale molto più ampia se ci si trova entro una data distanza. Maggiori informazioni verranno fornite nel prossimo capitolo.
 
 Per la persistenza in locale si è optato per una semplice scheda MicroSD.
 
 I dati verranno ricevuti dalla scheda attraverso una linea CAN FD.
 
 Per semplicità di progettazione la ground station sarà la copia della stazione in auto.
+
+## Requisiti
+
+I requisiti fissano cosa il sistema deve garantire e con quale criterio verrà verificato. I valori segnati come *proposta* sono stime iniziali, da confermare con il team e con le prove in pista.
+
+### Requisiti funzionali
+
+| ID  | Requisito                                                                                                        | Valore                                    | Verifica                                  |
+| --- | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| F1  | Salvare in locale tutti i pacchetti ricevuti dal CAN FD, alla frequenza originale e senza perdite                | `TelemetryPacket_t` a 200 Hz, EMMA a 5 Hz | Confronto tra numeri di sequenza e log SD |
+| F2  | Trasmettere via radio un sottoinsieme dei dati alla ground station                                               | vedi tabella dei contenuti per gradino    | Prove in pista                            |
+| F3  | Adattare automaticamente modulazione e data rate alla qualità del collegamento (ADR)                             | scala dei modi 1–9                        | Simulatore e prove in pista               |
+| F4  | Collegamento bidirezionale: la ground station invia alla vettura le metriche del link e i comandi di cambio modo | —                                         | Prove al banco                            |
+| F5  | Recuperare il collegamento dopo una perdita di sincronizzazione senza intervento manuale                         | entro 5 s dal ritorno del segnale         | Prova di disconnessione forzata           |
+| F6  | Segnalare a terra l'età di ogni dato, il modo in uso, il margine e il PER                                        | —                                         | Ispezione della GUI                       |
+
+### Requisiti di prestazione
+
+| ID  | Requisito                                 | Valore                                          | Verifica                          |
+| --- | ----------------------------------------- | ----------------------------------------------- | --------------------------------- |
+| P1  | Copertura                                 | tutto il circuito, distanza massima box–vettura | Prove in pista                    |
+| P2  | Packet Error Rate in regime stazionario   | ≤ 5%                                            | Statistica sui numeri di sequenza |
+| P3  | Latenza dal CAN alla GUI, modi FLRC e FSK | ≤ 100 ms                                        | Timestamp a bordo e a terra       |
+| P4  | Latenza dal CAN alla GUI, modi LoRa       | ≤ 1 s (proposta), esclusi i modi di emergenza   | Timestamp a bordo e a terra       |
+| P5  | Margine minimo nel modo in uso            | $LM \ge LM_{min} = 6$ dB                        | Log dell'ADR                      |
+| P6  | Payload massimo di un pacchetto radio     | 127 B, su tutti i modi                          | Per costruzione                   |
+
+### Vincoli
+
+| ID  | Vincolo                                | Valore                                              | Riferimento                                   |
+| --- | -------------------------------------- | --------------------------------------------------- | --------------------------------------------- |
+| V1  | Potenza irradiata                      | EIRP < 10 dBm (progetto: 9 dBm)                     | EN 300 328, 4.3.2.4.1 / 4.3.2.5.1 / 4.3.2.6.1 |
+| V2  | Banda                                  | 2400–2483,5 MHz, canale fisso                       | EN 300 328, clausola 1                        |
+| V3  | Ingresso dati                          | CAN FD                                              | Architettura della vettura                    |
+| V4  | Ground station                         | stesso hardware della scheda di bordo               | Scelta di progetto                            |
+| V5  | Disponibilità per la stagione corrente | nessuna soluzione con FHSS/LBT nella prima versione | Sezione Normative                             |
+
+### Contenuto trasmesso per gradino
+
+| Gradini | Modi              | Contenuto                                              | Frequenza   |
+| ------- | ----------------- | ------------------------------------------------------ | ----------- |
+| 5–9     | FLRC, FSK         | Pacchetto completo + EMMA                              | 20 Hz + 5 Hz |
+| 4       | LoRa SF7/812      | Pacchetto ridotto (≤ 127 B) + EMMA ridotto             | 10–20 Hz + 1 Hz |
+| 3       | LoRa SF9/812      | Pacchetto ridotto                                      | ~5 Hz       |
+| 1–2     | LoRa SF11, SF12   | Pacchetto di emergenza (~32 B: stati, errori, SDC, temperature critiche, SoC) | 0,5–1 Hz |
+
+I limiti di frequenza derivano dal tempo in aria: a SF7/812 un pacchetto da 127 B occupa circa 33 ms, quindi a 20 Hz il canale è occupato per circa il 66% del tempo, senza contare gli ACK; a SF12/406 un pacchetto da 32 B occupa circa 640 ms.
 
 ## Gestione della Banda
 
@@ -154,44 +201,36 @@ uint16_t crc16;
 
 Per calcolare la banda:
 
-- `TelemetryPacket_t`: $202 b * 200 = 40.400 B/s = 323.2kbps$.
-- `TelemetryPacket_EMMA_t`: $79 b * 5 = 395 B/s = 3,16 kbps$.
-- **Totale flusso dati utile:** 326,36 kbps.
+- `TelemetryPacket_t`: $202 B * 200 = 40.400 B/s = 323.2kbps$.
+- `TelemetryPacket_EMMA_t`: $81 B * 5 = 405 B/s = 3,24 kbps$.
+- **Totale flusso dati utile:** 326,44 kbps.
 
 ### Implicazioni per comunicazione LoRa
 
 La comunicazione LoRa può essere effettuata su tre distinte frequenze portanti (433Mhz, 868Mhz e 2.4Ghz).
 La frequenza dei 433Mhz non è praticabile per via del suo ridotto bitrate, quindi la scelta deve ricadere su una delle altre due frequenze. Le bande sono regolamentate dall'unione europea secondo i seguenti parametri:
 
-| Sub-banda          | Potenza max | Duty cycle | Note                                               |
-| ------------------ | ----------- | ---------- | -------------------------------------------------- |
-| 863.0 – 868.0 MHz  | 25 mW ERP   | 0.1% o 1%  | Varia per sotto-banda. La 868.0-868.6 MHz ha DC 1% |
-| 868.0 – 868.6 MHz  | 25 mW ERP   | 1%         | Uso generale LoRa/ LoRaWAN                         |
-| 868.7 – 869.2 MHz  | 25 mW ERP   | 0.1%       | Uso generale, duty cycle molto restrittivo         |
-| 869.4 – 869.65 MHz | 500 mW ERP  | 10%        | **Sub-banda usata da MeshCore e Meshtastic**       |
-| 869.7 – 870.0 MHz  | 25 mW ERP   | 1%         | Uso generale                                       |
-| 2.4GHz             | 200 mW ERP  | 100%       | Uso generale                                       |
+| Sub-banda          | Potenza max | Duty cycle | Note                                                         |
+| ------------------ | ----------- | ---------- | ------------------------------------------------------------ |
+| 863.0 – 868.0 MHz  | 25 mW EIRP  | 0.1% o 1%  | Varia per sotto-banda. La 868.0-868.6 MHz ha DC 1%           |
+| 868.0 – 868.6 MHz  | 25 mW EIRP  | 1%         | Uso generale LoRa/ LoRaWAN                                   |
+| 868.7 – 869.2 MHz  | 25 mW EIRP  | 0.1%       | Uso generale, duty cycle molto restrittivo                   |
+| 869.4 – 869.65 MHz | 500 mW EIRP | 10%        | **Sub-banda usata da MeshCore e Meshtastic**                 |
+| 869.7 – 870.0 MHz  | 25 mW EIRP  | 1%         | Uso generale                                                 |
+| 2.4GHz             | 100 mW EIRP | 100%       | Uso generale (100% duty cycle valo solo sotto i 10 dDm EIRP) |
 
 #### Analisi Bottleneck
-Sommando i flussi dei due pacchetti di telemetria si ottiene un totale di flusso di 326,36kbps, che pur essendo ridotto, è comunque eccessivo per il modulo LoRa che nella sua modalità normale ha una capacità di canale massima teorica di 62,5kbps. Risulta quindi fisicamente impossibile trasmettere l'intero flusso dati in tempo reale via radio senza incorrere in saturazione della banda, collisioni o svuotamento incontrollato del FIFO di trasmissione.
+
+Sommando i flussi dei due pacchetti di telemetria si ottiene un totale di flusso di 326,44kbps, che pur essendo ridotto, è comunque eccessivo per il modulo LoRa che nella sua modalità SF7/812 ha una capacità di canale effettiva di 30,8kbps. Risulta quindi fisicamente impossibile trasmettere l'intero flusso dati in tempo reale via radio senza incorrere in saturazione della banda, collisioni o svuotamento incontrollato del FIFO di trasmissione.
 
 Inoltre le leggi europee vietano di sfruttare tutta la banda teorica della frequenza 868MHz con la clausola del duty cycle, che abbatte drasticamente la capacità di canale e rende l'utilizzo di questa portante pressoché impossibile.
 Per risolvere questa criticità, il progetto adotta una strategia ibrida basata su una mitigazione software e un cambio di portante.
 
-Gestione del Dato (Software)
-Per risolvere la situazione si utilizzano due instradamenti diversi per i dati: appena i pacchetti arrivano vengono instradati direttamente nella memoria della scheda MicroSD con lo scopo di di salvare tutti i dati senza perdere di risoluzione nel post processing. Nell'instradamento del canale viene utilizzato un algoritmo che ridimensiona la frequenza del primo pacchetto di telemetria in termini di frequenza a 10Hz-20Hz, rendendo la capacità totale richiesta a circa 15-25 kbps.
+#### Gestione del Dato (Software)
+
+Per risolvere la situazione si utilizzano due instradamenti diversi per i dati: appena i pacchetti arrivano vengono instradati direttamente nella memoria della scheda MicroSD con lo scopo di di salvare tutti i dati senza perdere di risoluzione nel post processing. Nell'instradamento del canale viene utilizzato un algoritmo che ridimensiona la frequenza del primo pacchetto di telemetria in termini di frequenza a 10Hz-20Hz, rendendo la capacità totale richiesta a circa 16-32 kbps.
 
 Per massimizzare l'efficienza di trasmissione, si prevede l'implementazione di un sistema di **Adaptive Data Rate**.
-
-**1. Il Feedback Loop (Rilevamento della Qualità del Link)** Affinché il microcontrollore possa adattare il traffico dati, necessita di una metrica sulla qualità del canale. Sfruttando i registri interni del ricetrasmettitore, è possibile leggere in hardware il valore **RSSI** (Received Signal Strength Indicator) e l'**SNR** (Signal-to-Noise Ratio). L'architettura software prevederà l'invio di un pacchetto di ACK periodico dalla Ground Station verso la vettura; analizzando l'RSSI di questo pacchetto in ingresso, l'ESP32 avrà una stima istantanea del Path Loss del canale radio.
-
-**2. Strategie di Adattamento Dinamico** Una volta nota la qualità del segnale, il firmware interverrà dinamicamente:
-
-- **Transizione di Modulazione e SF Scaling:** Il sistema modificherà lo stato in base all'SNR. In rettilineo (SNR pulito), utilizzerà la modulazione FLRC (fino a 1.3 Mbps). Se il rumore dell'inverter degrada il segnale, scalerà alla modulazione LoRa 2.4 GHz, incrementando lo Spreading Factor (da SF5 a SF12). Questo abbasserà la soglia di sensibilità del ricevitore (fino a $-22.5$ dB), garantendo la connessione al costo di un calo del throughput.
-    
-- **Larghezza di Banda (BW):** Il punto di lavoro base sarà fissato a $BW = 812$ kHz. Questo offre un equilibrio perfetto per mantenere un basso _Time-On-Air_ (limitando l'esposizione ai disturbi dell'inverter) e un data rate di $44.4$ kbps (a SF7).
-    
-- **Priority Payload:** In condizioni critiche di segnale o forte attenuazione per ostacoli (shadowing), l'ESP32 sospenderà l'invio del pacchetto dinamico da 140 byte, commutando su un pacchetto "Emergency" ultra-ridotto contenente esclusivamente informazioni di sicurezza vitali.
 
 #### Scelta Architetturale Hardware (Modulo E28 a 2.4 GHz)
 
@@ -202,76 +241,11 @@ Questa scelta sblocca vantaggi operativi fondamentali per la telemetria:
 - **Duty Cycle al 100%:** Operando a 2.4 GHz, la vettura può trasmettere dati in modo continuo senza pause forzate, garantendo fluidità alla dashboard dei box.
 - **Triplice Modulazione:** Il chip supporta la modalità LoRa classica (fino a 253 kbps per la massima resistenza ai disturbi dell'inverter), la modalità FSK (fino a 2.0 Mbps per alta velocità) e la rivoluzionaria modalità **FLRC** (Fast Long Range Communication).
 - **Throughput Elevato in FLRC:** Questa modulazione proprietaria garantisce velocità fino a **1.3 Mbps**, tollerando al contempo un moderato rumore condotto con SNR leggermente negativi (fino a -5 dB).
-- **Potenza e Sensibilità:** Il modulo integra un amplificatore che può spingere fino a 27 dBm (limitabile via software a 20 dBm per compliance ETSI in Europa) e riceve segnali fino a -132 dBm.
+- **Potenza e Sensibilità:** Il modulo integra un amplificatore che può spingere fino a 27 dBm (limitabile via software a 9 dBm per compliance ETSI in Europa) e riceve segnali fino a -132 dBm in modalità ad alta sensibilità.
 - **Globalmente accettata:** La banda 2.4 GHz ISM è libera e utilizzabile in tutto il mondo, requisito cruciale per le competizioni estere del team.
 
 L'interfacciamento del modulo E28 avviene tramite bus SPI dedicato, pilotato nativamente dai task FreeRTOS del microcontrollore ESP32, permettendo un controllo a bassissima latenza dei pin per gli switch d'antenna in trasmissione e ricezione.
 
-## Componenti di base
-
-??? Info "Riguardi"
-	 Questo progetto tiene conto di possibili sviluppi futuri; avere un occhio di riguardo per queste cose permette di avere un progetto molto solido e di risparmiare tempo e soldi per eventuali modifiche
-
-### E28-2G4M27SX - SX1280 2.4GHz Wireless Module
-
-Questo modulo contiene un chip avanzato per la comunicazione LoRa. Le principali caratteristiche sono le seguenti:
-
-- **Triplice Modulazione:** Supporto nativo per protocolli LoRa, FLRC (Fast Long Range Communication) e (G)FSK.
-- **Throughput Elevato:** Fino a 253 kbps in modulazione LoRa, fino a 1.3 Mbps in FLRC e 2.0 Mbps in FSK.
-- **Potenza di Trasmissione:** Amplificatore di potenza (PA) integrato fino a 27 dBm (500 mW), scalabile via software per rispettare il limite europeo ETSI di 20 dBm (100 mW) EIRP.
-- **Sensibilità in Ricezione:** Fino a -132 dBm in modalità LoRa, garantendo un eccellente link budget.
-- **Frequenza Operativa:** Banda ISM 2.4 GHz, utilizzabile legalmente e senza limitazioni di Duty Cycle.
-- **Alimentazione:** 3.3V.
-- **Interfaccia di Controllo:** Bus SPI ad alta velocità compatibile con i livelli logici a 3.3V del microcontrollore.
-
-Da questi dati risulta palese il motivo architetturale della scelta: il modulo risolve definitivamente il collo di bottiglia della banda passante. In particolare, la modulazione proprietaria **FLRC** offre il compromesso perfetto per il motorsport, garantendo un flusso dati massiccio unito a un forte Forward Error Correction capace di tollerare i disturbi elettromagnetici condotti generati dall'inverter (resistendo a SNR leggermente negativi).
-
-L'interfaccia hardware con l'ESP32-S3 avviene tramite un bus SPI dedicato (SPI 3). Per la gestione ottimale dell'energia e del flusso radio, il microcontrollore pilota direttamente i pin `RXEN` e `TXEN` del modulo, commutando l'antenna e l'amplificatore interno con tempistiche precise dettate dai task del sistema operativo.
-
-**Consumi**
-
-| Stadio                | Consumo | Note                           |
-| --------------------- | ------- | ------------------------------ |
-| Emission current (mA) | 580     | Consumo di corrente istantaneo |
-| Receive current (mA)  | 14.5    |                                |
-| Sleep current (μA)    | 2.0     |                                |
-
-
-![[lora_footprint.png]]
-
-### **ESP32-S3-WROOM-1U** (N8R2)
-
-Come microcontrollore è stato scelto un ESP32-S3-WROOM-1U nella sua versione da 8MB di flash e 2MB di PSRAM. La dicitura 1U sta ad intendere che non è presente l'antenna sulla PCB del modulo, ma un connettore per antenna esterna. Sia questo modulo che il modulo LoRa presentano la stessa soluzione per antenna esterna per il semplice fatto che un body costruito in materiale composito, soprattutto fibra di carbonio, essendo conduttivo potrebbe totalmente o parzialmente bloccare le emissioni elettromagnetiche. L'antenna esterna permette un superiore guadagno essendo in linea d'aria con il ricevitore.
-
-Sebbene la telemetria a lungo raggio sia affidata al modulo LoRa, l'antenna dell'ESP32-S3 sblocca le funzionalità radio native del chip con Wi-Fi 4 a 2.4 GHz e Bluetooth 5.0 Low Energy. Questa scelta architetturale apre a due scenari fondamentali per l'operatività in pista:
-
-- **Scaricamento dati e OTA:** Il Wi-Fi permette di scaricare i log pesanti ad alta velocità quando la vettura rientra ai box, o di eseguire aggiornamenti firmware OTA senza dover smontare la scocca per accedere fisicamente alla porta USB della centralina.
-
-- **Diagnostica rapida:** Il Bluetooth LE può essere utilizzato per connettere rapidamente un tablet o uno smartphone per visualizzare lo stato della vettura, gli errori o i valori dei sensori durante le fasi di ispezione o di setup pre gara.
-
-**Matrice GPIO e Flessibilità di Routing**
-
-Un fattore decisivo nella scelta della famiglia ESP32-S3 è l'avanzata matrice GPIO. A differenza dei microcontrollori tradizionali dove le periferiche hardware sono legate a pin fissi, l'ESP32-S3 permette di instradare quasi ogni segnale digitale (SPI, UART, I2C, PWM) su qualsiasi pin libero. Questa caratteristica ha semplificato drasticamente lo sbroglio (routing) del PCB: ha permesso di sbrogliare le piste del bus SPI verso la MicroSD e le linee di comunicazione verso il modulo LoRa in modo diretto e parallelo, riducendo al minimo l'uso di via passanti e migliorando l'integrità dei segnali.
-
-![[ESP32_pin_layout.png|300]]![[ESP_pinout.png|350]]
-
-Le immagini sopra mostrano il layout fisico del modulo ESP32-S3 e la corrente configurazione di pinout scelta per ottimizzare lo sbroglio in fase di progettazione della PCB.
-
-**Consumi**
-
-A livello energetico, l'ESP32-S3 richiede una gestione termica adeguata implementata tramite pad termico e vie di dissipazione sul PCB. I consumi variano in base allo stato:
-
-- **Deep Sleep:** ~7 µA
-- **Elaborazione attiva (Radio Off):** ~20-30 mA
-- **Picco di trasmissione Wi-Fi:** Fino a ~350 mA
-
-### Linee di comunicazione
-
-Per mantenere le comunicazioni pulite tra il microcontrollore e le periferiche evitando di aggiungere complessità software per l'arbitraggio è stato deciso di utilizzare una linea diversa per ognuno:
-
-- il modulo di comunicazione LoRa sulla SPI2
-- il modulo SD può essere cablato sulla periferica **SDMMC**, specificatamente progettata per comunicare con le MicroSD
-- il controller CAN va sulla SPI3
 
 ## Calcolo di congestione della rete CAN
 
@@ -375,18 +349,267 @@ Mentre per comporre il messaggio a 5Hz servono i seguenti:
 | **Telemetria 8-Byte** (19 ID)                | 200 Hz             | 3.800                   | 8 Byte  | 270 µs                      | **102.60 %**                     |
 | **TOTALE COMPLESSIVO**                       |                    | **5.695 frame/s**       |         |                             | **144.42 %**                     |
 
-Come denotato dalla tabella, la linea CAN a 500kbps non può di certo sopportare un carico così grande di dati, per questo ci sono due soluzioni che possono dare una mano:
+Come mostra la tabella, con il CAN classico a 500 kb/s il carico supera il 140%: il problema non è la quantità di dati, ma l'overhead. Ogni frame trasporta al massimo 8 byte, mentre arbitrazione, CRC, ACK e fine frame ne occupano da soli circa 50 bit, quindi con 28 frame a 200 Hz la maggior parte del tempo di bus è spesa in intestazioni.
 
-- **Framerate adattivo** dei vari messaggi basati sulla fisica del sensore oppure della logica che li crea. Ad esempio i controlli di coppia hanno senso se i calcoli vengono fatti a 5 ms, mentre i dati dell'acceleratore già ogni 20ms andrebbero più che bene.
-- **CAN FD**: il CAN FD è una speciale architettura della comunicazione CAN che permette di negoziare i bit iniziali a 500kbaud e poi di salire a frequenze anche di 2-5Mbaud, aumentando drasticamente la capacità del canale. In aggiunta possiede la possibilità di inviare payload estesi fino a 64byte, riducendo l'overhead di comunicazione di header e trailer
+Per questo la scheda di telemetria riceve i dati su una linea CAN FD dedicata, che collega solo l'ECU e la scheda. L'ECU riceve i messaggi dalle altre linee della vettura e li inoltra raggruppati in frame più grandi: il CAN FD ammette payload fino a 64 byte e trasmette la fase dati a velocità maggiore. La scheda di telemetria ricompone poi i frame nei pacchetti `TelemetryPacket_t` e `TelemetryPacket_EMMA_t`, che vengono salvati su MicroSD e trasmessi via radio.
 
-Implementando queste due soluzioni riusciremo ad aumentare la capacità del canale e contemporaneamente ridurre il carico abbassando la frequenza di log dei dati.
+I dati sono raggruppati per origine:
+
+| Frame           | Contenuto                                                                       | Payload  | Frequenza |
+| --------------- | ------------------------------------------------------------------------------- | -------- | --------- |
+| ECU 1           | Tempo, ruote, pedali, sospensioni, sterzo, stati, dinamica, coppie, temperature | 64 B     | 200 Hz    |
+| ECU 2           | Inverter (dati ECU), emma                                                       | 24 B     | 200 Hz    |
+| Inverter 1      | Comandi e valori inverter sinistro                                              | 48 B     | 200 Hz    |
+| Inverter 2      | Comandi e valori inverter destro                                                | 48 B     | 200 Hz    |
+| EMMA veloce     | Stato, display, giroscopio, accelerometro                                       | 24 B     | 200 Hz    |
+| EMMA lenta 1, 2 | Diagnostica, tensioni e temperature dei moduli                                  | 2 × 64 B | 5 Hz      |
+
+| Configurazione                                | Frame/s | Carico |
+| --------------------------------------------- | ------- | ------ |
+| CAN classico, 500 kb/s                         | 5695    | 144%   |
+| CAN FD, 500 kb/s arbitrazione / 2 Mb/s dati    | 1010    | 30%    |
+| CAN FD, 500 kb/s arbitrazione / 5 Mb/s dati    | 1010    | 16%    |
+
+*Calcolo nel caso peggiore di bit stuffing; CRC a 17 o 21 bit; payload arrotondato ai valori ammessi dal DLC.*
+
+Con una fase dati a 2 Mb/s il carico scende al 30%, lasciando spazio ai messaggi di servizio (parametri modificabili e limiti di coppia). Il TCAN4550 supporta velocità maggiori, che restano un margine disponibile.
+
+#### Formato dei nuovi messaggi
+
+```ad-attention
+title: Prestazioni
+La nuova configurazione non deve assolutamente essere vista o eseguita come una scompattazione dei messaggi che viaggiano sulla linea. Una volta arrivati alla centralina dalle varie periferiche bisogna solamente copiare nell'area di memoria dedicata al prossimo messaggio completo di telemetria da mandare alla scheda. Utilizzando il DMA si possono ottenere prestazioni eccezionali, addirittura sotto al millisecondo, per comporre il messaggio.
+
+```
+
+Per riuscire a compattare i messaggi bisogna definire una nuova struttura intermedia dei dati che passeranno solo sulla linea CAN FD tra la centralina e la scheda di telemetria. 
+
+nelle prossime sezioni verranno definiti appunto queste strutture, che sono state divise in base a:
+
+- Pertinenza dei dati tra di loro
+- Frequenza di invio
+##### ECU 1 – `0x100` – 200 Hz
+
+| Offset | Messaggio originale | Segnale                                                                         | Byte   |
+| ------ | ------------------- | ------------------------------------------------------------------------------- | ------ |
+| 0      | 288 ECU_Time        | timestamp                                                                       | 4      |
+| 4      | 289 ECU_WheelVel    | front_left_velocity                                                             | 2      |
+|        |                     | front_right_velocity                                                            | 2      |
+|        |                     | rear_left_velocity                                                              | 2      |
+|        |                     | rear_right_velocity                                                             | 2      |
+| 12     | 290 ECU_Pedals      | accelerator1                                                                    | 2      |
+|        |                     | accelerator2                                                                    | 2      |
+|        |                     | brake1                                                                          | 2      |
+|        |                     | brake2                                                                          | 2      |
+| 20     | 291 ECU_SuspSteer   | front_left_suspension                                                           | 2      |
+|        |                     | front_right_suspension                                                          | 2      |
+|        |                     | steer                                                                           | 2      |
+|        |                     | accelerator_mapped                                                              | 2      |
+| 28     | 292 ECU_States      | sdc, ready_to_drive_button, ecu_reset_button, tractive_system_on_button (4 bit) | 1      |
+|        |                     | left_inverter_fsm                                                               | 1      |
+|        |                     | right_inverter_fsm                                                              | 1      |
+|        |                     | tractive_system_fsm                                                             | 1      |
+|        |                     | ECU_Mode                                                                        | 1      |
+|        |                     | IMDInsulationValue                                                              | 2      |
+| 35     | 294 ECU_Dynamics1   | mean_velocity                                                                   | 2      |
+|        |                     | real_yaw_rate                                                                   | 2      |
+|        |                     | slip_L                                                                          | 2      |
+|        |                     | slip_R                                                                          | 2      |
+| 43     | 295 ECU_Torque1     | total_torque_request                                                            | 2      |
+|        |                     | torque_tv_L                                                                     | 2      |
+|        |                     | torque_tv_R                                                                     | 2      |
+|        |                     | torque_reduction_L                                                              | 2      |
+| 51     | 296 ECU_Torque2     | torque_reduction_R                                                              | 2      |
+|        |                     | final_torque_target_L                                                           | 2      |
+|        |                     | final_torque_target_R                                                           | 2      |
+| 57     | 299 ECU_Thermal     | left_coolant_temp                                                               | 2      |
+|        |                     | right_coolant_temp                                                              | 2      |
+| 61     | —                   | padding                                                                         | 3      |
+|        |                     | **Totale: 61 B utili, DLC 64**                                                  | **64** |
+
+##### ECU 2 – `0x101` – 200 Hz
+
+|Offset|Messaggio originale|Segnale|Byte|
+|---|---|---|---|
+|0|293 ECU_Emma|emma_voltage|2|
+|||emma_current|2|
+|||emma_yaw|2|
+|||emma_error|2|
+|8|297 ECU_InvLeft|inv_L_torqueCurrent|2|
+|||inv_L_magnetizingCurrent|2|
+|||inv_L_tempMotor|2|
+|||inv_L_errorInfo|2|
+|16|298 ECU_InvRight|inv_R_torqueCurrent|2|
+|||inv_R_magnetizingCurrent|2|
+|||inv_R_tempMotor|2|
+|||inv_R_errorInfo|2|
+|||**Totale: 24 B, DLC 24**|**24**|
+
+##### Inverter sinistro – `0x102` – 200 Hz
+
+| Offset | Messaggio originale         | Segnale                                                                                                  | Byte   |
+| ------ | --------------------------- | -------------------------------------------------------------------------------------------------------- | ------ |
+| 0      | 392 InverterLeftSendMessage | bInverterOn, bDcOn, bEnable, bErrorReset (control word)                                                  | 2      |
+|        |                             | torqueSetpoint                                                                                           | 2      |
+|        |                             | positiveTorqueLimit                                                                                      | 2      |
+|        |                             | negativeTorqueLimit                                                                                      | 2      |
+| 8      | 647 InverterLeftValues1     | RL_ActualVelocity                                                                                        | 2      |
+|        |                             | RL_ActualTorque                                                                                          | 2      |
+|        |                             | RL_MotorTemp                                                                                             | 2      |
+|        |                             | AMK_bSystemReady, bError, bWarn, bQuitDcOn, bDcOn, bQuitInverterOn, bInverterOn, bDerating (status word) | 2      |
+| 16     | 649 InverterLeftValues2     | TempMotor                                                                                                | 2      |
+|        |                             | TempInverter                                                                                             | 2      |
+|        |                             | ErrorInfo                                                                                                | 2      |
+|        |                             | TempIGBT                                                                                                 | 2      |
+| 24     | 657 InverterLeftValues3     | torqueFeedback                                                                                           | 2      |
+|        |                             | magnetisingCurrentFW                                                                                     | 4      |
+|        |                             | serviceBits                                                                                              | 2      |
+| 32     | 659 InverterLeftValues4     | DCBusVoltage                                                                                             | 2      |
+|        |                             | DCBusVoltageMonitoring                                                                                   | 2      |
+|        |                             | controllerEnable                                                                                         | 2      |
+|        |                             | temperatureInternal                                                                                      | 2      |
+| 40     | 661 InverterLeftValues5     | actualPowerValue                                                                                         | 4      |
+|        |                             | temperatureExternal                                                                                      | 2      |
+| 46     | —                           | padding                                                                                                  | 2      |
+|        |                             | **Totale: 46 B utili, DLC 48**                                                                           | **48** |
+
+##### Inverter destro – `0x103` – 200 Hz
+
+Stessa struttura e stessi offset, con i messaggi 393, 648 (RR_ActualVelocity, RR_ActualTorque, RR_MotorTemp, status word), 656, 658, 660 e 662. **Totale: 46 B utili, DLC 48.**
+
+##### EMMA veloce – `0x104` – 200 Hz
+
+|Offset|Messaggio originale|Segnale|Byte|
+|---|---|---|---|
+|0|257 EMMA_StatusMessage|EMMA_STATUS_OK … EMMA_ERR_CRITICAL_FAULT (14 flag)|2|
+|||voltage|2|
+|||current|2|
+|||yaw|2|
+|8|264 EMMA_DisplayData|state_of_charge, voltage, max_temperature (ripartizione da DBC)|4|
+|12|267 EMMA_Gyro|x|2|
+|||y|2|
+|||z|2|
+|18|268 EMMA_Acc|x|2|
+|||y|2|
+|||z|2|
+|||**Totale: 24 B, DLC 24**|**24**|
+
+##### EMMA lenta 1 – `0x110` – 5 Hz
+
+|Offset|Messaggio originale|Segnale|Byte|
+|---|---|---|---|
+|0|263 EMMA_BMSDiagnostics|devState, ioState, protections (ripartizione da DBC)|8|
+|8|258 EMMA_Voltages1|module1 … module4|4 × 2|
+|16|259 EMMA_Voltages2|module5 … module8|4 × 2|
+|24|260 EMMA_Voltages3|module9 … module12|4 × 2|
+|32|261 EMMA_Voltages4|module13, module14|2 × 2|
+|||connectedModules|2|
+|||IMDInsulationValue|2|
+|40|262 EMMA_Temp (moduli 0–3)|pcbTemp_i, extTemp1_i, extTemp2_i per i = 0…3|4 × 6|
+|||**Totale: 64 B, DLC 64**|**64**|
+
+##### EMMA lenta 2 – `0x111` – 5 Hz
+
+| Offset | Messaggio originale         | Segnale                                        | Byte   |
+| ------ | --------------------------- | ---------------------------------------------- | ------ |
+| 0      | 262 EMMA_Temp (moduli 4–13) | pcbTemp_i, extTemp1_i, extTemp2_i per i = 4…13 | 10 × 6 |
+| 60     | —                           | padding                                        | 4      |
+|        |                             | **Totale: 60 B utili, DLC 64**                 | **64** |
+
+Per le temperature l’ECU raccoglie i 14 frame multiplexati del messaggio 262, che arrivano a 70 Hz, e li invia tutti insieme ogni 200 ms. L’id di multiplexing (1 B per frame) non serve più, perché il modulo è dato dalla posizione nel frame.
+
+---
+
+##### Riepilogo
+
+|ID|Frame|Frequenza|Byte utili|DLC|Frame/s|
+|---|---|---|---|---|---|
+|`0x100`|ECU 1|200 Hz|61|64|200|
+|`0x101`|ECU 2|200 Hz|24|24|200|
+|`0x102`|Inverter sx|200 Hz|46|48|200|
+|`0x103`|Inverter dx|200 Hz|46|48|200|
+|`0x104`|EMMA veloce|200 Hz|24|24|200|
+|`0x110`|EMMA lenta 1|5 Hz|64|64|5|
+|`0x111`|EMMA lenta 2|5 Hz|60|64|5|
+||**Totale**||**201 B a 200 Hz + 124 B a 5 Hz**||**1010**|
+
+In aggiunta a questi messaggi gli ID da `0x050` a `0x07F` si possono riservare ai messaggi di servizio tra telemetria ed ECU, come i parametri e i limiti di coppia. I dettagli di questi messaggi verranno forniti durante l'implementazione dell'algoritmo.
+
+## Componenti di base
+
+??? Info "Riguardi"
+	 Questo progetto tiene conto di possibili sviluppi futuri; avere un occhio di riguardo per queste cose permette di avere un progetto molto solido e di risparmiare tempo e soldi per eventuali modifiche
+
+### E28-2G4M27SX - SX1280 2.4GHz Wireless Module
+
+Questo modulo contiene un chip avanzato per la comunicazione LoRa. Le principali caratteristiche sono le seguenti:
+
+- **Triplice Modulazione:** Supporto nativo per protocolli LoRa, FLRC (Fast Long Range Communication) e (G)FSK.
+- **Throughput Elevato:** Fino a 253 kbps in modulazione LoRa, fino a 1.3 Mbps in FLRC e 2.0 Mbps in FSK.
+- **Potenza di Trasmissione:** Amplificatore di potenza (PA) integrato fino a 27 dBm (500 mW), scalabile via software per rispettare il limite europeo ETSI inferiore a 10 dBm (10 mW) EIRP.
+- **Sensibilità in Ricezione:** Fino a -132 dBm in modalità LoRa ad alt sensibilità, garantendo un eccellente link budget.
+- **Frequenza Operativa:** Banda ISM 2.4 GHz, utilizzabile legalmente e senza limitazioni di Duty Cycle.
+- **Alimentazione:** 3.3V.
+- **Interfaccia di Controllo:** Bus SPI ad alta velocità compatibile con i livelli logici a 3.3V del microcontrollore.
+
+Da questi dati risulta palese il motivo architetturale della scelta: il modulo risolve definitivamente il collo di bottiglia della banda passante. In particolare, la modulazione proprietaria **FLRC** offre il compromesso perfetto per il motorsport, garantendo un flusso dati massiccio unito a un forte Forward Error Correction capace di tollerare i disturbi elettromagnetici condotti generati dall'inverter (resistendo a SNR leggermente negativi).
+
+L'interfaccia hardware con l'ESP32-S3 avviene tramite un bus SPI dedicato (SPI 2). Per la gestione ottimale dell'energia e del flusso radio, il microcontrollore pilota direttamente i pin `RXEN` e `TXEN` del modulo, commutando l'antenna e l'amplificatore interno con tempistiche precise dettate dai task del sistema operativo.
+
+**Consumi**
+
+| Stadio                | Consumo | Note                           |
+| --------------------- | ------- | ------------------------------ |
+| Emission current (mA) | 580     | Consumo di corrente istantaneo |
+| Receive current (mA)  | 14.5    |                                |
+| Sleep current (μA)    | 2.0     |                                |
+
+
+![[lora_footprint.png]]
+
+### **ESP32-S3-WROOM-1U** (N8R2)
+
+Come microcontrollore è stato scelto un ESP32-S3-WROOM-1U nella sua versione da 8MB di flash e 2MB di PSRAM. La dicitura 1U sta ad intendere che non è presente l'antenna sulla PCB del modulo, ma un connettore per antenna esterna. Sia questo modulo che il modulo LoRa presentano la stessa soluzione per antenna esterna per il semplice fatto che un body costruito in materiale composito, soprattutto fibra di carbonio, essendo conduttivo potrebbe totalmente o parzialmente bloccare le emissioni elettromagnetiche. L'antenna esterna permette un superiore guadagno essendo in linea d'aria con il ricevitore.
+
+Sebbene la telemetria a lungo raggio sia affidata al modulo LoRa, l'antenna dell'ESP32-S3 sblocca le funzionalità radio native del chip con Wi-Fi 4 a 2.4 GHz e Bluetooth 5.0 Low Energy. Questa scelta architetturale apre a due scenari fondamentali per l'operatività in pista:
+
+- **Scaricamento dati e OTA:** Il Wi-Fi permette di scaricare i log pesanti ad alta velocità quando la vettura rientra ai box, o di eseguire aggiornamenti firmware OTA senza dover smontare la scocca per accedere fisicamente alla porta USB della centralina.
+
+- **Diagnostica rapida:** Il Bluetooth LE può essere utilizzato per connettere rapidamente un tablet o uno smartphone per visualizzare lo stato della vettura, gli errori o i valori dei sensori durante le fasi di ispezione o di setup pre gara.
+
+**Matrice GPIO e Flessibilità di Routing**
+
+Un fattore decisivo nella scelta della famiglia ESP32-S3 è l'avanzata matrice GPIO. A differenza dei microcontrollori tradizionali dove le periferiche hardware sono legate a pin fissi, l'ESP32-S3 permette di instradare quasi ogni segnale digitale (SPI, UART, I2C, PWM) su qualsiasi pin libero. Questa caratteristica ha semplificato drasticamente lo sbroglio (routing) del PCB: ha permesso di sbrogliare le piste del bus SPI verso la MicroSD e le linee di comunicazione verso il modulo LoRa in modo diretto e parallelo, riducendo al minimo l'uso di via passanti e migliorando l'integrità dei segnali.
+
+![[ESP32_pin_layout.png|300]]![[ESP_pinout.png|350]]
+
+Le immagini sopra mostrano il layout fisico del modulo ESP32-S3 e la corrente configurazione di pinout scelta per ottimizzare lo sbroglio in fase di progettazione della PCB.
+
+**Consumi**
+
+A livello energetico, l'ESP32-S3 richiede una gestione termica adeguata implementata tramite pad termico e vie di dissipazione sul PCB. I consumi variano in base allo stato:
+
+- **Deep Sleep:** ~7 µA
+- **Elaborazione attiva (Radio Off):** ~20-30 mA
+- **Picco di trasmissione Wi-Fi:** Fino a ~350 mA
+
+### Linee di comunicazione
+
+Per mantenere le comunicazioni pulite tra il microcontrollore e le periferiche evitando di aggiungere complessità software per l'arbitraggio è stato deciso di utilizzare una linea diversa per ognuno:
+
+- il modulo di comunicazione LoRa sulla SPI2
+- il modulo SD può essere cablato sulla periferica **SDMMC**, specificatamente progettata per comunicare con le MicroSD
+- il controller CAN va sulla SPI3
+
+
 
 ### TCAN4550-Q CAN Controller
 
-Il microcontrollore integrato sul microcontrollore non supporta nativamente il CAN FD, per questo motivo non sara necessario solo un transceiver, ma proprio un controller CAN esterno. La scelta è ricaduta su un **TCAN4550-Q** della Texas Instruments per via la sua elevata affidabilità e perché può essere utilizzato sia con oscillatore dedicato che con clock fornito dal microcontrollore (punto a favore che è certificato automotive). Ad ogni modo si è deciso di optare per un oscillatore esterno da 40Mhz perché è consigliato da datasheet per raggiungere la massima velocità.
+Il microcontrollore non supporta nativamente il CAN FD, per questo motivo non sarà necessario solo un transceiver, ma proprio un controller CAN esterno. La scelta è ricaduta su un **TCAN4550-Q** della Texas Instruments per via della sua elevata affidabilità e perché può essere utilizzato sia con oscillatore dedicato che con clock fornito dal microcontrollore (punto a favore che è certificato automotive). Ad ogni modo si è deciso di optare per un oscillatore esterno da 40Mhz perché è consigliato da datasheet per raggiungere la massima velocità.
 
 L'utilizzo di questo componente implica una linea SPI dedicata.
+
+Data l'enorme mole di messaggi da processare è opportuno utilizzare la FIFO del controllore per la lettura, evitando così di frammentare le operazioni di spostamento dei dati e l'elaborazione. Utilizzando questa tecnica si risparmiano anche risorse sulla linea SPI, perché non si effettuano molte operazioni, ma solo alcune transazioni con più dati al loro interno.
 
 ### ADP3339 LDO Regulator
 
@@ -394,8 +617,6 @@ Il regolatore di tensione è una parte importantissima del progetto, perché met
 La scelta è ricaduta su un regolatore lineare LDO perché non aggiunge ulteriori disturbi alle alimentazioni rispetto ad un regolatore DC-DC switching e, con qualche accortezza, può non essere un problema dal punto di vista termico.
 
 La corrente di picco del ADP3339 raggiunge 1.5A, il che lascia un margine comodo per l'alimentazione di ESP32, transceiver CAN e MicroSD. Inoltre l'architettura Low Dropout dell'ADP3339 garantisce la stabilizzazione a 3.3V anche se la tensione di ingresso a 5V dovesse subire fluttuazioni o cali dovuti a picchi di assorbimento su altre schede collegate allo stesso cablaggio della vettura, assicurando la continuità della telemetria in ogni condizione di gara.
-
-Una scelta importante è stata quella di dividere l'alimentazione del modulo LoRa per attingere direttamente dall'alimentazione principale a 5V della scheda che arriva dall'esterno. Questo evita all'LDO di farsi carico dei 650mA di picco che viene consumato in trasmissione, lasciando un'alimentazione pulita e senza sbalzi di tensione al microcontrollore.
 
 ## Schematico e PCB
 
@@ -409,14 +630,14 @@ Nei prossimi capitoli verranno analizzati in dettaglio i blocchi logici che comp
 
 ### Stack-Up e piani
 
-Usando una struttura a 6 layer, il progetto fa un salto qualitativo necessario per supportare la presenza di un trasmettitore LoRa da 1W, un microcontrollore ad alta frequenza e un bus differenziale CAN. Lo stack-up scelto è stato pensato per massimizzare l'integrità dei segnali e abbattere le emissioni irradiate.
+Usando una struttura a 6 layer, il progetto fa un salto qualitativo necessario per supportare la presenza di un trasmettitore LoRa da 500mW massimi, un microcontrollore ad alta frequenza e un bus differenziale CAN. Lo stack-up scelto è stato pensato per massimizzare l'integrità dei segnali e abbattere le emissioni irradiate.
 
 | No. | Name     | Type       |
 | --- | -------- | ---------- |
 | 1   | Top      | Signal     |
 | 2   | GND      | Plane Zone |
-| 3   | Inner 3  | Signal     |
-| 4   | Inner 4  | Signal     |
+| 3   | Inner 2  | Signal     |
+| 4   | Inner 3  | Signal     |
 | 5   | 3V3_MAIN | Plane Zone |
 | 6   | Bottom   | Signal     |
 
@@ -429,7 +650,7 @@ La scheda è stratificata secondo la seguente logica:
 
 - **Layer 3-4 - Inner 2-3**: Entrambi i layer servono per semplificare lo sbroglio delle net e garantiscono anche una maggiore schermatura alle linee ad alta velocità che ci passano per via del fatto che sono imbottigliate in due piani continui di rame.
     
-- **Layer 5 - Inner 3 (3V3_MAIN Plane):** Questo layer interno è dedicato alla distribuzione della potenza a 3.3V. Utilizzare un intero piano per la potenza (invece di semplici piste) garantisce un'impedenza bassissima, permettendo all'ESP32 e alla MicroSD di assorbire picchi di corrente istantanei senza generare cali di tensione. Inoltre, l'accoppiamento capacitivo naturale che si crea tra questo piano e il piano di massa adiacente funge da enorme condensatore di disaccoppiamento distribuito, filtrando ulteriormente il rumore ad alta frequenza.
+- **Layer 5 - Inner 4 (3V3_MAIN Plane):** Questo layer interno è dedicato alla distribuzione della potenza a 3.3V. Utilizzare un intero piano per la potenza (invece di semplici piste) garantisce un'impedenza bassissima, permettendo all'ESP32 e alla MicroSD di assorbire picchi di corrente istantanei senza generare cali di tensione. Inoltre, l'accoppiamento capacitivo naturale che si crea tra questo piano e il piano di massa adiacente funge da enorme condensatore di disaccoppiamento distribuito, filtrando ulteriormente il rumore ad alta frequenza.
     
 - **Layer 6 - Bottom (Signal):** Utilizzato per i segnali secondari a bassa velocità e per completare il posizionamento dei componenti ingombranti o critici termicamente come il regolatore LDO. Instradare le piste trasversali su questo layer permette di evitare tagli sul layer Top, preservando la continuità del piano di massa interno.
 ### Power stage
@@ -438,11 +659,11 @@ La scheda è stratificata secondo la seguente logica:
 
 Il power stage è diviso in due blocchi concettuali, le protezioni per sovratensioni e inversioni di polarità e il regolatore LDO.
 
-Analizzando il primo blocco si può notare che l'inversione di polarità è stata gestita attraverso il diodo schottky D5 che è stato dimensionato per sopportare la somma delle correnti dei singoli moduli, lasciando ovviamente un ampio margine. Non serve essere precisi con le correnti perché si rischierebbe di bruciare il diodo se si eccedono le sue specifiche, inoltre serve solo come protezione verso le inversioni di polarità, non è fatto per diventare un e-fuse.
+Analizzando il primo blocco si può notare che l'inversione di polarità è stata gestita attraverso il diodo schottky D5 che è stato dimensionato per sopportare la somma delle correnti dei singoli moduli, lasciando ovviamente un ampio margine. Non serve essere precisi con le correnti, conviene abbondare perché si rischierebbe di bruciare il diodo se si eccedono le sue specifiche, inoltre serve solo come protezione verso le inversioni di polarità, non è fatto per diventare un e-fuse.
 
-Il secondo componente importante è il diodo TVS (Transient Voltage Suppressor) bidirezionale D6, che serve per sopprimere i transienti(picchi momentanei) di tensione indotti nell'alimentazione dai disturbi. Il TVS è dimensionato per rimanere inattivo alla tensione nominale, ma interviene rapidamente scaricando a massa i picchi prima che possano friggere il regolatore o, peggio, danneggiare il modulo LoRa (che ha un limite operativo massimo di 5.5V continuativi).
+Il secondo componente importante è il diodo TVS (Transient Voltage Suppressor) bidirezionale D6, che serve per sopprimere i transienti(picchi momentanei) di tensione indotti nell'alimentazione dai disturbi. Il TVS è dimensionato per rimanere inattivo alla tensione nominale, ma interviene rapidamente scaricando a massa i picchi prima che possano friggere il regolatore o, peggio, danneggiare il modulo LoRa (che ha un limite operativo massimo di 3.3V continuativi).
 
-Nel secondo blocco è presente il regolatore che abbassa la tensione dai 5V ai 3V3. La peculiarità di questo regolatore è che la tensione fissa di uscita evita l'aggiunta del partitore di tensione tra l'uscita e il pin di regolazione. Il datasheet indica che per mantenere la tensione in uscita stabile è necessario mettere due condensatori da 1$\mu F$ in ingresso e in uscita. In questo caso nono stati messi da 10 perché in un ambiente rumoroso come il nostro è meglio non rischiare.
+Nel secondo blocco è presente il regolatore che abbassa la tensione dai 5V ai 3V3. La peculiarità di questo regolatore è che la tensione fissa di uscita evita l'aggiunta del partitore di tensione tra l'uscita e il pin di regolazione. Il datasheet indica che per mantenere la tensione in uscita stabile è necessario mettere due condensatori da 1$\mu F$ in ingresso e in uscita. In questo caso sono stati messi da 10 perché in un ambiente rumoroso come il nostro è meglio non rischiare.
 
 Gli ultimi componenti sono i LED di stato, che indicano l'accensione del power stage e dell'alimentazione principale.
 
@@ -470,14 +691,14 @@ Per massimizzare l'efficienza termica e garantire percorsi a bassissima impedenz
 
 A protezione del controller contro i forti disturbi elettromagnetici dell'inverter, la linea fisica è stata equipaggiata con un array di diodi TVS U3 e un Common Mode Choke L3 con footprint standardizzato, permettendo di testare dinamicamente induttanze diverse. 
 
-Sulla linea 3V3 è stato anche inserito in condensatore di decoupling, che permette di assorbire sbalzi di corrente e alcuni disturbi. L'ultimo elemento importante per far funzionare la linea CAN sono le resistenze di terminazione da 120 ohm, che vengono inserite sulla linea differenziale.
+Sulla linea 3V3 è stato anche inserito un condensatore di decoupling, che permette di assorbire sbalzi di corrente e alcuni disturbi. L'ultimo elemento importante per far funzionare la linea CAN sono le resistenze di terminazione da 120 ohm, che vengono inserite sulla linea differenziale.
 
 Il componente più sensibile in questo design è indubbiamente il quarzo U7 che genera il clock a 40Mhz richiesto dal CAN FD. Ci sono due parametri che bisogna controllare per scegliere un quarzo ideale:
 
 - La deriva di frequenza deve essere inferiore a 20ppm considerando anche la variazione di deriva nell'arco del tempo
 - La capacità dei condensatori deve essere il doppio della capacità di carico contando anche una capacità parassita che va dai 2pf ai 4pf
 
-$$C_{17} /C_{18} = 2C_{l} - C_{parassita}$$
+$$C_{17} /C_{18} = 2(C_{l} - C_{parassita})$$
 
 ![[can_layout.png|450]]
 
@@ -491,11 +712,11 @@ Dallo schematico si può anche notare l'utilizzo dello strato interno Inner 3 pe
 
 ![[lora_schematic.png|300]]![[lora_layout.png|350]]
 
-L'integrazione di un trasmettitore da 500mW (E28-2G4M27SX) direttamente su un circuito compatto pone sfide severe in termini di integrità del segnale e immunità ai disturbi. Un segnale RF ad alta potenza può facilmente accoppiarsi con le piste vicine, corrompendo i dati del bus SPI o inducendo reset anomali nel microcontrollore. Per evitare questo scenario, il layout del modulo LoRa è stato progettato attorno a tre strategie chiave:
+L'integrazione di un trasmettitore da 500mW max (E28-2G4M27SX) direttamente su un circuito compatto pone sfide severe in termini di integrità del segnale e immunità ai disturbi. Un segnale RF ad alta potenza può facilmente accoppiarsi con le piste vicine, corrompendo i dati del bus SPI o inducendo reset anomali nel microcontrollore. Per evitare questo scenario, il layout del modulo LoRa è stato progettato attorno a tre strategie chiave:
 
-- **Schermatura RF e Stitching**: Il modulo integrato che contiene l'antenna LoRa ha al di sopra una schermatura metallica che impedisce l'uscita di radiofrequenze se non dall'antenna. Per riprodurre un effetto simile, sotto il modulo è stata introdotto un piano continuo di rame sul primo layer, collegato al piano di massa da un array di via. Questa struttura crea una vera e propria gabbia di faraday che intrappola al suo interno tutti i segnale che vengono Generati dal modulo.
+- **Schermatura RF e Stitching**: Il modulo integrato che contiene l'antenna LoRa ha al di sopra una schermatura metallica che impedisce l'uscita di radiofrequenze se non dall'antenna. Per riprodurre un effetto simile, sotto il modulo è stato introdotto un piano continuo di rame sul primo layer, collegato al piano di massa da un array di via. Questa struttura crea una vera e propria gabbia di faraday che intrappola al suo interno tutti i segnale che vengono Generati dal modulo.
 - **Keepout zone**: Direttamente sotto il connettore dell'antenna è stata instaurata una keepout zone, che impedisce il piazzamento di aree di rame, componenti e piste direttamente sotto la stessa. Se si inserisce un piano di rame, le onde elettromagnetiche si ripiegano direttamente verso GND, il che oltre a generare riflessioni rischia di indebolire il segnale.
-- **Power Delivery**: il modulo LoRa è alimentato direttamente dal piano di rame a 3.3V. Tuttavia, trasmettere pacchetti a 500mW richiede picchi di assorbimento transitori molto rapidi, fino a 350mA. Per evitare che l'induttanza parassita delle piste rallentasse l'erogazione di corrente causando cali di tensione, il condensatore di bulk primario C2 è stato posizionato fisicamente a ridosso del pin VCC del modulo. Questo condensatore funge da riserva di energia locale, garantendo la massima potenza senza stressare il cablaggio generale.
+- **Power Delivery**: il modulo LoRa è alimentato direttamente dal piano di rame a 3.3V. Tuttavia, trasmettere pacchetti a 500mW richiede picchi di assorbimento transitori molto rapidi, fino a 580mA. Per evitare che l'induttanza parassita delle piste rallentasse l'erogazione di corrente causando cali di tensione, il condensatore di bulk primario C2 è stato posizionato fisicamente a ridosso del pin VCC del modulo. Questo condensatore funge da riserva di energia locale, garantendo la massima potenza senza stressare il cablaggio generale. Il dimensionamento delle correnti è stato studiato nel caso peggiore, nell'effettivo utilizzo del modulo verranno utilizzate sicuramente potenze inferiori.
 
 Le due piste a sinistra sono i due segnali `LORA_TXEN` e `LORA_RXEN`, che servono a settare la modalità dell'antenna in trasmissione e ricezione. Affinché questi comandi arrivino in modo perfettamente sincrono, è stata applicata la tecnica del length tuning (ricciolo a serpentina sulla pista sotto) per equalizzarne la lunghezza e annullare le differenze di tempo di propagazione. Infine, le connessioni nella parte inferiore costituiscono il bus SPI ad alta velocità, instradato in modo compatto e diretto per trasportare i comandi e i dati tra il modulo LoRa e il microcontrollore.
 
@@ -569,7 +790,7 @@ Questi requisiti non si applicano agli apparati che trasmettono sotto i 10 dBm E
 > These requirements do not apply for equipment with a declared RF Output power level of less than 10 dBm e.i.r.p. or for equipment when operating in a mode where the RF Output power is less than 10 dBm e.i.r.p.
 
 > [EN 300 328, clausola 4.3.2.5.1]
-> This requirement does not apply to adaptive non-FHSS equipment unless operating in a non-adaptive mode.In addition, this requirement does not apply for non-FHSS equipment with a maximum declared RF Output power level of less than 10 dBm e.i.r.p. or for non-FHSS equipment when operating in a mode where the RF Output power is less than 10 dBm e.i.r.p.
+> This requirement does not apply to adaptive non-FHSS equipment unless operating in a non-adaptive mode. In addition, this requirement does not apply for non-FHSS equipment with a maximum declared RF Output power level of less than 10 dBm e.i.r.p. or for non-FHSS equipment when operating in a mode where the RF Output power is less than 10 dBm e.i.r.p.
 > 
 > NOTE: Although this requirement does not apply to non-FHSS equipment with an RF Output power level of less than 10 dBm e.i.r.p. the actual value the Medium Utilization factor even for equipment operating at an RF Output power level of less than 10 dBm may be used elsewhere in the present document e.g. for defining the applicable receiver category in clause 4.2.3.2.
 
@@ -584,24 +805,24 @@ Questi requisiti non si applicano agli apparati che trasmettono sotto i 10 dBm E
 > 
 > Adaptive non-FHSS equipment is allowed to switch dynamically between different adaptive modes.
 
-Un apparato sotto questa soglia può quindi trasmettere in modo continuo, su canale fisso e senza LBT. La soglia è *strettamente minore* di 10 dBm: l'EIRP di progetto viene fissata a 9 dBm, lasciando 1 dB di margine per le tolleranze del modulo.
+Un apparato sotto questa soglia può quindi trasmettere in modo continuo, su canale fisso e senza LBT. La soglia è *strettamente minore* di 10 dBm: l'EIRP di progetto viene fissata a 9 dBm, lasciando 1 dB di margine per le tolleranze del modulo._Da controllare con perdite e test_
 
 Lo stesso livello di potenza determina la categoria del ricevitore: un apparato con EIRP massima tra 0 e 10 dBm appartiene alla **categoria 2** (clausola 4.2.3.2.2, pag. 16), per la quale la norma fissa i requisiti di resistenza ai segnali forti fuori canale (receiver blocking, clausola 4.3.2.11).
 
 #### Opzioni valutate
 
-| Opzione                           | EIRP          | Requisiti (EN 300 328)                                                                                       | Valutazione                                                                         |
-| --------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
-| **A.** Canale fisso, sotto 10 dBm | < 10 dBm      | Esente da duty cycle, MU e adattività (4.3.2.4.1, 4.3.2.5.1, 4.3.2.6.1)                                      | **Scelta**: la più semplice, margini ancora ampi                                    |
-| **B.** Canale fisso, non adattivo | 10–20 dBm     | Tx-sequence ≤ 10 ms, Tx-gap ≥ Tx-sequence (minimo 3,5 ms) (4.3.2.4.3); MU ≤ 10% (4.3.2.5.3)                   | A 20 dBm il duty cycle massimo è del 10%: incompatibile con la telemetria           |
-| **C.** Canale fisso, LBT          | 10–20 dBm     | Verifica del canale prima di ogni trasmissione, durata delle trasmissioni limitata (4.3.2.6.3)               | Guadagno di potenza, ma con il Wi-Fi in pista il canale risulterebbe spesso occupato |
-| **D.** FHSS adattivo              | fino a 20 dBm | ≥ 15 frequenze su ≥ 70% della banda, tempo per frequenza limitato, LBT a ogni salto (4.3.1)                   | +10 dB e diversità contro il Wi-Fi, ma sincronizzazione, ADR e fallback molto più complessi |
+| Opzione                           | EIRP          | Requisiti (EN 300 328)                                                                         | Valutazione                                                                                 |
+| --------------------------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| **A.** Canale fisso, sotto 10 dBm | < 10 dBm      | Esente da duty cycle, MU e adattività (4.3.2.4.1, 4.3.2.5.1, 4.3.2.6.1)                        | **Scelta**: la più semplice, margini ancora ampi                                            |
+| **B.** Canale fisso, non adattivo | 10–20 dBm     | Tx-sequence ≤ 10 ms, Tx-gap ≥ Tx-sequence (minimo 3,5 ms) (4.3.2.4.3); MU ≤ 10% (4.3.2.5.3)    | A 20 dBm il duty cycle massimo è del 10%: incompatibile con la telemetria                   |
+| **C.** Canale fisso, LBT          | 10–20 dBm     | Verifica del canale prima di ogni trasmissione, durata delle trasmissioni limitata (4.3.2.6.3) | Guadagno di potenza, ma con il Wi-Fi in pista il canale risulterebbe spesso occupato        |
+| **D.** FHSS adattivo              | fino a 20 dBm | ≥ 15 frequenze su ≥ 70% della banda, tempo per frequenza limitato, LBT a ogni salto (4.3.1)    | +11 dB e diversità contro il Wi-Fi, ma sincronizzazione, ADR e fallback molto più complessi |
 
 L'obiettivo è avere un sistema utilizzabile nella stagione corrente, quindi il tempo di sviluppo hardware e software pesa sulla scelta. Un FHSS adattivo con LBT richiederebbe almeno due mesi aggiuntivi di sviluppo e test. Per la prima versione si adotta quindi l'opzione A, con **EIRP di 9 dBm, canale fisso e nessun LBT**, e tutti i calcoli seguenti fanno riferimento a questo valore. Il passaggio all'opzione D resta un possibile sviluppo futuro, con un guadagno fino a 11 dB sul link budget.
 
 #### Conseguenze sull'hardware
 
-Con un'antenna da 5 dBi e 1 dB di perdita nel cavo, un'EIRP di 9 dBm corrisponde a 5 dBm in uscita dal modulo. Il modulo E28-2G4M27SX integra però un amplificatore da circa 27 dB dopo l'SX1280, la cui potenza minima programmabile è −18 dBm: la potenza minima in uscita dal modulo risulta quindi vicina ai 9 dBm, sopra il valore richiesto. Per rispettare il limite va misurata la potenza effettiva al minimo e, se necessario, va inserito un attenuatore sulla linea d'antenna o usata un'antenna con guadagno inferiore. (È anche possibile considerare perdite ulteriori per un connettore aggiuntivo nel caso in cui venga deciso di utilizzare un packaging metallico)
+Con un'antenna da 5 dBi e 1 dB di perdita nel cavo, un'EIRP di 9 dBm corrisponde a 5 dBm in uscita dal modulo. Il modulo E28-2G4M27SX integra però un amplificatore da circa 27 dB dopo l'SX1280, la cui potenza minima programmabile è −18 dBm: la potenza minima in uscita dal modulo risulta quindi vicina ai 9 dBm. Per rispettare il limite va misurata la potenza effettiva al minimo e, se necessario, va inserito un attenuatore sulla linea d'antenna o usata un'antenna con guadagno inferiore. (È anche possibile considerare perdite ulteriori per un connettore aggiuntivo nel caso in cui venga deciso di utilizzare un packaging metallico)
 
 ### Parametri fondamentali
 
@@ -613,7 +834,7 @@ Guardando il datasheet del chip all'interno del modulo si ottiene questa relazio
 
 ![[modem_selection.png|300]]
 
-Nel grafico, la linea blu rappresenta il limite di Shannon, ovvero la sensibilità teorica minima assoluta per una comunicazione priva di errori a un dato bit rate. Le altre curve rappresentano le performance hardware reali dei modem integrati. Come si evince, la modulazione LoRa, grazie alle tecniche Spread Spectrum, si avvicina maggiormente al limite teorico rispetto al GFSK convenzionale, garantendo una superiore tolleranza al rumore e permettendo la demodulazione di segnali con SNR fortemente negativi fino a -22.5 dB.
+Nel grafico, la linea blu rappresenta il limite di Shannon, ovvero la sensibilità teorica minima assoluta per una comunicazione priva di errori a un dato bit rate. Le altre curve rappresentano le performance hardware reali dei modem integrati. Come si evince, la modulazione LoRa, grazie alle tecniche Spread Spectrum, si avvicina maggiormente al limite teorico rispetto al GFSK convenzionale, garantendo una superiore tolleranza al rumore e permettendo la demodulazione di segnali con SNR fortemente negativi fino a -20 dB.
 
 Tuttavia, nella vita reale, il rumore non è costante. I transienti elettromagnetici ad alta frequenza, generati dall'inverter e lo shadowing causato dagli ostacoli, abbattono repentinamente l'SNR. Per non rischiare disconnessioni, l'algoritmo ADR non si spinge mai fino al limite teorico consentito dalla modulazione, ma calcola un margine di link (es. 6 dB). Questo cuscinetto di sicurezza garantisce che, anche in caso di un forte picco di rumore EMI condotto, il collegamento rimanga robusto e il packet error rate contenuto.
 
@@ -632,10 +853,10 @@ $$P_{rx} = P_{tx} + G_{tx} - L_{tx} - PL(d) + G_{rx} - L_{rx}$$
 
 dove $P_{tx}$ è la potenza in uscita dal modulo, $G$ i guadagni d'antenna in dBi, $L$ le perdite di cavi e connettori e $PL(d)$ l'attenuazione del percorso alla distanza $d$.
 
-Le normative europee utilizzano la dicitura E.I.R.P. per definire i massimi livelli di potenza irradiata dall'antenna trasmittente. Utilizzando un'antenna con guadagno di 5 dBi e una prolunga coassiale con perdita stimata di 1dB, il modulo può trasmettere  alla potenza massima di 6 dBm, come dimostrato dalla seguente equazione
+Le normative europee utilizzano la dicitura EIRP per definire i massimi livelli di potenza irradiata dall'antenna trasmittente. Utilizzando un'antenna con guadagno di 5 dBi e una prolunga coassiale con perdita stimata di 1dB, il modulo può trasmettere  alla potenza massima di 5 dBm, come dimostrato dalla seguente equazione
 
 $$
-\mathrm{EIRP} = P_{tx} + G_{tx} - L_{tx} \le 10 \mathrm{dBm} \quad\Rightarrow\quad P_{tx,\max} = 10 - G_{tx} + L_{tx}
+\mathrm{EIRP} = P_{tx} + G_{tx} - L_{tx} \lt 10 \mathrm{dBm} \quad\Rightarrow\quad P_{tx,\max} = \mathrm{EIRP}_{prog} - G_{tx} + L_{tx} = 5 \mathrm{dBm}
 $$
 
 #### Attenuazione in spazio libero
@@ -648,11 +869,11 @@ $$
 
 | Distanza | PL spazio libero | $P_{rx}$  |
 | -------- | ---------------- | --------- |
-| 50 m     | 74,2 dB          | −60,2 dBm |
-| 100 m    | 80,2 dB          | −66,2 dBm |
-| 200 m    | 86,2 dB          | −72,2 dBm |
-| 500 m    | 94,2 dB          | −80,2 dBm |
-| 1000 m   | 100,2 dB         | −86,2 dBm |
+| 50 m     | 74,2 dB          | −61,2 dBm |
+| 100 m    | 80,2 dB          | −67,2 dBm |
+| 200 m    | 86,2 dB          | −73,2 dBm |
+| 500 m    | 94,2 dB          | −81,2 dBm |
+| 1000 m   | 100,2 dB         | −87,2 dBm |
 
 La tabella dice che, in spazio aperto, anche le modulazioni più veloci hanno una ampio margine, dimostrando che ci devono essere altri fattori che abbattono la potenza del segnale. Le potenziali cause da analizzare sono:
 
@@ -664,11 +885,27 @@ L’ADR insegue solo le variazioni lente con l'obiettivo di mitigarle; quelle ve
 
 #### Modello di shadowing
 
-Lo shadowing si modella come una variabile log-normale (gaussiana in dB) con deviazione standard $\sigma$. Il modello di Gudmundson descrive come lo shadowing è correlato nello spazio.
+Lo shadowing si modella come una variabile log-normale, cioè gaussiana in dB, con media nulla e deviazione standard $\sigma_{SF}$. I valori si ricavano dal modello di canale 3GPP TR 38.901 [1], scenario UMi – Street Canyon: è il più vicino a un circuito, con trasmettitore e ricevitore bassi e ostacoli come muretti, box e tribune.
+
+| Condizione                  | $\sigma_{SF}$ | Distanza di decorrelazione $d_{corr}$ |
+| --------------------------- | ------------- | ------------------------------------- |
+| In visibilità (LOS)         | 4 dB          | 10 m                                  |
+| Senza visibilità (NLOS)     | 7,82 dB       | 13 m                                  |
+
+*Fonte: 3GPP TR 38.901, Tabella 7.4.1-1 ($\sigma_{SF}$) e Tabella 7.5-6 ($d_{corr}$).*
+
+Si usa il caso LOS come riferimento, perché la ground station è di norma in vista della vettura, e il caso NLOS come caso peggiore nel simulatore. Il 3GPP ricava questi valori da misure in ambiente urbano con stazioni base alte almeno 10 m. In pista le antenne sono a circa 1 m da terra, quindi i valori restano un'ipotesi di partenza da verificare con le misure.
+
+Lo shadowing non cambia in modo indipendente da un punto all'altro: due posizioni vicine vedono gli stessi ostacoli. Il modello di Gudmundson [2] descrive questa correlazione con un esponenziale decrescente della distanza:
 
 $$\rho(\Delta d) = e^{-\frac{|\Delta d|}{d_{corr}}}$$
 
-Il modello è un processo regressivo del primo ordine che si basa sulla distanza di correlazione e sulla deviazione standard dello shadowing. ==🔵(10m e 4db sono i valori di 3GPP TR 38.901 LOS, senza LOS sono 7,8 dB e 13 m)==
+Nel simulatore lo shadowing si genera quindi come un processo autoregressivo del primo ordine, AR(1): a ogni passo il valore precedente viene attenuato del fattore $\rho$ e si somma una componente casuale indipendente:
+
+$$S_k = \rho\, S_{k-1} + W_k \qquad W_k \sim \mathcal{N}\!\left(0,\ \sigma_{SF}^2\,(1-\rho^2)\right)$$
+
+La varianza di $W_k$ è scelta in modo che la deviazione standard complessiva resti $\sigma_{SF}$ qualunque sia la distanza percorsa tra due passi. A 70 km/h la vettura percorre 10 m in circa 0,5 s: è questo il ritmo con cui lo shadowing cambia in modo significativo.
+
 
 ``` python
 correlation = exp(-distance_moved_m / decorrelation_distance)
@@ -688,7 +925,7 @@ Il fading veloce si ha in assenza di visibilità diretta con la ricevente e segu
 
 $$P_{fade}(F) = 1 - e^{-10^{-F/10}} \approx 10^{-F/10}$$
 
-Nel caso peggiore: l'1% del tempo sotto la media di 20 dB, il 10% sotto di 10 dB. Questi buchi durano frazioni di lunghezza d'onda (12 cm a 2,4 GHz), cioè millisecondi a 65 km/h: l'ADR è troppo lento per inseguirli. Li assorbono la correzione d'errore, la ripetizione e la tolleranza a qualche pacchetto perso. L'ADR deve seguire solo le variazioni lente: shadowing e rumore.
+Nel caso peggiore: l'1% del tempo sotto la media di 20 dB, il 10% sotto di 10 dB. Questi buchi durano frazioni di lunghezza d'onda (12 cm a 2,4 GHz), cioè millisecondi a 70 km/h: l'ADR è troppo lento per inseguirli. Li assorbono la correzione d'errore, la ripetizione e la tolleranza a qualche pacchetto perso. L'ADR deve seguire solo le variazioni lente: shadowing e rumore.
 
 ### Rumore e sensibilità
 
@@ -710,6 +947,7 @@ $$NF = S - \mathrm{SNR}_{req} + 174 - 10\log_{10} B = -130 + 20 + 174 - 53{,}1 \
 
 | Modo          | B         | $-174 + 10\log_{10}B$ | $N_{th}$ con NF = 11 dB |
 | ------------- | --------- | --------------------- | ----------------------- |
+| FLRC 0,3 MHz  | 300 kHz   | −119,2 dBm            | −108,2 dBm              |
 | LoRa 406 kHz  | 406 kHz   | −117,9 dBm            | −106,9 dBm              |
 | FLRC 0,6 MHz  | 600 kHz   | −116,2 dBm            | −105,2 dBm              |
 | LoRa 812 kHz  | 812 kHz   | −114,9 dBm            | −103,9 dBm              |
@@ -747,6 +985,33 @@ Il disturbo oscilla a 15 Hz, troppo velocemente perché l'ADR possa inseguirlo. 
 
 $$S_{eff} = S + \Delta N$$
 
+#### SNR richiesto per modo
+
+Il datasheet fornisce le sensibilità di tutti i modi, ma l'SNR richiesto solo per il LoRa. Per avere un valore omogeneo per tutta la scala, l'SNR richiesto si ricava dalla sensibilità e dal rumore termico calcolato con NF = 11 dB:
+
+$$\mathrm{SNR}_{req} = S - N_{th} = S + 174 - 10\log_{10}B - NF$$
+
+| #   | Modo              | B         | $N_{th}$ [dBm] | S [dBm] | $\mathrm{SNR}_{req}$ ricavato | $\mathrm{SNR}_{req}$ datasheet |
+| --- | ----------------- | --------- | -------------- | ------- | ----------------------------- | ------------------------------ |
+| 1   | LoRa SF12/406     | 406 kHz   | −106,9         | −128    | −21,1 dB                      | −20 dB                         |
+| 2   | LoRa SF11/812     | 812 kHz   | −103,9         | −123    | −19,1 dB                      | −17,5 dB                       |
+| 3   | LoRa SF9/812      | 812 kHz   | −103,9         | −117    | −13,1 dB                      | −12,5 dB                       |
+| 4   | LoRa SF7/812      | 812 kHz   | −103,9         | −112    | −8,1 dB                       | −7,5 dB                        |
+| 5   | FLRC 0,325 CR 3/4 | 0,3 MHz   | −108,2         | −106    | +2,2 dB                       | —                              |
+| 6   | FLRC 0,65 CR 3/4  | 0,6 MHz   | −105,2         | −103    | +2,2 dB                       | —                              |
+| 7   | FLRC 1,3 CR 3/4   | 1,2 MHz   | −102,2         | −100    | +2,2 dB                       | —                              |
+| 8   | FLRC 1,3 CR 1     | 1,2 MHz   | −102,2         | −96     | +6,2 dB                       | —                              |
+| 9   | FSK 2,0           | 2,4 MHz   | −99,2          | −83     | +16,2 dB                      | —                              |
+
+Per il LoRa i valori ricavati differiscono da quelli del datasheet di 0,6–1,6 dB. Le sensibilità sono arrotondate al dB e la cifra di rumore non è esattamente costante al variare della banda: ricalcolata modo per modo, sta tra 9,4 e 10,9 dB. Come riferimento si usa quindi la sensibilità del datasheet, e l'SNR ricavato serve solo a confrontare i modi tra loro e a tenere conto del rumore aggiuntivo.
+
+La tabella mostra il compromesso alla base della scala: il LoRa demodula con segnale anche 21 dB sotto il rumore grazie allo spreading, l'FLRC lavora poco sopra il rumore grazie alla codifica, e l'FSK, senza codifica e con la banda più larga, ha bisogno di un segnale 16 dB sopra il rumore.
+
+L'SNR richiesto serve anche a misurare il margine in esercizio, in due modi diversi a seconda del modem:
+
+- **LoRa**: il ricevitore stima l'SNR di ogni pacchetto (`GetPacketStatus`), quindi $LM = \mathrm{SNR}_{mis} - \mathrm{SNR}_{req}$. Questa misura include già il rumore aggiuntivo $\Delta N$.
+- **FLRC e FSK**: il ricevitore fornisce solo l'RSSI, quindi $LM = \mathrm{RSSI} - S - \Delta N$, con $\Delta N$ stimato misurando il rumore con `GetRssiInst` tra un pacchetto e l'altro e sottraendo $N_{th}$.
+
 #### Sensibilità e margine
 
 La sensibilità $S$ è la minima potenza ricevuta con cui il ricevitore demodula i pacchetti con un PER dell'1%. Dipende dal rumore e dal rapporto segnale/rumore minimo richiesto dal modo:
@@ -761,15 +1026,15 @@ Un margine positivo indica che il pacchetto viene ricevuto, ma nel modello $P_{r
 
 | Distanza | PL spazio libero | $P_{rx}$  | LM FLRC 1,3 CR1 (−96 dBm) | LM LoRa SF7/812 (−112 dBm) | LM FSK 2,0 (−83 dBm) |
 | -------- | ---------------- | --------- | ------------------------- | -------------------------- | -------------------- |
-| 50 m     | 74,2 dB          | −60,2 dBm | 35,8 dB                   | 51,8 dB                    | 22,8 dB              |
-| 100 m    | 80,2 dB          | −66,2 dBm | 29,8 dB                   | 45,8 dB                    | 16,8 dB              |
-| 200 m    | 86,2 dB          | −72,2 dBm | 23,8 dB                   | 39,8 dB                    | 10,8 dB              |
-| 500 m    | 94,2 dB          | −80,2 dBm | 15,8 dB                   | 31,8 dB                    | 2,8 dB               |
-| 1000 m   | 100,2 dB         | −86,2 dBm | 9,8 dB                    | 25,8 dB                    | −3,2 dB              |
+| 50 m     | 74,2 dB          | −61,2 dBm | 34,8 dB                   | 50,8 dB                    | 21,8 dB              |
+| 100 m    | 80,2 dB          | −67,2 dBm | 28,8 dB                   | 44,8 dB                    | 15,8 dB              |
+| 200 m    | 86,2 dB          | −73,2 dBm | 22,8 dB                   | 38,8 dB                    | 9,8 dB               |
+| 500 m    | 94,2 dB          | −81,2 dBm | 14,8 dB                   | 30,8 dB                    | 1,8 dB               |
+| 1000 m   | 100,2 dB         | −87,2 dBm | 8,8 dB                    | 24,8 dB                    | −4,2 dB              |
 
-*Ipotesi: EIRP 10 dBm, antenna della ground station 5 dBi, 1 dB di cavo ($P_{rx} = 14 - PL$). Sensibilità del datasheet, senza $\Delta N$, shadowing e fading.*
+*Ipotesi: EIRP 9 dBm, antenna della ground station 5 dBi, 1 dB di cavo ($P_{rx} = 13 - PL$). Sensibilità del datasheet, senza $\Delta N$, shadowing e fading.*
 
-In spazio libero l'FSK scende sotto il margine minimo già oltre i 350 m circa, l'FLRC regge fino a circa 1,5 km e il LoRa SF7 ha margine abbondante a qualsiasi distanza del circuito. I valori sono ottimistici: il rumore aggiuntivo $\Delta N$ riduce ogni margine della stessa quantità.
+In spazio libero l'FSK scende sotto il margine minimo già oltre i 310 m circa, l'FLRC regge fino a circa 1,4 km e il LoRa SF7 ha margine abbondante a qualsiasi distanza del circuito. I valori sono ottimistici: il rumore aggiuntivo $\Delta N$ riduce ogni margine della stessa quantità.
 
 Le sensibilità del datasheet sono misurate con pacchetti più corti di quelli trasmessi dalla scheda. A parità di SNR un pacchetto più lungo ha più probabilità di contenere un errore, quindi il PER sale. Si stima che servano 1–2 dB di segnale in più, e questa perdita viene compresa nel margine minimo.
 
@@ -796,7 +1061,7 @@ Il PER va letto insieme al margine:
 I cambi che l'ADR deve effettuare non sono mai repentini, ma dei gradini più morbidi che permettano di non portare troppo in basso il margine di link. Per ricavare quale siano questi salti dobbiamo partire dalla modulazione più robusta e basilare: LoRa.
 Partiamo da LoRa perché possiede la maggiore immunità al rumore e permette la ricezione corretta dei pacchetti anche con un SNR fortemente negativo.
 
-All'interno della modulazione si può agire sulla regolazione dello spreading factor, che indica quanti bit trasporta ogni simbolo: un simbolo con SF bit è formato da $2^{SF}$ chip, quindi ogni SF in più raddoppia la durata del simbolo, abbassa la velocità e migliora la sensibilità di circa 2,5–3 dB. Uno spreading factor più basso permette di modulare il messaggio più rapidamente, sbloccando quindi velocità di trasmissione superiori. Normalmente LoRa possiede solo 6 livelli di SF (da SF7 a SF14), ma noi con questo modulo possiamo partire da SF5 o SF6.
+All'interno della modulazione si può agire sulla regolazione dello spreading factor, che indica quanti bit trasporta ogni simbolo: un simbolo con SF bit è formato da $2^{SF}$ chip, quindi ogni SF in più raddoppia la durata del simbolo, abbassa la velocità e migliora la sensibilità di circa 2,5–3 dB. Uno spreading factor più basso permette di modulare il messaggio più rapidamente, sbloccando quindi velocità di trasmissione superiori. Normalmente LoRa possiede solo 6 livelli di SF (da SF7 a SF12), ma noi con questo modulo possiamo partire da SF5 o SF6.
 
 ![[lora_sf.jpeg]]
 
@@ -824,7 +1089,7 @@ Naturalmente la modulazione LoRa ha il limite teorico di 253.91kb/s, per poter s
 
 **FLRC**
 
-FLRC è una modulazione proprietaria della Semtech progettata per operare esclusivamente sulla banda a 2.4 GHz. È un ibrido ingegneristico che cerca di unire la velocità pura di una modulazione tradizionale (GMSK/FSK) con l'immunità ai disturbi tipica dei protocolli a lungo raggio. Per configurare l'FLRC, il comando `SetModulationParam()` del chip richiede la definizione di tre parametri principali: Raw Data Rate e Bandwidth, Coding Rate (CR) e Bandwidth Time (BT) per il filtro Gaussiano.
+FLRC è una modulazione proprietaria della Semtech progettata per operare esclusivamente sulla banda a 2.4 GHz. È un ibrido ingegneristico che cerca di unire la velocità pura di una modulazione tradizionale (GMSK/FSK) con l'immunità ai disturbi tipica dei protocolli a lungo raggio. Per configurare l'FLRC, il comando `SetModulationParam()` del chip richiede la definizione di tre parametri principali: Raw Data Rate e Bandwidth, Coding Rate (CR) e Prodotto Banda-Tempo (BT) per il filtro Gaussiano.
 
 A differenza del LoRa, dove si imposta esplicitamente SF e bandwidth per ottenere una velocità risultante, in FLRC si seleziona una combinazione fissa e supportata di data rate grezzo e larghezza di banda.
 
@@ -855,7 +1120,7 @@ Nella nostra applicazione è utile per mantenere un bitrate elevato pur mantenen
 
 **FSK**
 
-Nella modulazione FSK pura non esiste il concetto di Forward Error Correction, quindi la resistenza agli errori diminuisce. Questo è il motivo per il quale ho scelto questa modulazione come gradino più alto della scala, solo nel caso in cui il segnale è straordinariamente pulito e privo di rumore.
+Nella modulazione FSK pura non esiste il concetto di Forward Error Correction, quindi la resistenza agli errori diminuisce. Questo è il motivo per il quale è stata scelta questa modulazione come gradino più alto della scala, solo nel caso in cui il segnale è straordinariamente pulito e privo di rumore.
 
 | **Symbol**                | **Raw Bitrate Rb​[Mb/s]** | **Bandwidth BW[MHz DSB]** | **Sensitivity[dBm]** |
 | ------------------------- | ------------------------- | ------------------------- | -------------------- |
@@ -873,11 +1138,9 @@ Nella modulazione FSK pura non esiste il concetto di Forward Error Correction, q
 | FSK_BR_0_250_BW_0_3       | 0.25                      | 0.3                       | -93                  |
 | FSK_BR_0_125_BW_0_3       | 0.125                     | 0.3                       | -95                  |
 
-_(Nota: Data l'assenza di un codice di correzione degli errori nel modem FSK, non esiste il concetto di data rate effettivo)._
-
 ### Scala dei modi (LoRa, FLRC, FSK)
 
-I gradini sono stati scelti con due criteri. Il primo è escludere i modi **dominati**, cioè quelli per cui esiste un altro modo con sensibilità uguale o migliore e velocità maggiore: per esempio LoRa SF7/1625 (−106 dBm, 88,9 kb/s) è dominato da FLRC 0,325 CR 3/4 (−106 dBm, 244 kb/s), e FLRC 1,04 CR 3/4 (−100 dBm, 780 kb/s) da FLRC 1,3 CR 3/4 (−100 dBm, 975 kb/s). Il secondo è mantenere tra un gradino e il successivo un salto di sensibilità ΔS di 3–6 dB: abbastanza grande da giustificare il cambio, abbastanza piccolo da non far crollare il margine. L’unica eccezione è il passaggio da FLRC a FSK (13 dB), accettato perché l’FSK si usa solo a breve distanza, entro circa 350 m.
+I gradini sono stati scelti con due criteri. Il primo è escludere i modi **dominati**, cioè quelli per cui esiste un altro modo con sensibilità uguale o migliore e velocità maggiore: per esempio LoRa SF7/1625 (−106 dBm, 88,9 kb/s) è dominato da FLRC 0,325 CR 3/4 (−106 dBm, 244 kb/s), e FLRC 1,04 CR 3/4 (−100 dBm, 780 kb/s) da FLRC 1,3 CR 3/4 (−100 dBm, 975 kb/s). Il secondo è mantenere tra un gradino e il successivo un salto di sensibilità ΔS di 3–6 dB: abbastanza grande da giustificare il cambio, abbastanza piccolo da non far crollare il margine. L’unica eccezione è il passaggio da FLRC a FSK (13 dB), accettato perché l’FSK si usa solo a breve distanza, entro circa 310 m.
 
 | #   | Modo              | S [dBm] | ΔS  | Velocità grezza       |
 | --- | ----------------- | ------- | --- | --------------------- |
@@ -890,8 +1153,6 @@ I gradini sono stati scelti con due criteri. Il primo è escludere i modi **domi
 | 7   | FLRC 1,3 CR 3/4   | −100    | 3   | 975 kb/s              |
 | 8   | FLRC 1,3 CR 1     | −96     | 4   | 1300 kb/s             |
 | 9   | FSK 2,0           | −83     | 13  | 2000 kb/s             |
-
-*(Nota: Per FLRC, le combinazioni ADR scelte implementano un Forward Error Correction (CR) a $3/4$ per garantire una ridondanza adeguata al rumore dell'inverter, eccezion fatta per la velocità di punta a 1.3 Mbps dove il FEC è disattivato ($CR=1$) per massimizzare il throughput netto).*
 
 Il confronto tra LoRa e FLRC è indicativo, perché il datasheet non misura le due sensibilità con lo stesso tipo di pacchetti. Inoltre, a parità di sensibilità, il LoRa resiste meglio ai disturbi a banda stretta: il passaggio dal gradino 4 al 5 va quindi verificato con le misure in pista.
 
@@ -1035,17 +1296,72 @@ Nella tabella riassuntiva si usano: preambolo di 2 byte, sync word di 4 byte, fo
 | 8   | FLRC 1,3 CR 1     | 1300 kb/s       | 0,47 ms  | 932 kb/s  | 1086 kb/s | 1182 kb/s  |
 | 9   | FSK 2,0           | 2000 kb/s       | 0,29 ms  | 1556 kb/s | 1750 kb/s | 1866 kb/s  |
 
-Velocità effettiva = 8 · payload / tempo in aria, con i parametri indicati per ogni modulazione. Per il LoRa la velocità grezza del datasheet non include il coding rate 4/5, da cui la differenza maggiore rispetto alle altre modulazioni. Sono esclusi i tempi di commutazione TX/RX e l’ACK.
+Velocità effettiva = 8 · payload / tempo in aria, con i parametri indicati per ogni modulazione. Per il LoRa la velocità grezza del datasheet non include il Coding Rate 4/5, da cui la differenza maggiore rispetto alle altre modulazioni. Sono esclusi i tempi di commutazione TX/RX e l’ACK.
 
 ### Isteresi
 
+Se l'ADR cambiasse modo appena il margine attraversa una soglia, un margine che oscilla attorno a quel valore provocherebbe una serie di cambi avanti e indietro. Ogni cambio ha un costo: va coordinato con la ground station, durante la transizione alcuni pacchetti vanno persi e la finestra del PER va azzerata. Con uno shadowing a σ = 4 dB e una distanza di correlazione di 10 m, a 70 km/h il margine cambia di qualche dB ogni mezzo secondo: senza isteresi i cambi sarebbero continui.
 
+L'isteresi rende **asimmetrici** i due versi del cambio:
+
+- **si scende subito**, perché restare in un modo senza margine significa perdere pacchetti;
+- **si sale con cautela**, solo se il margine nel nuovo modo resterà comunque sopra il minimo, e solo dopo che la condizione è durata abbastanza a lungo.
+
+#### Soglie
+
+Le soglie si esprimono sulla potenza ricevuta, confrontandola con la sensibilità effettiva $S_{eff} = S + \Delta N$ di ogni modo.
+
+**Discesa.** Dal modo $i$ si scende quando
+
+$$P_{rx} < S_{eff,i} + LM_{min}$$
+
+e si passa direttamente al modo più veloce $j < i$ che rispetta $P_{rx} \ge S_{eff,j} + LM_{min}$, anche saltando più gradini.
+
+**Salita.** Dal modo $i$ si sale al modo $i+1$ quando
+
+$$P_{rx} \ge S_{eff,i+1} + LM_{min} + H$$
+
+con $H = 3$ dB, e si sale di un solo gradino alla volta.
+
+Così, appena arrivato nel nuovo modo, il margine è di almeno $LM_{min} + H = 9$ dB, mentre per tornare indietro deve scendere sotto i 6 dB: tra le due soglie c'è sempre una banda di 3 dB, indipendentemente dal salto ΔS tra i gradini. Il valore di 3 dB, circa 0,75σ dello shadowing, è un punto di partenza da tarare durante i test.
+
+Espresso come margine misurato nel modo corrente, il margine necessario per salire è $LM_{min} + \Delta S_{i+1} + H$:
+
+| Salita | ΔS    | Margine richiesto nel modo di partenza | $P_{rx}$ minima (ΔN = 0) |
+| ------ | ----- | --------------------------------------- | ------------------------ |
+| 1 → 2  | 5 dB  | 14 dB                                   | −114 dBm                 |
+| 2 → 3  | 6 dB  | 15 dB                                   | −108 dBm                 |
+| 3 → 4  | 5 dB  | 14 dB                                   | −103 dBm                 |
+| 4 → 5  | 6 dB  | 15 dB                                   | −97 dBm                  |
+| 5 → 6  | 3 dB  | 12 dB                                   | −94 dBm                  |
+| 6 → 7  | 3 dB  | 12 dB                                   | −91 dBm                  |
+| 7 → 8  | 4 dB  | 13 dB                                   | −87 dBm                  |
+| 8 → 9  | 13 dB | 22 dB                                   | −74 dBm                  |
+
+In ogni modo la discesa avviene invece con margine inferiore a 6 dB.
+
+#### Tempi
+
+L'isteresi in dB evita i cambi dovuti a piccole oscillazioni, ma non quelli dovuti a picchi brevi. Si aggiungono quindi due condizioni sul tempo, espresse in secondi e non in numero di pacchetti, perché tra il modo 1 e il modo 9 la durata di un pacchetto varia di più di tre ordini di grandezza:
+
+- **tempo di conferma** $T_{up}$: la condizione di salita deve restare vera per almeno $T_{up}=2s$  prima di cambiare modo;
+- **tempo di permanenza minimo** $T_{dwell}$: dopo un cambio non si sale di nuovo per almeno $T_{dwell}=1s$, il tempo necessario a riempire di nuovo la finestra del PER. La discesa resta sempre consentita.
+
+La potenza ricevuta usata nelle soglie è filtrata con una media mobile esponenziale, con costante di tempo dell'ordine di $T_{up}$, così il fading veloce non entra nella decisione.
+
+#### Salita fallita
+
+Se subito dopo una salita il PER supera $\mathrm{PER}_{max}$ pur con margine sufficiente, la causa probabile è un disturbo che il margine non vede, per esempio il Wi-Fi o l'inverter. In questo caso si torna al modo precedente e si raddoppia $T_{up}$ per quel gradino, fino a un massimo di 30s; il valore torna a quello iniziale dopo una salita riuscita. In questo modo l'ADR smette di riprovare ripetutamente un modo che in quella zona del circuito non funziona.
+
+#### Modi di emergenza
+
+Nei modi 1 e 2 un pacchetto dura da 0,25 a più di 1 s, quindi una finestra di 100 pacchetti coprirebbe diversi minuti. In questi modi la decisione si basa solo sul margine, misurato pacchetto per pacchetto, e il PER non viene usato.
 
 ### Sincronizzazione e Feedback Loop
 
 L'algoritmo ADR opera come un sistema di controllo ad anello chiuso. Affinché il microcontrollore a bordo macchina possa svolgere il suo lavoro al meglio ha bisogno di un feedback da parte della ground station, per questo è imperativo costruire una connessione bidirezionale. Questo principalmente per due motivi:
 
-- **Metriche della comunicazione**: l'antenna a bordo non è in grado di rilevare le metriche riguardanti i pacchetti che invia, quindi è compito della ground station rilevare lo stato del link e permettere all'algoritmo di operare seguendo le specifiche. Senza questo feedback, non sarebbe possibile calcolare il margine di rumore all'interno della vettura.
+- **Metriche della comunicazione**: l'antenna a bordo non è in grado di rilevare le metriche riguardanti i pacchetti che invia, quindi è compito della ground station rilevare lo stato del link e permettere all'algoritmo di operare seguendo le specifiche. Senza questo feedback, non sarebbe possibile calcolare il margine di link all'interno della vettura.
 
 - **Parametri di trasmissione e modulazione**: il chip Semtech SX1280 riesce a stabilire il link solo se i parametri fisici (Modulazione, Bandwidth, Spreading Factor e Coding Rate) sono identici sia in ricezione che in trasmissione. Qualsiasi transizione della macchina a stati deve essere coordinato tra le antenne in modo deterministico.
 
@@ -1053,3 +1369,11 @@ L'algoritmo ADR opera come un sistema di controllo ad anello chiuso. Affinché i
 	Potrebbe capitare che, a causa di errori imprevisti o situazioni straordinarie, la connessione tra le due schede si interrompa e che si perda la sincronizzazione della macchina a stati. Per evitare una disconnessione permanente si può utilizzare un set di impostazioni di base da utilizzare.
 	Naturalmente si utilizza questo metodo anche all'accensione della scheda.
 
+
+
+
+## Bibliografia
+
+[1] 3GPP TR 38.901 V17.0.0 (2022-03), *Study on channel model for frequencies from 0.5 to 100 GHz*.
+
+[2] M. Gudmundson, "Correlation model for shadow fading in mobile radio systems", *Electronics Letters*, vol. 27, n. 23, pp. 2145–2146, 1991.

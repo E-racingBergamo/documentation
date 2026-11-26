@@ -69,7 +69,7 @@ Questa sezione del documento punta a verificare che il carico di dati sia in lin
 
 Il firmware dell'ECU gestisce l'acquisizione dei dati serializzando due pacchetti strutturati in C privi di padding grazie all'istruzione `__attribute__((packed))`, entrambi validati da un codice a ridondanza ciclica CRC16 per identificare e scartare i pacchetti corrotti:
 
-- Il primo pacchetto `TelemetryPacket_t` arriva dalla centralina e contiene i dati dei sensori, i parametri dell'inverter, le macchine a stati e le elaborazioni dinamiche che fa la ECU. Il pacchetto pesa `202byte` e viene trasmesso a 200Hz
+- Il primo pacchetto `TelemetryPacket_t` arriva dalla centralina e contiene i dati dei sensori, i parametri dell'inverter, le macchine a stati e le elaborazioni dinamiche che fa la ECU. Il pacchetto pesa `204byte` e viene trasmesso a 200Hz
 ```cpp
 typedef struct __attribute__((packed)) {
 // --- Telemetry packet id and metadata ---
@@ -149,7 +149,8 @@ uint16_t inv_R_service_bits;
 
 uint16_t inv_L_dc_bus_voltage; // V
 uint16_t inv_R_dc_bus_voltage; // V
-uint16_t inv_L_dc_bus_voltage_monitoring; // jkv?>
+uint16_t inv_L_dc_bus_voltage_monitoring;
+uint16_t inv_R_dc_bus_voltage_monitoring;
 uint16_t inv_L_controller_enable;
 uint16_t inv_R_controller_enable;
 int16_t inv_L_temperature_internal; // °C
@@ -201,13 +202,13 @@ uint16_t crc16;
 
 Per calcolare la banda:
 
-- `TelemetryPacket_t`: $202 B * 200 = 40.400 B/s = 323.2kbps$.
+- `TelemetryPacket_t`: $204 B * 200 = 40.800 B/s = 326.4kbps$.
 - `TelemetryPacket_EMMA_t`: $81 B * 5 = 405 B/s = 3,24 kbps$.
-- **Totale flusso dati utile:** 326,44 kbps.
+- **Totale flusso dati utile:** 329,64 kbps.
 
 ### Implicazioni per comunicazione LoRa
 
-La comunicazione LoRa può essere effettuata su tre distinte frequenze portanti (433Mhz, 868Mhz e 2.4Ghz).
+La comunicazione LoRa può essere effettuata su tre distinte frequenze portanti (433 MHz, 868 MHz e 2.4 GHz).
 La frequenza dei 433Mhz non è praticabile per via del suo ridotto bitrate, quindi la scelta deve ricadere su una delle altre due frequenze. Le bande sono regolamentate dall'unione europea secondo i seguenti parametri:
 
 | Sub-banda          | Potenza max | Duty cycle | Note                                                         |
@@ -217,18 +218,18 @@ La frequenza dei 433Mhz non è praticabile per via del suo ridotto bitrate, quin
 | 868.7 – 869.2 MHz  | 25 mW EIRP  | 0.1%       | Uso generale, duty cycle molto restrittivo                   |
 | 869.4 – 869.65 MHz | 500 mW EIRP | 10%        | **Sub-banda usata da MeshCore e Meshtastic**                 |
 | 869.7 – 870.0 MHz  | 25 mW EIRP  | 1%         | Uso generale                                                 |
-| 2.4GHz             | 100 mW EIRP | 100%       | Uso generale (100% duty cycle valo solo sotto i 10 dDm EIRP) |
+| 2.4GHz             | 100 mW EIRP | 100%       | Uso generale (100% duty cycle vale solo sotto i 10 dBm EIRP) |
 
 #### Analisi Bottleneck
 
-Sommando i flussi dei due pacchetti di telemetria si ottiene un totale di flusso di 326,44kbps, che pur essendo ridotto, è comunque eccessivo per il modulo LoRa che nella sua modalità SF7/812 ha una capacità di canale effettiva di 30,8kbps. Risulta quindi fisicamente impossibile trasmettere l'intero flusso dati in tempo reale via radio senza incorrere in saturazione della banda, collisioni o svuotamento incontrollato del FIFO di trasmissione.
+Sommando i flussi dei due pacchetti di telemetria si ottiene un totale di flusso di 329,44kbps, che pur essendo ridotto, è comunque eccessivo per il modulo LoRa che nella sua modalità SF7/812 ha una capacità di canale effettiva di 30,8kbps. Risulta quindi fisicamente impossibile trasmettere l'intero flusso dati in tempo reale via radio senza incorrere in saturazione della banda, collisioni o svuotamento incontrollato del FIFO di trasmissione.
 
 Inoltre le leggi europee vietano di sfruttare tutta la banda teorica della frequenza 868MHz con la clausola del duty cycle, che abbatte drasticamente la capacità di canale e rende l'utilizzo di questa portante pressoché impossibile.
 Per risolvere questa criticità, il progetto adotta una strategia ibrida basata su una mitigazione software e un cambio di portante.
 
 #### Gestione del Dato (Software)
 
-Per risolvere la situazione si utilizzano due instradamenti diversi per i dati: appena i pacchetti arrivano vengono instradati direttamente nella memoria della scheda MicroSD con lo scopo di di salvare tutti i dati senza perdere di risoluzione nel post processing. Nell'instradamento del canale viene utilizzato un algoritmo che ridimensiona la frequenza del primo pacchetto di telemetria in termini di frequenza a 10Hz-20Hz, rendendo la capacità totale richiesta a circa 16-32 kbps.
+Per risolvere la situazione si utilizzano due instradamenti diversi per i dati: appena i pacchetti arrivano vengono instradati direttamente nella memoria della scheda MicroSD con lo scopo di salvare tutti i dati senza perdere di risoluzione nel post processing. Nell'instradamento del canale viene utilizzato un algoritmo che ridimensiona la frequenza del primo pacchetto di telemetria a 10Hz-20Hz, rendendo la capacità totale richiesta a circa 16-32 kbps.
 
 Per massimizzare l'efficienza di trasmissione, si prevede l'implementazione di un sistema di **Adaptive Data Rate**.
 
@@ -238,10 +239,10 @@ Per superare i limiti di legge legati al Duty Cycle degli 868 MHz e avere un mar
 
 Questa scelta sblocca vantaggi operativi fondamentali per la telemetria:
 
-- **Duty Cycle al 100%:** Operando a 2.4 GHz, la vettura può trasmettere dati in modo continuo senza pause forzate, garantendo fluidità alla dashboard dei box.
+- **Duty Cycle al 100%:** Operando a 2.4 GHz e sotto ai 10 dBm EIRP, la vettura può trasmettere dati in modo continuo senza pause forzate, garantendo fluidità alla dashboard dei box.
 - **Triplice Modulazione:** Il chip supporta la modalità LoRa classica (fino a 253 kbps per la massima resistenza ai disturbi dell'inverter), la modalità FSK (fino a 2.0 Mbps per alta velocità) e la rivoluzionaria modalità **FLRC** (Fast Long Range Communication).
-- **Throughput Elevato in FLRC:** Questa modulazione proprietaria garantisce velocità fino a **1.3 Mbps**, tollerando al contempo un moderato rumore condotto con SNR leggermente negativi (fino a -5 dB).
-- **Potenza e Sensibilità:** Il modulo integra un amplificatore che può spingere fino a 27 dBm (limitabile via software a 9 dBm per compliance ETSI in Europa) e riceve segnali fino a -132 dBm in modalità ad alta sensibilità.
+- **Throughput Elevato in FLRC:** Questa modulazione proprietaria garantisce velocità fino a **1.3 Mbps**, tollerando al contempo un moderato rumore condotto con SNR leggermente negativi o poco sopra il rumore.
+- **Potenza e Sensibilità:** Il modulo integra un amplificatore che può spingere fino a 27 dBm (l’EIRP va ridotta sotto i 10 dBm per compliance ETSI in Europa) e riceve segnali fino a -132 dBm in modalità ad alta sensibilità.
 - **Globalmente accettata:** La banda 2.4 GHz ISM è libera e utilizzabile in tutto il mondo, requisito cruciale per le competizioni estere del team.
 
 L'interfacciamento del modulo E28 avviene tramite bus SPI dedicato, pilotato nativamente dai task FreeRTOS del microcontrollore ESP32, permettendo un controllo a bassissima latenza dei pin per gli switch d'antenna in trasmissione e ricezione.
@@ -253,7 +254,7 @@ Il modulo di telemetria, oltre ad occuparsi della telemetria, si occupa anche di
 
 Per capire se questo risulta un problema bisogna calcolare la banda necessaria per l'invio periodico di tutti i pacchetti di telemetria e aggiungere in un periodo anche l'eventuale passaggio dei pacchetti di servizio.
 
-Per comporre il messaggio principale di telemetria a 200hz sono necessari i seguenti pacchetti CAN:
+Per comporre il messaggio principale di telemetria a 200 Hz sono necessari i seguenti pacchetti CAN:
 
 | **ID (Dec)** | **Nome Messaggio**           | **Nodo**  | **Segnali Inclusi**                                                                                                                                                                                                                                                                                                             |
 | ------------ | ---------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -271,13 +272,12 @@ Per comporre il messaggio principale di telemetria a 200hz sono necessari i segu
 | 299          | ECU_Thermal                  | ECU       | left_coolant_temp, right_coolant_temp                                                                                                                                                                                                                                                                                           |
 | 257          | EMMA_StatusMessage           | EMMA      | EMMA_STATUS_OK, EMMA_ERR_UNDERVOLTAGE, EMMA_ERR_OVERVOLTAGE, EMMA_ERR_OVERTEMP_CELL, EMMA_ERR_UNDERTEMP_CELL, EMMA_ERR_OVERTEMP_PCB, EMMA_ERR_UNDERTEMP_PCB, EMMA_ERR_CELL_MISMATCH, EMMA_ERR_BSPD, EMMA_ERR_DAISY_CHAIN, EMMA_IMD_LATCH, EMMA_AMS_LATCH, EMMA_FINISH_PRECHARGE, EMMA_ERR_CRITICAL_FAULT, voltage, current, yaw |
 | 264          | EMMA_DisplayData             | EMMA      | state_of_charge, voltage, max_temperature                                                                                                                                                                                                                                                                                       |
-| 263          | EMMA_BMSDiagnostics          | EMMA      | devState, ioState, protections                                                                                                                                                                                                                                                                                                  |
 | 267          | EMMA_Gyro                    | EMMA      | x, y, z                                                                                                                                                                                                                                                                                                                         |
 | 268          | EMMA_Acc                     | EMMA      | x, y, z                                                                                                                                                                                                                                                                                                                         |
 | **392**      | **InverterLeftSendMessage**  | **ECU**   | bInverterOn, bDcOn, bEnable, bErrorReset, torqueSetpoint, positiveTorqueLimit, negativeTorqueLimit                                                                                                                                                                                                                              |
 | **393**      | **InverterRightSendMessage** | **ECU**   | bInverterOn, bDcOn, bEnable, bErrorReset, torqueSetpoint, positiveTorqueLimit, negativeTorqueLimit                                                                                                                                                                                                                              |
-| **647**      | **InverterLeftValues1**      | **INV_L** | RL_ActualVelocity, RL_ActualTorque, RL_MotorTemp, AMK_bSystemReady, AMK_bError, AMK_bWarn, AMK_bQuitDcOn, AMK_bDcOn, AMK_bQuitInverterOn, AMK_bInverterOn, AMK_bDerating                                                                                                                                                        |
-| **648**      | **InverterRightValues1**     | **INV_R** | RR_ActualVelocity, RR_ActualTorque, RR_MotorTemp, AMK_bSystemReady, AMK_bError, AMK_bWarn, AMK_bQuitDcOn, AMK_bDcOn, AMK_bQuitInverterOn, AMK_bInverterOn, AMK_bDerating                                                                                                                                                        |
+| **647**      | **InverterLeftValues1**      | **INV_L** | AMK_bSystemReady, AMK_bError, AMK_bWarn, AMK_bQuitDcOn, AMK_bDcOn, AMK_bQuitInverterOn, AMK_bInverterOn, AMK_bDerating, RL_ActualVelocity, RL_MagnetizingCurrent, RL_TorqueCurrent                                                                                                                                              |
+| **648**      | **InverterRightValues1**     | **INV_R** | AMK_bSystemReady, AMK_bError, AMK_bWarn, AMK_bQuitDcOn, AMK_bDcOn, AMK_bQuitInverterOn, AMK_bInverterOn, AMK_bDerating, RR_ActualVelocity, RR_MagnetizingCurrent, RR_TorqueCurrent                                                                                                                                              |
 | **649**      | **InverterLeftValues2**      | **INV_L** | TempMotor, TempInverter, ErrorInfo, TempIGBT                                                                                                                                                                                                                                                                                    |
 | **656**      | **InverterRightValues2**     | **INV_R** | TempMotor, TempInverter, ErrorInfo, TempIGBT                                                                                                                                                                                                                                                                                    |
 | **657**      | **InverterLeftValues3**      | **INV_L** | torqueFeedback, magnetisingCurrentFW, serviceBits                                                                                                                                                                                                                                                                               |
@@ -303,7 +303,6 @@ Per comporre il messaggio principale di telemetria a 200hz sono necessari i segu
 | 299          | ECU_Thermal                  | 4                             |
 | 257          | EMMA_StatusMessage           | 8                             |
 | 264          | EMMA_DisplayData             | 4                             |
-| 263          | EMMA_BMSDiagnostics          | 8                             |
 | 267          | EMMA_Gyro                    | 6                             |
 | 268          | EMMA_Acc                     | 6                             |
 | **392**      | **InverterLeftSendMessage**  | **8**                         |
@@ -318,23 +317,26 @@ Per comporre il messaggio principale di telemetria a 200hz sono necessari i segu
 | **660**      | **InverterRightValues4**     | **8**                         |
 | **661**      | **InverterLeftValues5**      | **6**                         |
 | **662**      | **InverterRightValues5**     | **6**                         |
+
 Mentre per comporre il messaggio a 5Hz servono i seguenti:
 
-| **ID (Dec)** | **Nome Messaggio** | **Nodo** | **Segnali Inclusi**                                      |
-| ------------ | ------------------ | -------- | -------------------------------------------------------- |
-| 258          | EMMA_Voltages1     | EMMA     | module1, module2, module3, module4                       |
-| 259          | EMMA_Voltages2     | EMMA     | module5, module6, module7, module8                       |
-| 260          | EMMA_Voltages3     | EMMA     | module9, module10, module11, module12                    |
-| 261          | EMMA_Voltages4     | EMMA     | module13, module14, connectedModules, IMDInsulationValue |
-| 262          | EMMA_Temp          | EMMA     | pcbTemp_0..13, extTemp1_0..13, extTemp2_0..13, id M      |
+| **ID (Dec)** | **Nome Messaggio**  | **Nodo** | **Segnali Inclusi**                                      |
+| ------------ | ------------------- | -------- | -------------------------------------------------------- |
+| 258          | EMMA_Voltages1      | EMMA     | module1, module2, module3, module4                       |
+| 259          | EMMA_Voltages2      | EMMA     | module5, module6, module7, module8                       |
+| 260          | EMMA_Voltages3      | EMMA     | module9, module10, module11, module12                    |
+| 261          | EMMA_Voltages4      | EMMA     | module13, module14, connectedModules, IMDInsulationValue |
+| 262          | EMMA_Temp           | EMMA     | pcbTemp_0..13, extTemp1_0..13, extTemp2_0..13, id M      |
+| 263          | EMMA_BMSDiagnostics | EMMA     | devState, ioState, protections                           |
 
-| **ID (Dec)** | **Nome Messaggio** | **Dimensione Payload (Byte)** |
-| ------------ | ------------------ | ----------------------------- |
-| 258          | EMMA_Voltages1     | 8                             |
-| 259          | EMMA_Voltages2     | 8                             |
-| 260          | EMMA_Voltages3     | 8                             |
-| 261          | EMMA_Voltages4     | 8                             |
-| 262          | EMMA_Temp          | 7                             |
+| **ID (Dec)** | **Nome Messaggio**  | **Dimensione Payload (Byte)** |
+| ------------ | ------------------- | ----------------------------- |
+| 258          | EMMA_Voltages1      | 8                             |
+| 259          | EMMA_Voltages2      | 8                             |
+| 260          | EMMA_Voltages3      | 8                             |
+| 261          | EMMA_Voltages4      | 8                             |
+| 262          | EMMA_Temp           | 7                             |
+| 263          | EMMA_BMSDiagnostics | 8                             |
 
 **Banda richiesta totale**
 
@@ -355,40 +357,40 @@ Per questo la scheda di telemetria riceve i dati su una linea CAN FD dedicata, c
 
 I dati sono raggruppati per origine:
 
-| Frame           | Contenuto                                                                       | Payload  | Frequenza |
-| --------------- | ------------------------------------------------------------------------------- | -------- | --------- |
-| ECU 1           | Tempo, ruote, pedali, sospensioni, sterzo, stati, dinamica, coppie, temperature | 64 B     | 200 Hz    |
-| ECU 2           | Inverter (dati ECU), emma                                                       | 24 B     | 200 Hz    |
-| Inverter 1      | Comandi e valori inverter sinistro                                              | 48 B     | 200 Hz    |
-| Inverter 2      | Comandi e valori inverter destro                                                | 48 B     | 200 Hz    |
-| EMMA veloce     | Stato, display, giroscopio, accelerometro                                       | 24 B     | 200 Hz    |
-| EMMA lenta 1, 2 | Diagnostica, tensioni e temperature dei moduli                                  | 2 × 64 B | 5 Hz      |
+| Frame             | Contenuto                                                                       | Payload  | Frequenza |
+| ----------------- | ------------------------------------------------------------------------------- | -------- | --------- |
+| ECU               | Tempo, ruote, pedali, sospensioni, sterzo, stati, dinamica, coppie, temperature | 64 B     | 200 Hz    |
+| Inverter sinistro | Comandi e valori inverter sinistro                                              | 48 B     | 200 Hz    |
+| Inverter destro   | Comandi e valori inverter destro                                                | 48 B     | 200 Hz    |
+| EMMA veloce       | Stato, display, giroscopio, accelerometro                                       | 24 B     | 200 Hz    |
+| EMMA lenta 1, 2   | Diagnostica, tensioni e temperature dei moduli                                  | 2 × 64 B | 5 Hz      |
 
-| Configurazione                                | Frame/s | Carico |
-| --------------------------------------------- | ------- | ------ |
-| CAN classico, 500 kb/s                         | 5695    | 144%   |
-| CAN FD, 500 kb/s arbitrazione / 2 Mb/s dati    | 1010    | 30%    |
-| CAN FD, 500 kb/s arbitrazione / 5 Mb/s dati    | 1010    | 16%    |
+| Configurazione                              | Frame/s | Carico |
+| ------------------------------------------- | ------- | ------ |
+| CAN classico, 500 kb/s                      | 5695    | 144%   |
+| CAN FD, 500 kb/s arbitrazione / 2 Mb/s dati | 810     | 25,8%  |
+| CAN FD, 500 kb/s arbitrazione / 5 Mb/s dati | 810     | 13,6%  |
 
 *Calcolo nel caso peggiore di bit stuffing; CRC a 17 o 21 bit; payload arrotondato ai valori ammessi dal DLC.*
 
-Con una fase dati a 2 Mb/s il carico scende al 30%, lasciando spazio ai messaggi di servizio (parametri modificabili e limiti di coppia). Il TCAN4550 supporta velocità maggiori, che restano un margine disponibile.
+Con una fase dati a 2 Mb/s il carico scende al 25,8%, lasciando spazio ai messaggi di servizio (parametri modificabili e limiti di coppia). Il TCAN4550 supporta velocità maggiori, che restano un margine disponibile.
 
 #### Formato dei nuovi messaggi
 
 ```ad-attention
 title: Prestazioni
-La nuova configurazione non deve assolutamente essere vista o eseguita come una scompattazione dei messaggi che viaggiano sulla linea. Una volta arrivati alla centralina dalle varie periferiche bisogna solamente copiare nell'area di memoria dedicata al prossimo messaggio completo di telemetria da mandare alla scheda. Utilizzando il DMA si possono ottenere prestazioni eccezionali, addirittura sotto al millisecondo, per comporre il messaggio.
+La nuova configurazione non deve assolutamente essere vista o eseguita come una scompattazione dei messaggi che viaggiano sulla linea. Una volta arrivati alla centralina dalle varie periferiche bisogna solamente copiare nell'area di memoria dedicata al prossimo messaggio completo di telemetria da mandare alla scheda.
 
 ```
 
 Per riuscire a compattare i messaggi bisogna definire una nuova struttura intermedia dei dati che passeranno solo sulla linea CAN FD tra la centralina e la scheda di telemetria. 
 
-nelle prossime sezioni verranno definiti appunto queste strutture, che sono state divise in base a:
+Nelle prossime sezioni verranno definite queste strutture, che sono state divise in base a:
 
 - Pertinenza dei dati tra di loro
 - Frequenza di invio
-##### ECU 1 – `0x100` – 200 Hz
+
+##### ECU – `0x100` – 200 Hz
 
 | Offset | Messaggio originale | Segnale                                                                         | Byte   |
 | ------ | ------------------- | ------------------------------------------------------------------------------- | ------ |
@@ -427,25 +429,11 @@ nelle prossime sezioni verranno definiti appunto queste strutture, che sono stat
 | 61     | —                   | padding                                                                         | 3      |
 |        |                     | **Totale: 61 B utili, DLC 64**                                                  | **64** |
 
-##### ECU 2 – `0x101` – 200 Hz
+##### Messaggi non inoltrati
 
-|Offset|Messaggio originale|Segnale|Byte|
-|---|---|---|---|
-|0|293 ECU_Emma|emma_voltage|2|
-|||emma_current|2|
-|||emma_yaw|2|
-|||emma_error|2|
-|8|297 ECU_InvLeft|inv_L_torqueCurrent|2|
-|||inv_L_magnetizingCurrent|2|
-|||inv_L_tempMotor|2|
-|||inv_L_errorInfo|2|
-|16|298 ECU_InvRight|inv_R_torqueCurrent|2|
-|||inv_R_magnetizingCurrent|2|
-|||inv_R_tempMotor|2|
-|||inv_R_errorInfo|2|
-|||**Totale: 24 B, DLC 24**|**24**|
+I segnali di 293, 297 e 298 sono copie scalate di 257, 647/648 e 649/656, già presenti nei frame inverter ed EMMA. La conversione di scala può essere fatta dal software della scheda di telemetria o dal software di telemetria su pc, senza dover appesantire ulteriormente la linea CAN 3.
 
-##### Inverter sinistro – `0x102` – 200 Hz
+##### Inverter sinistro – `0x101` – 200 Hz
 
 | Offset | Messaggio originale         | Segnale                                                                                                  | Byte   |
 | ------ | --------------------------- | -------------------------------------------------------------------------------------------------------- | ------ |
@@ -453,10 +441,10 @@ nelle prossime sezioni verranno definiti appunto queste strutture, che sono stat
 |        |                             | torqueSetpoint                                                                                           | 2      |
 |        |                             | positiveTorqueLimit                                                                                      | 2      |
 |        |                             | negativeTorqueLimit                                                                                      | 2      |
-| 8      | 647 InverterLeftValues1     | RL_ActualVelocity                                                                                        | 2      |
-|        |                             | RL_ActualTorque                                                                                          | 2      |
-|        |                             | RL_MotorTemp                                                                                             | 2      |
-|        |                             | AMK_bSystemReady, bError, bWarn, bQuitDcOn, bDcOn, bQuitInverterOn, bInverterOn, bDerating (status word) | 2      |
+| 8      | 647 InverterLeftValues1     | AMK_bSystemReady, bError, bWarn, bQuitDcOn, bDcOn, bQuitInverterOn, bInverterOn, bDerating (status word) | 2      |
+|        |                             | RL_ActualVelocity                                                                                        | 2      |
+|        |                             | MagnetizingCurrent                                                                                       | 2      |
+|        |                             | TorqueCurrent                                                                                            | 2      |
 | 16     | 649 InverterLeftValues2     | TempMotor                                                                                                | 2      |
 |        |                             | TempInverter                                                                                             | 2      |
 |        |                             | ErrorInfo                                                                                                | 2      |
@@ -473,40 +461,45 @@ nelle prossime sezioni verranno definiti appunto queste strutture, che sono stat
 | 46     | —                           | padding                                                                                                  | 2      |
 |        |                             | **Totale: 46 B utili, DLC 48**                                                                           | **48** |
 
-##### Inverter destro – `0x103` – 200 Hz
+##### Inverter destro – `0x102` – 200 Hz
 
-Stessa struttura e stessi offset, con i messaggi 393, 648 (RR_ActualVelocity, RR_ActualTorque, RR_MotorTemp, status word), 656, 658, 660 e 662. **Totale: 46 B utili, DLC 48.**
+Stessa struttura e stessi offset, con i messaggi 393, 648 (`status word`, `RR_ActualVelocity`, RR_`MagnetizingCurrent`, `RR_TorqueCurrent`), 656, 658, 660 e 662. **Totale: 46 B utili, DLC 48.**
 
-##### EMMA veloce – `0x104` – 200 Hz
+##### EMMA veloce – `0x103` – 200 Hz
 
-|Offset|Messaggio originale|Segnale|Byte|
-|---|---|---|---|
-|0|257 EMMA_StatusMessage|EMMA_STATUS_OK … EMMA_ERR_CRITICAL_FAULT (14 flag)|2|
-|||voltage|2|
-|||current|2|
-|||yaw|2|
-|8|264 EMMA_DisplayData|state_of_charge, voltage, max_temperature (ripartizione da DBC)|4|
-|12|267 EMMA_Gyro|x|2|
-|||y|2|
-|||z|2|
-|18|268 EMMA_Acc|x|2|
-|||y|2|
-|||z|2|
-|||**Totale: 24 B, DLC 24**|**24**|
+| Offset | Messaggio originale    | Segnale                                            | Byte   |
+| ------ | ---------------------- | -------------------------------------------------- | ------ |
+| 0      | 257 EMMA_StatusMessage | EMMA_STATUS_OK … EMMA_ERR_CRITICAL_FAULT (14 flag) | 2      |
+|        |                        | voltage                                            | 2      |
+|        |                        | current                                            | 2      |
+|        |                        | yaw                                                | 2      |
+| 8      | 264 EMMA_DisplayData   | state_of_charge                                    | 1      |
+|        |                        | voltage                                            | 2      |
+|        |                        | max_temperature                                    | 1      |
+| 12     | 267 EMMA_Gyro          | x                                                  | 2      |
+|        |                        | y                                                  | 2      |
+|        |                        | z                                                  | 2      |
+| 18     | 268 EMMA_Acc           | x                                                  | 2      |
+|        |                        | y                                                  | 2      |
+|        |                        | z                                                  | 2      |
+|        |                        | **Totale: 24 B, DLC 24**                           | **24** |
 
 ##### EMMA lenta 1 – `0x110` – 5 Hz
 
-|Offset|Messaggio originale|Segnale|Byte|
-|---|---|---|---|
-|0|263 EMMA_BMSDiagnostics|devState, ioState, protections (ripartizione da DBC)|8|
-|8|258 EMMA_Voltages1|module1 … module4|4 × 2|
-|16|259 EMMA_Voltages2|module5 … module8|4 × 2|
-|24|260 EMMA_Voltages3|module9 … module12|4 × 2|
-|32|261 EMMA_Voltages4|module13, module14|2 × 2|
-|||connectedModules|2|
-|||IMDInsulationValue|2|
-|40|262 EMMA_Temp (moduli 0–3)|pcbTemp_i, extTemp1_i, extTemp2_i per i = 0…3|4 × 6|
-|||**Totale: 64 B, DLC 64**|**64**|
+| Offset | Messaggio originale        | Segnale                                       | Byte   |
+| ------ | -------------------------- | --------------------------------------------- | ------ |
+| 0      | 263 EMMA_BMSDiagnostics    | devState                                      | 1      |
+|        |                            | ioState                                       | 1      |
+|        |                            | protections                                   | 2      |
+|        |                            | padding                                       | 4      |
+| 8      | 258 EMMA_Voltages1         | module1 … module4                             | 4 × 2  |
+| 16     | 259 EMMA_Voltages2         | module5 … module8                             | 4 × 2  |
+| 24     | 260 EMMA_Voltages3         | module9 … module12                            | 4 × 2  |
+| 32     | 261 EMMA_Voltages4         | module13, module14                            | 2 × 2  |
+|        |                            | connectedModules                              | 2      |
+|        |                            | IMDInsulationValue                            | 2      |
+| 40     | 262 EMMA_Temp (moduli 0–3) | pcbTemp_i, extTemp1_i, extTemp2_i per i = 0…3 | 4 × 6  |
+|        |                            | **Totale: 64 B, DLC 64**                      | **64** |
 
 ##### EMMA lenta 2 – `0x111` – 5 Hz
 
@@ -518,22 +511,28 @@ Stessa struttura e stessi offset, con i messaggi 393, 648 (RR_ActualVelocity, RR
 
 Per le temperature l’ECU raccoglie i 14 frame multiplexati del messaggio 262, che arrivano a 70 Hz, e li invia tutti insieme ogni 200 ms. L’id di multiplexing (1 B per frame) non serve più, perché il modulo è dato dalla posizione nel frame.
 
+```ad-note
+title: Dimensioni
+dimensioni e ordine dei segnali seguono il DBC della vettura
+
+```
+
+
 ---
 
 ##### Riepilogo
 
-|ID|Frame|Frequenza|Byte utili|DLC|Frame/s|
-|---|---|---|---|---|---|
-|`0x100`|ECU 1|200 Hz|61|64|200|
-|`0x101`|ECU 2|200 Hz|24|24|200|
-|`0x102`|Inverter sx|200 Hz|46|48|200|
-|`0x103`|Inverter dx|200 Hz|46|48|200|
-|`0x104`|EMMA veloce|200 Hz|24|24|200|
-|`0x110`|EMMA lenta 1|5 Hz|64|64|5|
-|`0x111`|EMMA lenta 2|5 Hz|60|64|5|
-||**Totale**||**201 B a 200 Hz + 124 B a 5 Hz**||**1010**|
+| ID      | Frame             | Frequenza | Byte utili                        | DLC | Frame/s |
+| ------- | ----------------- | --------- | --------------------------------- | --- | ------- |
+| `0x100` | ECU               | 200 Hz    | 61                                | 64  | 200     |
+| `0x101` | Inverter sinistro | 200 Hz    | 46                                | 48  | 200     |
+| `0x102` | Inverter destro   | 200 Hz    | 46                                | 48  | 200     |
+| `0x103` | EMMA veloce       | 200 Hz    | 24                                | 24  | 200     |
+| `0x110` | EMMA lenta 1      | 5 Hz      | 64                                | 64  | 5       |
+| `0x111` | EMMA lenta 2      | 5 Hz      | 60                                | 64  | 5       |
+|         | **Totale**        |           | **177 B a 200 Hz + 124 B a 5 Hz** |     | **810** |
 
-In aggiunta a questi messaggi gli ID da `0x050` a `0x07F` si possono riservare ai messaggi di servizio tra telemetria ed ECU, come i parametri e i limiti di coppia. I dettagli di questi messaggi verranno forniti durante l'implementazione dell'algoritmo.
+In aggiunta a questi messaggi gli ID da `0x050` a `0x07F` (appositamente a priorità più alta) si possono riservare ai messaggi di servizio tra telemetria ed ECU, come i parametri e i limiti di coppia. I dettagli di questi messaggi verranno forniti durante l'implementazione del firmware.
 
 ## Componenti di base
 
@@ -547,8 +546,8 @@ Questo modulo contiene un chip avanzato per la comunicazione LoRa. Le principali
 - **Triplice Modulazione:** Supporto nativo per protocolli LoRa, FLRC (Fast Long Range Communication) e (G)FSK.
 - **Throughput Elevato:** Fino a 253 kbps in modulazione LoRa, fino a 1.3 Mbps in FLRC e 2.0 Mbps in FSK.
 - **Potenza di Trasmissione:** Amplificatore di potenza (PA) integrato fino a 27 dBm (500 mW), scalabile via software per rispettare il limite europeo ETSI inferiore a 10 dBm (10 mW) EIRP.
-- **Sensibilità in Ricezione:** Fino a -132 dBm in modalità LoRa ad alt sensibilità, garantendo un eccellente link budget.
-- **Frequenza Operativa:** Banda ISM 2.4 GHz, utilizzabile legalmente e senza limitazioni di Duty Cycle.
+- **Sensibilità in Ricezione:** Fino a -132 dBm in modalità LoRa ad alta sensibilità, garantendo un eccellente link budget.
+- **Frequenza Operativa:** Banda ISM 2.4 GHz, utilizzabile legalmente e senza limitazioni di Duty Cycle (sotto i 10 dBm EIRP).
 - **Alimentazione:** 3.3V.
 - **Interfaccia di Controllo:** Bus SPI ad alta velocità compatibile con i livelli logici a 3.3V del microcontrollore.
 
@@ -663,7 +662,7 @@ Analizzando il primo blocco si può notare che l'inversione di polarità è stat
 
 Il secondo componente importante è il diodo TVS (Transient Voltage Suppressor) bidirezionale D6, che serve per sopprimere i transienti(picchi momentanei) di tensione indotti nell'alimentazione dai disturbi. Il TVS è dimensionato per rimanere inattivo alla tensione nominale, ma interviene rapidamente scaricando a massa i picchi prima che possano friggere il regolatore o, peggio, danneggiare il modulo LoRa (che ha un limite operativo massimo di 3.3V continuativi).
 
-Nel secondo blocco è presente il regolatore che abbassa la tensione dai 5V ai 3V3. La peculiarità di questo regolatore è che la tensione fissa di uscita evita l'aggiunta del partitore di tensione tra l'uscita e il pin di regolazione. Il datasheet indica che per mantenere la tensione in uscita stabile è necessario mettere due condensatori da 1$\mu F$ in ingresso e in uscita. In questo caso sono stati messi da 10 perché in un ambiente rumoroso come il nostro è meglio non rischiare.
+Nel secondo blocco è presente il regolatore che abbassa la tensione dai 5V ai 3V3. La peculiarità di questo regolatore è che la tensione fissa di uscita evita l'aggiunta del partitore di tensione tra l'uscita e il pin di regolazione. Il datasheet indica che per mantenere la tensione in uscita stabile è necessario mettere due condensatori da 1$\mu F$ in ingresso e in uscita. In questo caso sono stati messi da 10 $\mathrm{\mu F}$ perché in un ambiente rumoroso come il nostro è meglio non rischiare.
 
 Gli ultimi componenti sono i LED di stato, che indicano l'accensione del power stage e dell'alimentazione principale.
 
@@ -693,16 +692,16 @@ A protezione del controller contro i forti disturbi elettromagnetici dell'invert
 
 Sulla linea 3V3 è stato anche inserito un condensatore di decoupling, che permette di assorbire sbalzi di corrente e alcuni disturbi. L'ultimo elemento importante per far funzionare la linea CAN sono le resistenze di terminazione da 120 ohm, che vengono inserite sulla linea differenziale.
 
-Il componente più sensibile in questo design è indubbiamente il quarzo U7 che genera il clock a 40Mhz richiesto dal CAN FD. Ci sono due parametri che bisogna controllare per scegliere un quarzo ideale:
+Il componente più sensibile in questo design è indubbiamente il quarzo U7 che genera il clock a 40 MHz richiesto dal CAN FD. Ci sono due parametri che bisogna controllare per scegliere un quarzo ideale:
 
 - La deriva di frequenza deve essere inferiore a 20ppm considerando anche la variazione di deriva nell'arco del tempo
-- La capacità dei condensatori deve essere il doppio della capacità di carico contando anche una capacità parassita che va dai 2pf ai 4pf
+- La capacità dei condensatori deve essere il doppio della capacità di carico contando anche una capacità parassita che va dai 2 pF ai 4 pF
 
 $$C_{17} /C_{18} = 2(C_{l} - C_{parassita})$$
 
 ![[can_layout.png|450]]
 
-I segnali CAN_H e CAN_L sono segnali differenziali e, in quanto tali, sono state instradate in modo parallelo e accoppiato per tutta la lunghezza della pista. Il segnale segue precisamente un ordine fisico che è il seguente: Connettore $\rightarrow$ Diodo TVS $\rightarrow$ Common Mode Choke $\rightarrow$ Terminazione Split $\rightarrow$ Transceiver.
+I segnali CAN_H e CAN_L sono segnali differenziali e, in quanto tali, sono stati instradati in modo parallelo e accoppiato per tutta la lunghezza della pista. Il segnale segue precisamente un ordine fisico che è il seguente: Connettore $\rightarrow$ Diodo TVS $\rightarrow$ Common Mode Choke $\rightarrow$ Terminazione Split $\rightarrow$ Transceiver.
 
 Il filtro di modo comune è l'elemento più critico per sopravvivere al rumore dell'inverter. Spesso è impossibile calcolare l'induttanza perfetta, poiché la capacità parassita del cablaggio e dei diodi TVS può innescare circuiti LC risonanti che distorcono il segnale. Per mitigare questo rischio si è optato per una strategia flessibile: è stato previsto un footprint SMD standard 1210 per il Common Mode Choke. Questo permette di testare diversi valori di induttanza (es. 11 µH, 22 µH, 51 µH) o di sostituire il filtro con resistenze da 0 Ohm o jumper qualora si rilevasse una distorsione del segnale dovuta a un'induttanza eccessiva (come già successo su altre schede).
 
@@ -714,7 +713,7 @@ Dallo schematico si può anche notare l'utilizzo dello strato interno Inner 3 pe
 
 L'integrazione di un trasmettitore da 500mW max (E28-2G4M27SX) direttamente su un circuito compatto pone sfide severe in termini di integrità del segnale e immunità ai disturbi. Un segnale RF ad alta potenza può facilmente accoppiarsi con le piste vicine, corrompendo i dati del bus SPI o inducendo reset anomali nel microcontrollore. Per evitare questo scenario, il layout del modulo LoRa è stato progettato attorno a tre strategie chiave:
 
-- **Schermatura RF e Stitching**: Il modulo integrato che contiene l'antenna LoRa ha al di sopra una schermatura metallica che impedisce l'uscita di radiofrequenze se non dall'antenna. Per riprodurre un effetto simile, sotto il modulo è stato introdotto un piano continuo di rame sul primo layer, collegato al piano di massa da un array di via. Questa struttura crea una vera e propria gabbia di faraday che intrappola al suo interno tutti i segnale che vengono Generati dal modulo.
+- **Schermatura RF e Stitching**: Il modulo integrato LoRa ha al di sopra una schermatura metallica che impedisce l'uscita di radiofrequenze se non dall'antenna. Per riprodurre un effetto simile, sotto il modulo è stato introdotto un piano continuo di rame sul primo layer, collegato al piano di massa da un array di via. Questa struttura crea una vera e propria gabbia di Faraday che intrappola al suo interno tutti i segnali che vengono generati dal modulo.
 - **Keepout zone**: Direttamente sotto il connettore dell'antenna è stata instaurata una keepout zone, che impedisce il piazzamento di aree di rame, componenti e piste direttamente sotto la stessa. Se si inserisce un piano di rame, le onde elettromagnetiche si ripiegano direttamente verso GND, il che oltre a generare riflessioni rischia di indebolire il segnale.
 - **Power Delivery**: il modulo LoRa è alimentato direttamente dal piano di rame a 3.3V. Tuttavia, trasmettere pacchetti a 500mW richiede picchi di assorbimento transitori molto rapidi, fino a 580mA. Per evitare che l'induttanza parassita delle piste rallentasse l'erogazione di corrente causando cali di tensione, il condensatore di bulk primario C2 è stato posizionato fisicamente a ridosso del pin VCC del modulo. Questo condensatore funge da riserva di energia locale, garantendo la massima potenza senza stressare il cablaggio generale. Il dimensionamento delle correnti è stato studiato nel caso peggiore, nell'effettivo utilizzo del modulo verranno utilizzate sicuramente potenze inferiori.
 
@@ -805,7 +804,7 @@ Questi requisiti non si applicano agli apparati che trasmettono sotto i 10 dBm E
 > 
 > Adaptive non-FHSS equipment is allowed to switch dynamically between different adaptive modes.
 
-Un apparato sotto questa soglia può quindi trasmettere in modo continuo, su canale fisso e senza LBT. La soglia è *strettamente minore* di 10 dBm: l'EIRP di progetto viene fissata a 9 dBm, lasciando 1 dB di margine per le tolleranze del modulo._Da controllare con perdite e test_
+Un apparato sotto questa soglia può quindi trasmettere in modo continuo, su canale fisso e senza LBT. La soglia è *strettamente minore* di 10 dBm: l'EIRP di progetto viene fissata a 9 dBm, lasciando 1 dB di margine per le tolleranze del modulo. Le ipotesi formulate per la potenza di trasmissioni devono essere verificate a banco con dei test specifici.
 
 Lo stesso livello di potenza determina la categoria del ricevitore: un apparato con EIRP massima tra 0 e 10 dBm appartiene alla **categoria 2** (clausola 4.2.3.2.2, pag. 16), per la quale la norma fissa i requisiti di resistenza ai segnali forti fuori canale (receiver blocking, clausola 4.3.2.11).
 
@@ -836,7 +835,7 @@ Guardando il datasheet del chip all'interno del modulo si ottiene questa relazio
 
 Nel grafico, la linea blu rappresenta il limite di Shannon, ovvero la sensibilità teorica minima assoluta per una comunicazione priva di errori a un dato bit rate. Le altre curve rappresentano le performance hardware reali dei modem integrati. Come si evince, la modulazione LoRa, grazie alle tecniche Spread Spectrum, si avvicina maggiormente al limite teorico rispetto al GFSK convenzionale, garantendo una superiore tolleranza al rumore e permettendo la demodulazione di segnali con SNR fortemente negativi fino a -20 dB.
 
-Tuttavia, nella vita reale, il rumore non è costante. I transienti elettromagnetici ad alta frequenza, generati dall'inverter e lo shadowing causato dagli ostacoli, abbattono repentinamente l'SNR. Per non rischiare disconnessioni, l'algoritmo ADR non si spinge mai fino al limite teorico consentito dalla modulazione, ma calcola un margine di link (es. 6 dB). Questo cuscinetto di sicurezza garantisce che, anche in caso di un forte picco di rumore EMI condotto, il collegamento rimanga robusto e il packet error rate contenuto.
+Tuttavia, nella vita reale, il rumore non è costante. I transienti elettromagnetici ad alta frequenza, generati dall'inverter e lo shadowing causato dagli ostacoli, abbattono repentinamente l'SNR. Per non rischiare disconnessioni, l'algoritmo ADR non si spinge mai fino al limite teorico consentito dalla modulazione, ma calcola un margine di link. Questo cuscinetto di sicurezza garantisce che, anche in caso di un forte picco di rumore EMI condotto, il collegamento rimanga robusto e il packet error rate contenuto.
 
 ### Link budget e distanze
 
@@ -875,7 +874,7 @@ $$
 | 500 m    | 94,2 dB          | −81,2 dBm |
 | 1000 m   | 100,2 dB         | −87,2 dBm |
 
-La tabella dice che, in spazio aperto, anche le modulazioni più veloci hanno una ampio margine, dimostrando che ci devono essere altri fattori che abbattono la potenza del segnale. Le potenziali cause da analizzare sono:
+La tabella dice che, in spazio aperto, anche le modulazioni più veloci hanno un ampio margine, dimostrando che ci devono essere altri fattori che abbattono la potenza del segnale. Le potenziali cause da analizzare sono:
 
 - **Shadowing**: causato da carrozzeria, pilota, persone, altre vetture, o muretti. È l’attenuazione dovuta a un ostacolo sul percorso e varia lentamente
 - **Fading veloce** da cammini multipli.
@@ -1344,7 +1343,7 @@ In ogni modo la discesa avviene invece con margine inferiore a 6 dB.
 
 L'isteresi in dB evita i cambi dovuti a piccole oscillazioni, ma non quelli dovuti a picchi brevi. Si aggiungono quindi due condizioni sul tempo, espresse in secondi e non in numero di pacchetti, perché tra il modo 1 e il modo 9 la durata di un pacchetto varia di più di tre ordini di grandezza:
 
-- **tempo di conferma** $T_{up}$: la condizione di salita deve restare vera per almeno $T_{up}=2s$  prima di cambiare modo;
+- **tempo di conferma** $T_{up}$: la condizione di salita deve restare vera per almeno $T_{up}=2 s$  prima di cambiare modo;
 - **tempo di permanenza minimo** $T_{dwell}$: dopo un cambio non si sale di nuovo per almeno $T_{dwell}=1s$, il tempo necessario a riempire di nuovo la finestra del PER. La discesa resta sempre consentita.
 
 La potenza ricevuta usata nelle soglie è filtrata con una media mobile esponenziale, con costante di tempo dell'ordine di $T_{up}$, così il fading veloce non entra nella decisione.
@@ -1361,19 +1360,53 @@ Nei modi 1 e 2 un pacchetto dura da 0,25 a più di 1 s, quindi una finestra di 1
 
 L'algoritmo ADR opera come un sistema di controllo ad anello chiuso. Affinché il microcontrollore a bordo macchina possa svolgere il suo lavoro al meglio ha bisogno di un feedback da parte della ground station, per questo è imperativo costruire una connessione bidirezionale. Questo principalmente per due motivi:
 
-- **Metriche della comunicazione**: l'antenna a bordo non è in grado di rilevare le metriche riguardanti i pacchetti che invia, quindi è compito della ground station rilevare lo stato del link e permettere all'algoritmo di operare seguendo le specifiche. Senza questo feedback, non sarebbe possibile calcolare il margine di link all'interno della vettura.
+- **Metriche della comunicazione**: la scheda a bordo non è in grado di rilevare le metriche riguardanti i pacchetti che invia, quindi è compito della ground station rilevare lo stato del link e permettere all'algoritmo di operare seguendo le specifiche. Senza questo feedback, non sarebbe possibile calcolare il margine di link all'interno della vettura.
 
-- **Parametri di trasmissione e modulazione**: il chip Semtech SX1280 riesce a stabilire il link solo se i parametri fisici (Modulazione, Bandwidth, Spreading Factor e Coding Rate) sono identici sia in ricezione che in trasmissione. Qualsiasi transizione della macchina a stati deve essere coordinato tra le antenne in modo deterministico.
+- **Parametri di trasmissione e modulazione**: il chip Semtech SX1280 riesce a stabilire il link solo se i parametri fisici (Modulazione, Bandwidth, Spreading Factor e Coding Rate) sono identici sia in ricezione che in trasmissione. Qualsiasi transizione della macchina a stati deve essere coordinata tra le due schede in modo deterministico.
 
 ??? Info "Fallback"
 	Potrebbe capitare che, a causa di errori imprevisti o situazioni straordinarie, la connessione tra le due schede si interrompa e che si perda la sincronizzazione della macchina a stati. Per evitare una disconnessione permanente si può utilizzare un set di impostazioni di base da utilizzare.
 	Naturalmente si utilizza questo metodo anche all'accensione della scheda.
 
 
-
-
 ## Bibliografia
 
-[1] 3GPP TR 38.901 V17.0.0 (2022-03), *Study on channel model for frequencies from 0.5 to 100 GHz*.
+**Norme e regolamenti**
 
-[2] M. Gudmundson, "Correlation model for shadow fading in mobile radio systems", *Electronics Letters*, vol. 27, n. 23, pp. 2145–2146, 1991.
+[1] ETSI EN 300 328 V2.2.2 (2019-07), *Wideband transmission systems; Data transmission equipment operating in the 2,4 GHz band; Harmonised Standard for access to radio spectrum*.
+
+[2] CEPT ECC, *ERC Recommendation 70-03 relating to the use of Short Range Devices (SRD)*, Annex 1, versione in vigore; ETSI EN 300 220-2, *Short Range Devices (SRD) operating in the frequency range 25 MHz to 1 000 MHz; Part 2*.
+
+**Componenti**
+
+[3] Semtech, *SX1280/SX1281 – Long Range, Low Power, 2.4 GHz Transceiver with Ranging Capability*, Datasheet, Rev. —.
+
+[4] Chengdu Ebyte Electronic Technology, *E28-2G4M27SX User Manual*, Rev. —.
+
+[5] ISO 11898-1:2015, *Road vehicles — Controller area network (CAN) — Part 1: Data link layer and physical signalling*.
+
+[6] Texas Instruments, *TCAN4550-Q1 Automotive Control Area Network Flexible Data Rate (CAN FD) Controller with Integrated Transceiver*, Datasheet, Rev. —.
+
+[7] Espressif Systems, *ESP32-S3-WROOM-1 / ESP32-S3-WROOM-1U Datasheet*, Rev. —.
+
+[8] Espressif Systems, *ESP32-S3 Technical Reference Manual*, Rev. —.
+
+[9] Analog Devices, *ADP3339 – High Accuracy, 1.5 A, Low Dropout Linear Regulator*, Datasheet, Rev. —.
+
+**Normativa europea**
+
+[10] Direttiva 2014/53/UE del Parlamento europeo e del Consiglio, del 16 aprile 2014, concernente l'armonizzazione delle legislazioni degli Stati membri relative alla messa a disposizione sul mercato di apparecchiature radio (RED), GU L 153 del 22.5.2014, pp. 62–106.
+
+**Teoria e modelli di canale**
+
+[11] C. E. Shannon, "A Mathematical Theory of Communication", *Bell System Technical Journal*, vol. 27, pp. 379–423 e 623–656, 1948.
+
+[12] 3GPP TR 38.901 V17.0.0 (2022-03), *Study on channel model for frequencies from 0.5 to 100 GHz*.
+
+[13] M. Gudmundson, "Correlation model for shadow fading in mobile radio systems", *Electronics Letters*, vol. 27, n. 23, pp. 2145–2146, 1991.
+
+[14] T. S. Rappaport, *Wireless Communications: Principles and Practice*, 2ª ed., Prentice Hall, 2002.
+
+---
+
+*Nota: la stesura di alcune parti del testo e la verifica dei calcoli sono state svolte con l'aiuto di un assistente AI (Claude, Anthropic). Tutti i valori e le affermazioni tecniche sono stati controllati sulle fonti primarie sopra elencate.*
